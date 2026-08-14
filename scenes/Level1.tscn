@@ -1,5 +1,8 @@
 [gd_scene format=3]
 
+[ext_resource type="Texture2D" path="res://textures/stars.png" id="tex_stars"]
+[ext_resource type="Texture2D" path="res://textures/moon.png" id="tex_moon"]
+
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_odhdn"]
 [ext_resource type="Material" path="res://materials/tarp_material.tres" id="2_odhdn"]
 [ext_resource type="Script" path="res://scripts/forest_generator.gd" id="4_dw26h"]
@@ -9,34 +12,12 @@
 [ext_resource type="Script" path="res://scripts/infinite_skydome.gd" id="infinite_script"]
 [ext_resource type="Material" path="res://materials/skydome_material.tres" id="skydome_mat"]
 [ext_resource type="Script" path="res://scripts/carcass_zone.gd" id="carcass_zone_script"]
-[sub_resource type="Shader" id="Shader_dw26h"]
+[ext_resource type="Texture2D" path="res://textures/ps1_stars.png" id="tex_ps1_stars"]
+[ext_resource type="Texture2D" path="res://textures/ps1_moon.png" id="tex_ps1_moon"]
+[ext_resource type="PackedScene" uid="uid://dg05l5b3a6e3x" path="res://models/props/Tarp.tscn" id="tarp_scene"]
+[ext_resource type="PackedScene" uid="uid://cy247l8d9f4p" path="res://models/props/OilLamp.tscn" id="lamp_scene"]
 [sub_resource type="BoxShape3D" id="BoxShape3D_carcass_drop"]
 size = Vector3(3.5, 2, 3.5)
-code = "
-shader_type sky;
-void sky() {
-\tCOLOR = vec3(0.0);
-\tfloat n = fract(sin(dot(EYEDIR, vec3(12.9898, 78.233, 45.164))) * 43758.5453);
-\tif (n > 0.998) {
-\t\tCOLOR = vec3(1.0);
-\t}
-}
-"
-size = Vector3(200, 20, 1)
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lrl65"]
-shader = SubResource("Shader_dw26h")
-size = Vector3(200, 20, 1)
-[sub_resource type="Sky" id="Sky_svatc"]
-sky_material = SubResource("ShaderMaterial_lrl65")
-size = Vector3(1, 20, 200)
-[sub_resource type="Environment" id="Environment_ecr63"]
-background_mode = 2
-background_color = Color(0.01, 0.02, 0.05, 1)
-sky = SubResource("Sky_svatc")
-ambient_light_source = 2
-ambient_light_energy = 0.0
-fog_enabled = true
-fog_light_color = Color(0.039215688, 0.0627451, 0.1254902, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbo48"]
 [sub_resource type="Gradient" id="Gradient_dw26h"]
 offsets = PackedFloat32Array(0, 1, 0, 0.5, 1)
@@ -66,40 +47,51 @@ emission_enabled = true
 emission = Color(1, 0.6666667, 0.13333334, 1)
 emission_energy_multiplier = 3.0
 texture = ExtResource("5_76388")
-[sub_resource type="SphereMesh" id="SphereMesh_skydome"]
-material = ExtResource("skydome_mat")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ps1"]
+panorama = ExtResource("tex_ps1_stars")
+filter = false
+
+[sub_resource type="Sky" id="Sky_ps1"]
+sky_material = SubResource("PanoramaSkyMaterial_ps1")
+
+[sub_resource type="Environment" id="Environment_ps1"]
+background_mode = 2
+sky = SubResource("Sky_ps1")
+ambient_light_source = 2
+ambient_light_color = Color(0, 0, 0, 1)
+ambient_light_energy = 0.0
+fog_enabled = false
+volumetric_fog_enabled = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ps1_moon"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+albedo_texture = ExtResource("tex_ps1_moon")
+billboard_mode = 1
+texture_filter = 0
 [node name="Level1" type="Node3D"]
 script = ExtResource("1_odhdn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ecr63")
+
 [node name="TerrainGenerator" type="Node3D" parent="."]
-[node name="PhysicalSkydome" type="MeshInstance3D" parent="."]
-transform = Transform3D(900, 0, 0, 0, 900, 0, 0, 0, 900, 0, 0, 0)
-mesh = SubResource("SphereMesh_skydome")
 
 [node name="TerrainGenerator" type="Node3D" parent="."]
 script = ExtResource("terrain_script")
 
-[node name="CarcassDropZone" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+[node name="Tarp" parent="." instance=ExtResource("tarp_scene")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CarcassDropZone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_n34uq")
+[node name="CarcassDropZone" type="Area3D" parent="Tarp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+script = ExtResource("carcass_zone_script")
 
-[node name="TarpMesh" type="CSGBox3D" parent="CarcassDropZone"]
-size = Vector3(4, 0.1, 4)
-material_override = SubResource("StandardMaterial3D_n34uq")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tarp/CarcassDropZone"]
+shape = SubResource("BoxShape3D_carcass_drop")
 
-[node name="OilLamp" type="OmniLight3D" parent="CarcassDropZone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-light_color = Color(1, 0.6, 0.2, 1)
-light_energy = 2.0
-shadow_enabled = true
-omni_range = 150.0
-omni_attenuation = 2.5
-layer = 10
+[node name="OilLamp" parent="." instance=ExtResource("lamp_scene")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -4)
 [node name="LevelTimer" type="Timer" parent="."]
 wait_time = 120.0
 one_shot = true
@@ -191,21 +183,11 @@ light_energy = 10.0
 [node name="LanternGlass" type="CSGBox3D" parent="LanternPost/LanternBody"]
 material_override = SubResource("StandardMaterial3D_4dyl1")
 size = Vector3(0.25, 0.35, 0.25)
-[node name="MoonSprite" type="Sprite3D" parent="."]
 [node name="LanternLight" type="OmniLight3D" parent="LanternPost/LanternBody"]
 light_color = Color(1, 0.7, 0.2, 1)
 light_energy = 10.0
 shadow_enabled = true
 omni_range = 50.0
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 200, -300)
-[node name="MoonSprite" type="Sprite3D" parent="."]
-transform = Transform3D(80, 0, 0, 0, 80, 0, 0, 0, 80, 0, 200, -300)
-pixel_size = 0.5
-billboard = 1
-shaded = false
-texture = ExtResource("5_76388")
-shape = SubResource("BoxShape3D_76388")
-layer = 100
 [node name="Wall1" type="StaticBody3D" parent="Boundaries"]
 [node name="EndPanel" type="ColorRect" parent="UILayer"]
 [node name="@CollisionShape3D@15" type="CollisionShape3D" parent="Boundaries/Wall1"]
@@ -245,26 +227,8 @@ light_energy = 10.0
 shadow_enabled = true
 omni_range = 50.0
 autowrap_mode = 3
-[node name="OilLamp" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -4)
-light_color = Color(1, 0.6, 0.2, 1)
-light_energy = 2.0
-shadow_enabled = true
-omni_range = 150.0
-omni_attenuation = 2.5
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.105793, 0, 4.45838)
-[node name="PhysicalTarp" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -4)
-material_override = ExtResource("2_odhdn")
-use_collision = true
-size = Vector3(3.5, 0.1, 3.5)
+
 [node name="Wall1" type="StaticBody3D" parent="Boundaries"]
-[node name="CarcassDropZone" type="Area3D" parent="PhysicalTarp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
-script = ExtResource("carcass_zone_script")
-shape = SubResource("BoxShape3D_svatc")
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicalTarp/CarcassDropZone"]
-shape = SubResource("BoxShape3D_carcass_drop")
 [node name="Boundaries" type="Node3D" parent="."]
 [node name="@CollisionShape3D@16" type="CollisionShape3D" parent="Boundaries/Wall2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 10, 0)
@@ -297,23 +261,20 @@ light_energy = 10.0
 shadow_enabled = true
 omni_range = 50.0
 [node name="LanternLight" type="OmniLight3D" parent="LanternPost/LanternBody"]
-[node name="OilLamp" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -4)
-light_color = Color(1, 0.6, 0.2, 1)
-light_energy = 2.0
+
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ps1")
+
+[node name="MoonVisual" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 300, 200, -300)
+material_override = SubResource("StandardMaterial3D_ps1_moon")
+texture = ExtResource("tex_ps1_moon")
+
+[node name="Moonlight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.707107, -0.301511, 0.639602, 0, 0.904534, 0.426401, -0.707107, 0.301511, -0.639602, 0, 0, 0)
+light_color = Color(0.8, 0.9, 1, 1)
+light_energy = 0.5
 shadow_enabled = true
-omni_range = 150.0
-omni_attenuation = 2.5
-size = Vector3(0.25, 0.35, 0.25)
-[node name="PhysicalTarp2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -4)
-material_override = ExtResource("2_odhdn")
-use_collision = true
-size = Vector3(3.5, 0.1, 3.5)
-
-[node name="CarcassDropZone" type="Area3D" parent="PhysicalTarp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
-script = ExtResource("carcass_zone_script")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicalTarp/CarcassDropZone"]
-shape = SubResource("BoxShape3D_carcass_drop")
+shadow_bias = 0.05
+shadow_normal_bias = 2.0
