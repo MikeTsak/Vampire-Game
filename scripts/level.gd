@@ -23,15 +23,21 @@ func _ready():
 
 	# Spawn initial animals
 	if spawns:
-		var deer_scene = load("res://scenes/Deer.tscn")
-		if deer_scene:
+		var deer_scene = load("res://scenes/Deer2.tscn")
+		var sheep_scene = load("res://scenes/Sheep2.tscn")
+		var animal_scenes = []
+		if deer_scene: animal_scenes.append(deer_scene)
+		if sheep_scene: animal_scenes.append(sheep_scene)
+		
+		if animal_scenes.size() > 0:
 			for marker in spawns.get_children():
 				if marker is Marker3D:
-					var deer = deer_scene.instantiate()
-					add_child(deer)
-					deer.global_position = marker.global_position
+					var animal = animal_scenes[randi() % animal_scenes.size()].instantiate()
+					add_child(animal)
+					# Defer setting global position to avoid tree errors during _ready, or use position
+					animal.position = spawns.position + marker.position
 					# Add some random rotation
-					deer.rotation_degrees.y = randf_range(0, 360)
+					animal.rotation_degrees.y = randf_range(0, 360)
 
 	if drop_zone:
 		drop_zone.body_entered.connect(_on_drop_zone_body_entered)

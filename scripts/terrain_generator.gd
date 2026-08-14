@@ -19,23 +19,31 @@ func _ready():
 
 	generate_terrain()
 	
-	# Spawn Pine Trees
-	var tree_scene = load("res://scenes/PineTree.tscn")
-	if tree_scene:
-		for i in range(150):
-			var tx = randf_range(-90, 90)
-			var tz = randf_range(-90, 90)
-			var dist = Vector2(tx, tz).length()
-			
-			# Don't spawn on the tarp
-			if dist < 12.0: continue
-			
-			# Don't spawn on the road
-			var road_center_x = sin(tz * 0.05) * 20.0
-			if abs(tx - road_center_x) < 6.0: continue
-			
-			var ty = get_height_at(tx, tz)
-			var inst = tree_scene.instantiate()
+	# Spawn Trees
+	var tree_scenes = [
+		load("res://models/environment/trees/Tree_AleppoPine.tscn"),
+		load("res://models/environment/trees/Tree_Fir.tscn"),
+		load("res://models/environment/trees/Tree_KermesOak.tscn"),
+		load("res://models/environment/trees/Tree_Plane.tscn"),
+		load("res://models/environment/trees/Tree_Strawberry.tscn")
+	]
+	
+	for i in range(150):
+		var tx = randf_range(-90, 90)
+		var tz = randf_range(-90, 90)
+		var dist = Vector2(tx, tz).length()
+		
+		# Don't spawn on the tarp / player start (15-meter radius exclusion)
+		if dist < 15.0: continue
+		
+		# Don't spawn on the road
+		var road_center_x = sin(tz * 0.05) * 20.0
+		if abs(tx - road_center_x) < 6.0: continue
+		
+		var ty = get_height_at(tx, tz)
+		var random_scene = tree_scenes[randi() % tree_scenes.size()]
+		if random_scene:
+			var inst = random_scene.instantiate()
 			add_child(inst)
 			inst.global_position = Vector3(tx, ty, tz)
 			inst.rotation_degrees = Vector3(randf_range(-5, 5), randf_range(0, 360), randf_range(-5, 5))

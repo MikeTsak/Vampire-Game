@@ -149,10 +149,14 @@ spot_angle = 25.0
 target_position = Vector3(0, 0, -100)
 collision_mask = 15
 
+[node name="InteractRay" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -3)
+collision_mask = 15
+
 [node name="WeaponPivot" type="Node3D" parent="Head/Camera3D"]
 
 [node name="WWIRifle" type="Node3D" parent="Head/Camera3D/WeaponPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.3, -0.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.4, -0.2)
 
 [node name="StockForeEnd" type="CSGBox3D" parent="Head/Camera3D/WeaponPivot/WWIRifle"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)

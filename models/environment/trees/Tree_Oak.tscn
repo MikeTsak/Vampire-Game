@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://ndffe61ecccf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trunk"]
+albedo_color = Color(0.3, 0.2, 0.1, 1)
+texture_filter = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_trunk"]
+material = SubResource("StandardMaterial3D_trunk")
+bottom_radius = 0.7
+height = 2.5
+radial_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leaves"]
+albedo_color = Color(0.2, 0.5, 0.1, 1)
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_leaves1"]
+material = SubResource("StandardMaterial3D_leaves")
+size = Vector3(3, 2.5, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_leaves2"]
+material = SubResource("StandardMaterial3D_leaves")
+size = Vector3(2.5, 2, 2.5)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_col"]
+height = 2.5
+radius = 0.7
+
+[node name="Tree_Oak" type="Node3D" unique_id=1278888404]
+
+[node name="Trunk" type="MeshInstance3D" parent="." unique_id=1140800922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+mesh = SubResource("CylinderMesh_trunk")
+
+[node name="Leaves" type="MeshInstance3D" parent="." unique_id=135877506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+mesh = SubResource("BoxMesh_leaves1")
+
+[node name="Leaves2" type="MeshInstance3D" parent="Leaves" unique_id=60932074]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 0, 1, 0)
+mesh = SubResource("BoxMesh_leaves2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=186378808]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1595210108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+shape = SubResource("CylinderShape3D_col")

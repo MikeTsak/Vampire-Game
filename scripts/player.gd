@@ -23,7 +23,8 @@ var carried_score_value: int = 5000
 @onready var head = $Head
 @onready var cam = $Head/Camera3D
 @onready var raycast = $Head/Camera3D/RayCast3D
-@onready var weapon_root = $Head/Camera3D/WeaponRoot
+@onready var interact_ray = $Head/Camera3D/InteractRay
+@onready var weapon_root = $Head/Camera3D/WeaponPivot
 @onready var score_label = $HUD/ScoreLabel
 @onready var timer_label = $HUD/TimerLabel
 @onready var interaction_label = $HUD/InteractionLabel
@@ -34,7 +35,7 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	head = $Head
 	cam = $Head/Camera3D
-	weapon_root = $Head/Camera3D/WeaponRoot
+	weapon_root = $Head/Camera3D/WeaponPivot
 	raycast = $Head/Camera3D/RayCast3D
 	raycast.add_exception(self)
 	
@@ -79,6 +80,14 @@ func _input(event):
 				var animal_name = drop_animal()
 				if animal_name != "":
 					level.spawn_dropped_carcass(animal_name)
+		elif not is_carrying_animal and interact_ray and interact_ray.is_colliding():
+			var target = interact_ray.get_collider()
+			if target and (target.is_in_group("carcass") or target.is_in_group("animals")) and target.get("dead"):
+				var scene_name = target.scene_file_path.get_file().get_basename()
+				if scene_name == "":
+					scene_name = "Deer2" if "Deer" in target.name else "Sheep2"
+				pickup_animal(scene_name, target.get("score_value"))
+				target.queue_free()
 
 
 var can_shoot: bool = true
@@ -107,7 +116,7 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, current_speed)
 		velocity.z = move_toward(velocity.z, 0, current_speed)
 		
-	if Input.is_key_pressed(KEY_SPACE) and is_on_floor():
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
 	move_and_slide()

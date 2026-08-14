@@ -9,15 +9,12 @@
 [ext_resource type="Script" uid="uid://dkornaugkk3ul" path="res://scripts/terrain_generator.gd" id="terrain_script"]
 [ext_resource type="PackedScene" uid="uid://6nntmos60iia" path="res://scenes/ParkOfSouls.tscn" id="park_of_souls"]
 
-[sub_resource type="Environment" id="Environment_sp0w3"]
+[sub_resource type="Environment" id="Environment_pitchblack"]
 background_mode = 1
 background_color = Color(0, 0, 0, 1)
-fog_enabled = true
-fog_light_color = Color(0.01, 0.02, 0.01, 1)
-fog_density = 0.15
-
-[sub_resource type="SphereMesh" id="SphereMesh_skydome"]
-material = ExtResource("skydome_mat")
+ambient_light_source = 2
+ambient_light_color = Color(0, 0, 0, 1)
+ambient_light_energy = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n34uq"]
 albedo_color = Color(0.23921569, 0.16862746, 0.101960786, 1)
@@ -64,18 +61,7 @@ size = Vector3(1, 20, 300)
 script = ExtResource("1_l6gr7")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_sp0w3")
-
-[node name="PhysicalSkydome" type="MeshInstance3D" parent="."]
-transform = Transform3D(900, 0, 0, 0, 900, 0, 0, 0, 900, 0, 0, 0)
-mesh = SubResource("SphereMesh_skydome")
-script = ExtResource("skydome_script")
-visible = false
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.7071067, -0.49999994, 0.49999994, 0, 0.7071067, 0.7071067, -0.7071067, 0.49999994, -0.49999994, 0, 0, 0)
-light_color = Color(0.3, 0.4, 0.6, 1)
-light_energy = 0.1
+environment = SubResource("Environment_pitchblack")
 
 [node name="TerrainGenerator" type="Node3D" parent="."]
 script = ExtResource("terrain_script")
