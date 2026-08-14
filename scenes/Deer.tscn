@@ -36,162 +36,162 @@ albedo_texture = SubResource("NoiseTexture2D_vkvsx")
 [sub_resource type="BoxShape3D" id="BoxShape3D_pg8or"]
 size = Vector3(3, 3, 3)
 
-[node name="Deer" type="CharacterBody3D"]
+[node name="Deer" type="CharacterBody3D" unique_id=506410082]
 script = ExtResource("1_pg8or")
 
-[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="." unique_id=1527006673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049625, 0.25254917, 0.086658955)
 shape = SubResource("BoxShape3D_i3h01")
 
-[node name="MeshBase" type="Node3D" parent="."]
+[node name="MeshBase" type="Node3D" parent="." unique_id=1363449975]
 
-[node name="Body" type="CSGSphere3D" parent="MeshBase"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 1, 0)
+[node name="Body" type="CSGSphere3D" parent="MeshBase" unique_id=1994582957]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, -0.8049625, 0.5910526, 0.086658955)
 material_override = SubResource("StandardMaterial3D_vgwdw")
 radius = 0.4
 radial_segments = 8
 
-[node name="HeadPivot" type="Node3D" parent="MeshBase"]
+[node name="HeadPivot" type="Node3D" parent="MeshBase" unique_id=1901660042]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -0.6)
 
-[node name="Neck" type="CSGCylinder3D" parent="MeshBase/HeadPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0.2, -0.2)
+[node name="Neck" type="CSGCylinder3D" parent="MeshBase/HeadPivot" unique_id=1025826053]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, -0.8049625, -0.14745075, -0.11334103)
 material_override = SubResource("StandardMaterial3D_vgwdw")
 radius = 0.12
 height = 0.6
 sides = 6
 
-[node name="Head" type="CSGBox3D" parent="MeshBase/HeadPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.4)
+[node name="Head" type="CSGBox3D" parent="MeshBase/HeadPivot" unique_id=1202843097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049625, 0.052549005, -0.31334102)
 material_override = SubResource("StandardMaterial3D_vgwdw")
 size = Vector3(0.2, 0.2, 0.4)
 
-[node name="Snout" type="CSGBox3D" parent="MeshBase/HeadPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36, -0.6)
+[node name="Snout" type="CSGBox3D" parent="MeshBase/HeadPivot" unique_id=693030276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049625, 0.012549043, -0.51334107)
 material_override = SubResource("StandardMaterial3D_d8ijb")
 size = Vector3(0.12, 0.12, 0.2)
 
-[node name="Eyes" type="CSGBox3D" parent="MeshBase/HeadPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, -0.45)
+[node name="Eyes" type="CSGBox3D" parent="MeshBase/HeadPivot" unique_id=164121640]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049625, 0.10254896, -0.36334097)
 material_override = SubResource("StandardMaterial3D_d8ijb")
 size = Vector3(0.22, 0.04, 0.04)
 
-[node name="@CSGBox3D@3" type="CSGBox3D" parent="MeshBase/HeadPivot"]
-transform = Transform3D(0.8253356, -0.5646425, 0, 0.5533872, 0.80888385, 0.19866933, -0.11217714, -0.16396888, 0.9800666, -0.12, 0.55, -0.3)
+[node name="@CSGBox3D@3" type="CSGBox3D" parent="MeshBase/HeadPivot" unique_id=661568384]
+transform = Transform3D(0.8253356, -0.5646425, 0, 0.5533872, 0.80888385, 0.19866933, -0.11217714, -0.16396888, 0.9800666, -0.9249625, 0.2025491, -0.21334106)
 material_override = SubResource("StandardMaterial3D_vgwdw")
 size = Vector3(0.05, 0.2, 0.08)
 
-[node name="@CSGBox3D@4" type="CSGBox3D" parent="MeshBase/HeadPivot"]
-transform = Transform3D(0.8253356, 0.5646425, 0, -0.5533872, 0.80888385, 0.19866933, 0.11217714, -0.16396888, 0.9800666, 0.12, 0.55, -0.3)
+[node name="@CSGBox3D@4" type="CSGBox3D" parent="MeshBase/HeadPivot" unique_id=306057734]
+transform = Transform3D(0.8253356, 0.5646425, 0, -0.5533872, 0.80888385, 0.19866933, 0.11217714, -0.16396888, 0.9800666, -0.6849625, 0.2025491, -0.21334106)
 material_override = SubResource("StandardMaterial3D_vgwdw")
 size = Vector3(0.05, 0.2, 0.08)
 
-[node name="Leg0" type="Node3D" parent="MeshBase"]
+[node name="Leg0" type="Node3D" parent="MeshBase" unique_id=1206891675]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.7, -0.5)
 
-[node name="@CSGCylinder3D@5" type="CSGCylinder3D" parent="MeshBase/Leg0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15368652, 0)
+[node name="@CSGCylinder3D@5" type="CSGCylinder3D" parent="MeshBase/Leg0" unique_id=1065385726]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049626, -0.5011374, 0.086658955)
 material_override = SubResource("StandardMaterial3D_vgwdw")
 radius = 0.06
 height = 0.69262695
 sides = 6
 
-[node name="Knee" type="Node3D" parent="MeshBase/Leg0"]
+[node name="Knee" type="Node3D" parent="MeshBase/Leg0" unique_id=139771491]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
-[node name="@CSGCylinder3D@6" type="CSGCylinder3D" parent="MeshBase/Leg0/Knee"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+[node name="@CSGCylinder3D@6" type="CSGCylinder3D" parent="MeshBase/Leg0/Knee" unique_id=1636881466]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049626, -0.5974509, 0.086658955)
 material_override = SubResource("StandardMaterial3D_vgwdw")
 radius = 0.05
 height = 0.5
 sides = 6
 
-[node name="@CSGBox3D@7" type="CSGBox3D" parent="MeshBase/Leg0/Knee"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.55, 0)
+[node name="@CSGBox3D@7" type="CSGBox3D" parent="MeshBase/Leg0/Knee" unique_id=272993265]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049626, -0.8974508, 0.086658955)
 material_override = SubResource("StandardMaterial3D_d8ijb")
 size = Vector3(0.12, 0.1, 0.12)
 
-[node name="Leg1" type="Node3D" parent="MeshBase"]
+[node name="Leg1" type="Node3D" parent="MeshBase" unique_id=1268268668]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.7, -0.5)
 
-[node name="@CSGCylinder3D@8" type="CSGCylinder3D" parent="MeshBase/Leg1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15942383, 0)
+[node name="@CSGCylinder3D@8" type="CSGCylinder3D" parent="MeshBase/Leg1" unique_id=1064058675]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049625, -0.5068747, 0.086658955)
 material_override = SubResource("StandardMaterial3D_vgwdw")
 radius = 0.06
 height = 0.68115234
 sides = 6
 
-[node name="Knee" type="Node3D" parent="MeshBase/Leg1"]
+[node name="Knee" type="Node3D" parent="MeshBase/Leg1" unique_id=568874562]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
-[node name="@CSGCylinder3D@9" type="CSGCylinder3D" parent="MeshBase/Leg1/Knee"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+[node name="@CSGCylinder3D@9" type="CSGCylinder3D" parent="MeshBase/Leg1/Knee" unique_id=1670352842]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049625, -0.5974509, 0.086658955)
 material_override = SubResource("StandardMaterial3D_vgwdw")
 radius = 0.05
 height = 0.5
 sides = 6
 
-[node name="@CSGBox3D@10" type="CSGBox3D" parent="MeshBase/Leg1/Knee"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.55, 0)
+[node name="@CSGBox3D@10" type="CSGBox3D" parent="MeshBase/Leg1/Knee" unique_id=1360919856]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049625, -0.8974508, 0.086658955)
 material_override = SubResource("StandardMaterial3D_d8ijb")
 size = Vector3(0.12, 0.1, 0.12)
 
-[node name="Leg2" type="Node3D" parent="MeshBase"]
+[node name="Leg2" type="Node3D" parent="MeshBase" unique_id=1993815964]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.7, 0.5)
 
-[node name="@CSGCylinder3D@11" type="CSGCylinder3D" parent="MeshBase/Leg2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15527344, 0)
+[node name="@CSGCylinder3D@11" type="CSGCylinder3D" parent="MeshBase/Leg2" unique_id=221429171]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049626, -0.5027243, 0.086658955)
 material_override = SubResource("StandardMaterial3D_vgwdw")
 radius = 0.06
 height = 0.6894531
 sides = 6
 
-[node name="Knee" type="Node3D" parent="MeshBase/Leg2"]
+[node name="Knee" type="Node3D" parent="MeshBase/Leg2" unique_id=255698084]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
-[node name="@CSGCylinder3D@12" type="CSGCylinder3D" parent="MeshBase/Leg2/Knee"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+[node name="@CSGCylinder3D@12" type="CSGCylinder3D" parent="MeshBase/Leg2/Knee" unique_id=1862729582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049626, -0.5974509, 0.086658955)
 material_override = SubResource("StandardMaterial3D_vgwdw")
 radius = 0.05
 height = 0.5
 sides = 6
 
-[node name="@CSGBox3D@13" type="CSGBox3D" parent="MeshBase/Leg2/Knee"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.55, 0)
+[node name="@CSGBox3D@13" type="CSGBox3D" parent="MeshBase/Leg2/Knee" unique_id=2143198004]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049626, -0.8974508, 0.086658955)
 material_override = SubResource("StandardMaterial3D_d8ijb")
 size = Vector3(0.12, 0.1, 0.12)
 
-[node name="Leg3" type="Node3D" parent="MeshBase"]
+[node name="Leg3" type="Node3D" parent="MeshBase" unique_id=648554169]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.7, 0.5)
 
-[node name="@CSGCylinder3D@14" type="CSGCylinder3D" parent="MeshBase/Leg3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14428711, 0)
+[node name="@CSGCylinder3D@14" type="CSGCylinder3D" parent="MeshBase/Leg3" unique_id=1613084647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049625, -0.49173796, 0.086658955)
 material_override = SubResource("StandardMaterial3D_vgwdw")
 radius = 0.06
 height = 0.7114258
 sides = 6
 
-[node name="Knee" type="Node3D" parent="MeshBase/Leg3"]
+[node name="Knee" type="Node3D" parent="MeshBase/Leg3" unique_id=1398993396]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
-[node name="@CSGCylinder3D@15" type="CSGCylinder3D" parent="MeshBase/Leg3/Knee"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+[node name="@CSGCylinder3D@15" type="CSGCylinder3D" parent="MeshBase/Leg3/Knee" unique_id=1403065500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049625, -0.5974509, 0.086658955)
 material_override = SubResource("StandardMaterial3D_vgwdw")
 radius = 0.05
 height = 0.5
 sides = 6
 
-[node name="@CSGBox3D@16" type="CSGBox3D" parent="MeshBase/Leg3/Knee"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.55, 0)
+[node name="@CSGBox3D@16" type="CSGBox3D" parent="MeshBase/Leg3/Knee" unique_id=378471387]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8049625, -0.8974508, 0.086658955)
 material_override = SubResource("StandardMaterial3D_d8ijb")
 size = Vector3(0.12, 0.1, 0.12)
 
-[node name="PickupArea" type="Area3D" parent="."]
+[node name="PickupArea" type="Area3D" parent="." unique_id=1275267799]
 collision_layer = 0
 collision_mask = 2
 monitoring = false
 monitorable = false
 
-[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="PickupArea"]
+[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="PickupArea" unique_id=1529169009]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_pg8or")

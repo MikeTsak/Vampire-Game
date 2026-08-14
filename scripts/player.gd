@@ -125,8 +125,9 @@ func _physics_process(delta):
 		if crosshair: crosshair.visible = true
 	else:
 		if weapon_root and weapon_root.has_node("AnimationPlayer"):
-			if not weapon_root.get_node("AnimationPlayer").is_playing():
-				weapon_root.get_node("AnimationPlayer").play("idle")
+			var anim = weapon_root.get_node("AnimationPlayer")
+			if anim.has_animation("idle") and not anim.is_playing():
+				anim.play("idle")
 		if crosshair: crosshair.visible = false
 
 	if cam:

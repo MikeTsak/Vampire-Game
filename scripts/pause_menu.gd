@@ -8,19 +8,16 @@ func _ready():
 	$ColorRect/VBoxContainer/MainMenuBtn.pressed.connect(_on_main_menu)
 	$ColorRect/VBoxContainer/ExitBtn.pressed.connect(_on_exit)
 
-func _input(event):
-	if event.is_action_pressed("ui_cancel") and get_tree().paused:
-		_on_resume()
-
 func _on_resume():
-	get_tree().paused = false
-	visible = false
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	var gm = get_node_or_null("/root/GameManager")
+	if gm:
+		gm.toggle_pause()
 
 func _on_main_menu():
-	get_tree().paused = false
-	visible = false
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	var gm = get_node_or_null("/root/GameManager")
+	if gm:
+		if get_tree().paused:
+			gm.toggle_pause() # Unpause before leaving
 	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
 
 func _on_exit():

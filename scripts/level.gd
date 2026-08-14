@@ -1,7 +1,7 @@
 extends Node3D
 # Force recompile
-@onready var tarp_area = $TarpArea
-@onready var drop_zone = get_node_or_null("PhysicalTarp/CarcassDropZone")
+@onready var tarp_area = $CarcassDropZone
+@onready var drop_zone = $CarcassDropZone
 @onready var timer = $LevelTimer
 @onready var spawns = $Spawns
 @onready var end_panel = $UILayer/EndPanel
@@ -20,6 +20,18 @@ func _ready():
 		tarp_area.set_script(preload("res://scripts/level1_ending.gd"))
 		tarp_area.set_process(true)
 		tarp_area._ready() # Call _ready manually since it was attached dynamically
+
+	# Spawn initial animals
+	if spawns:
+		var deer_scene = load("res://scenes/Deer.tscn")
+		if deer_scene:
+			for marker in spawns.get_children():
+				if marker is Marker3D:
+					var deer = deer_scene.instantiate()
+					add_child(deer)
+					deer.global_position = marker.global_position
+					# Add some random rotation
+					deer.rotation_degrees.y = randf_range(0, 360)
 
 	if drop_zone:
 		drop_zone.body_entered.connect(_on_drop_zone_body_entered)

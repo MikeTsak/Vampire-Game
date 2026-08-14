@@ -4,7 +4,7 @@ var cinematic_triggered = false
 var skipping = false
 
 func _ready():
-	connect("body_entered", Callable(self, "_on_body_entered"))
+	# Removed connect("body_entered"...) so it only triggers via timeout or F10
 	
 	if get_node_or_null("../CinematicCamera"):
 		$"../CinematicCamera".current = false
@@ -16,8 +16,9 @@ func _unhandled_input(event):
 	if cinematic_triggered and not skipping:
 		if event.is_action_pressed("ui_accept"):
 			skipping = true
-			if GameManager and "level" in GameManager:
-				GameManager.level = 2
+			var gm = get_node_or_null("/root/GameManager")
+			if gm and "level" in gm:
+				gm.level = 2
 			get_tree().change_scene_to_file("res://scenes/Level2.tscn")
 
 func _on_body_entered(body):
@@ -85,9 +86,9 @@ func _on_body_entered(body):
 		# Wait exactly 3 seconds for the player to read the final line and the man to turn
 		await get_tree().create_timer(3.0).timeout
 		
-		# Increment the level index (if your GameManager uses one) to ensure Level 2 spawns correctly
-		if GameManager and "level" in GameManager:
-			GameManager.level = 2
+		var gm = get_node_or_null("/root/GameManager")
+		if gm and "level" in gm:
+			gm.level = 2
 			
 		# Force the transition immediately
 		get_tree().change_scene_to_file("res://scenes/Level2.tscn")

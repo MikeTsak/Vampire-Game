@@ -3,32 +3,32 @@
 [ext_resource type="Script" path="res://scripts/typewriter_subtitle.gd" id="2_c6cun"]
 [ext_resource type="PackedScene" path="res://scenes/SuitedMan.tscn" id="3_rvryt"]
 [ext_resource type="Script" path="res://scenes/SuitedMan.gd" id="4_nir0v"]
-[ext_resource type="Script" path="res://scenes/SuitedMan.gd" id="4_nir0v"]
+
 [sub_resource type="SystemFont" id="SystemFont_du6q1"]
 font_names = PackedStringArray("Courier New", "Consolas", "Monospace")
-font_names = PackedStringArray("Courier New", "Consolas", "Monospace")
+
 [sub_resource type="Environment" id="Environment_d28iv"]
 background_mode = 1
 ambient_light_source = 2
-ambient_light_source = 2
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ueayn"]
 noise_type = 0
 frequency = 0.05
-frequency = 0.05
+
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c6cun"]
 noise = SubResource("FastNoiseLite_ueayn")
 seamless = true
-seamless = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rvryt"]
 albedo_color = Color(0.1, 0.15, 0.1, 1)
 albedo_texture = SubResource("NoiseTexture2D_c6cun")
 roughness = 0.8
-roughness = 0.8
+
 [node name="MidCutscene" type="Node3D"]
-[sub_resource type="Animation" id="Animation_c6cun"]
+
 [node name="Subtitles" type="CanvasLayer" parent="."]
 layer = 10
-tracks/0/imported = false
+
 [node name="SubtitleLabel" type="Label" parent="Subtitles"]
 anchors_preset = 12
 anchor_top = 1.0
@@ -46,7 +46,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 script = ExtResource("2_c6cun")
-"times": PackedFloat32Array(0, 1, 4.5, 5.5),
+
 [node name="FadeRect" type="ColorRect" parent="Subtitles"]
 visible = false
 modulate = Color(1, 1, 1, 0)
@@ -55,40 +55,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
-}
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_d28iv")
-script = ExtResource("1_ueayn")
-[node name="SpotLight" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 3, 0)
-light_energy = 2.0
-shadow_enabled = true
-spot_range = 8.0
-spot_angle = 35.0
-anchor_top = 1.0
-[node name="SuitedMan" type="Node3D" parent="." instance=ExtResource("3_rvryt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-script = ExtResource("4_nir0v")
-offset_bottom = -30.0
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 2.5)
-theme_override_font_sizes/font_size = 44
-[node name="TarpTent" type="CSGCombiner3D" parent="."]
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-[node name="Outer" type="CSGPolygon3D" parent="TarpTent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
-polygon = PackedVector2Array(-5, 0, 0, 5, 5, 0)
-depth = 10.0
-material = SubResource("StandardMaterial3D_rvryt")
-
-[node name="Inner" type="CSGPolygon3D" parent="TarpTent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 4.1)
-operation = 1
-polygon = PackedVector2Array(-4.8, 0.1, 0, 4.8, 4.8, 0.1)
-depth = 9.8
-material = SubResource("StandardMaterial3D_rvryt")
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_d28iv")
@@ -100,7 +66,7 @@ shadow_enabled = true
 spot_range = 8.0
 spot_angle = 35.0
 
-[node name="SuitedMan" type="Node3D" parent="." instance=ExtResource("3_rvryt")]
+[node name="SuitedMan" parent="." instance=ExtResource("3_rvryt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 script = ExtResource("4_nir0v")
 
@@ -121,6 +87,3 @@ operation = 1
 polygon = PackedVector2Array(-4.8, 0.1, 0, 4.8, 4.8, 0.1)
 depth = 9.8
 material = SubResource("StandardMaterial3D_rvryt")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries/ = SubResource("AnimationLibrary_rvryt")
