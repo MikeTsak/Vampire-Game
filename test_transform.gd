@@ -1,0 +1,6 @@
+var b = Basis(Vector3(1, 2, 3), Vector3(4, 5, 6), Vector3(7, 8, 9))
+var t = Transform3D(b, Vector3(10, 11, 12))
+print("Transform text: ", t)
+var file = FileAccess.open("res://test_transform.tscn", FileAccess.WRITE)
+file.store_string("[gd_scene format=3]\n\n[node name=\"Node3D\" type=\"Node3D\"]\ntransform = " + var_to_str(t))
+file.close()

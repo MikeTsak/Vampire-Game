@@ -1,0 +1,154 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Texture2D" path="res://textures/environment/trees/kermes_bark.jpg" id="1_bark"]
+[ext_resource type="Texture2D" path="res://textures/environment/trees/kermes_leaves.jpg" id="2_leaves"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bark"]
+albedo_texture = ExtResource("1_bark")
+texture_filter = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_trunk"]
+material = SubResource("StandardMaterial3D_bark")
+top_radius = 0.35
+bottom_radius = 0.5
+height = 4.5
+radial_segments = 7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leaves"]
+albedo_texture = ExtResource("2_leaves")
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="Mesh_leaves"]
+material = SubResource("StandardMaterial3D_leaves")
+size = Vector3(4.0, 2.0, 4.0)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_trunk"]
+radius = 0.5
+height = 4.5
+
+[sub_resource type="CylinderMesh" id="Mesh_branch_0"]
+material = SubResource("StandardMaterial3D_bark")
+top_radius = 0.16000000000000003
+bottom_radius = 0.27999999999999997
+height = 2.5
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_branch_1"]
+material = SubResource("StandardMaterial3D_bark")
+top_radius = 0.13999999999999999
+bottom_radius = 0.24499999999999997
+height = 2.0
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_branch_2"]
+material = SubResource("StandardMaterial3D_bark")
+top_radius = 0.13999999999999999
+bottom_radius = 0.24499999999999997
+height = 2.2
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_branch_3"]
+material = SubResource("StandardMaterial3D_bark")
+top_radius = 0.12
+bottom_radius = 0.21
+height = 1.8
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_branch_4"]
+material = SubResource("StandardMaterial3D_bark")
+top_radius = 0.125
+bottom_radius = 0.175
+height = 1.2
+radial_segments = 6
+
+[node name="Tree_KermesOak" type="Node3D"]
+
+[node name="Trunk" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+mesh = SubResource("CylinderMesh_trunk")
+
+[node name="Branch_0" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.540302, -0.841471, -0.000000, 0.841471, 0.540302, 0.000000, 2.875378, 1.478505)
+mesh = SubResource("Mesh_branch_0")
+
+[node name="Branch_1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.070737, 0.715559, 0.694961, 0.000000, 0.696707, -0.717356, -0.997495, 0.050744, 0.049283, 1.131182, 3.196707, 0.080218)
+mesh = SubResource("Mesh_branch_1")
+
+[node name="Branch_2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.999135, 0.032571, 0.025847, 0.000000, 0.621610, -0.783327, -0.041581, -0.782649, -0.621072, 0.053431, 2.983771, -1.283882)
+mesh = SubResource("Mesh_branch_2")
+
+[node name="Branch_3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.012389, -0.644168, -0.764783, 0.000000, 0.764842, -0.644218, 0.999923, -0.007981, -0.009475, -0.993053, 3.288358, -0.012304)
+mesh = SubResource("Mesh_branch_3")
+
+[node name="Branch_4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.416147, 0.876161, 0.243236, 0.000000, 0.267499, -0.963558, -0.909297, -0.400982, -0.111319, 0.934880, 1.660499, -0.427855)
+mesh = SubResource("Mesh_branch_4")
+
+[node name="Canopy_1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.0557707193831534, 0, 0, 0, 1.0557707193831534, 0, 0, 0, 1.0557707193831534, 0.000000, 3.550756, 2.103677)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.094588485665605, 0, 0, 0, 1.094588485665605, 0, 0, 0, 1.094588485665605, -0.569987, 3.370779, 1.771530)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.9687687278741082, 0, 0, 0, 0.9687687278741082, 0, 0, 0, 0.9687687278741082, 0.212039, 3.864499, 1.608004)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8119188877752281, 0, 0, 0, 0.8119188877752281, 0, 0, 0, 0.8119188877752281, 1.431118, 3.893413, 0.101488)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8795350602746594, 0, 0, 0, 0.8795350602746594, 0, 0, 0, 0.8795350602746594, 1.093484, 3.897698, -0.466669)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.0357062735503635, 0, 0, 0, 1.0357062735503635, 0, 0, 0, 1.0357062735503635, 1.610980, 3.929367, -0.233984)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.1237721826711307, 0, 0, 0, 1.1237721826711307, 0, 0, 0, 1.1237721826711307, 0.071657, 3.667542, -1.721829)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_8" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.9361002066071967, 0, 0, 0, 0.9361002066071967, 0, 0, 0, 0.9361002066071967, -0.520545, 3.912197, -1.484062)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_9" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8370983373520592, 0, 0, 0, 0.8370983373520592, 0, 0, 0, 0.8370983373520592, -0.341768, 4.033312, -1.917915)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_10" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8386865507333856, 0, 0, 0, 0.8386865507333856, 0, 0, 0, 0.8386865507333856, -1.159503, 3.976716, -0.014366)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_11" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.091892714677527, 0, 0, 0, 1.091892714677527, 0, 0, 0, 1.091892714677527, -0.742510, 4.059697, 0.354188)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_12" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.0208162525092908, 0, 0, 0, 1.0208162525092908, 0, 0, 0, 1.0208162525092908, -1.116029, 4.355209, -0.160125)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_13" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.1317618657011979, 0, 0, 0, 1.1317618657011979, 0, 0, 0, 1.1317618657011979, 0.000000, 3.800000, 0.000000)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_14" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.0818287344859694, 0, 0, 0, 1.0818287344859694, 0, 0, 0, 1.0818287344859694, 0.142224, 4.089366, 0.092823)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_15" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.831916790769451, 0, 0, 0, 0.831916790769451, 0, 0, 0, 0.831916790769451, -0.545011, 3.582319, -0.252734)
+mesh = SubResource("Mesh_leaves")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+shape = SubResource("CylinderShape3D_trunk")

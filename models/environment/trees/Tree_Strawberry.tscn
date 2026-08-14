@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://1e2rp1quo26y"]
+
+[ext_resource type="Texture2D" uid="uid://d2mxveyat0ucw" path="res://textures/environment/trees/strawberry_bark.jpg" id="1_bark"]
+[ext_resource type="Texture2D" uid="uid://bula6n4733ifs" path="res://textures/environment/trees/strawberry_leaves.jpg" id="2_leaves"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bark"]
+albedo_texture = ExtResource("1_bark")
+texture_filter = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_trunk"]
+material = SubResource("StandardMaterial3D_bark")
+top_radius = 0.14
+bottom_radius = 0.2
+height = 3.0
+radial_segments = 7
+
+[sub_resource type="CylinderMesh" id="Mesh_branch_0"]
+material = SubResource("StandardMaterial3D_bark")
+top_radius = 0.056
+bottom_radius = 0.098
+height = 1.5
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_branch_1"]
+material = SubResource("StandardMaterial3D_bark")
+top_radius = 0.048
+bottom_radius = 0.084
+height = 1.8
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_branch_2"]
+material = SubResource("StandardMaterial3D_bark")
+top_radius = 0.04
+bottom_radius = 0.07
+height = 1.2
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_branch_3"]
+material = SubResource("StandardMaterial3D_bark")
+top_radius = 0.04
+bottom_radius = 0.056
+height = 0.8
+radial_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leaves"]
+albedo_texture = ExtResource("2_leaves")
+texture_filter = 0
+
+[sub_resource type="SphereMesh" id="Mesh_leaves"]
+material = SubResource("StandardMaterial3D_leaves")
+radius = 1.4
+height = 1.4
+radial_segments = 7
+rings = 5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_trunk"]
+height = 3.0
+radius = 0.2
+
+[node name="Tree_Strawberry" type="Node3D" unique_id=1224731379]
+
+[node name="Trunk" type="MeshInstance3D" parent="." unique_id=255550681]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_trunk")
+
+[node name="Branch_0" type="MeshInstance3D" parent="." unique_id=959069818]
+transform = Transform3D(1, 0, 0, 0, 0.540302, -0.841471, 0, 0.841471, 0.540302, 0, 1.405227, 0.811103)
+mesh = SubResource("Mesh_branch_0")
+
+[node name="Branch_1" type="MeshInstance3D" parent="." unique_id=2044836195]
+transform = Transform3D(-0.504846, 0.619228, 0.601404, 0, 0.696707, -0.717356, -0.863209, -0.362154, -0.35173, 0.704051, 2.127036, -0.411763)
+mesh = SubResource("Mesh_branch_1")
+
+[node name="Branch_2" type="MeshInstance3D" parent="." unique_id=490359521]
+transform = Transform3D(-0.490261, -0.812343, -0.315822, 0, 0.362358, -0.932039, 0.871576, -0.456942, -0.17765, -0.640803, 1.417415, -0.360451)
+mesh = SubResource("Mesh_branch_2")
+
+[node name="Branch_3" type="MeshInstance3D" parent="." unique_id=898518232]
+transform = Transform3D(0.540302, 0.829227, 0.143022, 0, 0.169967, -0.98545, -0.841471, 0.532441, 0.091834, 0.49157, 0.567987, 0.315634)
+mesh = SubResource("Mesh_branch_3")
+
+[node name="Canopy_1" type="MeshInstance3D" parent="." unique_id=520926615]
+transform = Transform3D(1.0557708, 0, 0, 0, 1.0557708, 0, 0, 0, 1.0557708, 0, 1.810453, 1.262206)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_2" type="MeshInstance3D" parent="." unique_id=1843339461]
+transform = Transform3D(1.0945885, 0, 0, 0, 1.0945885, 0, 0, 0, 1.0945885, -0.569987, 1.630477, 0.930059)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_3" type="MeshInstance3D" parent="." unique_id=504346699]
+transform = Transform3D(0.9687687, 0, 0, 0, 0.9687687, 0, 0, 0, 0.9687687, 0.212039, 2.124197, 0.766533)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_4" type="MeshInstance3D" parent="." unique_id=778532705]
+transform = Transform3D(0.8119189, 0, 0, 0, 0.8119189, 0, 0, 0, 0.8119189, 1.114611, 2.754072, -0.651878)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_5" type="MeshInstance3D" parent="." unique_id=52495962]
+transform = Transform3D(0.8795351, 0, 0, 0, 0.8795351, 0, 0, 0, 0.8795351, 0.776977, 2.758356, -1.220035)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_6" type="MeshInstance3D" parent="." unique_id=244138755]
+transform = Transform3D(1.0357063, 0, 0, 0, 1.0357063, 0, 0, 0, 1.0357063, 1.294473, 2.790025, -0.987349)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_7" type="MeshInstance3D" parent="." unique_id=2000849074]
+transform = Transform3D(1.1237721, 0, 0, 0, 1.1237721, 0, 0, 0, 1.1237721, -0.974811, 1.634829, -0.548331)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_8" type="MeshInstance3D" parent="." unique_id=1986864862]
+transform = Transform3D(0.9361002, 0, 0, 0, 0.9361002, 0, 0, 0, 0.9361002, -1.567013, 1.879485, -0.310563)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_9" type="MeshInstance3D" parent="." unique_id=1971178556]
+transform = Transform3D(0.83709836, 0, 0, 0, 0.83709836, 0, 0, 0, 0.83709836, -1.388236, 2.0006, -0.744417)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_10" type="MeshInstance3D" parent="." unique_id=2056060649]
+transform = Transform3D(0.8386865, 0, 0, 0, 0.8386865, 0, 0, 0, 0.8386865, 0, 2.8, 0)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_11" type="MeshInstance3D" parent="." unique_id=1323274915]
+transform = Transform3D(1.0918927, 0, 0, 0, 1.0918927, 0, 0, 0, 1.0918927, 0.416993, 2.882981, 0.368554)
+mesh = SubResource("Mesh_leaves")
+
+[node name="Canopy_12" type="MeshInstance3D" parent="." unique_id=1884591446]
+transform = Transform3D(1.0208162, 0, 0, 0, 1.0208162, 0, 0, 0, 1.0208162, 0.043474, 3.178493, -0.145759)
+mesh = SubResource("Mesh_leaves")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1806867988]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=667604122]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_trunk")
