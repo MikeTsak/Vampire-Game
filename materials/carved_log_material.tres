@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://2eebv788gle6"]
+
+[ext_resource type="Texture2D" uid="uid://otik7y32v860" path="res://textures/light_carved_log.jpg" id="1_tex"]
+
+[resource]
+albedo_color = Color(0.5, 0.45, 0.4, 1)
+albedo_texture = ExtResource("1_tex")
+roughness = 0.8
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true

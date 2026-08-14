@@ -1,0 +1,21 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Godot-specific exports and builds
+export/
+build/
+bin/
+obj/
+
+# C# / Mono specific
+.mono/
+*.csproj.user
+
+# OS specific
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Project specific
+backup/

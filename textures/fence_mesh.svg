@@ -1,0 +1,12 @@
+<svg width="256" height="256" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" fill="transparent"/>
+  <!-- Vertical Bars (Kagkela) -->
+  <rect x="28" y="0" width="8" height="256" fill="#3a3a3a"/>
+  <rect x="92" y="0" width="8" height="256" fill="#3a3a3a"/>
+  <rect x="156" y="0" width="8" height="256" fill="#3a3a3a"/>
+  <rect x="220" y="0" width="8" height="256" fill="#3a3a3a"/>
+  <!-- Horizontal Supports -->
+  <rect x="0" y="32" width="256" height="12" fill="#3a3a3a"/>
+  <rect x="0" y="128" width="256" height="12" fill="#3a3a3a"/>
+  <rect x="0" y="224" width="256" height="12" fill="#3a3a3a"/>
+</svg>

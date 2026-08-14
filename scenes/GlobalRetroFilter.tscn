@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/global_retro_filter.gd" id="1_7o43y"]
+[ext_resource type="Shader" path="res://shaders/retro_ps1.gdshader" id="2_nwnwi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eicoj"]
+shader = ExtResource("2_nwnwi")
+shader_parameter/pixel_size = null
+shader_parameter/color_depth = null
+
+[node name="GlobalRetroFilter" type="CanvasLayer"]
+layer = 5
+script = ExtResource("1_7o43y")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+material = SubResource("ShaderMaterial_eicoj")

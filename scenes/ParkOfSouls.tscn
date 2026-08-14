@@ -1,0 +1,744 @@
+[gd_scene format=3 uid="uid://6nntmos60iia"]
+
+[ext_resource type="Material" path="res://materials/weathered_wood_material.tres" id="1_wood"]
+[ext_resource type="Material" path="res://materials/scaffolding_metal.tres" id="2_metal"]
+[ext_resource type="FontFile" uid="uid://dtdvhmo7i3h7q" path="res://textures/fonts/fonnts.com-PF-Hellenica-.otf" id="3_font"]
+[ext_resource type="Texture2D" uid="uid://bunhg5tp4uf0j" path="res://textures/carved_face.jpg" id="4_face"]
+[ext_resource type="Texture2D" uid="uid://c65lf1aby7n1k" path="res://textures/carved_face_female.jpg" id="5_face_f"]
+[ext_resource type="Texture2D" uid="uid://b5t5qo61p3yqa" path="res://textures/carved_face_seated.jpg" id="6_face_s"]
+[ext_resource type="Material" uid="uid://2eebv788gle6" path="res://materials/carved_log_material.tres" id="7_log"]
+[ext_resource type="ArrayMesh" uid="uid://bnb7rhtbmt03b" path="res://models/park_statues/statue_pregnant.obj" id="8_obj_preg"]
+[ext_resource type="ArrayMesh" uid="uid://bongehb8vq8gs" path="res://models/park_statues/statue_cross.obj" id="9_obj_cross"]
+[ext_resource type="ArrayMesh" uid="uid://cywaykjglxmg" path="res://models/park_statues/statue_seated.obj" id="10_obj_seat"]
+[ext_resource type="ArrayMesh" uid="uid://crsf0g68f46ca" path="res://models/park_statues/statue_winged.obj" id="11_obj_wing"]
+[ext_resource type="ArrayMesh" uid="uid://bl8dckf0aa2xy" path="res://models/park_statues/statue_hugging.obj" id="12_obj_hug"]
+[ext_resource type="ArrayMesh" uid="uid://dk62v7bs2qeuf" path="res://models/park_statues/statue_eyepole.obj" id="13_obj_pole"]
+
+[node name="ParkOfSouls" type="Node3D" unique_id=2002351214]
+
+[node name="Archway" type="Node3D" parent="." unique_id=1309331221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="LeftPillar" type="Node3D" parent="Archway" unique_id=376024708]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3, 0)
+
+[node name="Post1" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=213983526]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, -0.4)
+radius = 0.05
+height = 6.0
+material = ExtResource("2_metal")
+
+[node name="Post2" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1284439903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, -0.4)
+radius = 0.05
+height = 6.0
+material = ExtResource("2_metal")
+
+[node name="Post3" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1923408111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0.4)
+radius = 0.05
+height = 6.0
+material = ExtResource("2_metal")
+
+[node name="Post4" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=458515909]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0.4)
+radius = 0.05
+height = 6.0
+material = ExtResource("2_metal")
+
+[node name="Horiz_-2_5_0" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1967500702]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, -2.5, -0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-2_5_0" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=379064730]
+transform = Transform3D(0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0, 0, 0, 1, 0, -1.5, -0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-2_5_0" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1345840486]
+transform = Transform3D(0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0, 0, 0, 1, 0, -1.5, -0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-2_5_1" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=528455567]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, -2.5, 0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-2_5_1" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1339974520]
+transform = Transform3D(0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0, 0, 0, 1, 0, -1.5, 0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-2_5_1" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1129323747]
+transform = Transform3D(0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0, 0, 0, 1, 0, -1.5, 0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-2_5_2" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=2120733760]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.4, -2.5, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-2_5_2" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=738485508]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, -0.4, -1.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-2_5_2" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=362280709]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, -0.4, -1.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-2_5_3" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=559289409]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.4, -2.5, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-2_5_3" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1254417254]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0.4, -1.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-2_5_3" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=854564632]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0.4, -1.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-0_5_0" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1067698885]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, -0.5, -0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-0_5_0" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=470565476]
+transform = Transform3D(0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0, 0, 0, 1, 0, 0.5, -0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-0_5_0" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1287727376]
+transform = Transform3D(0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0, 0, 0, 1, 0, 0.5, -0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-0_5_1" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1445972987]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, -0.5, 0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-0_5_1" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1976473739]
+transform = Transform3D(0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0, 0, 0, 1, 0, 0.5, 0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-0_5_1" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1301949881]
+transform = Transform3D(0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0, 0, 0, 1, 0, 0.5, 0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-0_5_2" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=598612897]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.4, -0.5, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-0_5_2" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=436748540]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, -0.4, 0.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-0_5_2" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1976413381]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, -0.4, 0.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-0_5_3" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=204210240]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.4, -0.5, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-0_5_3" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=490747074]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0.4, 0.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-0_5_3" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=965507576]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0.4, 0.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_1_5_0" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1803266888]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 1.5, -0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_1_5_0" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=240990902]
+transform = Transform3D(0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0, 0, 0, 1, 0, 2.5, -0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_1_5_0" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=854763768]
+transform = Transform3D(0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0, 0, 0, 1, 0, 2.5, -0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_1_5_1" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1701388195]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 1.5, 0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_1_5_1" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=758823933]
+transform = Transform3D(0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0, 0, 0, 1, 0, 2.5, 0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_1_5_1" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=2034394394]
+transform = Transform3D(0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0, 0, 0, 1, 0, 2.5, 0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_1_5_2" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=306355413]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.4, 1.5, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_1_5_2" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=890671602]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, -0.4, 2.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_1_5_2" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=364766981]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, -0.4, 2.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_1_5_3" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1086009319]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.4, 1.5, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_1_5_3" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=963205791]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0.4, 2.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_1_5_3" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1150507059]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0.4, 2.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_2_8_0" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1920273927]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 2.8, -0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Horiz_2_8_1" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1487507346]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 2.8, 0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Horiz_2_8_2" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=327847412]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.4, 2.8, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Horiz_2_8_3" type="CSGCylinder3D" parent="Archway/LeftPillar" unique_id=1714526071]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.4, 2.8, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="RightPillar" type="Node3D" parent="Archway" unique_id=535042901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 0)
+
+[node name="Post1" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1295406567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, -0.4)
+radius = 0.05
+height = 6.0
+material = ExtResource("2_metal")
+
+[node name="Post2" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=243706196]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, -0.4)
+radius = 0.05
+height = 6.0
+material = ExtResource("2_metal")
+
+[node name="Post3" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=302282814]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0.4)
+radius = 0.05
+height = 6.0
+material = ExtResource("2_metal")
+
+[node name="Post4" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1458865138]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0.4)
+radius = 0.05
+height = 6.0
+material = ExtResource("2_metal")
+
+[node name="Horiz_-2_5_0" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1616914252]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, -2.5, -0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-2_5_0" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1611431638]
+transform = Transform3D(0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0, 0, 0, 1, 0, -1.5, -0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-2_5_0" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1913200776]
+transform = Transform3D(0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0, 0, 0, 1, 0, -1.5, -0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-2_5_1" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=827729892]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, -2.5, 0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-2_5_1" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=2003296823]
+transform = Transform3D(0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0, 0, 0, 1, 0, -1.5, 0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-2_5_1" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1161645424]
+transform = Transform3D(0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0, 0, 0, 1, 0, -1.5, 0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-2_5_2" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1874287306]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.4, -2.5, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-2_5_2" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=782915533]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, -0.4, -1.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-2_5_2" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1995875619]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, -0.4, -1.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-2_5_3" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=42937478]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.4, -2.5, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-2_5_3" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1163408503]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0.4, -1.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-2_5_3" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1814786181]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0.4, -1.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-0_5_0" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=850725224]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, -0.5, -0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-0_5_0" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1725269578]
+transform = Transform3D(0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0, 0, 0, 1, 0, 0.5, -0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-0_5_0" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=447082278]
+transform = Transform3D(0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0, 0, 0, 1, 0, 0.5, -0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-0_5_1" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1177469084]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, -0.5, 0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-0_5_1" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=892105905]
+transform = Transform3D(0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0, 0, 0, 1, 0, 0.5, 0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-0_5_1" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1413320196]
+transform = Transform3D(0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0, 0, 0, 1, 0, 0.5, 0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-0_5_2" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1578287407]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.4, -0.5, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-0_5_2" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=162061139]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, -0.4, 0.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-0_5_2" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1016347893]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, -0.4, 0.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_-0_5_3" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1502756087]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.4, -0.5, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_-0_5_3" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=597769526]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0.4, 0.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_-0_5_3" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1496684912]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0.4, 0.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_1_5_0" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1443019012]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 1.5, -0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_1_5_0" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1277364010]
+transform = Transform3D(0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0, 0, 0, 1, 0, 2.5, -0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_1_5_0" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1318073083]
+transform = Transform3D(0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0, 0, 0, 1, 0, 2.5, -0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_1_5_1" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1647195982]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 1.5, 0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_1_5_1" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1041568367]
+transform = Transform3D(0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0, 0, 0, 1, 0, 2.5, 0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_1_5_1" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=525250242]
+transform = Transform3D(0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0, 0, 0, 1, 0, 2.5, 0.4)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_1_5_2" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1209785511]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.4, 1.5, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_1_5_2" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=961784832]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, -0.4, 2.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_1_5_2" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=664408012]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, -0.4, 2.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_1_5_3" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=864696735]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.4, 1.5, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Diag1_1_5_3" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=2135520975]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, 0.37139067, 0, -0.37139067, 0.9284767, 0.4, 2.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Diag2_1_5_3" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1560143834]
+transform = Transform3D(1, 0, 0, 0, 0.9284767, -0.37139067, 0, 0.37139067, 0.9284767, 0.4, 2.5, 0)
+radius = 0.02
+height = 2.1540658
+material = ExtResource("2_metal")
+
+[node name="Horiz_2_8_0" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=316010105]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 2.8, -0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Horiz_2_8_1" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=935461299]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 2.8, 0.4)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Horiz_2_8_2" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=557002372]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.4, 2.8, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="Horiz_2_8_3" type="CSGCylinder3D" parent="Archway/RightPillar" unique_id=1319275213]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.4, 2.8, 0)
+radius = 0.03
+height = 0.8
+material = ExtResource("2_metal")
+
+[node name="TopLog" type="CSGCylinder3D" parent="Archway" unique_id=421674756]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 6, 0)
+height = 9.0
+material = ExtResource("1_wood")
+
+[node name="Label3D" type="Label3D" parent="Archway" unique_id=7277855]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0.51)
+modulate = Color(0, 0, 0, 1)
+text = "ΤΟ ΠΑΡΚΟ ΤΩΝ ΨΥΧΩΝ"
+font = ExtResource("3_font")
+font_size = 96
+outline_size = 24
+uppercase = true
+
+[node name="Statues" type="Node3D" parent="." unique_id=350992396]
+
+[node name="CrossFigure" type="Node3D" parent="Statues" unique_id=2136267290]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -5, 0, -3)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Statues/CrossFigure" unique_id=1829095126]
+mesh = ExtResource("9_obj_cross")
+surface_material_override/0 = ExtResource("7_log")
+
+[node name="FaceDecal" type="Decal" parent="Statues/CrossFigure/MeshInstance3D" unique_id=589869794]
+transform = Transform3D(0.99999994, 0, 8.881784e-16, 0, -4.37114e-08, -1, 0, 0.99999994, -4.37114e-08, -0.011303902, 8.5, 0.7421856)
+size = Vector3(1.4, 1.4, 1.4)
+texture_albedo = ExtResource("4_face")
+albedo_mix = 0.8
+normal_fade = 0.5
+
+[node name="FemaleFigure" type="Node3D" parent="Statues" unique_id=783493227]
+transform = Transform3D(0.866025, 0.5, 0, 0, 0, 1, 0.5, -0.866025, 0, 5, 0.5, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Statues/FemaleFigure" unique_id=450059732]
+mesh = ExtResource("8_obj_preg")
+surface_material_override/0 = ExtResource("7_log")
+
+[node name="FaceDecal" type="Decal" parent="Statues/FemaleFigure/MeshInstance3D" unique_id=1695635196]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 6.5, 0.5)
+size = Vector3(1.2, 1.2, 1.2)
+texture_albedo = ExtResource("5_face_f")
+albedo_mix = 0.8
+normal_fade = 0.5
+
+[node name="Head" type="CSGSphere3D" parent="Statues/FemaleFigure" unique_id=1025186808]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2, 0.2)
+radius = 0.9
+material = ExtResource("7_log")
+
+[node name="FaceDecal" type="Decal" parent="Statues/FemaleFigure/Head" unique_id=1010286121]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.8)
+size = Vector3(1.2, 1.2, 1.2)
+texture_albedo = ExtResource("5_face_f")
+albedo_mix = 0.8
+normal_fade = 0.5
+
+[node name="SeatedFigure" type="Node3D" parent="Statues" unique_id=25515258]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Statues/SeatedFigure" unique_id=1985332134]
+mesh = ExtResource("10_obj_seat")
+surface_material_override/0 = ExtResource("7_log")
+
+[node name="FaceDecal" type="Decal" parent="Statues/SeatedFigure/MeshInstance3D" unique_id=99569137]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 6, 0.7)
+size = Vector3(1, 1, 1)
+texture_albedo = ExtResource("6_face_s")
+albedo_mix = 0.8
+normal_fade = 0.5
+
+[node name="Body" type="CSGCombiner3D" parent="Statues/SeatedFigure" unique_id=702333224]
+
+[node name="Base" type="CSGCylinder3D" parent="Statues/SeatedFigure/Body" unique_id=2108611126]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+radius = 1.0
+height = 3.0
+material = ExtResource("7_log")
+
+[node name="Back" type="CSGCylinder3D" parent="Statues/SeatedFigure/Body" unique_id=165774466]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 0)
+radius = 0.8
+height = 3.5
+material = ExtResource("7_log")
+
+[node name="Gap" type="CSGSphere3D" parent="Statues/SeatedFigure/Body" unique_id=994800789]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0.4)
+operation = 2
+
+[node name="Head" type="CSGSphere3D" parent="Statues/SeatedFigure" unique_id=211032822]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 5.5, 0.8)
+radius = 0.7
+material = ExtResource("7_log")
+
+[node name="FaceDecal" type="Decal" parent="Statues/SeatedFigure/Head" unique_id=1470070539]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.7)
+size = Vector3(1, 1, 1)
+texture_albedo = ExtResource("6_face_s")
+albedo_mix = 0.8
+normal_fade = 0.5
+
+[node name="WingedFigure" type="Node3D" parent="Statues" unique_id=1795242591]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 7, 0, 3)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Statues/WingedFigure" unique_id=1499970349]
+mesh = ExtResource("11_obj_wing")
+surface_material_override/0 = ExtResource("7_log")
+
+[node name="Wing" type="CSGPolygon3D" parent="Statues/WingedFigure" unique_id=1288658625]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.5, 5, 0)
+polygon = PackedVector2Array(0, 0, 3, 3, 1, 5, -2, 5, -3, 2, -1, 1)
+depth = 0.4
+material = ExtResource("7_log")
+
+[node name="HuggingFigures" type="Node3D" parent="Statues" unique_id=214306019]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -5, 0, 4)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Statues/HuggingFigures" unique_id=809371600]
+mesh = ExtResource("12_obj_hug")
+surface_material_override/0 = ExtResource("7_log")
+
+[node name="Body" type="CSGCombiner3D" parent="Statues/HuggingFigures" unique_id=310485915]
+
+[node name="Base" type="CSGCylinder3D" parent="Statues/HuggingFigures/Body" unique_id=939004096]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+radius = 1.0
+height = 6.0
+material = ExtResource("7_log")
+
+[node name="CutFront" type="CSGBox3D" parent="Statues/HuggingFigures/Body" unique_id=907987221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 1)
+operation = 2
+size = Vector3(0.5, 4, 1)
+
+[node name="CutBack" type="CSGBox3D" parent="Statues/HuggingFigures/Body" unique_id=1623785664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1)
+operation = 2
+size = Vector3(0.5, 4, 1)
+
+[node name="Head1" type="CSGSphere3D" parent="Statues/HuggingFigures/Body" unique_id=896781776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 5.5, 0)
+radius = 0.6
+material = ExtResource("7_log")
+
+[node name="Head2" type="CSGSphere3D" parent="Statues/HuggingFigures/Body" unique_id=289135232]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 5.2, 0)
+radius = 0.6
+material = ExtResource("7_log")
+
+[node name="EarPole" type="Node3D" parent="Statues" unique_id=843571678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Statues/EarPole" unique_id=1712212464]
+mesh = ExtResource("13_obj_pole")
+surface_material_override/0 = ExtResource("7_log")
+
+[node name="Pole" type="CSGCylinder3D" parent="Statues/EarPole" unique_id=1808597377]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+radius = 0.2
+height = 4.0
+material = ExtResource("7_log")
+
+[node name="EarShape" type="CSGSphere3D" parent="Statues/EarPole" unique_id=594244286]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.2, 0.2, 4, 0)
+radius = 1.0
+material = ExtResource("7_log")
+
+[node name="SeatedFigure2" type="Node3D" parent="Statues" unique_id=1364010348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="WingedFigure2" type="Node3D" parent="Statues" unique_id=274929703]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 7, 0, 3)
+
+[node name="HuggingFigures2" type="Node3D" parent="Statues" unique_id=97427844]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -5, 0, 4)
+
+[node name="EarPole2" type="Node3D" parent="Statues" unique_id=1651759319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 2)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1574529801]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 1)
+light_color = Color(0.8, 0.5, 0.2, 1)
+light_energy = 0.8
+omni_range = 15.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1815445659]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 1)
+light_color = Color(0.8, 0.5, 0.2, 1)
+light_energy = 0.8
+omni_range = 15.0

@@ -1,0 +1,239 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_l6gr7"]
+[ext_resource type="Script" path="res://scripts/forest_generator.gd" id="4_sp0w3"]
+[ext_resource type="Material" path="res://materials/skydome_material.tres" id="skydome_mat"]
+[ext_resource type="Script" path="res://scripts/infinite_skydome.gd" id="skydome_script"]
+[ext_resource type="Texture2D" uid="uid://cl7qmigkexoht" path="res://textures/bark_post.tres" id="5_lrl65"]
+[ext_resource type="Script" uid="uid://ba6euywlc52f1" path="res://scripts/carcass_zone.gd" id="carcass_zone_script"]
+[ext_resource type="Script" uid="uid://dkornaugkk3ul" path="res://scripts/terrain_generator.gd" id="terrain_script"]
+[ext_resource type="PackedScene" uid="uid://6nntmos60iia" path="res://scenes/ParkOfSouls.tscn" id="park_of_souls"]
+
+[sub_resource type="Environment" id="Environment_sp0w3"]
+background_mode = 1
+background_color = Color(0, 0, 0, 1)
+fog_enabled = true
+fog_light_color = Color(0.01, 0.02, 0.01, 1)
+fog_density = 0.15
+
+[sub_resource type="SphereMesh" id="SphereMesh_skydome"]
+material = ExtResource("skydome_mat")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n34uq"]
+albedo_color = Color(0.23921569, 0.16862746, 0.101960786, 1)
+albedo_texture = ExtResource("5_lrl65")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbo48"]
+albedo_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+metallic = 1.0
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dyl1"]
+transparency = 1
+albedo_color = Color(1, 0.8, 0.2, 0.8)
+emission_enabled = true
+emission = Color(1, 0.6666667, 0.13333334, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxjwb"]
+albedo_color = Color(0, 1, 0, 1)
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_csg_tarp"]
+albedo_color = Color(0, 0.4, 0, 1)
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_carcass_drop"]
+size = Vector3(3.5, 2, 3.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_san"]
+albedo_color = Color(0.6, 0.6, 0.6, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_park_base"]
+albedo_color = Color(0.25, 0.2, 0.15, 1)
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall0"]
+size = Vector3(300, 20, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall2"]
+size = Vector3(1, 20, 300)
+
+[node name="Level2" type="Node3D"]
+script = ExtResource("1_l6gr7")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sp0w3")
+
+[node name="PhysicalSkydome" type="MeshInstance3D" parent="."]
+transform = Transform3D(900, 0, 0, 0, 900, 0, 0, 0, 900, 0, 0, 0)
+mesh = SubResource("SphereMesh_skydome")
+script = ExtResource("skydome_script")
+visible = false
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.7071067, -0.49999994, 0.49999994, 0, 0.7071067, 0.7071067, -0.7071067, 0.49999994, -0.49999994, 0, 0, 0)
+light_color = Color(0.3, 0.4, 0.6, 1)
+light_energy = 0.1
+
+[node name="TerrainGenerator" type="Node3D" parent="."]
+script = ExtResource("terrain_script")
+size = Vector2(300, 300)
+
+[node name="LevelTimer" type="Timer" parent="."]
+wait_time = 120.0
+one_shot = true
+autostart = true
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="EndPanel" type="Panel" parent="UILayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="EndText" type="Label" parent="UILayer/EndPanel"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -11.5
+offset_right = 52.0
+offset_bottom = 11.5
+text = "You survived."
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="Spawn0" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.619485, 20.0, 17.586664)
+
+[node name="Spawn1" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.25985, 20.0, -10.442295)
+
+[node name="Spawn2" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29072306, 20.0, -3.0282102)
+
+[node name="Spawn3" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2488976, 20.0, 18.740606)
+
+[node name="Spawn4" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.230746, 20.0, -4.168949)
+
+[node name="ForestGenerator" type="Node3D" parent="."]
+script = ExtResource("4_sp0w3")
+
+[node name="LanternPost" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.25, -2)
+material_override = SubResource("StandardMaterial3D_n34uq")
+radius = 0.08
+height = 2.5
+
+[node name="LanternBody" type="CSGBox3D" parent="LanternPost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+material_override = SubResource("StandardMaterial3D_kbo48")
+size = Vector3(0.35, 0.5, 0.35)
+
+[node name="LanternGlass" type="CSGBox3D" parent="LanternPost/LanternBody"]
+material_override = SubResource("StandardMaterial3D_4dyl1")
+size = Vector3(0.25, 0.35, 0.25)
+
+[node name="LanternLight" type="OmniLight3D" parent="LanternPost/LanternBody"]
+light_color = Color(1, 0.7, 0.2, 1)
+light_energy = 10.0
+shadow_enabled = true
+omni_range = 50.0
+
+[node name="OilLamp" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -4)
+light_color = Color(1, 0.6, 0.2, 1)
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 150.0
+omni_attenuation = 2.5
+
+[node name="PhysicalTarp" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -4)
+material_override = SubResource("StandardMaterial3D_jxjwb")
+use_collision = true
+size = Vector3(3.5, 0.1, 3.5)
+material = SubResource("StandardMaterial3D_csg_tarp")
+
+[node name="CarcassDropZone" type="Area3D" parent="PhysicalTarp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+script = ExtResource("carcass_zone_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicalTarp/CarcassDropZone"]
+shape = SubResource("BoxShape3D_carcass_drop")
+
+[node name="SoulParkPlateau" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 5, -40)
+size = Vector3(50, 10, 50)
+use_collision = true
+material = SubResource("StandardMaterial3D_park_base")
+
+[node name="ParkOfSouls" parent="." instance=ExtResource("park_of_souls")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 10, -40)
+
+[node name="SanatoriumBuilding" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, -180)
+size = Vector3(100, 60, 40)
+material = SubResource("StandardMaterial3D_san")
+
+[node name="Wing1" type="CSGBox3D" parent="SanatoriumBuilding"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, -10, 10)
+size = Vector3(40, 40, 30)
+material = SubResource("StandardMaterial3D_san")
+
+[node name="Wing2" type="CSGBox3D" parent="SanatoriumBuilding"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -10, 10)
+size = Vector3(40, 40, 30)
+material = SubResource("StandardMaterial3D_san")
+
+[node name="WindowLight1" type="OmniLight3D" parent="SanatoriumBuilding"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 22)
+light_color = Color(0.8, 1, 0.2, 1)
+light_energy = 8.0
+omni_range = 100.0
+
+[node name="WindowLight2" type="OmniLight3D" parent="SanatoriumBuilding"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 10, 22)
+light_color = Color(0.8, 1, 0.2, 1)
+light_energy = 8.0
+omni_range = 100.0
+
+[node name="FacadeSpotlight" type="SpotLight3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 50, -100)
+light_color = Color(0.5, 1.0, 0.5, 1)
+light_energy = 15.0
+spot_range = 300.0
+spot_angle = 50.0
+
+[node name="Boundaries" type="Node3D" parent="."]
+
+[node name="Wall0" type="StaticBody3D" parent="Boundaries"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries/Wall0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 150)
+shape = SubResource("BoxShape3D_wall0")
+
+[node name="Wall1" type="StaticBody3D" parent="Boundaries"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -150)
+shape = SubResource("BoxShape3D_wall0")
+
+[node name="Wall2" type="StaticBody3D" parent="Boundaries"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150, 10, 0)
+shape = SubResource("BoxShape3D_wall2")
+
+[node name="Wall3" type="StaticBody3D" parent="Boundaries"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 10, 0)
+shape = SubResource("BoxShape3D_wall2")

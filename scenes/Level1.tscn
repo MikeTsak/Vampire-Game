@@ -1,0 +1,315 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_odhdn"]
+[ext_resource type="Material" path="res://materials/tarp_material.tres" id="2_odhdn"]
+[ext_resource type="Script" path="res://scripts/forest_generator.gd" id="4_dw26h"]
+[ext_resource type="Texture2D" path="res://textures/moon.tres" id="5_76388"]
+[ext_resource type="Texture2D" path="res://textures/bark_post.tres" id="5_lrl65"]
+[ext_resource type="Script" path="res://scripts/terrain_generator.gd" id="terrain_script"]
+[ext_resource type="Script" path="res://scripts/infinite_skydome.gd" id="infinite_script"]
+[sub_resource type="Shader" id="Shader_dw26h"]
+code = "
+shader_type sky;
+void sky() {
+\tCOLOR = vec3(0.0);
+\tfloat n = fract(sin(dot(EYEDIR, vec3(12.9898, 78.233, 45.164))) * 43758.5453);
+\tif (n > 0.998) {
+\t\tCOLOR = vec3(1.0);
+\t}
+}
+"
+size = Vector3(200, 20, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lrl65"]
+shader = SubResource("Shader_dw26h")
+size = Vector3(200, 20, 1)
+[sub_resource type="Sky" id="Sky_svatc"]
+sky_material = SubResource("ShaderMaterial_lrl65")
+size = Vector3(1, 20, 200)
+[sub_resource type="Environment" id="Environment_ecr63"]
+background_mode = 2
+background_color = Color(0.01, 0.02, 0.05, 1)
+sky = SubResource("Sky_svatc")
+ambient_light_source = 2
+ambient_light_energy = 0.0
+fog_enabled = true
+fog_light_color = Color(0.039215688, 0.0627451, 0.1254902, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbo48"]
+[sub_resource type="Gradient" id="Gradient_dw26h"]
+offsets = PackedFloat32Array(0, 1, 0, 0.5, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0.2, 0.15, 0.1, 1, 0.15, 0.25, 0.1, 1, 0.1, 0.2, 0.08, 1)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_76388"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_svatc"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_76388")
+color_ramp = SubResource("Gradient_dw26h")
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ecr63"]
+albedo_texture = SubResource("NoiseTexture2D_svatc")
+uv1_scale = Vector3(50, 50, 50)
+[sub_resource type="BoxShape3D" id="BoxShape3D_lrl65"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_76388"]
+size = Vector3(200, 20, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_svatc"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ecr63"]
+size = Vector3(1, 20, 200)
+[sub_resource type="BoxShape3D" id="BoxShape3D_n34uq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n34uq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dyl1"]
+transparency = 1
+albedo_color = Color(1, 0.8, 0.2, 0.8)
+emission_enabled = true
+emission = Color(1, 0.6666667, 0.13333334, 1)
+emission_energy_multiplier = 3.0
+texture = ExtResource("5_76388")
+[sub_resource type="SphereMesh" id="SphereMesh_skydome"]
+material = ExtResource("skydome_mat")
+script = ExtResource("terrain_script")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="Level1" type="Node3D"]
+script = ExtResource("1_odhdn")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ecr63")
+[node name="TerrainGenerator" type="Node3D" parent="."]
+[node name="PhysicalSkydome" type="MeshInstance3D" parent="."]
+transform = Transform3D(900, 0, 0, 0, 900, 0, 0, 0, 900, 0, 0, 0)
+mesh = SubResource("SphereMesh_skydome")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+size = Vector3(4, 0.1, 4)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TarpArea"]
+[node name="TerrainGenerator" type="Node3D" parent="."]
+script = ExtResource("terrain_script")
+[node name="TarpMesh" type="CSGBox3D" parent="TarpArea"]
+[node name="TarpArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+size = Vector3(4, 0.1, 4)
+omni_attenuation = 2.5
+[node name="OilLamp" type="OmniLight3D" parent="TarpArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+light_color = Color(1, 0.6, 0.2, 1)
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 150.0
+omni_attenuation = 2.5
+layer = 10
+[node name="LevelTimer" type="Timer" parent="."]
+wait_time = 120.0
+one_shot = true
+autostart = true
+anchor_right = 1.0
+[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="EndText" type="Label" parent="UILayer/EndPanel"]
+[node name="EndPanel" type="Panel" parent="UILayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+anchor_bottom = 0.5
+[node name="EndText" type="Label" parent="UILayer/EndPanel"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -11.5
+offset_right = 52.0
+offset_bottom = 11.5
+text = "You survived."
+[node name="Spawn1" type="Marker3D" parent="Spawns"]
+[node name="Spawns" type="Node3D" parent="."]
+[node name="Spawn2" type="Marker3D" parent="Spawns"]
+[node name="Spawn0" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.598442, 0, -15.126976)
+[node name="Spawn3" type="Marker3D" parent="Spawns"]
+[node name="Spawn1" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.105793, 0, 4.45838)
+[node name="Spawn4" type="Marker3D" parent="Spawns"]
+[node name="Spawn2" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.085832, 0, -19.15373)
+[node name="ForestGenerator" type="Node3D" parent="."]
+[node name="Spawn3" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.752645, 0, 16.846224)
+[node name="Boundaries" type="Node3D" parent="."]
+[node name="Spawn4" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.275572, 0, -14.987939)
+[node name="Wall0" type="StaticBody3D" parent="Boundaries"]
+[node name="ForestGenerator" type="Node3D" parent="."]
+script = ExtResource("4_dw26h")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 100)
+[node name="Boundaries" type="Node3D" parent="."]
+[node name="Wall1" type="StaticBody3D" parent="Boundaries"]
+[node name="Wall0" type="StaticBody3D" parent="Boundaries"]
+[node name="@CollisionShape3D@15" type="CollisionShape3D" parent="Boundaries/Wall1"]
+[node name="_CollisionShape3D_14" type="CollisionShape3D" parent="Boundaries/Wall0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 100)
+shape = SubResource("BoxShape3D_76388")
+[node name="Wall2" type="StaticBody3D" parent="Boundaries"]
+[node name="Wall1" type="StaticBody3D" parent="Boundaries"]
+[node name="@CollisionShape3D@16" type="CollisionShape3D" parent="Boundaries/Wall2"]
+[node name="@CollisionShape3D@15" type="CollisionShape3D" parent="Boundaries/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -100)
+shape = SubResource("BoxShape3D_svatc")
+[node name="Wall3" type="StaticBody3D" parent="Boundaries"]
+[node name="Wall2" type="StaticBody3D" parent="Boundaries"]
+[node name="@CollisionShape3D@17" type="CollisionShape3D" parent="Boundaries/Wall3"]
+[node name="@CollisionShape3D@16" type="CollisionShape3D" parent="Boundaries/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 10, 0)
+shape = SubResource("BoxShape3D_ecr63")
+[node name="LanternPost" type="CSGCylinder3D" parent="."]
+[node name="Wall3" type="StaticBody3D" parent="Boundaries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.25, -2)
+[node name="@CollisionShape3D@17" type="CollisionShape3D" parent="Boundaries/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 10, 0)
+shape = SubResource("BoxShape3D_n34uq")
+[node name="LanternBody" type="CSGBox3D" parent="LanternPost"]
+[node name="LanternPost" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.25, -2)
+material_override = SubResource("StandardMaterial3D_n34uq")
+radius = 0.08
+height = 2.5
+[node name="LanternGlass" type="CSGBox3D" parent="LanternPost/LanternBody"]
+[node name="LanternBody" type="CSGBox3D" parent="LanternPost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+material_override = SubResource("StandardMaterial3D_kbo48")
+size = Vector3(0.35, 0.5, 0.35)
+light_color = Color(1, 0.7, 0.2, 1)
+[node name="LanternGlass" type="CSGBox3D" parent="LanternPost/LanternBody"]
+material_override = SubResource("StandardMaterial3D_4dyl1")
+[node name="LanternBody" type="CSGBox3D" parent="LanternPost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+material_override = SubResource("StandardMaterial3D_kbo48")
+size = Vector3(0.35, 0.5, 0.35)
+light_energy = 10.0
+[node name="LanternGlass" type="CSGBox3D" parent="LanternPost/LanternBody"]
+material_override = SubResource("StandardMaterial3D_4dyl1")
+size = Vector3(0.25, 0.35, 0.25)
+[node name="MoonSprite" type="Sprite3D" parent="."]
+[node name="LanternLight" type="OmniLight3D" parent="LanternPost/LanternBody"]
+light_color = Color(1, 0.7, 0.2, 1)
+light_energy = 10.0
+shadow_enabled = true
+omni_range = 50.0
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 200, -300)
+[node name="MoonSprite" type="Sprite3D" parent="."]
+transform = Transform3D(80, 0, 0, 0, 80, 0, 0, 0, 80, 0, 200, -300)
+pixel_size = 0.5
+billboard = 1
+shaded = false
+texture = ExtResource("5_76388")
+shape = SubResource("BoxShape3D_76388")
+layer = 100
+[node name="Wall1" type="StaticBody3D" parent="Boundaries"]
+[node name="EndPanel" type="ColorRect" parent="UILayer"]
+[node name="@CollisionShape3D@15" type="CollisionShape3D" parent="Boundaries/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -100)
+shape = SubResource("BoxShape3D_svatc")
+anchor_bottom = 1.0
+[node name="Wall2" type="StaticBody3D" parent="Boundaries"]
+visible = false
+[node name="@CollisionShape3D@16" type="CollisionShape3D" parent="Boundaries/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 10, 0)
+shape = SubResource("BoxShape3D_ecr63")
+anchor_right = 1.0
+[node name="Wall3" type="StaticBody3D" parent="Boundaries"]
+grow_horizontal = 2
+[node name="@CollisionShape3D@17" type="CollisionShape3D" parent="Boundaries/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 10, 0)
+shape = SubResource("BoxShape3D_n34uq")
+theme_override_constants/outline_size = 10
+[node name="LanternPost" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.25, -2)
+material_override = SubResource("StandardMaterial3D_n34uq")
+radius = 0.08
+height = 2.5
+autowrap_mode = 3
+[node name="LanternBody" type="CSGBox3D" parent="LanternPost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+material_override = SubResource("StandardMaterial3D_kbo48")
+size = Vector3(0.35, 0.5, 0.35)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.598442, 0, -15.126976)
+[node name="LanternGlass" type="CSGBox3D" parent="LanternPost/LanternBody"]
+material_override = SubResource("StandardMaterial3D_4dyl1")
+size = Vector3(0.25, 0.35, 0.25)
+theme_override_constants/outline_size = 10
+[node name="LanternLight" type="OmniLight3D" parent="LanternPost/LanternBody"]
+light_color = Color(1, 0.7, 0.2, 1)
+light_energy = 10.0
+shadow_enabled = true
+omni_range = 50.0
+autowrap_mode = 3
+[node name="OilLamp" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -4)
+light_color = Color(1, 0.6, 0.2, 1)
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 150.0
+omni_attenuation = 2.5
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.105793, 0, 4.45838)
+[node name="PhysicalTarp" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -4)
+material_override = SubResource("StandardMaterial3D_jxjwb")
+use_collision = true
+size = Vector3(3.5, 0.1, 3.5)
+material = SubResource("StandardMaterial3D_csg_tarp")
+[node name="Wall1" type="StaticBody3D" parent="Boundaries"]
+[node name="CarcassDropZone" type="Area3D" parent="PhysicalTarp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+script = ExtResource("carcass_zone_script")
+shape = SubResource("BoxShape3D_svatc")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicalTarp/CarcassDropZone"]
+shape = SubResource("BoxShape3D_carcass_drop")
+[node name="Boundaries" type="Node3D" parent="."]
+[node name="@CollisionShape3D@16" type="CollisionShape3D" parent="Boundaries/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 10, 0)
+shape = SubResource("BoxShape3D_ecr63")
+[node name="_CollisionShape3D_14" type="CollisionShape3D" parent="Boundaries/Wall0"]
+[node name="Wall3" type="StaticBody3D" parent="Boundaries"]
+shape = SubResource("BoxShape3D_76388")
+[node name="@CollisionShape3D@17" type="CollisionShape3D" parent="Boundaries/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 10, 0)
+shape = SubResource("BoxShape3D_n34uq")
+[node name="@CollisionShape3D@15" type="CollisionShape3D" parent="Boundaries/Wall1"]
+[node name="LanternPost" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.25, -2)
+material_override = SubResource("StandardMaterial3D_n34uq")
+radius = 0.08
+height = 2.5
+[node name="@CollisionShape3D@16" type="CollisionShape3D" parent="Boundaries/Wall2"]
+[node name="LanternBody" type="CSGBox3D" parent="LanternPost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+material_override = SubResource("StandardMaterial3D_kbo48")
+size = Vector3(0.35, 0.5, 0.35)
+light_color = Color(1, 0.7, 0.2, 1)
+[node name="LanternGlass" type="CSGBox3D" parent="LanternPost/LanternBody"]
+material_override = SubResource("StandardMaterial3D_4dyl1")
+size = Vector3(0.25, 0.35, 0.25)
+size = Vector3(0.35, 0.5, 0.35)
+[node name="LanternLight" type="OmniLight3D" parent="LanternPost/LanternBody"]
+light_color = Color(1, 0.7, 0.2, 1)
+light_energy = 10.0
+shadow_enabled = true
+omni_range = 50.0
+[node name="LanternLight" type="OmniLight3D" parent="LanternPost/LanternBody"]
+[node name="OilLamp" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -4)
+light_color = Color(1, 0.6, 0.2, 1)
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 150.0
+omni_attenuation = 2.5
+size = Vector3(0.25, 0.35, 0.25)
+[node name="PhysicalTarp" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -4)
+material_override = SubResource("StandardMaterial3D_jxjwb")
+use_collision = true
+size = Vector3(3.5, 0.1, 3.5)
+material = SubResource("StandardMaterial3D_csg_tarp")
+
+[node name="CarcassDropZone" type="Area3D" parent="PhysicalTarp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+script = ExtResource("carcass_zone_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicalTarp/CarcassDropZone"]
+shape = SubResource("BoxShape3D_carcass_drop")

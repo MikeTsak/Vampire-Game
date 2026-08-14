@@ -1,0 +1,41 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://materials/floor_material.tres" id="1_glv2v"]
+[ext_resource type="Texture2D" path="res://textures/moon_fixed.tres" id="3_r0du0"]
+[ext_resource type="Material" path="res://materials/skydome_material.tres" id="skydome_mat"]
+[ext_resource type="Script" path="res://scripts/infinite_skydome.gd" id="skydome_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uu6xs"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_r0du0"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="Environment" id="Environment_fos0i"]
+background_mode = 1
+background_color = Color(0, 0, 0, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0, 0, 0, 1)
+ambient_light_energy = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_skydome"]
+material = ExtResource("skydome_mat")
+
+[node name="Main" type="Node3D" unique_id=2077082250]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=74091969]
+transform = Transform3D(0.6967067, -0.51459974, 0.4997868, 0, 0.6967067, 0.7173561, -0.7173561, -0.4997868, 0.48540023, 0, 0, 0)
+light_color = Color(0.8, 0.9, 1, 1)
+light_energy = 0.02
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1644586390]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=560279353]
+shape = SubResource("BoxShape3D_uu6xs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1609604083]
+material_override = ExtResource("1_glv2v")
+mesh = SubResource("BoxMesh_r0du0")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1841656314]
+environment = SubResource("Environment_fos0i")

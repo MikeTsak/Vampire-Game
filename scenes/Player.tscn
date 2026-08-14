@@ -1,0 +1,394 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_p0vlq"]
+[ext_resource type="PackedScene" path="res://scenes/Rifle.tscn" id="2_3li8b"]
+[ext_resource type="Shader" path="res://shaders/vhs.gdshader" id="2_v6fml"]
+[ext_resource type="Script" path="res://scripts/flashlight_flicker.gd" id="flicker_script"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5q5h1"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5q5h1"]
+height = 1.8
+radius = 0.4
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qu4a1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qu4a1"]
+albedo_color = Color(0.36078432, 0.16470589, 0.101960786, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qu4a1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qu4a1"]
+shader = ExtResource("2_v6fml")
+shader_parameter/noise_amount = 0.05
+shader_parameter/scanline_intensity = 0.5
+shader_parameter/color_bleed = 0.005
+[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 3
+script = ExtResource("1_p0vlq")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CylinderShape3D_5q5h1")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wood"]
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+color_ramp = SubResource("Gradient_wood")
+[node name="Camera3D" type="Camera3D" parent="Head"]
+far = 2000.0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wood"]
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -100)
+collision_mask = 15
+light_energy = 2.0
+[node name="Flashlight" type="SpotLight3D" parent="Head/Camera3D"]
+light_color = Color(1, 0.7, 0.3, 1)
+light_energy = 2.0
+shadow_enabled = true
+spot_range = 30.0
+spot_attenuation = 2.5
+spot_angle = 15.0
+script = ExtResource("flicker_script")
+bottom_radius = 0.02
+[node name="MuzzleFlash" type="OmniLight3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.2, -1.2)
+visible = false
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 5.0
+omni_range = 10.0
+size = Vector3(0.04, 0.15, 0.05)
+[node name="CarcassMesh" type="CSGBox3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, -0.2, -0.3)
+visible = false
+material_override = SubResource("StandardMaterial3D_qu4a1")
+size = Vector3(0.4, 0.35, 0.7)
+size = Vector3(0.005, 0.03, 0.01)
+[node name="Rifle" type="Node3D" parent="Head/Camera3D" instance=ExtResource("2_3li8b")]
+[sub_resource type="CylinderMesh" id="CylinderMesh_bolt"]
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 10
+height = 0.08
+[node name="TimerLabel" type="Label" parent="HUD"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 10.0
+offset_bottom = 10.0
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.8, 0.1, 0.1, 1)
+text = "2:00"
+rings = 4
+[node name="ScoreLabel" type="Label" parent="HUD"]
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 10.0
+offset_bottom = 40.0
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.8, 0.1, 0.1, 1)
+text = "0 ₯"
+radial_segments = 6
+[node name="InteractionLabel" type="Label" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.8, 0.1, 0.1, 1)
+"values": [Vector3(0, 0, 0), Vector3(0.261799, 0, 0), Vector3(0.261799, 0, 0), Vector3(0, 0, 0)]
+[node name="Crosshair" type="ColorRect" parent="HUD"]
+visible = false
+custom_minimum_size = Vector2(4, 4)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 0.7)
+"transitions": PackedFloat32Array(1, 1, 1),
+[node name="ShootAudio" type="AudioStreamPlayer" parent="."]
+"values": [Vector3(0.3, -0.2, -0.6), Vector3(0.3, -0.22, -0.6), Vector3(0.3, -0.2, -0.6)]
+[node name="VHSLayer" type="CanvasLayer" parent="."]
+layer = 10
+[sub_resource type="Animation" id="Animation_shoot"]
+[node name="VHSRect" type="ColorRect" parent="VHSLayer"]
+material = SubResource("ShaderMaterial_qu4a1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.3, -0.2, -0.6), Vector3(0.3, -0.2, -0.3), Vector3(0.3, -0.2, -0.3), Vector3(0.3, -0.2, -0.6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.261799, 0, 0), Vector3(0.261799, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MuzzlePoint/OmniLight3D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+[node name="Flashlight" type="SpotLight3D" parent="Head/Camera3D"]
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.3, -0.2, -0.6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MuzzlePoint/OmniLight3D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera3D/WeaponRoot"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_weapon"]
+_data = {
+"RESET": SubResource("Animation_reset"),
+"idle": SubResource("Animation_idle"),
+"shoot": SubResource("Animation_shoot")
+}
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 3
+script = ExtResource("1_p0vlq")
+offset_right = 10.0
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CylinderShape3D_5q5h1")
+text = "2:00"
+[node name="ShadowBody" type="Node3D" parent="."]
+[node name="ScoreLabel" type="Label" parent="HUD"]
+[node name="Head" type="MeshInstance3D" parent="ShadowBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0.05)
+cast_shadow = 3
+mesh = SubResource("SphereMesh_head")
+theme_override_font_sizes/font_size = 24
+[node name="Torso" type="MeshInstance3D" parent="ShadowBody"]
+transform = Transform3D(1, 0, 0, 0, 0.984807, 0.173648, 0, -0.173648, 0.984807, 0, 1.05, 0.1)
+cast_shadow = 3
+mesh = SubResource("BoxMesh_torso")
+anchors_preset = 8
+[node name="Neck" type="MeshInstance3D" parent="ShadowBody"]
+transform = Transform3D(1, 0, 0, 0, 0.984807, 0.173648, 0, -0.173648, 0.984807, 0, 1.35, 0.08)
+cast_shadow = 3
+mesh = SubResource("CylinderMesh_neck")
+offset_left = -0.5
+[node name="LeftArm" type="MeshInstance3D" parent="ShadowBody"]
+transform = Transform3D(0.965926, 0.183013, -0.183013, -0.258819, 0.683013, -0.683013, 0, 0.707107, 0.707107, -0.25, 1.0, -0.4)
+cast_shadow = 3
+mesh = SubResource("CylinderMesh_arm")
+theme_override_colors/font_color = Color(0.8, 0.1, 0.1, 1)
+[node name="RightArm" type="MeshInstance3D" parent="ShadowBody"]
+transform = Transform3D(0.965926, -0.183013, 0.183013, 0.258819, 0.683013, -0.683013, 0, 0.707107, 0.707107, 0.25, 1.0, -0.3)
+cast_shadow = 3
+mesh = SubResource("CylinderMesh_arm")
+anchors_preset = 8
+[node name="LeftLeg" type="MeshInstance3D" parent="ShadowBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 0.45, 0.1)
+cast_shadow = 3
+mesh = SubResource("CylinderMesh_leg")
+grow_horizontal = 2
+[node name="RightLeg" type="MeshInstance3D" parent="ShadowBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 0.45, 0.1)
+cast_shadow = 3
+mesh = SubResource("CylinderMesh_leg")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+far = 2000.0
+anchors_preset = 15
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -100)
+collision_mask = 15
+
+[node name="Flashlight" type="SpotLight3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, -1.5)
+light_color = Color(1, 0.85, 0.6, 1)
+light_energy = 4.0
+shadow_enabled = true
+spot_range = 50.0
+spot_attenuation = 4.0
+spot_angle = 55.0
+script = ExtResource("flicker_script")
+[node name="MuzzleFlash" type="OmniLight3D" parent="Head/Camera3D"]
+[node name="WeaponLight" type="OmniLight3D" parent="Head/Camera3D"]
+light_color = Color(1, 0.85, 0.6, 1)
+light_energy = 0.15
+omni_range = 2.0
+omni_range = 10.0
+[node name="MuzzleFlash" type="OmniLight3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.2, -1.2)
+visible = false
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 5.0
+omni_range = 10.0
+
+[node name="CarcassMesh" type="CSGBox3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, -0.2, -0.3)
+visible = false
+material_override = SubResource("StandardMaterial3D_qu4a1")
+size = Vector3(0.4, 0.35, 0.7)
+mesh = SubResource("CylinderMesh_barrel")
+[node name="WeaponRoot" type="Node3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.2, -0.6)
+[node name="StockAndBody" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+[node name="Barrel" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.05, -0.4)
+mesh = SubResource("CylinderMesh_barrel")
+surface_material_override/0 = SubResource("StandardMaterial3D_metal")
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, -0.1, 0.2)
+[node name="StockAndBody" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+mesh = SubResource("BoxMesh_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+[node name="TriggerGuard" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+[node name="Grip" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, -0.1, 0.2)
+mesh = SubResource("BoxMesh_grip")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+[node name="Trigger" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+[node name="TriggerGuard" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06, 0.05)
+mesh = SubResource("BoxMesh_guard")
+surface_material_override/0 = SubResource("StandardMaterial3D_metal")
+[node name="Bolt" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+[node name="Trigger" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04, 0.05)
+mesh = SubResource("BoxMesh_trigger")
+surface_material_override/0 = SubResource("StandardMaterial3D_metal")
+[node name="SightFront" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+[node name="Bolt" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.04, 0.02, 0.1)
+mesh = SubResource("CylinderMesh_bolt")
+surface_material_override/0 = SubResource("StandardMaterial3D_metal")
+[node name="SightBack" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+[node name="SightFront" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, -0.78)
+mesh = SubResource("BoxMesh_sight")
+surface_material_override/0 = SubResource("StandardMaterial3D_metal")
+[node name="MuzzlePoint" type="Node3D" parent="Head/Camera3D/WeaponRoot"]
+[node name="SightBack" type="MeshInstance3D" parent="Head/Camera3D/WeaponRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, -0.1)
+mesh = SubResource("BoxMesh_sight")
+surface_material_override/0 = SubResource("StandardMaterial3D_metal")
+light_color = Color(1, 0.8, 0.2, 1)
+[node name="MuzzlePoint" type="Node3D" parent="Head/Camera3D/WeaponRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.85)
+shadow_enabled = true
+[node name="OmniLight3D" type="OmniLight3D" parent="Head/Camera3D/WeaponRoot/MuzzlePoint"]
+visible = false
+light_color = Color(1, 0.8, 0.2, 1)
+light_energy = 4.0
+omni_range = 15.0
+shadow_enabled = true
+[node name="HUD" type="CanvasLayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera3D/WeaponRoot"]
+libraries = {
+"": SubResource("AnimationLibrary_weapon")
+}
+autoplay = "idle"
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 10
+theme_override_font_sizes/font_size = 24
+[node name="TimerLabel" type="Label" parent="HUD"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 10.0
+offset_bottom = 10.0
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.8, 0.1, 0.1, 1)
+text = "2:00"
+theme_override_font_sizes/font_size = 24
+[node name="ScoreLabel" type="Label" parent="HUD"]
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 10.0
+offset_bottom = 40.0
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.8, 0.1, 0.1, 1)
+text = "0 ₯"
+anchor_bottom = 0.5
+[node name="InteractionLabel" type="Label" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.8, 0.1, 0.1, 1)
+anchor_top = 0.5
+[node name="Crosshair" type="ColorRect" parent="HUD"]
+visible = false
+custom_minimum_size = Vector2(4, 4)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 0.7)
+[node name="VHSRect" type="ColorRect" parent="VHSLayer"]
+[node name="ShootAudio" type="AudioStreamPlayer" parent="."]
+anchors_preset = 15
+[node name="VHSLayer" type="CanvasLayer" parent="."]
+layer = 10
+mouse_filter = 2
+[node name="VHSRect" type="ColorRect" parent="VHSLayer"]
+material = SubResource("ShaderMaterial_qu4a1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2

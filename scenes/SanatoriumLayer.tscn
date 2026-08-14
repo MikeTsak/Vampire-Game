@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/sanatorium_camera.gd" id="1_cam"]
+
+[sub_resource type="Environment" id="Environment_san"]
+background_mode = 1
+background_color = Color(0.05, 0.05, 0.1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.1, 0.1, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_san"]
+albedo_color = Color(0.6, 0.6, 0.6, 1)
+roughness = 0.8
+
+[node name="SanatoriumLayer" type="CanvasLayer"]
+layer = -1
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="SanatoriumEnv" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_san")
+
+[node name="SanatoriumCamera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+script = ExtResource("1_cam")
+
+[node name="SanatoriumLight" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 0, 0)
+light_color = Color(0.8, 0.9, 1, 1)
+light_energy = 1.5
+
+[node name="SanatoriumBuilding" type="CSGBox3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, -300)
+size = Vector3(100, 60, 40)
+material = SubResource("StandardMaterial3D_san")
+
+[node name="Wing1" type="CSGBox3D" parent="SubViewportContainer/SubViewport/SanatoriumBuilding"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, -10, 10)
+size = Vector3(40, 40, 30)
+material = SubResource("StandardMaterial3D_san")
+
+[node name="Wing2" type="CSGBox3D" parent="SubViewportContainer/SubViewport/SanatoriumBuilding"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -10, 10)
+size = Vector3(40, 40, 30)
+material = SubResource("StandardMaterial3D_san")
+
+[node name="WindowLight1" type="OmniLight3D" parent="SubViewportContainer/SubViewport/SanatoriumBuilding"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 22)
+light_color = Color(0.8, 1, 0.2, 1)
+light_energy = 8.0
+omni_range = 100.0
+
+[node name="WindowLight2" type="OmniLight3D" parent="SubViewportContainer/SubViewport/SanatoriumBuilding"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 10, 22)
+light_color = Color(0.8, 1, 0.2, 1)
+light_energy = 8.0
+omni_range = 100.0
+
+[node name="FacadeSpotlight" type="SpotLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, -30, -150)
+light_color = Color(0.5, 1.0, 0.5, 1)
+light_energy = 15.0
+spot_range = 300.0
+spot_angle = 50.0

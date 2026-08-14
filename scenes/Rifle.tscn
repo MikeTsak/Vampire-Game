@@ -1,0 +1,176 @@
+[gd_scene format=3]
+
+[sub_resource type="Gradient" id="Gradient_c2gfq"]
+colors = PackedColorArray(0.25, 0.12, 0.05, 1, 0.4, 0.2, 0.1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_f5mcr"]
+noise_type = 3
+frequency = 0.1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_akv4o"]
+noise = SubResource("FastNoiseLite_f5mcr")
+color_ramp = SubResource("Gradient_c2gfq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iq642"]
+albedo_texture = SubResource("NoiseTexture2D_akv4o")
+uv1_scale = Vector3(1, 10, 1)
+
+[sub_resource type="Gradient" id="Gradient_wfsgh"]
+colors = PackedColorArray(0.1, 0.1, 0.1, 1, 0.3, 0.3, 0.3, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c1yqa"]
+noise_type = 0
+frequency = 0.8
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_u3c1u"]
+noise = SubResource("FastNoiseLite_c1yqa")
+color_ramp = SubResource("Gradient_wfsgh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jgmv"]
+albedo_texture = SubResource("NoiseTexture2D_u3c1u")
+metallic = 1.0
+roughness = 0.2
+
+[sub_resource type="Gradient" id="Gradient_pfq4o"]
+colors = PackedColorArray(1, 0.8, 0.2, 1, 1, 0.5, 0.1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rob66"]
+noise_type = 0
+frequency = 0.5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_q23dc"]
+noise = SubResource("FastNoiseLite_rob66")
+color_ramp = SubResource("Gradient_pfq4o")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v3mb6"]
+albedo_texture = SubResource("NoiseTexture2D_q23dc")
+emission_enabled = true
+emission = Color(1, 0.8, 0.2, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_7ngul"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="Animation" id="Animation_5pmen"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.05, 0.1), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.2, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bolt:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.7853982), Vector3(0, 0, 0.7853982), Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bolt:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.04, 0.12, -0.05), Vector3(0.04, 0.12, -0.05), Vector3(0.04, 0.12, 0.05), Vector3(0.04, 0.12, -0.05), Vector3(0.04, 0.12, -0.05)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MuzzleFlashLight:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MuzzleFlashMesh:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tlach"]
+_data = {
+&"shoot": SubResource("Animation_5pmen")
+}
+
+[node name="Rifle" type="Node3D"]
+
+[node name="Stock" type="CSGPolygon3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.05, 0, 0.3)
+material_override = SubResource("StandardMaterial3D_iq642")
+polygon = PackedVector2Array(0, 0, 0.8, 0, 0.8, 0.15, 0.3, 0.15, 0, 0.05)
+depth = 0.1
+
+[node name="Barrel" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.12, -0.5)
+material_override = SubResource("StandardMaterial3D_1jgmv")
+radius = 0.02
+height = 1.2
+
+[node name="Sight" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, -1.05)
+material_override = SubResource("StandardMaterial3D_1jgmv")
+size = Vector3(0.02, 0.05, 0.05)
+
+[node name="Bolt" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04, 0.12, -0.05)
+
+[node name="Handle" type="CSGCylinder3D" parent="Bolt"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.05, 0, 0)
+material_override = SubResource("StandardMaterial3D_1jgmv")
+radius = 0.015
+height = 0.1
+
+[node name="MuzzleFlashLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, -1.15)
+visible = false
+light_color = Color(1, 0.8, 0.2, 1)
+light_energy = 5.0
+omni_range = 10.0
+
+[node name="MuzzleFlashMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, -1.15)
+visible = false
+material_override = SubResource("StandardMaterial3D_v3mb6")
+mesh = SubResource("SphereMesh_7ngul")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries/ = SubResource("AnimationLibrary_tlach")
