@@ -108,6 +108,10 @@ func die():
 	shape.shape = box
 	carcass.add_child(shape)
 	
+	carcass.set_script(load("res://scripts/carcass.gd"))
+	carcass.set("animal_name", s_name)
+	carcass.set("score_value", score_value)
+	
 	var mesh = $MeshBase
 	remove_child(mesh)
 	carcass.add_child(mesh)
@@ -119,7 +123,7 @@ func die():
 	carcass.collision_layer = 1
 	carcass.collision_mask = 1
 	
-	carcass.global_transform = global_transform
-	get_parent().add_child(carcass)
+	get_tree().current_scene.add_child(carcass)
+	carcass.global_position = self.global_position + Vector3(0, 0.5, 0)
 	
 	queue_free()

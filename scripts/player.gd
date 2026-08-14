@@ -72,15 +72,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		shoot()
 
-	if event.is_action_pressed("interact"):
-		if not is_carrying_carcass and interact_ray and interact_ray.is_colliding():
-			var target = interact_ray.get_collider()
-			if target and target.is_in_group("carcass"):
-				var scene_name = target.get_meta("animal_name") if target.has_meta("animal_name") else "Deer2"
-				var score = target.get_meta("score_value") if target.has_meta("score_value") else 5000
-				pickup_animal(scene_name, score)
-				target.queue_free()
-
+	pass
 
 var can_shoot: bool = true
 
@@ -148,9 +140,11 @@ func shoot():
 		weapon_root.get_node("AnimationPlayer").play("shoot")
 		
 	if raycast and raycast.is_colliding():
-		var target = raycast.get_collider()
-		if target and target.has_method("die") and not target.get("dead"):
-			target.die()
+		for i in range(raycast.get_collision_count()):
+			var target = raycast.get_collider(i)
+			if target and target.has_method("die") and not target.get("dead"):
+				target.die()
+				break
 	
 	await get_tree().create_timer(1.0).timeout
 	can_shoot = true
