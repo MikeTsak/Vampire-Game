@@ -99,9 +99,10 @@ func spawn_dropped_carcass(animal_name: String):
 		
 		# Spawn above the tarp so it falls and triggers the drop zone Area3D
 		# drop_zone is used for coordinates
-		var offset_x = randf_range(-1.8, 1.8)
-		var offset_z = randf_range(-1.8, 1.8)
-		carcass_rb.global_position = drop_zone.global_position + Vector3(offset_x, 1.5 + (carcasses_on_tarp * 0.5), offset_z)
+		var random_x = randf_range(-2.5, 2.5)
+		var random_z = randf_range(-2.5, 2.5)
+		var random_offset = Vector3(random_x, 1.5, random_z)
+		carcass_rb.global_position = drop_zone.global_position + random_offset
 		carcass_rb.rotation_degrees = Vector3(0, randf_range(0, 360), 90)
 		
 		# Free the original instance as it's a CharacterBody3D that can't be used
