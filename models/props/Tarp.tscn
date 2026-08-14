@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://dyggwvlcccl7g"]
 
+[ext_resource type="Script" uid="uid://ba6euywlc52f1" path="res://scripts/carcass_zone.gd" id="1_cz"]
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_tarp"]
 noise_type = 2
 frequency = 0.5
@@ -21,6 +23,9 @@ size = Vector3(3.5, 0.1, 3.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tarp"]
 size = Vector3(3.5, 0.1, 3.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dropzone"]
+size = Vector3(3.5, 2.0, 3.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_metal"]
 albedo_color = Color(0.7, 0.7, 0.75, 1)
@@ -59,3 +64,10 @@ transform = Transform3D(1, 0, 0, 0, -0.99480486, 0.10180042, 0, -0.10180042, -0.
 inner_radius = 0.03
 outer_radius = 0.08
 material = SubResource("StandardMaterial3D_metal")
+
+[node name="CarcassDropZone" type="Area3D" parent="." unique_id=1813902584]
+script = ExtResource("1_cz")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CarcassDropZone" unique_id=360899944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_dropzone")

@@ -13,7 +13,7 @@ const JUMP_VELOCITY = 4.5
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-var is_carrying_animal: bool = false
+var is_carrying_carcass: bool = false
 var has_rifle: bool = true
 var carried_animal_name: String = ""
 var carried_instance: Node3D = null
@@ -73,27 +73,19 @@ func _input(event):
 		shoot()
 
 	if event.is_action_pressed("interact"):
-		if is_carrying_animal and is_on_tarp:
-			# Tell the level we are dropping it so it spawns the physical body
-			var level = get_node_or_null("/root/Level1")
-			if level and level.has_method("spawn_dropped_carcass"):
-				var animal_name = drop_animal()
-				if animal_name != "":
-					level.spawn_dropped_carcass(animal_name)
-		elif not is_carrying_animal and interact_ray and interact_ray.is_colliding():
+		if not is_carrying_carcass and interact_ray and interact_ray.is_colliding():
 			var target = interact_ray.get_collider()
-			if target and (target.is_in_group("carcass") or target.is_in_group("animals")) and target.get("dead"):
-				var scene_name = target.scene_file_path.get_file().get_basename()
-				if scene_name == "":
-					scene_name = "Deer2" if "Deer" in target.name else "Sheep2"
-				pickup_animal(scene_name, target.get("score_value"))
+			if target and target.is_in_group("carcass"):
+				var scene_name = target.get_meta("animal_name") if target.has_meta("animal_name") else "Deer2"
+				var score = target.get_meta("score_value") if target.has_meta("score_value") else 5000
+				pickup_animal(scene_name, score)
 				target.queue_free()
 
 
 var can_shoot: bool = true
 
-@onready var crosshair = $HUD/Crosshair
-@onready var shoulder_carcass = $Head/Camera3D/CarcassMesh
+@onready var crosshair = get_node_or_null("HUD/Crosshair")
+@onready var shoulder_carcass = get_node_or_null("Head/Camera3D/CarcassMesh")
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -164,7 +156,7 @@ func shoot():
 	can_shoot = true
 
 func pickup_animal(animal_name: String = "Deer", score: int = 5000):
-	is_carrying_animal = true
+	is_carrying_carcass = true
 	carried_animal_name = animal_name
 	carried_score_value = score
 	if shoulder_carcass:
@@ -184,11 +176,11 @@ func pickup_animal(animal_name: String = "Deer", score: int = 5000):
 		carried_instance.rotation_degrees = Vector3(180, 90, 90)
 		carried_instance.scale = Vector3(0.5, 0.5, 0.5)
 
-	if interaction_label: interaction_label.text = "Carrying Carcass. Return to Tarp."
+	if interaction_label: interaction_label.text = "Carrying carcass. Drop it in the tarp."
 	
 func drop_animal() -> String:
-	if is_carrying_animal:
-		is_carrying_animal = false
+	if is_carrying_carcass:
+		is_carrying_carcass = false
 		if shoulder_carcass:
 			shoulder_carcass.visible = false
 		if carried_instance:
@@ -199,14 +191,10 @@ func drop_animal() -> String:
 		if gm:
 			gm.add_score(carried_score_value)
 			if score_label: score_label.text = "%d ₯" % gm.drachmas
-		if interaction_label: interaction_label.text = "Dropped Carcass +%d ₯" % carried_score_value
+		if interaction_label: interaction_label.text = ""
 		
 		var dropped_name = carried_animal_name
 		carried_animal_name = ""
-		
-		# Clear text after delay without blocking return
-		var timer = get_tree().create_timer(2.0)
-		timer.timeout.connect(func(): if interaction_label: interaction_label.text = "")
 		
 		return dropped_name
 	return ""

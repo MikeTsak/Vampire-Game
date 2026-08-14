@@ -1,11 +1,11 @@
 extends Node3D
 # Force recompile
-@onready var tarp_area = $CarcassDropZone
-@onready var drop_zone = $CarcassDropZone
-@onready var timer = $LevelTimer
-@onready var spawns = $Spawns
-@onready var end_panel = $UILayer/EndPanel
-@onready var end_text = $UILayer/EndPanel/EndText
+@onready var tarp_area = get_node_or_null("Tarp/CarcassDropZone")
+@onready var drop_zone = get_node_or_null("Tarp/CarcassDropZone")
+@onready var timer = get_node_or_null("LevelTimer")
+@onready var spawns = get_node_or_null("Spawns")
+@onready var end_panel = get_node_or_null("UILayer/EndPanel")
+@onready var end_text = get_node_or_null("UILayer/EndPanel/EndText")
 
 var player: CharacterBody3D
 var carcasses_on_tarp: int = 0
@@ -62,7 +62,7 @@ func _process(_delta):
 func _on_drop_zone_body_entered(body):
 	if body.name == "Player":
 		body.is_on_tarp = true
-		if body.is_carrying_animal:
+		if body.get("is_carrying_carcass") == true:
 			var animal_name = body.drop_animal()
 			if animal_name != "":
 				spawn_dropped_carcass(animal_name)

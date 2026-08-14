@@ -91,28 +91,35 @@ func _physics_process(delta):
 						knee.rotation.x = lerp(knee.rotation.x, 0.0, 5.0 * delta)
 
 func die():
+	if dead: return
 	dead = true
-	move_direction = Vector3.ZERO
-	rotation.z = PI / 2
-	rotation.x = PI
 	
-	var pickup = get_node_or_null("PickupArea")
-	if pickup:
-		pickup.set_deferred("monitoring", true)
-		pickup.set_deferred("monitorable", true)
-		if not pickup.body_entered.is_connected(_on_pickup_area_body_entered):
-			pickup.body_entered.connect(_on_pickup_area_body_entered)
-		
-		# Give physics engine a frame to update, then check overlapping bodies
-		await get_tree().process_frame
-		for body in pickup.get_overlapping_bodies():
-			_on_pickup_area_body_entered(body)
-
-func _on_pickup_area_body_entered(body):
-	if dead and body.has_method("pickup_animal"):
-		if not body.is_carrying_animal:
-			var scene_name = scene_file_path.get_file().get_basename()
-			if scene_name == "":
-				scene_name = "Deer2" if "Deer" in name else "Sheep2"
-			body.pickup_animal(scene_name, score_value)
-			queue_free()
+	var carcass = RigidBody3D.new()
+	carcass.add_to_group("carcass")
+	carcass.set_meta("score_value", score_value)
+	var s_name = scene_file_path.get_file().get_basename()
+	if s_name == "":
+		s_name = "Deer2" if "Deer" in name else "Sheep2"
+	carcass.set_meta("animal_name", s_name)
+	
+	var shape = CollisionShape3D.new()
+	var box = BoxShape3D.new()
+	box.size = Vector3(1.0, 1.0, 1.5)
+	shape.shape = box
+	carcass.add_child(shape)
+	
+	var mesh = $MeshBase
+	remove_child(mesh)
+	carcass.add_child(mesh)
+	mesh.position = Vector3.ZERO
+	mesh.rotation.z = PI / 2
+	mesh.rotation.x = PI
+	
+	# Make sure the carcass physics responds
+	carcass.collision_layer = 1
+	carcass.collision_mask = 1
+	
+	carcass.global_transform = global_transform
+	get_parent().add_child(carcass)
+	
+	queue_free()

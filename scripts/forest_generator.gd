@@ -10,10 +10,23 @@ var park_scene = preload("res://scenes/ParkOfSouls.tscn")
 
 func _ready():
 	randomize()
+	await get_tree().physics_frame
 	spawn_environment()
 
+func get_floor_height(x: float, z: float) -> float:
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(Vector3(x, 100, z), Vector3(x, -100, z))
+	var result = space_state.intersect_ray(query)
+	if result:
+		return result.position.y
+	
+	var terrain_generator = get_node_or_null("../TerrainGenerator")
+	if terrain_generator and terrain_generator.has_method("get_height_at"):
+		return terrain_generator.get_height_at(x, z)
+	return 0.0
+
+
 func spawn_environment():
-	var terrain_generator = get_node("../TerrainGenerator")
 	var spawned_positions = []
 	for i in range(80):
 		var r = randf()
@@ -40,10 +53,7 @@ func spawn_environment():
 		if not valid: continue
 		spawned_positions.append(pos)
 			
-		if terrain_generator:
-			pos.y = terrain_generator.get_height_at(pos.x, pos.z)
-		else:
-			pos.y = 0.0
+		pos.y = get_floor_height(pos.x, pos.z)
 		tree.position = pos
 		tree.rotation.y = randf_range(0, TAU)
 		add_child(tree)
@@ -55,8 +65,8 @@ func spawn_environment():
 		var road_center_x = sin(pos.z * 0.05) * 20.0
 		if abs(pos.x - road_center_x) < 8.0: continue
 		if abs(pos.x) < 4.0 and pos.z > -25.0 and pos.z < 5.0: continue
-		if terrain_generator:
-			pos.y = terrain_generator.get_height_at(pos.x, pos.z)
+		
+		pos.y = get_floor_height(pos.x, pos.z)
 		rock.position = pos
 		rock.rotation.y = randf_range(0, TAU)
 		rock.scale = Vector3.ONE * randf_range(0.5, 2.0)
@@ -70,8 +80,8 @@ func spawn_environment():
 		var road_center_x = sin(pos.z * 0.05) * 20.0
 		if abs(pos.x - road_center_x) < 8.0: pos = get_random_pos()
 		if abs(pos.x) < 4.0 and pos.z > -25.0 and pos.z < 5.0: pos = get_random_pos()
-		if terrain_generator:
-			pos.y = terrain_generator.get_height_at(pos.x, pos.z)
+		
+		pos.y = get_floor_height(pos.x, pos.z)
 		animal.position = pos
 		add_child(animal)
 		
@@ -81,8 +91,7 @@ func spawn_environment():
 			if baby_scene:
 				var baby = baby_scene.instantiate()
 				baby.position = pos + Vector3(1.5, 0, 1.5)
-				if terrain_generator:
-					baby.position.y = terrain_generator.get_height_at(baby.position.x, baby.position.z)
+				baby.position.y = get_floor_height(baby.position.x, baby.position.z)
 				add_child(baby)
 
 	var gm = get_node_or_null("/root/GameManager")
@@ -93,8 +102,7 @@ func spawn_environment():
 			park_pos = get_random_pos()
 			if park_pos.length() > 60.0:
 				break
-		if terrain_generator:
-			park_pos.y = terrain_generator.get_height_at(park_pos.x, park_pos.z)
+		park_pos.y = get_floor_height(park_pos.x, park_pos.z)
 		park.position = park_pos
 		park.rotation.y = randf_range(0, TAU)
 		add_child(park)

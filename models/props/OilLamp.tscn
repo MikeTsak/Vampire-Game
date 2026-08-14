@@ -33,39 +33,52 @@ texture_filter = 0
 height = 2.8
 radius = 0.2
 
-[node name="OilLamp" type="StaticBody3D"]
+[node name="OilLamp" type="StaticBody3D" unique_id=2136113923]
 
-[node name="Pole" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+[node name="Pole" type="CSGCylinder3D" parent="." unique_id=20842996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 radius = 0.05
-height = 2.0
 material = SubResource("StandardMaterial3D_base")
 
-[node name="Base" type="CSGCylinder3D" parent="."]
+[node name="Base" type="CSGCylinder3D" parent="." unique_id=318313219]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 0)
 radius = 0.2
 height = 0.3
 material = SubResource("StandardMaterial3D_base")
 
-[node name="Glass" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+[node name="Glass" type="CSGCylinder3D" parent="." unique_id=753285314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.018275619, 2.5, 0)
 radius = 0.15
 height = 0.4
 material = SubResource("StandardMaterial3D_glass")
 
-[node name="Handle" type="CSGTorus3D" parent="."]
+[node name="Handle" type="CSGTorus3D" parent="." unique_id=650777147]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2.65, 0)
 inner_radius = 0.18
 outer_radius = 0.2
 material = SubResource("StandardMaterial3D_handle")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=303381049]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.45, 0)
 light_color = Color(1, 0.690196, 0.309804, 1)
 light_energy = 2.0
 shadow_enabled = true
 shadow_bias = 0.05
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="OmniLight3D" unique_id=336786519]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.45, 0)
+light_color = Color(1, 0.690196, 0.309804, 1)
+light_energy = 6.594
+shadow_enabled = true
+shadow_bias = 0.05
+
+[node name="OmniLight3D" type="OmniLight3D" parent="OmniLight3D/OmniLight3D" unique_id=945854305]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.067023, 0)
+light_color = Color(1, 0.690196, 0.309804, 1)
+light_energy = 2.0
+shadow_enabled = true
+shadow_bias = 0.05
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=438293342]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 shape = SubResource("CylinderShape3D_lamp")
