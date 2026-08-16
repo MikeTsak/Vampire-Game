@@ -20,7 +20,7 @@ func _on_body_entered(body: Node3D) -> void:
 					shape.shape = box
 					carcass.add_child(shape)
 					
-					var scene = load("res://scenes/" + dropped_name + ".tscn")
+					var scene = load("res://scenes/animals/" + dropped_name + ".tscn")
 					if scene:
 						var inst = scene.instantiate()
 						var mesh = inst.get_node_or_null("MeshBase")

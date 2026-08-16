@@ -159,7 +159,7 @@ func pickup_animal(animal_name: String = "Deer", score: int = 5000):
 	if carried_instance:
 		carried_instance.queue_free()
 		
-	var scene = load("res://scenes/" + animal_name + ".tscn")
+	var scene = load("res://scenes/animals/" + animal_name + ".tscn")
 	if scene:
 		carried_instance = scene.instantiate()
 		carried_instance.set_script(null)

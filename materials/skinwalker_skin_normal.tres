@@ -1,0 +1,11 @@
+[gd_resource type="NoiseTexture2D" format=3 uid="uid://bmsb14l21r6yu"]
+
+[ext_resource type="FastNoiseLite" uid="uid://ctt4x3hyaubdm" path="res://materials/skin_bump_noise.tres" id="1_8y7nu"]
+
+[resource]
+width = 256
+height = 256
+noise = ExtResource("1_8y7nu")
+seamless = true
+as_normal_map = true
+bump_strength = 6.0

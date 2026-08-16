@@ -1,12 +1,12 @@
 extends Control
 
 var models = [
-	"res://scenes/Deer.tscn",
-	"res://scenes/Sheep.tscn",
-	"res://scenes/Rifle.tscn",
-	"res://scenes/FirTree.tscn",
-	"res://scenes/PineTree.tscn",
-	"res://scenes/PlatanusTree.tscn"
+	"res://scenes/animals/Deer.tscn",
+	"res://scenes/animals/Sheep.tscn",
+	"res://scenes/props/Rifle.tscn",
+	"res://scenes/environment/FirTree.tscn",
+	"res://scenes/environment/PineTree.tscn",
+	"res://scenes/environment/PlatanusTree.tscn"
 ]
 var current_idx = 2
 var current_model = null
@@ -51,4 +51,4 @@ func _on_next_pressed():
 	load_model()
 
 func _on_back_pressed():
-	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://ui/MainMenu.tscn")

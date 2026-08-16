@@ -1,0 +1,11 @@
+[gd_resource type="NoiseTexture2D" format=3 uid="uid://dc40qm8jr3vfa"]
+
+[ext_resource type="FastNoiseLite" uid="uid://bbnx0twkf55gr" path="res://materials/human_grime_noise.tres" id="1_g5v15"]
+
+[resource]
+width = 256
+height = 256
+noise = ExtResource("1_g5v15")
+seamless = true
+as_normal_map = true
+bump_strength = 3.5

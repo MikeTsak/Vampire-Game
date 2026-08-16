@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://p7s62vcbeqjm"]
+
+[ext_resource type="Script" path="res://scenes/OutroCutscene.gd" id="1_driver"]
+[ext_resource type="PackedScene" uid="uid://dyggwvlcccl7g" path="res://models/props/Tarp.tscn" id="2_tarp"]
+[ext_resource type="PackedScene" uid="uid://cy247l8eaf4p" path="res://models/props/OilLamp.tscn" id="3_lamp"]
+[ext_resource type="Script" uid="uid://bn7t4h21b1pm" path="res://scripts/typewriter_subtitle.gd" id="4_typewriter"]
+[ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/ps1_moon.png" id="5_moon"]
+[ext_resource type="Texture2D" uid="uid://c6ad5c75rrro6" path="res://textures/ps1_stars.png" id="6_stars"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_outro"]
+panorama = ExtResource("6_stars")
+filter = false
+
+[sub_resource type="Sky" id="Sky_outro"]
+sky_material = SubResource("PanoramaSkyMaterial_outro")
+
+[sub_resource type="Environment" id="Environment_outro"]
+background_mode = 2
+sky = SubResource("Sky_outro")
+ambient_light_source = 2
+ambient_light_energy = 0.0
+fog_enabled = true
+fog_light_color = Color(0.05, 0.05, 0.08, 1)
+fog_density = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_moon"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+albedo_texture = ExtResource("5_moon")
+texture_filter = 0
+billboard_mode = 1
+
+[sub_resource type="SystemFont" id="SystemFont_outro"]
+font_names = PackedStringArray("Courier New", "Consolas", "Monospace")
+
+[node name="OutroCutscene" type="Node3D" unique_id=1027236144]
+script = ExtResource("1_driver")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1392509902]
+environment = SubResource("Environment_outro")
+
+[node name="MoonVisual" type="Sprite3D" parent="." unique_id=1907163182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 40, -60)
+material_override = SubResource("StandardMaterial3D_moon")
+texture = ExtResource("5_moon")
+
+[node name="Moonlight" type="DirectionalLight3D" parent="." unique_id=1964873508]
+transform = Transform3D(-0.707107, -0.301511, 0.639602, 0, 0.904534, 0.426401, -0.707107, 0.301511, -0.639602, 0, 0, 0)
+light_color = Color(0.75, 0.85, 1, 1)
+light_energy = 0.35
+shadow_enabled = true
+shadow_bias = 0.05
+
+[node name="Tarp" parent="." unique_id=1417128220 instance=ExtResource("2_tarp")]
+
+[node name="OilLamp" parent="." unique_id=354388792 instance=ExtResource("3_lamp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0, 1.6)
+
+[node name="CarcassPile" type="Node3D" parent="." unique_id=2087016673]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2125758442]
+transform = Transform3D(1, 0, 0, 0, 0.9455186, 0.32556814, 0, -0.32556814, 0.9455186, 0, 1.7, 3.2)
+current = true
+fov = 60.0
+
+[node name="Subtitles" type="CanvasLayer" parent="." unique_id=2144810787]
+layer = 10
+
+[node name="SubtitleLabel" type="Label" parent="Subtitles" unique_id=1692049762]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+offset_bottom = -30.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.9, 0.1, 0.1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = SubResource("SystemFont_outro")
+theme_override_font_sizes/font_size = 44
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+script = ExtResource("4_typewriter")
+
+[node name="FlashRect" type="ColorRect" parent="Subtitles" unique_id=981206956]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.9, 0.85, 0.9, 1)
+
+[node name="FadeRect" type="ColorRect" parent="Subtitles" unique_id=1418193268]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

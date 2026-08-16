@@ -1,86 +1,74 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/level.gd" id="1_uocrp"]
-[ext_resource type="Material" path="res://materials/concrete_material.tres" id="1_xsxxn"]
-[ext_resource type="Material" path="res://materials/tarp_material.tres" id="2_uocrp"]
-[ext_resource type="Script" path="res://scripts/forest_generator.gd" id="4_oude1"]
+[ext_resource type="Script" uid="uid://dhb6lsyfv14uv" path="res://scripts/level.gd" id="1_level"]
+[ext_resource type="PackedScene" uid="uid://dyggwvlcccl7g" path="res://models/props/Tarp.tscn" id="2_tarp"]
+[ext_resource type="PackedScene" uid="uid://cy247l8eaf4p" path="res://models/props/OilLamp.tscn" id="3_lamp"]
+[ext_resource type="PackedScene" path="res://scenes/environment/SanatoriumGate_new.tscn" id="4_gate"]
+[ext_resource type="PackedScene" path="res://scenes/environment/SanatoriumInterior_new.tscn" id="5_interior"]
+[ext_resource type="PackedScene" path="res://scenes/environment/SanatoriumBuilding_new.tscn" id="6_building"]
+[ext_resource type="Material" path="res://materials/concrete_material.tres" id="7_concrete"]
+[ext_resource type="PackedScene" path="res://scenes/characters/skinwalker_new.tscn" id="8_skinwalker"]
 
-[ext_resource type="Material" path="res://materials/skydome_material.tres" id="skydome_mat"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uocrp"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l3"]
 sky_top_color = Color(0.02, 0.02, 0.05, 1)
-[sub_resource type="Environment" id="Environment_oude1"]
+sky_horizon_color = Color(0.05, 0.05, 0.08, 1)
 ground_bottom_color = Color(0.01, 0.01, 0.02, 1)
 ground_horizon_color = Color(0.01, 0.05, 0.1, 1)
-background_color = Color(0, 0, 0, 1)
-[sub_resource type="Sky" id="Sky_oude1"]
-sky_material = SubResource("ProceduralSkyMaterial_uocrp")
-fog_density = 0.05
-[sub_resource type="Environment" id="Environment_oude1"]
+
+[sub_resource type="Sky" id="Sky_l3"]
+sky_material = SubResource("ProceduralSkyMaterial_l3")
+
+[sub_resource type="Environment" id="Environment_l3"]
 background_mode = 2
 background_color = Color(0.01, 0.01, 0.02, 1)
-sky = SubResource("Sky_oude1")
+sky = SubResource("Sky_l3")
+ambient_light_source = 2
+ambient_light_energy = 0.0
 fog_enabled = true
 fog_light_color = Color(0.02, 0.05, 0.03, 1)
 fog_density = 0.05
-[sub_resource type="BoxShape3D" id="BoxShape3D_fxntt"]
-[sub_resource type="BoxShape3D" id="BoxShape3D_036nt"]
-size = Vector3(4, 1, 4)
-[sub_resource type="BoxShape3D" id="BoxShape3D_3iwpl"]
-[sub_resource type="BoxShape3D" id="BoxShape3D_fxntt"]
-size = Vector3(100, 20, 1)
-[sub_resource type="BoxShape3D" id="BoxShape3D_kpqvn"]
-[sub_resource type="BoxShape3D" id="BoxShape3D_3iwpl"]
-size = Vector3(100, 20, 1)
-[sub_resource type="BoxShape3D" id="BoxShape3D_thei6"]
-[sub_resource type="BoxShape3D" id="BoxShape3D_kpqvn"]
-size = Vector3(1, 20, 100)
-[node name="Level3" type="Node3D"]
-[sub_resource type="BoxShape3D" id="BoxShape3D_thei6"]
-size = Vector3(1, 20, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(44, 1, 110)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_ns"]
+size = Vector3(44, 10, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_we"]
+size = Vector3(1, 10, 110)
+
+[node name="Level3" type="Node3D" unique_id=1722568099]
+script = ExtResource("1_level")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-[node name="Level3" type="Node3D"]
-script = ExtResource("1_uocrp")
-[node name="PhysicalSkydome" type="MeshInstance3D" parent="."]
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_oude1")
-script = ExtResource("skydome_script")
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+environment = SubResource("Environment_l3")
+
+[node name="Moonlight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.7071067, -0.49999994, 0.49999994, 0, 0.7071067, 0.7071067, -0.7071067, 0.49999994, -0.49999994, 0, 0, 0)
 light_color = Color(0.3, 0.4, 0.6, 1)
 light_energy = 0.1
-light_energy = 0.1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shadow_enabled = true
+shadow_bias = 0.05
+
 [node name="Floor" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-material_override = ExtResource("1_xsxxn")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 20)
 use_collision = true
-size = Vector3(100, 1, 100)
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
-[node name="TarpArea" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
-shape = SubResource("BoxShape3D_036nt")
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TarpArea"]
-shape = SubResource("BoxShape3D_036nt")
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
-[node name="TarpMesh" type="CSGBox3D" parent="TarpArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
-material_override = ExtResource("2_uocrp")
-size = Vector3(4, 0.1, 4)
-wait_time = 120.0
+size = Vector3(44, 1, 110)
+material = ExtResource("7_concrete")
+
 [node name="LevelTimer" type="Timer" parent="."]
 wait_time = 120.0
 one_shot = true
 autostart = true
 
 [node name="UILayer" type="CanvasLayer" parent="."]
-visible = false
+
 [node name="EndPanel" type="Panel" parent="UILayer"]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-layout_mode = 0
+
 [node name="EndText" type="Label" parent="UILayer/EndPanel"]
 layout_mode = 0
 anchor_left = 0.5
@@ -94,47 +82,57 @@ offset_bottom = 11.5
 text = "You survived."
 
 [node name="Spawns" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.750414, 0, 8.113414)
+
 [node name="Spawn0" type="Marker3D" parent="Spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.750414, 0, 8.113414)
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.144539, 0, -19.607416)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 10)
+
 [node name="Spawn1" type="Marker3D" parent="Spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.144539, 0, -19.607416)
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.596621, 0, 10.106927)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 14)
+
 [node name="Spawn2" type="Marker3D" parent="Spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.596621, 0, 10.106927)
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.086859, 0, -2.9917808)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 24)
+
 [node name="Spawn3" type="Marker3D" parent="Spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.086859, 0, -2.9917808)
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5760555, 0, 18.005465)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 28)
+
 [node name="Spawn4" type="Marker3D" parent="Spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5760555, 0, 18.005465)
-script = ExtResource("4_oude1")
-[node name="ForestGenerator" type="Node3D" parent="."]
-script = ExtResource("4_oude1")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 34)
 
 [node name="Boundaries" type="Node3D" parent="."]
 
-[node name="Wall0" type="StaticBody3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 50)
-[node name="@CollisionShape3D@22" type="CollisionShape3D" parent="Boundaries/Wall0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 50)
-shape = SubResource("BoxShape3D_fxntt")
+[node name="WallSouth" type="CSGBox3D" parent="Boundaries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -35)
+use_collision = true
+size = Vector3(44, 10, 1)
 
-[node name="Wall1" type="StaticBody3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -50)
-[node name="@CollisionShape3D@23" type="CollisionShape3D" parent="Boundaries/Wall1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -50)
-shape = SubResource("BoxShape3D_3iwpl")
+[node name="WallNorth" type="CSGBox3D" parent="Boundaries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 75)
+use_collision = true
+size = Vector3(44, 10, 1)
 
-[node name="Wall2" type="StaticBody3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 10, 0)
-[node name="@CollisionShape3D@24" type="CollisionShape3D" parent="Boundaries/Wall2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 10, 0)
-shape = SubResource("BoxShape3D_kpqvn")
+[node name="WallWest" type="CSGBox3D" parent="Boundaries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 5, 20)
+use_collision = true
+size = Vector3(1, 10, 110)
 
-[node name="Wall3" type="StaticBody3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 10, 0)
-[node name="@CollisionShape3D@25" type="CollisionShape3D" parent="Boundaries/Wall3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 10, 0)
-shape = SubResource("BoxShape3D_thei6")
+[node name="WallEast" type="CSGBox3D" parent="Boundaries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5, 20)
+use_collision = true
+size = Vector3(1, 10, 110)
+
+[node name="Tarp" parent="." instance=ExtResource("2_tarp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18)
+
+[node name="OilLamp" parent="." instance=ExtResource("3_lamp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0, -18)
+
+[node name="SanatoriumGate" parent="." instance=ExtResource("4_gate")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="SanatoriumInterior" parent="." instance=ExtResource("5_interior")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="SanatoriumBuilding" parent="." instance=ExtResource("6_building")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 58)
+
+[node name="Skinwalker" parent="." instance=ExtResource("8_skinwalker")]

@@ -6,7 +6,7 @@ var player
 
 func _initialize():
 	var root = get_root()
-	var packed = load("res://scenes/Level1.tscn")
+	var packed = load("res://scenes/levels/Level1.tscn")
 	level = packed.instantiate()
 	root.add_child(level)
 	

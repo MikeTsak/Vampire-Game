@@ -1,0 +1,11 @@
+[gd_resource type="NoiseTexture2D" format=3 uid="uid://die5f08xel7a"]
+
+[ext_resource type="Gradient" uid="uid://tgrorfw00v1e" path="res://materials/human_skin_grime_gradient.tres" id="1_vgagj"]
+[ext_resource type="FastNoiseLite" uid="uid://bbnx0twkf55gr" path="res://materials/human_grime_noise.tres" id="2_ygx8j"]
+
+[resource]
+width = 256
+height = 256
+noise = ExtResource("2_ygx8j")
+color_ramp = ExtResource("1_vgagj")
+seamless = true

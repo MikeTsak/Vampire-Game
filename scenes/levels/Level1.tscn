@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c15lccee7qodc" path="res://scripts/forest_generator.gd" id="4_dw26h"]
 [ext_resource type="PackedScene" uid="uid://cy247l8eaf4p" path="res://models/props/OilLamp.tscn" id="lamp_scene"]
 [ext_resource type="PackedScene" uid="uid://dyggwvlcccl7g" path="res://models/props/Tarp.tscn" id="tarp_scene"]
+[ext_resource type="PackedScene" path="res://scenes/characters/skinwalker_new.tscn" id="skinwalker_scene"]
 [ext_resource type="Script" uid="uid://dkornaugkk3ul" path="res://scripts/terrain_generator.gd" id="terrain_script"]
 [ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/ps1_moon.png" id="tex_ps1_moon"]
 [ext_resource type="Texture2D" uid="uid://c6ad5c75rrro6" path="res://textures/ps1_stars.png" id="tex_ps1_stars"]
@@ -204,3 +205,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
 [node name="OilLamp" parent="." unique_id=865134509 instance=ExtResource("lamp_scene")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -4)
+
+[node name="Skinwalker" parent="." instance=ExtResource("skinwalker_scene")]

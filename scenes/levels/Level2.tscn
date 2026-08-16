@@ -4,8 +4,10 @@
 [ext_resource type="Script" uid="uid://c15lccee7qodc" path="res://scripts/forest_generator.gd" id="4_sp0w3"]
 [ext_resource type="Texture2D" uid="uid://cl7qmigkexoht" path="res://textures/bark_post.tres" id="5_lrl65"]
 [ext_resource type="PackedScene" uid="uid://cy247l8eaf4p" path="res://models/props/OilLamp.tscn" id="lamp_scene"]
-[ext_resource type="PackedScene" uid="uid://6nntmos60iia" path="res://scenes/ParkOfSouls.tscn" id="park_of_souls"]
+[ext_resource type="PackedScene" uid="uid://6nntmos60iia" path="res://scenes/environment/ParkOfSouls.tscn" id="park_of_souls"]
 [ext_resource type="PackedScene" uid="uid://dyggwvlcccl7g" path="res://models/props/Tarp.tscn" id="tarp_scene"]
+[ext_resource type="PackedScene" path="res://scenes/environment/SanatoriumBuilding_new.tscn" id="sanatorium_building"]
+[ext_resource type="PackedScene" path="res://scenes/characters/skinwalker_new.tscn" id="skinwalker_scene"]
 [ext_resource type="Script" uid="uid://dkornaugkk3ul" path="res://scripts/terrain_generator.gd" id="terrain_script"]
 [ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/ps1_moon.png" id="tex_ps1_moon"]
 [ext_resource type="Texture2D" uid="uid://c6ad5c75rrro6" path="res://textures/ps1_stars.png" id="tex_ps1_stars"]
@@ -29,10 +31,6 @@ emission_energy_multiplier = 3.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_park_base"]
 albedo_color = Color(0.25, 0.2, 0.15, 1)
 texture_filter = 0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_san"]
-albedo_color = Color(0.6, 0.6, 0.6, 1)
-roughness = 0.8
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wall0"]
 size = Vector3(300, 20, 1)
@@ -143,35 +141,11 @@ material = SubResource("StandardMaterial3D_park_base")
 [node name="ParkOfSouls" parent="." unique_id=586099378 instance=ExtResource("park_of_souls")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 10, -40)
 
-[node name="SanatoriumBuilding" type="CSGBox3D" parent="." unique_id=336532386]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, -180)
-size = Vector3(100, 60, 40)
-material = SubResource("StandardMaterial3D_san")
-
-[node name="Wing1" type="CSGBox3D" parent="SanatoriumBuilding" unique_id=1485769616]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, -10, 10)
-size = Vector3(40, 40, 30)
-material = SubResource("StandardMaterial3D_san")
-
-[node name="Wing2" type="CSGBox3D" parent="SanatoriumBuilding" unique_id=268701395]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -10, 10)
-size = Vector3(40, 40, 30)
-material = SubResource("StandardMaterial3D_san")
-
-[node name="WindowLight1" type="OmniLight3D" parent="SanatoriumBuilding" unique_id=465724175]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 22)
-light_color = Color(0.8, 1, 0.2, 1)
-light_energy = 8.0
-omni_range = 100.0
-
-[node name="WindowLight2" type="OmniLight3D" parent="SanatoriumBuilding" unique_id=989336988]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 10, 22)
-light_color = Color(0.8, 1, 0.2, 1)
-light_energy = 8.0
-omni_range = 100.0
+[node name="SanatoriumBuilding" parent="." unique_id=336532386 instance=ExtResource("sanatorium_building")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, -140)
 
 [node name="FacadeSpotlight" type="SpotLight3D" parent="." unique_id=1411210318]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 50, -100)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 20, -80)
 light_color = Color(0.5, 1, 0.5, 1)
 light_energy = 15.0
 spot_range = 300.0
@@ -223,3 +197,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
 [node name="OilLamp" parent="." unique_id=974173117 instance=ExtResource("lamp_scene")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -4)
+
+[node name="Skinwalker" parent="." instance=ExtResource("skinwalker_scene")]

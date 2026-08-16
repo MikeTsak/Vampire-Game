@@ -1,8 +1,9 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/typewriter_subtitle.gd" id="2_c6cun"]
-[ext_resource type="PackedScene" path="res://scenes/SuitedMan.tscn" id="3_rvryt"]
-[ext_resource type="Script" path="res://scenes/SuitedMan.gd" id="4_nir0v"]
+[ext_resource type="Script" path="res://scenes/cutscenes/MidCutscene.gd" id="1_driver"]
+[ext_resource type="PackedScene" path="res://scenes/characters/SuitedMan.tscn" id="3_rvryt"]
+[ext_resource type="Script" path="res://scenes/characters/SuitedMan.gd" id="4_nir0v"]
 
 [sub_resource type="SystemFont" id="SystemFont_du6q1"]
 font_names = PackedStringArray("Courier New", "Consolas", "Monospace")
@@ -25,6 +26,7 @@ albedo_texture = SubResource("NoiseTexture2D_c6cun")
 roughness = 0.8
 
 [node name="MidCutscene" type="Node3D"]
+script = ExtResource("1_driver")
 
 [node name="Subtitles" type="CanvasLayer" parent="."]
 layer = 10

@@ -1,0 +1,11 @@
+[gd_resource type="NoiseTexture2D" format=3 uid="uid://cupk7jji2ayeg"]
+
+[ext_resource type="Gradient" uid="uid://d133mc2liaim5" path="res://materials/skin_blotch_gradient.tres" id="1_e77rv"]
+[ext_resource type="FastNoiseLite" uid="uid://5ywy7khag5t0" path="res://materials/skin_blotch_noise.tres" id="2_xru7r"]
+
+[resource]
+width = 256
+height = 256
+noise = ExtResource("2_xru7r")
+color_ramp = ExtResource("1_e77rv")
+seamless = true

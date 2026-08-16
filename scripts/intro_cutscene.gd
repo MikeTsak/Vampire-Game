@@ -25,4 +25,4 @@ func finish_cutscene():
 	_change_scene()
 
 func _change_scene():
-	get_tree().change_scene_to_file("res://scenes/Level1.tscn")
+	get_tree().change_scene_to_file("res://scenes/levels/Level1.tscn")

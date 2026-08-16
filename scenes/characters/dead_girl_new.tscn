@@ -1,0 +1,182 @@
+[gd_scene format=3 uid="uid://bu8rhoi15wlt5"]
+
+[ext_resource type="Material" uid="uid://x2xwp5hx58fy" path="res://materials/humans_blood_dark.tres" id="1_40auh"]
+[ext_resource type="Material" uid="uid://cfom8w4ne0x2a" path="res://materials/humans_skin_child.tres" id="1_skin"]
+[ext_resource type="Material" uid="uid://cq7j6hsowux02" path="res://materials/humans_eye_white.tres" id="3_0ue1j"]
+[ext_resource type="Material" uid="uid://cbm32rqahj26a" path="res://materials/humans_eye_pupil.tres" id="4_lqxms"]
+[ext_resource type="Material" uid="uid://b2ykvierak0af" path="res://materials/humans_mouth_dark.tres" id="5_os4gs"]
+[ext_resource type="Material" uid="uid://bxbxfyah8m62v" path="res://materials/humans_blood_wet.tres" id="6_2jlra"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blood_pool"]
+albedo_color = Color(0.28, 0.01, 0.015, 1)
+metallic = 0.15
+roughness = 0.15
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dress"]
+albedo_color = Color(0.55, 0.36, 0.4, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hair_blonde"]
+albedo_color = Color(0.72, 0.62, 0.4, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blood_dark"]
+albedo_color = Color(0.3, 0.015, 0.02, 1)
+roughness = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shoe"]
+albedo_color = Color(0.06, 0.05, 0.05, 1)
+roughness = 0.7
+
+[node name="dead_girl_new" type="Node3D" unique_id=704870227]
+
+[node name="MeshBase" type="Node3D" parent="." unique_id=880862405]
+
+[node name="BloodPoolGround" type="CSGCylinder3D" parent="MeshBase" unique_id=1536097831]
+transform = Transform3D(1.3, 0, 0, 0, 0.05, 0, 0, 0, 0.85, -0.02, 0.012, 0.03)
+radius = 0.34
+height = 0.02
+sides = 10
+material = SubResource("StandardMaterial3D_blood_pool")
+
+[node name="Torso" type="CSGBox3D" parent="MeshBase" unique_id=2014555441]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09, 0)
+size = Vector3(0.3, 0.16, 0.4)
+material = SubResource("StandardMaterial3D_dress")
+
+[node name="DressSkirt" type="CSGBox3D" parent="MeshBase" unique_id=1771200667]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.085, 0.32)
+size = Vector3(0.36, 0.15, 0.34)
+material = SubResource("StandardMaterial3D_dress")
+
+[node name="ChestWound" type="CSGBox3D" parent="MeshBase" unique_id=8704402]
+transform = Transform3D(0.9612617, 0, -0.27563736, 0, 1, 0, 0.27563736, 0, 0.9612617, -0.02, 0.175, -0.02)
+size = Vector3(0.14, 0.024, 0.13)
+material = ExtResource("1_40auh")
+
+[node name="Neck" type="CSGCylinder3D" parent="MeshBase" unique_id=832328740]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.1, -0.24)
+radius = 0.058
+height = 0.12
+material = ExtResource("1_skin")
+
+[node name="Head" type="CSGBox3D" parent="MeshBase" unique_id=2051280135]
+transform = Transform3D(0.87, 0, -0.5, 0, 1, 0, 0.5, 0, 0.87, -0.03, 0.11, -0.42)
+size = Vector3(0.21, 0.21, 0.23)
+material = ExtResource("1_skin")
+
+[node name="HairTop" type="CSGBox3D" parent="MeshBase/Head" unique_id=2061084165]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13, 0)
+size = Vector3(0.22, 0.05, 0.22)
+material = SubResource("StandardMaterial3D_hair_blonde")
+
+[node name="PigtailLeft" type="CSGBox3D" parent="MeshBase/Head" unique_id=926954649]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13, 0.1, 0.02)
+size = Vector3(0.06, 0.14, 0.06)
+material = SubResource("StandardMaterial3D_hair_blonde")
+
+[node name="PigtailRight" type="CSGBox3D" parent="MeshBase/Head" unique_id=192617546]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13, 0.1, 0.02)
+size = Vector3(0.06, 0.14, 0.06)
+material = SubResource("StandardMaterial3D_hair_blonde")
+
+[node name="HeadWound" type="CSGBox3D" parent="MeshBase/Head" unique_id=1990363007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, 0.08, -0.05)
+size = Vector3(0.09, 0.02, 0.1)
+material = SubResource("StandardMaterial3D_blood_dark")
+
+[node name="EyeWhiteL" type="CSGBox3D" parent="MeshBase/Head" unique_id=557337568]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042, 0.023, -0.1)
+size = Vector3(0.034, 0.021, 0.011)
+material = ExtResource("3_0ue1j")
+
+[node name="EyeWhiteR" type="CSGBox3D" parent="MeshBase/Head" unique_id=266548602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.042, 0.023, -0.1)
+size = Vector3(0.034, 0.021, 0.011)
+material = ExtResource("3_0ue1j")
+
+[node name="PupilL" type="CSGBox3D" parent="MeshBase/Head" unique_id=2056424293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042, 0.023, -0.107)
+size = Vector3(0.013, 0.013, 0.007)
+material = ExtResource("4_lqxms")
+
+[node name="PupilR" type="CSGBox3D" parent="MeshBase/Head" unique_id=880872071]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.042, 0.023, -0.107)
+size = Vector3(0.013, 0.013, 0.007)
+material = ExtResource("4_lqxms")
+
+[node name="MouthGap" type="CSGBox3D" parent="MeshBase/Head" unique_id=2106503497]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.065, -0.1)
+size = Vector3(0.05, 0.018, 0.015)
+material = ExtResource("5_os4gs")
+
+[node name="LeftUpperArm" type="CSGCylinder3D" parent="MeshBase" unique_id=730910151]
+transform = Transform3D(0.3740999, -0.9173382, 0.13616124, 0.8620159, 0.3981088, 0.31374815, -0.34202015, 0, 0.9396926, 0.17, 0.1, -0.08)
+radius = 0.04
+height = 0.18
+material = ExtResource("1_skin")
+
+[node name="LeftForearm" type="CSGCylinder3D" parent="MeshBase" unique_id=2057106809]
+transform = Transform3D(0.7660444, 0, 0.6427876, -0.6427286, 0.013540884, 0.76597416, -0.008703912, -0.9999083, 0.010372918, 0.28, 0.09, 0.02)
+radius = 0.035
+height = 0.2
+material = ExtResource("1_skin")
+
+[node name="RightUpperArm" type="CSGCylinder3D" parent="MeshBase" unique_id=472187292]
+transform = Transform3D(0.8146703, 0.5153079, -0.26602682, 0.16908538, 0.22773273, 0.95893073, 0.5547275, -0.82619363, 0.09839603, -0.16, 0.1, -0.05)
+radius = 0.04
+height = 0.18
+material = ExtResource("1_skin")
+
+[node name="RightForearm" type="CSGCylinder3D" parent="MeshBase" unique_id=984357250]
+transform = Transform3D(0.6427876, 0, -0.7660444, 0.74871546, 0.21149687, 0.62824684, 0.16201599, -0.97737867, 0.13594757, -0.21012458, 0.070965104, 0.102498904)
+radius = 0.035
+height = 0.2
+material = ExtResource("1_skin")
+
+[node name="LeftLowerLeg" type="CSGCylinder3D" parent="MeshBase" unique_id=760057439]
+transform = Transform3D(1, 0, 0, 0, 0.08879053, 0.9960503, 0, -0.9960503, 0.08879053, 0.09, 0.07, 0.58)
+radius = 0.042
+height = 0.34
+material = ExtResource("1_skin")
+
+[node name="LeftShoe" type="CSGBox3D" parent="MeshBase" unique_id=1035914768]
+transform = Transform3D(1, 0, 0, 0, 0.28959793, 0.9571484, 0, -0.9571484, 0.28959793, 0.09, 0.081840746, 0.74)
+size = Vector3(0.06, 0.05, 0.11)
+material = SubResource("StandardMaterial3D_shoe")
+
+[node name="RightLowerLeg" type="CSGCylinder3D" parent="MeshBase" unique_id=1195780970]
+transform = Transform3D(0.8660254, 0.34202015, 0.36810997, -0.43455723, 0.120027915, 0.88721126, 0.24267957, -0.93199545, 0.28668275, -0.1, 0.07, 0.57)
+radius = 0.042
+height = 0.34
+material = ExtResource("1_skin")
+
+[node name="RightShoe" type="CSGBox3D" parent="MeshBase" unique_id=1326624633]
+transform = Transform3D(1, 0, 0, 0, 0.63513446, 0.7724016, 0, -0.7724016, 0.63513446, -0.14564101, 0.07691746, 0.73)
+size = Vector3(0.06, 0.05, 0.11)
+material = SubResource("StandardMaterial3D_shoe")
+
+[node name="WoundWet" type="CSGBox3D" parent="MeshBase" unique_id=336838318]
+transform = Transform3D(0.97437006, 0, 0.22495104, 0, 1, 0, -0.22495104, 0, 0.97437006, -0.02, 0.168, -0.02)
+size = Vector3(0.18, 0.016, 0.17)
+material = ExtResource("6_2jlra")
+
+[node name="Spatter1" type="CSGBox3D" parent="MeshBase" unique_id=1944612471]
+transform = Transform3D(0.7880108, 0, -0.6156615, 0, 1, 0, 0.6156615, 0, 0.7880108, -0.13, 0.16, -0.09)
+size = Vector3(0.028, 0.011, 0.05)
+material = ExtResource("6_2jlra")
+
+[node name="Spatter2" type="CSGBox3D" parent="MeshBase" unique_id=1443903252]
+transform = Transform3D(0.90630776, 0, 0.42261827, 0, 1, 0, -0.42261827, 0, 0.90630776, 0.09, 0.16, -0.12)
+size = Vector3(0.024, 0.01, 0.04)
+material = ExtResource("1_40auh")
+
+[node name="HandL" type="CSGBox3D" parent="MeshBase" unique_id=189214892]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28354535, 0.083, 0.1391179)
+size = Vector3(0.045, 0.035, 0.065)
+material = ExtResource("1_skin")
+
+[node name="HandR" type="CSGBox3D" parent="MeshBase" unique_id=1680536172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23457518, 0.134, 0.20796663)
+size = Vector3(0.045, 0.035, 0.065)
+material = ExtResource("1_skin")

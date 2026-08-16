@@ -1,12 +1,12 @@
 extends Node3D
 # Force recompile
-var fir_scene = preload("res://scenes/FirTree.tscn")
-var pine_scene = preload("res://scenes/PineTree.tscn")
-var platanus_scene = load("res://scenes/PlatanusTree.tscn")
-var rock_scene = preload("res://scenes/Rock.tscn")
-var sheep_scene = preload("res://scenes/Sheep2.tscn")
-var deer_scene = preload("res://scenes/Deer2.tscn")
-var park_scene = preload("res://scenes/ParkOfSouls.tscn")
+var fir_scene = preload("res://scenes/environment/FirTree.tscn")
+var pine_scene = preload("res://scenes/environment/PineTree.tscn")
+var platanus_scene = load("res://scenes/environment/PlatanusTree.tscn")
+var rock_scene = preload("res://scenes/environment/Rock.tscn")
+var sheep_scene = preload("res://scenes/animals/Sheep2.tscn")
+var deer_scene = preload("res://scenes/animals/Deer2.tscn")
+var park_scene = preload("res://scenes/environment/ParkOfSouls.tscn")
 
 func _ready():
 	randomize()
@@ -87,7 +87,7 @@ func spawn_environment():
 		
 		var gm = get_node_or_null("/root/GameManager")
 		if gm and gm.level >= 2:
-			var baby_scene = load("res://scenes/BabySheep.tscn") if is_sheep else load("res://scenes/BabyDeer.tscn")
+			var baby_scene = load("res://scenes/animals/BabySheep.tscn") if is_sheep else load("res://scenes/animals/BabyDeer_new.tscn")
 			if baby_scene:
 				var baby = baby_scene.instantiate()
 				baby.position = pos + Vector3(1.5, 0, 1.5)

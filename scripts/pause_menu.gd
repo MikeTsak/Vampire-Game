@@ -18,7 +18,7 @@ func _on_main_menu():
 	if gm:
 		if get_tree().paused:
 			gm.toggle_pause() # Unpause before leaving
-	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://ui/MainMenu.tscn")
 
 func _on_exit():
 	get_tree().quit()

@@ -11,7 +11,7 @@ func reset_score():
 
 func next_level():
 	level += 1
-	var scene_path = "res://scenes/Level%d.tscn" % level
+	var scene_path = "res://scenes/levels/Level%d.tscn" % level
 	if ResourceLoader.exists(scene_path):
 		get_tree().change_scene_to_file(scene_path)
 	else:
@@ -29,7 +29,7 @@ func _unhandled_input(event):
 
 func toggle_pause():
 	if not pause_menu:
-		var scene = load("res://scenes/PauseMenu.tscn")
+		var scene = load("res://ui/PauseMenu.tscn")
 		if scene:
 			pause_menu = scene.instantiate()
 			add_child(pause_menu)

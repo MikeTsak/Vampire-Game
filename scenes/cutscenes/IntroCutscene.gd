@@ -12,7 +12,7 @@ func _handle_lipsync():
 func slide_glass_to_player():
 	var hand_glass = $SuitedMan.get_node_or_null("RightShoulderPivot/RightUpperArm/RightElbowPivot/RightForearm/RightHand/ManGlass")
 	
-	var glass_packed = load("res://scenes/DrinkGlass.tscn")
+	var glass_packed = load("res://scenes/props/DrinkGlass.tscn")
 	var new_glass = glass_packed.instantiate()
 	new_glass.name = "TweenGlass"
 	add_child(new_glass)
@@ -39,4 +39,4 @@ func _unhandled_input(event):
 		transition_to_gameplay()
 
 func transition_to_gameplay():
-	get_tree().change_scene_to_file("res://scenes/Level1.tscn")
+	get_tree().change_scene_to_file("res://scenes/levels/Level1.tscn")

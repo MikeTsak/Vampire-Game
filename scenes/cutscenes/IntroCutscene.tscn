@@ -1,9 +1,9 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scenes/IntroCutscene.gd" id="1_872o4"]
-[ext_resource type="PackedScene" path="res://scenes/SuitedMan.tscn" id="2_nuwxb"]
-[ext_resource type="PackedScene" path="res://scenes/DrinkGlass.tscn" id="3_du6q1"]
-[ext_resource type="Script" path="res://scenes/SuitedMan.gd" id="3_t6y0e"]
+[ext_resource type="Script" path="res://scenes/cutscenes/IntroCutscene.gd" id="1_872o4"]
+[ext_resource type="PackedScene" path="res://scenes/characters/SuitedMan.tscn" id="2_nuwxb"]
+[ext_resource type="PackedScene" path="res://scenes/props/DrinkGlass.tscn" id="3_du6q1"]
+[ext_resource type="Script" path="res://scenes/characters/SuitedMan.gd" id="3_t6y0e"]
 [ext_resource type="Script" path="res://scripts/typewriter_subtitle.gd" id="4_t6y0e"]
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nuwxb"]
 [sub_resource type="Environment" id="Environment_0xuf1"]

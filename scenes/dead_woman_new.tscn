@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://cpme2ss7j5hpp"]
+
+[ext_resource type="Material" uid="uid://bbp18jrw2ls06" path="res://materials/humans_skin_female.tres" id="1_skin"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blood_pool"]
+albedo_color = Color(0.28, 0.01, 0.015, 1)
+metallic = 0.15
+roughness = 0.15
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cloth_wrap"]
+albedo_color = Color(0.22, 0.14, 0.16, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blood_wet"]
+albedo_color = Color(0.5, 0.02, 0.03, 1)
+metallic = 0.1
+roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hair_auburn"]
+albedo_color = Color(0.25, 0.13, 0.09, 1)
+roughness = 0.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blood_dark"]
+albedo_color = Color(0.3, 0.015, 0.02, 1)
+roughness = 0.35
+
+[node name="dead_woman_new" type="Node3D" unique_id=1588014163]
+
+[node name="MeshBase" type="Node3D" parent="." unique_id=394589787]
+
+[node name="BloodPoolGround" type="CSGCylinder3D" parent="MeshBase" unique_id=1905715008]
+transform = Transform3D(1.55, 0, 0, 0, 0.05, 0, 0, 0, 1, -0.03, 0.015, 0.04)
+radius = 0.52
+height = 0.02
+sides = 10
+material = SubResource("StandardMaterial3D_blood_pool")
+
+[node name="Torso" type="CSGBox3D" parent="MeshBase" unique_id=544274640]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
+size = Vector3(0.46, 0.22, 0.68)
+material = ExtResource("1_skin")
+
+[node name="BodyWrap" type="CSGBox3D" parent="MeshBase" unique_id=554607823]
+transform = Transform3D(0.9510565, 0, -0.309017, 0, 1, 0, 0.309017, 0, 0.9510565, -0.02, 0.24, 0.08)
+size = Vector3(0.2, 0.04, 0.85)
+material = SubResource("StandardMaterial3D_cloth_wrap")
+
+[node name="HipWrap" type="CSGBox3D" parent="MeshBase" unique_id=1296899070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0.4)
+size = Vector3(0.38, 0.18, 0.28)
+material = SubResource("StandardMaterial3D_cloth_wrap")
+
+[node name="ChestWound" type="CSGBox3D" parent="MeshBase" unique_id=320174719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0.23, -0.04)
+size = Vector3(0.14, 0.02, 0.14)
+material = SubResource("StandardMaterial3D_blood_wet")
+
+[node name="Neck" type="CSGCylinder3D" parent="MeshBase" unique_id=825576309]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.13, -0.38)
+radius = 0.08
+height = 0.16
+material = ExtResource("1_skin")
+
+[node name="Head" type="CSGBox3D" parent="MeshBase" unique_id=643439489]
+transform = Transform3D(0.87, 0, -0.5, 0, 1, 0, 0.5, 0, 0.87, -0.04, 0.14, -0.6)
+size = Vector3(0.26, 0.26, 0.29)
+material = ExtResource("1_skin")
+
+[node name="HairTop" type="CSGBox3D" parent="MeshBase/Head" unique_id=471012194]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0.03)
+size = Vector3(0.28, 0.07, 0.28)
+material = SubResource("StandardMaterial3D_hair_auburn")
+
+[node name="HairBack" type="CSGBox3D" parent="MeshBase/Head" unique_id=534295801]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.22)
+size = Vector3(0.22, 0.06, 0.34)
+material = SubResource("StandardMaterial3D_hair_auburn")
+
+[node name="HeadWound" type="CSGBox3D" parent="MeshBase/Head" unique_id=350964128]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04, 0.09, -0.07)
+size = Vector3(0.12, 0.03, 0.14)
+material = SubResource("StandardMaterial3D_blood_dark")
+
+[node name="LeftUpperArm" type="CSGCylinder3D" parent="MeshBase" unique_id=831063920]
+transform = Transform3D(0.9396926, 0, 0.34202015, 0, 1, 0, -0.34202015, 0, 0.9396926, 0.3, 0.11, -0.16)
+radius = 0.062
+height = 0.33
+material = ExtResource("1_skin")
+
+[node name="LeftForearm" type="CSGCylinder3D" parent="MeshBase" unique_id=412016437]
+transform = Transform3D(0.7660444, 0, 0.6427876, 0, 1, 0, -0.6427876, 0, 0.7660444, 0.5, 0.1, -0.02)
+radius = 0.052
+height = 0.3
+material = ExtResource("1_skin")
+
+[node name="RightUpperArm" type="CSGCylinder3D" parent="MeshBase" unique_id=1951222448]
+transform = Transform3D(0.9848077, 0, -0.17364818, 0, 1, 0, 0.17364818, 0, 0.9848077, -0.28, 0.12, -0.09)
+radius = 0.062
+height = 0.33
+material = ExtResource("1_skin")
+
+[node name="RightForearm" type="CSGCylinder3D" parent="MeshBase" unique_id=1290583279]
+transform = Transform3D(0.6427876, 0, -0.7660444, 0, 1, 0, 0.7660444, 0, 0.6427876, -0.39, 0.16, 0.18)
+radius = 0.052
+height = 0.3
+material = ExtResource("1_skin")
+
+[node name="LeftUpperLeg" type="CSGCylinder3D" parent="MeshBase" unique_id=1601704318]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.12, 0.11, 0.66)
+radius = 0.08
+height = 0.4
+material = ExtResource("1_skin")
+
+[node name="LeftLowerLeg" type="CSGCylinder3D" parent="MeshBase" unique_id=549576566]
+transform = Transform3D(1, 0, 0, 0, 0.9848077, -0.17364818, 0, 0.17364818, 0.9848077, 0.12, 0.08, 1.03)
+radius = 0.068
+height = 0.38
+material = ExtResource("1_skin")
+
+[node name="RightUpperLeg" type="CSGCylinder3D" parent="MeshBase" unique_id=1608410716]
+transform = Transform3D(0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 0, 0, 1, -0.13, 0.11, 0.66)
+radius = 0.08
+height = 0.4
+material = ExtResource("1_skin")
+
+[node name="RightLowerLeg" type="CSGCylinder3D" parent="MeshBase" unique_id=466711369]
+transform = Transform3D(0.8660254, 0.34202015, 0.36810997, -0.29619816, 0.9396926, -0.17101006, -0.4, 0, 0.9165623, -0.3, 0.08, 1)
+radius = 0.068
+height = 0.38
+material = ExtResource("1_skin")

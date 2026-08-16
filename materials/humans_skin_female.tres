@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bbp18jrw2ls06"]
+
+[ext_resource type="Texture2D" uid="uid://die5f08xel7a" path="res://materials/human_skin_grime.tres" id="1_gthm4"]
+[ext_resource type="Texture2D" uid="uid://dc40qm8jr3vfa" path="res://materials/human_skin_normal.tres" id="2_kwi1i"]
+
+[resource]
+albedo_color = Color(0.72, 0.6, 0.53, 1)
+albedo_texture = ExtResource("1_gthm4")
+roughness = 0.82
+normal_enabled = true
+normal_scale = 1.2
+normal_texture = ExtResource("2_kwi1i")
+uv1_scale = Vector3(3, 3, 1)

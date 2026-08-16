@@ -16,16 +16,16 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _on_play_pressed():
-	get_tree().change_scene_to_file("res://scenes/IntroCutscene.tscn")
+	get_tree().change_scene_to_file("res://scenes/cutscenes/IntroCutscene.tscn")
 
 func _on_debug_level2_pressed():
-	get_tree().change_scene_to_file("res://scenes/Level2.tscn")
+	get_tree().change_scene_to_file("res://scenes/levels/Level2.tscn")
 
 func _on_settings_pressed():
 	print("Settings clicked")
 
 func _on_model_viewer_pressed():
-	get_tree().change_scene_to_file("res://scenes/ModelViewer.tscn")
+	get_tree().change_scene_to_file("res://scenes/dev/ModelViewer.tscn")
 
 func _on_exit_pressed():
 	get_tree().quit()

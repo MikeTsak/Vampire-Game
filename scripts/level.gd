@@ -1,7 +1,5 @@
 extends Node3D
 # Force recompile
-@onready var tarp_area = get_node_or_null("Tarp/CarcassDropZone")
-@onready var drop_zone = get_node_or_null("Tarp/CarcassDropZone")
 @onready var timer = get_node_or_null("LevelTimer")
 @onready var spawns = get_node_or_null("Spawns")
 @onready var end_panel = get_node_or_null("UILayer/EndPanel")
@@ -11,46 +9,45 @@ var player: CharacterBody3D
 var carcasses_on_tarp: int = 0
 
 func _ready():
-	var player_scene = load("res://scenes/Player.tscn")
+	var player_scene = load("res://scenes/characters/Player.tscn")
 	player = player_scene.instantiate()
 	player.position = Vector3(0, 1, 0)
 	add_child(player)
-	
-	if tarp_area and not tarp_area.get_script():
-		tarp_area.set_script(preload("res://scripts/level1_ending.gd"))
-		tarp_area.set_process(true)
-		tarp_area._ready() # Call _ready manually since it was attached dynamically
 
-	# Spawn initial animals
+	# Spawn initial animals (pack spawning: babies join adults from level 2 onward)
 	if spawns:
-		var deer_scene = load("res://scenes/Deer2.tscn")
-		var sheep_scene = load("res://scenes/Sheep2.tscn")
-		var animal_scenes = []
-		if deer_scene: animal_scenes.append(deer_scene)
-		if sheep_scene: animal_scenes.append(sheep_scene)
-		
-		if animal_scenes.size() > 0:
-			for marker in spawns.get_children():
-				if marker is Marker3D:
-					var animal = animal_scenes[randi() % animal_scenes.size()].instantiate()
-					add_child(animal)
-					# Defer setting global position to avoid tree errors during _ready, or use position
-					animal.position = spawns.position + marker.position
-					# Add some random rotation
-					animal.rotation_degrees.y = randf_range(0, 360)
+		var deer_scene = load("res://scenes/animals/Deer2.tscn")
+		var sheep_scene = load("res://scenes/animals/Sheep2.tscn")
+		var baby_deer_scene = load("res://scenes/animals/BabyDeer_new.tscn")
+		var baby_sheep_scene = load("res://scenes/animals/BabySheep.tscn")
+		var gm = get_node_or_null("/root/GameManager")
+		var pack_spawning = gm != null and gm.level >= 2
 
-	if drop_zone:
-		drop_zone.body_entered.connect(_on_drop_zone_body_entered)
-		drop_zone.body_exited.connect(_on_drop_zone_body_exited)
+		for marker in spawns.get_children():
+			if marker is Marker3D:
+				var is_sheep = randi() % 2 == 0
+				var animal_scene = sheep_scene if is_sheep else deer_scene
+				if not animal_scene:
+					continue
+				var animal = animal_scene.instantiate()
+				add_child(animal)
+				# Defer setting global position to avoid tree errors during _ready, or use position
+				animal.position = spawns.position + marker.position
+				# Add some random rotation
+				animal.rotation_degrees.y = randf_range(0, 360)
+
+				if pack_spawning:
+					var baby_scene = baby_sheep_scene if is_sheep else baby_deer_scene
+					if baby_scene:
+						var baby = baby_scene.instantiate()
+						add_child(baby)
+						baby.position = animal.position + Vector3(1.2, 0, 1.2)
+						baby.rotation_degrees.y = randf_range(0, 360)
+
 	timer.timeout.connect(_on_timeout)
-	
+
 	timer.wait_time = 120.0
 	timer.start()
-
-func _input(event):
-	if event is InputEventKey and event.pressed and event.keycode == KEY_F10:
-		if tarp_area and player:
-			tarp_area._on_body_entered(player)
 
 func _process(_delta):
 	var time_left = int(timer.time_left)
@@ -59,74 +56,28 @@ func _process(_delta):
 	if player and player.has_node("HUD/TimerLabel"):
 		player.get_node("HUD/TimerLabel").text = "%d:%02d" % [mins, secs]
 
-func _on_drop_zone_body_entered(body):
-	if body.name == "Player":
-		body.is_on_tarp = true
-		if body.get("is_carrying_carcass") == true:
-			var animal_name = body.drop_animal()
-			if animal_name != "":
-				spawn_dropped_carcass(animal_name)
-
-func _on_drop_zone_body_exited(body):
-	if body.name == "Player":
-		body.is_on_tarp = false
-
-func spawn_dropped_carcass(animal_name: String):
-	var scene = load("res://scenes/" + animal_name + ".tscn")
-	if scene:
-		var inst = scene.instantiate()
-		
-		# Create a RigidBody3D to act as the carcass
-		var carcass_rb = RigidBody3D.new()
-		carcass_rb.add_to_group("carcass")
-		
-		# Extract collision shape
-		var shape = null
-		for child in inst.get_children():
-			if child is CollisionShape3D:
-				shape = child.duplicate()
-				break
-		if shape:
-			carcass_rb.add_child(shape)
-		
-		# Extract visual meshes
-		var mesh_base = inst.get_node_or_null("MeshBase")
-		if mesh_base:
-			var visual = mesh_base.duplicate()
-			carcass_rb.add_child(visual)
-		
-		add_child(carcass_rb)
-		
-		# Spawn above the tarp so it falls and triggers the drop zone Area3D
-		# drop_zone is used for coordinates
-		var random_x = randf_range(-2.5, 2.5)
-		var random_z = randf_range(-2.5, 2.5)
-		var random_offset = Vector3(random_x, 1.5, random_z)
-		carcass_rb.global_position = drop_zone.global_position + random_offset
-		carcass_rb.rotation_degrees = Vector3(0, randf_range(0, 360), 90)
-		
-		# Free the original instance as it's a CharacterBody3D that can't be used
-		inst.queue_free()
-		
-		carcasses_on_tarp += 1
-
 func _on_timeout():
-	if get_node("/root/GameManager").level == 1:
-		if tarp_area and player:
-			tarp_area._on_body_entered(player)
-		return
-		
-	end_panel.visible = true
+	var gm = get_node_or_null("/root/GameManager")
+	var current_level = gm.level if gm else 1
+
+	if end_panel:
+		end_panel.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	
-	if get_node("/root/GameManager").level == 2:
-		end_text.text = "The whispers grow louder. The dizzying potion wears off.\n\nTransitioning..."
+
+	var next_scene = ""
+	if current_level == 1:
+		if end_text: end_text.text = "The night is over. Time to collect your pay...\n\nTransitioning..."
+		next_scene = "res://scenes/cutscenes/MidCutscene.tscn"
+	elif current_level == 2:
+		if end_text: end_text.text = "The whispers grow louder. The dizzying potion wears off.\n\nTransitioning..."
+		next_scene = "res://scenes/levels/Level3.tscn"
 	else:
-		end_text.text = "The hallucination ends..."
-		
+		if end_text: end_text.text = "The hallucination ends..."
+		next_scene = "res://scenes/cutscenes/OutroCutscene.tscn"
+
 	await get_tree().create_timer(4.0).timeout
-	if get_node("/root/GameManager").level == 2:
-		get_node("/root/GameManager").level = 3
-		get_tree().change_scene_to_file("res://scenes/Level3.tscn")
-	else:
-		get_tree().change_scene_to_file("res://scenes/OutroCutscene.tscn")
+
+	if gm and current_level == 2:
+		gm.level = 3
+
+	get_tree().change_scene_to_file(next_scene)
