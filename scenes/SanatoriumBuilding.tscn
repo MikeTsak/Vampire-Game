@@ -1,0 +1,3929 @@
+[gd_scene format=3 uid="uid://cgebkgx25f6l0"]
+
+[ext_resource type="Texture2D" uid="uid://q36yeb1x6ckb" path="res://textures/ps1_concrete.tga" id="tex_concrete"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_concrete"]
+albedo_color = Color(0.6, 0.6, 0.62, 1)
+albedo_texture = ExtResource("tex_concrete")
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dark"]
+albedo_color = Color(0.1, 0.1, 0.12, 1)
+roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lit"]
+albedo_color = Color(1, 0.9, 0.6, 1)
+emission_enabled = true
+emission = Color(1, 0.8, 0.4, 1)
+emission_energy_multiplier = 4.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gate_frame"]
+albedo_color = Color(0.3, 0.15, 0.1, 1)
+metallic = 0.9
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="BoxMesh_horiz_rail"]
+material = SubResource("StandardMaterial3D_gate_frame")
+size = Vector3(1, 0.08, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vert_pole"]
+material = SubResource("StandardMaterial3D_gate_frame")
+size = Vector3(0.08, 5, 0.08)
+
+[node name="SanatoriumBuilding" type="Node3D" unique_id=389834005]
+
+[node name="SanatoriumCSG" type="CSGCombiner3D" parent="." unique_id=1469284922]
+material_override = SubResource("StandardMaterial3D_concrete")
+use_collision = true
+
+[node name="LeftWing" type="CSGBox3D" parent="SanatoriumCSG" unique_id=358115307]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 8.75, 0)
+size = Vector3(25, 17.5, 20)
+
+[node name="RightWing" type="CSGBox3D" parent="SanatoriumCSG" unique_id=863194841]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 8.75, 0)
+size = Vector3(25, 17.5, 20)
+
+[node name="CenterBlock" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1815325630]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.75, -2.5)
+size = Vector3(30, 17.5, 15)
+
+[node name="EntranceLobby" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1040778035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 10)
+size = Vector3(15, 5, 10)
+
+[node name="LeftBalconyCut_1" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1476147162]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 4.75, 2.5)
+operation = 2
+size = Vector3(5, 2.2, 12)
+
+[node name="LeftBalconyCut_2" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1923646334]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 8.25, 2.5)
+operation = 2
+size = Vector3(5, 2.2, 12)
+
+[node name="LeftBalconyCut_3" type="CSGBox3D" parent="SanatoriumCSG" unique_id=350814005]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 11.75, 2.5)
+operation = 2
+size = Vector3(5, 2.2, 12)
+
+[node name="LeftBalconyCut_4" type="CSGBox3D" parent="SanatoriumCSG" unique_id=927339901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 15.25, 2.5)
+operation = 2
+size = Vector3(5, 2.2, 12)
+
+[node name="RightBalconyCut_1" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1984954090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 4.75, 2.5)
+operation = 2
+size = Vector3(5, 2.2, 12)
+
+[node name="RightBalconyCut_2" type="CSGBox3D" parent="SanatoriumCSG" unique_id=2090807313]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 8.25, 2.5)
+operation = 2
+size = Vector3(5, 2.2, 12)
+
+[node name="RightBalconyCut_3" type="CSGBox3D" parent="SanatoriumCSG" unique_id=862769851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 11.75, 2.5)
+operation = 2
+size = Vector3(5, 2.2, 12)
+
+[node name="RightBalconyCut_4" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1639254129]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 15.25, 2.5)
+operation = 2
+size = Vector3(5, 2.2, 12)
+
+[node name="WinHole_0" type="CSGBox3D" parent="SanatoriumCSG" unique_id=68877239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_0" type="CSGBox3D" parent="SanatoriumCSG" unique_id=374784496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_1" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1152592955]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 8.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_1" type="CSGBox3D" parent="SanatoriumCSG" unique_id=912926990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 8.5, 9.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_0" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_1" unique_id=1213013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_2" type="CSGBox3D" parent="SanatoriumCSG" unique_id=289069057]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 12, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_2" type="CSGBox3D" parent="SanatoriumCSG" unique_id=397460294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 12, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_3" type="CSGBox3D" parent="SanatoriumCSG" unique_id=918190385]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 15.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_3" type="CSGBox3D" parent="SanatoriumCSG" unique_id=984566956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 15.5, 9.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_1" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_3" unique_id=749852115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_4" type="CSGBox3D" parent="SanatoriumCSG" unique_id=357919582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.75, 5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_4" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1160892657]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.75, 5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_5" type="CSGBox3D" parent="SanatoriumCSG" unique_id=799246667]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.75, 8.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_5" type="CSGBox3D" parent="SanatoriumCSG" unique_id=516091961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.75, 8.5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_6" type="CSGBox3D" parent="SanatoriumCSG" unique_id=841356580]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.75, 12, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_6" type="CSGBox3D" parent="SanatoriumCSG" unique_id=634587306]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.75, 12, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_7" type="CSGBox3D" parent="SanatoriumCSG" unique_id=6779147]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.75, 15.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_7" type="CSGBox3D" parent="SanatoriumCSG" unique_id=317351183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.75, 15.5, 9.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_2" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_7" unique_id=544819893]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_8" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1781887860]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_8" type="CSGBox3D" parent="SanatoriumCSG" unique_id=2089372767]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_9" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1590218132]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 8.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_9" type="CSGBox3D" parent="SanatoriumCSG" unique_id=2083613934]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 8.5, 9.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_3" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_9" unique_id=469749613]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_10" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1106597964]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 12, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_10" type="CSGBox3D" parent="SanatoriumCSG" unique_id=299728514]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 12, 9.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_4" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_10" unique_id=1634894261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_11" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1540485832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 15.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_11" type="CSGBox3D" parent="SanatoriumCSG" unique_id=331225841]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 15.5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_12" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1177789618]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.25, 5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_12" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1489822701]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.25, 5, 9.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_5" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_12" unique_id=1597650493]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_13" type="CSGBox3D" parent="SanatoriumCSG" unique_id=2019770845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.25, 8.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_13" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1414418399]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.25, 8.5, 9.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_6" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_13" unique_id=1105564895]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_14" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1291168400]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.25, 12, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_14" type="CSGBox3D" parent="SanatoriumCSG" unique_id=678257025]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.25, 12, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_15" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1196022700]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.25, 15.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_15" type="CSGBox3D" parent="SanatoriumCSG" unique_id=949721079]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.25, 15.5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_16" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1701381546]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_16" type="CSGBox3D" parent="SanatoriumCSG" unique_id=655538022]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 5, 9.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_7" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_16" unique_id=1063456353]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_17" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1732043321]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 8.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_17" type="CSGBox3D" parent="SanatoriumCSG" unique_id=2036771829]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 8.5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_18" type="CSGBox3D" parent="SanatoriumCSG" unique_id=930162997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 12, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_18" type="CSGBox3D" parent="SanatoriumCSG" unique_id=467720428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 12, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_19" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1757983475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 15.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_19" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1230438655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 15.5, 9.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_8" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_19" unique_id=1660205158]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_20" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1607672436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_20" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1833033524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_21" type="CSGBox3D" parent="SanatoriumCSG" unique_id=476892577]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 8.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_21" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1071417413]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 8.5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_22" type="CSGBox3D" parent="SanatoriumCSG" unique_id=142666956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 12, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_22" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1637949360]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 12, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_23" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1906767330]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 15.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_23" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1588218164]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 15.5, 9.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_9" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_23" unique_id=1647755989]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_24" type="CSGBox3D" parent="SanatoriumCSG" unique_id=129670510]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.25, 5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_24" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1087599892]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.25, 5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_25" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1636929519]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.25, 8.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_25" type="CSGBox3D" parent="SanatoriumCSG" unique_id=523321892]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.25, 8.5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_26" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1007453361]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.25, 12, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_26" type="CSGBox3D" parent="SanatoriumCSG" unique_id=302611563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.25, 12, 9.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_10" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_26" unique_id=407937851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_27" type="CSGBox3D" parent="SanatoriumCSG" unique_id=487370235]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.25, 15.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_27" type="CSGBox3D" parent="SanatoriumCSG" unique_id=608478725]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.25, 15.5, 9.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_11" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_27" unique_id=2137452963]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_28" type="CSGBox3D" parent="SanatoriumCSG" unique_id=582048563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_28" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1881838999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_29" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1855679344]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 8.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_29" type="CSGBox3D" parent="SanatoriumCSG" unique_id=760148112]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 8.5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_30" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1941037956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 12, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_30" type="CSGBox3D" parent="SanatoriumCSG" unique_id=705266961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 12, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_31" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1192214729]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 15.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_31" type="CSGBox3D" parent="SanatoriumCSG" unique_id=540053187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 15.5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_32" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1447484195]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.75, 5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_32" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1675494926]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.75, 5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_33" type="CSGBox3D" parent="SanatoriumCSG" unique_id=656555693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.75, 8.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_33" type="CSGBox3D" parent="SanatoriumCSG" unique_id=328930853]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.75, 8.5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_34" type="CSGBox3D" parent="SanatoriumCSG" unique_id=514914910]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.75, 12, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_34" type="CSGBox3D" parent="SanatoriumCSG" unique_id=82987543]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.75, 12, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_35" type="CSGBox3D" parent="SanatoriumCSG" unique_id=681274573]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.75, 15.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_35" type="CSGBox3D" parent="SanatoriumCSG" unique_id=932756481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.75, 15.5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_36" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1143852258]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_36" type="CSGBox3D" parent="SanatoriumCSG" unique_id=263176040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_37" type="CSGBox3D" parent="SanatoriumCSG" unique_id=346598325]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 8.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_37" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1455204115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 8.5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_38" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1028099765]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 12, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_38" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1808624622]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 12, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_39" type="CSGBox3D" parent="SanatoriumCSG" unique_id=338763867]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 15.5, 9.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_39" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1630888580]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 15.5, 9.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_40" type="CSGBox3D" parent="SanatoriumCSG" unique_id=436625054]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_40" type="CSGBox3D" parent="SanatoriumCSG" unique_id=833539062]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 5, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_41" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1730524775]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 8.5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_41" type="CSGBox3D" parent="SanatoriumCSG" unique_id=239979622]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 8.5, 4.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_12" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_41" unique_id=994987440]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_42" type="CSGBox3D" parent="SanatoriumCSG" unique_id=609874947]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 12, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_42" type="CSGBox3D" parent="SanatoriumCSG" unique_id=72034915]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 12, 4.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_13" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_42" unique_id=1628358621]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_43" type="CSGBox3D" parent="SanatoriumCSG" unique_id=772900609]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 15.5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_43" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1040989420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 15.5, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_44" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1678062920]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2, 5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_44" type="CSGBox3D" parent="SanatoriumCSG" unique_id=89935567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2, 5, 4.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_14" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_44" unique_id=1108452171]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_45" type="CSGBox3D" parent="SanatoriumCSG" unique_id=516919584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2, 8.5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_45" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1745992127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2, 8.5, 4.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_15" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_45" unique_id=555862231]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_46" type="CSGBox3D" parent="SanatoriumCSG" unique_id=2123018869]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2, 12, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_46" type="CSGBox3D" parent="SanatoriumCSG" unique_id=2023866393]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2, 12, 4.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_16" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_46" unique_id=1135082995]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_47" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1837093391]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2, 15.5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_47" type="CSGBox3D" parent="SanatoriumCSG" unique_id=683975822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2, 15.5, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_48" type="CSGBox3D" parent="SanatoriumCSG" unique_id=130131330]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_48" type="CSGBox3D" parent="SanatoriumCSG" unique_id=2011070631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 5, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_49" type="CSGBox3D" parent="SanatoriumCSG" unique_id=2072056314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 8.5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_49" type="CSGBox3D" parent="SanatoriumCSG" unique_id=965095820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 8.5, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_50" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1072536122]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 12, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_50" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1398778370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 12, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_51" type="CSGBox3D" parent="SanatoriumCSG" unique_id=906410766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 15.5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_51" type="CSGBox3D" parent="SanatoriumCSG" unique_id=705416934]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 15.5, 4.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_17" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_51" unique_id=1184928022]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_52" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1422003116]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_52" type="CSGBox3D" parent="SanatoriumCSG" unique_id=636301721]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 5, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_53" type="CSGBox3D" parent="SanatoriumCSG" unique_id=33649381]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 8.5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_53" type="CSGBox3D" parent="SanatoriumCSG" unique_id=14841626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 8.5, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_54" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1676702700]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 12, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_54" type="CSGBox3D" parent="SanatoriumCSG" unique_id=137752938]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 12, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_55" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1846180459]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 15.5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_55" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1361687271]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 15.5, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_56" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1431773378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_56" type="CSGBox3D" parent="SanatoriumCSG" unique_id=125605226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 5, 4.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_18" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_56" unique_id=2101282324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_57" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1444495055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 8.5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_57" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1899804726]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 8.5, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_58" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1798263865]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 12, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_58" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1763576670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 12, 4.2)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinLight_19" type="OmniLight3D" parent="SanatoriumCSG/WinGlass_58" unique_id=643102249]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="WinHole_59" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1185040921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 15.5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_59" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1941185798]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 15.5, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_60" type="CSGBox3D" parent="SanatoriumCSG" unique_id=125615044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_60" type="CSGBox3D" parent="SanatoriumCSG" unique_id=2053550345]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 5, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_61" type="CSGBox3D" parent="SanatoriumCSG" unique_id=630109497]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 8.5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_61" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1562666645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 8.5, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_62" type="CSGBox3D" parent="SanatoriumCSG" unique_id=417724174]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 12, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_62" type="CSGBox3D" parent="SanatoriumCSG" unique_id=947273370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 12, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="WinHole_63" type="CSGBox3D" parent="SanatoriumCSG" unique_id=393769269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 15.5, 4.5)
+operation = 2
+size = Vector3(2.5, 1.8, 1.2)
+
+[node name="WinGlass_63" type="CSGBox3D" parent="SanatoriumCSG" unique_id=874797369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 15.5, 4.2)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(2.4, 1.7, 0.2)
+
+[node name="BackBalconyCut_1" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1241114948]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.75, -9)
+operation = 2
+size = Vector3(76, 2.2, 2.5)
+
+[node name="BackBalconyWall_1" type="CSGBox3D" parent="SanatoriumCSG" unique_id=2039921600]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.75, -7.8)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(76, 2.2, 0.2)
+
+[node name="BackBalconyCut_2" type="CSGBox3D" parent="SanatoriumCSG" unique_id=975231068]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.25, -9)
+operation = 2
+size = Vector3(76, 2.2, 2.5)
+
+[node name="BackBalconyWall_2" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1082117654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.25, -7.8)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(76, 2.2, 0.2)
+
+[node name="BackBalconyCut_3" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1223591599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.75, -9)
+operation = 2
+size = Vector3(76, 2.2, 2.5)
+
+[node name="BackBalconyWall_3" type="CSGBox3D" parent="SanatoriumCSG" unique_id=904991215]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.75, -7.8)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(76, 2.2, 0.2)
+
+[node name="BalconyLight_20" type="OmniLight3D" parent="SanatoriumCSG/BackBalconyWall_3" unique_id=502459653]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="BalconyLight_21" type="OmniLight3D" parent="SanatoriumCSG/BackBalconyWall_3" unique_id=1299902331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="BalconyLight_22" type="OmniLight3D" parent="SanatoriumCSG/BackBalconyWall_3" unique_id=2077637440]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="BackBalconyCut_4" type="CSGBox3D" parent="SanatoriumCSG" unique_id=366445020]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.25, -9)
+operation = 2
+size = Vector3(76, 2.2, 2.5)
+
+[node name="BackBalconyWall_4" type="CSGBox3D" parent="SanatoriumCSG" unique_id=243264565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.25, -7.8)
+material_override = SubResource("StandardMaterial3D_lit")
+size = Vector3(76, 2.2, 0.2)
+
+[node name="BalconyLight_23" type="OmniLight3D" parent="SanatoriumCSG/BackBalconyWall_4" unique_id=233695709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="BalconyLight_24" type="OmniLight3D" parent="SanatoriumCSG/BackBalconyWall_4" unique_id=135896926]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="BalconyLight_25" type="OmniLight3D" parent="SanatoriumCSG/BackBalconyWall_4" unique_id=1795367038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -1)
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 15.0
+
+[node name="EntranceDoorCut" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1486204686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.925657, 14.5)
+operation = 2
+size = Vector3(4, 3, 2)
+
+[node name="EntranceDoorGlass" type="CSGBox3D" parent="SanatoriumCSG" unique_id=961429155]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.925657, 14)
+material_override = SubResource("StandardMaterial3D_dark")
+size = Vector3(3.8, 2.8, 0.2)
+
+[node name="LeftLanternPole" type="CSGCylinder3D" parent="SanatoriumCSG" unique_id=1467259318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 16.5)
+material_override = SubResource("StandardMaterial3D_dark")
+radius = 0.15
+height = 4.0
+
+[node name="LeftLanternBulb" type="CSGSphere3D" parent="SanatoriumCSG" unique_id=1023506815]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4.2, 16.5)
+material_override = SubResource("StandardMaterial3D_lit")
+radius = 0.4
+
+[node name="LeftLanternLight" type="OmniLight3D" parent="SanatoriumCSG/LeftLanternBulb" unique_id=1729228293]
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 5.0
+shadow_enabled = true
+omni_range = 25.0
+
+[node name="RightLanternPole" type="CSGCylinder3D" parent="SanatoriumCSG" unique_id=1117194212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 16.5)
+material_override = SubResource("StandardMaterial3D_dark")
+radius = 0.15
+height = 4.0
+
+[node name="RightLanternBulb" type="CSGSphere3D" parent="SanatoriumCSG" unique_id=87016396]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4.2, 16.5)
+material_override = SubResource("StandardMaterial3D_lit")
+radius = 0.4
+
+[node name="RightLanternLight" type="OmniLight3D" parent="SanatoriumCSG/RightLanternBulb" unique_id=1705348936]
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 5.0
+shadow_enabled = true
+omni_range = 25.0
+
+[node name="RoofStructure_0" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1325427509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 19, -2.5)
+size = Vector3(6, 3, 6)
+
+[node name="RoofStructure_1" type="CSGBox3D" parent="SanatoriumCSG" unique_id=454466933]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19, -2.5)
+size = Vector3(6, 3, 6)
+
+[node name="RoofStructure_2" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1382924891]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 19, -2.5)
+size = Vector3(6, 3, 6)
+
+[node name="FencePanel_FrontLeft" type="Node3D" parent="SanatoriumCSG" unique_id=229310556]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+
+[node name="Rail_0" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=314582303]
+transform = Transform3D(39, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, -2, 22)
+mesh = SubResource("BoxMesh_horiz_rail")
+skeleton = NodePath("../../..")
+
+[node name="Rail_1" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1025036811]
+transform = Transform3D(39, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 2, 22)
+mesh = SubResource("BoxMesh_horiz_rail")
+skeleton = NodePath("../../..")
+
+[node name="Pole_2" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=507356055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_3" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1072211332]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_4" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=2024978587]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_5" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1106078757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_6" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1982367128]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_7" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=2142773775]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_8" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=433934680]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_9" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=268126968]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_10" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1306695924]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_11" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1469556838]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_12" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=2048621405]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_13" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=642304118]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_14" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1164893127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_15" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1636650671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_16" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=81683674]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_17" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1836489129]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_18" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=7966251]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_19" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1232614634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_20" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=215399007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_21" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=298137301]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_22" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1067129686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_23" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1908111326]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_24" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=19056618]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_25" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=650186958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_26" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=2098356403]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_27" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=961965196]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_28" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1902517162]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_29" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=513399443]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_30" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1750181503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_31" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=800990767]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_32" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=192231268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_33" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1860428086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_34" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=251357441]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_35" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1911630571]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_36" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=902846682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_37" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1235533566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_38" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=2091164207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_39" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1532902819]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_40" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=49337370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_41" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1480695941]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_42" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=259532901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_43" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=804164212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_44" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1844365483]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_45" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1626931268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_46" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=64820285]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_47" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1713361886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_48" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=244406298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_49" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=548678438]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_50" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1503994792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_51" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=418304678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_52" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1163980211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_53" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1708911945]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_54" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=135442601]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_55" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=497330103]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_56" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=499455426]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_57" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1982751113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_58" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1195741475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_59" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=2083172367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_60" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=782764375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_61" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=2037538078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_62" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=875351068]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_63" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1942149036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_64" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=617548475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_65" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=2100053848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_66" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1154077693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_67" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=263617620]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_68" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=544434048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_69" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=313050810]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_70" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1475538042]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_71" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=328779391]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_72" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=909449793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_73" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=2146199166]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_74" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1427288387]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_75" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1650388648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_76" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=887313498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_77" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=794615070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_78" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1189103682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_79" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1982980052]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_80" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontLeft" unique_id=1796496495]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="FencePanel_FrontRight" type="Node3D" parent="SanatoriumCSG" unique_id=1807161048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+
+[node name="Rail_81" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=110569973]
+transform = Transform3D(39, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, -2, 22)
+mesh = SubResource("BoxMesh_horiz_rail")
+skeleton = NodePath("../../..")
+
+[node name="Rail_82" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1636534719]
+transform = Transform3D(39, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 2, 22)
+mesh = SubResource("BoxMesh_horiz_rail")
+skeleton = NodePath("../../..")
+
+[node name="Pole_83" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=971811726]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_84" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=371032783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_85" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1271985400]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_86" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1763521752]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_87" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=53892117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_88" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1120354233]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_89" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1668621718]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_90" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=475528014]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_91" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=531673976]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_92" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1901711577]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_93" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=532197366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_94" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=462920753]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_95" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=338835168]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_96" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1715759485]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_97" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=48118170]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_98" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=2068593729]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_99" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1387191982]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_100" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=475325850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_101" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1181739696]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_102" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=509486926]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_103" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=990010821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_104" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1995352393]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_105" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=379318773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_106" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=148758655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_107" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=2092176504]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_108" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1205880327]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_109" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1582838828]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_110" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=417161339]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_111" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1867949015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_112" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=188778873]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_113" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=348451962]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_114" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=633491619]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_115" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1348265322]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_116" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1600466005]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_117" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1842754760]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_118" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=631747479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_119" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1402837825]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_120" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=379563221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_121" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=366202184]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_122" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=212821943]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_123" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=402368418]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_124" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=199387204]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_125" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=798101946]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_126" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=93044676]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_127" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=699173194]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_128" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=2043593316]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_129" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=931381492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_130" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=400260169]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_131" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1407949275]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_132" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1641863115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_133" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=869332817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_134" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=146254217]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_135" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=822988232]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_136" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=697439941]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_137" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=401337490]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_138" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=527187510]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_139" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=2129413579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_140" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1789356842]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_141" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1030624353]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_142" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=971255211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_143" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=37544456]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_144" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1148330129]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_145" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1362515163]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_146" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1051102124]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_147" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=243179015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_148" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=366251684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_149" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1052984806]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_150" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1285058433]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_151" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=70225213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_152" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1709690047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_153" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=2057389241]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_154" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=463191021]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_155" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1360108323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_156" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=2027347680]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_157" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=774661127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_158" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1013864338]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_159" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=1092016941]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_160" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=926878794]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.5, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_161" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_FrontRight" unique_id=793582059]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="FencePanel_Left" type="Node3D" parent="SanatoriumCSG" unique_id=1147373478]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+
+[node name="Rail_162" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=908042277]
+transform = Transform3D(-1.6173213e-06, 0, 1, 0, 1, 0, -37, 0, -4.371139e-08, -45, -2, 3.5)
+mesh = SubResource("BoxMesh_horiz_rail")
+skeleton = NodePath("../../..")
+
+[node name="Rail_163" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=762599773]
+transform = Transform3D(-1.6173213e-06, 0, 1, 0, 1, 0, -37, 0, -4.371139e-08, -45, 2, 3.5)
+mesh = SubResource("BoxMesh_horiz_rail")
+skeleton = NodePath("../../..")
+
+[node name="Pole_164" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1473005559]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_165" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1548915136]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 21.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_166" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1690300475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 21)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_167" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1355815685]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 20.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_168" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=2021030078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 20)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_169" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=712048865]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 19.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_170" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1488847203]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 19)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_171" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1110702190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 18.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_172" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1976707823]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 18)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_173" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=795697341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 17.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_174" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=516739710]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 17)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_175" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=297794883]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 16.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_176" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=2138550770]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 16)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_177" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=2083307696]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 15.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_178" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1990520567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_179" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1410859586]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 14.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_180" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1280263889]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 14)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_181" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1002675303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 13.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_182" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=484003746]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 13)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_183" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=288820263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 12.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_184" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=976989117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 12)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_185" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=988914755]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 11.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_186" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=756702636]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 11)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_187" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1882453086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 10.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_188" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1665761238]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 10)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_189" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1467569504]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 9.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_190" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1373444501]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 9)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_191" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=510876416]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 8.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_192" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1477455106]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 8)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_193" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1290069480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 7.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_194" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1042649854]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 7)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_195" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=592878693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 6.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_196" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1993975015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 6)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_197" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=944762156]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 5.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_198" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1568278383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_199" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=701931492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 4.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_200" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=60360118]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 4)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_201" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1731915434]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 3.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_202" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=307568599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 3)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_203" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=677470106]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 2.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_204" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1269765937]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 2)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_205" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1804995153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 1.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_206" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=802014890]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 1)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_207" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=116643636]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 0.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_208" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1563243912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_209" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1201976274]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -0.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_210" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1790682928]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -1)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_211" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1606362493]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -1.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_212" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=738438680]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -2)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_213" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=523905812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -2.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_214" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=304342711]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -3)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_215" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=358368137]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -3.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_216" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1219256572]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -4)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_217" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=150901149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -4.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_218" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=2099241384]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_219" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1677750193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -5.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_220" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1475404213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -6)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_221" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=480104529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -6.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_222" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1715589260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -7)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_223" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1190122952]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -7.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_224" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=639065185]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -8)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_225" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=934328183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -8.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_226" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=356639961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -9)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_227" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1510443990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -9.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_228" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=308262812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -10)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_229" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1483582754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -10.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_230" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=200451245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -11)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_231" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1586701554]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -11.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_232" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1951148690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -12)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_233" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=1277879902]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -12.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_234" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=805209095]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -13)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_235" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=451761633]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -13.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_236" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=96415251]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -14)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_237" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=287813390]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -14.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_238" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Left" unique_id=565701707]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="FencePanel_Right" type="Node3D" parent="SanatoriumCSG" unique_id=1626961962]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+
+[node name="Rail_239" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1531399582]
+transform = Transform3D(-1.6173213e-06, 0, 1, 0, 1, 0, -37, 0, -4.371139e-08, 45, -2, 3.5)
+mesh = SubResource("BoxMesh_horiz_rail")
+skeleton = NodePath("../../..")
+
+[node name="Rail_240" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=75284854]
+transform = Transform3D(-1.6173213e-06, 0, 1, 0, 1, 0, -37, 0, -4.371139e-08, 45, 2, 3.5)
+mesh = SubResource("BoxMesh_horiz_rail")
+skeleton = NodePath("../../..")
+
+[node name="Pole_241" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1147275881]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 22)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_242" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=781057015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 21.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_243" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1267858398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 21)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_244" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=864078354]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 20.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_245" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=216707309]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 20)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_246" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=219107493]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 19.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_247" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1664323050]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 19)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_248" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1719348952]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 18.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_249" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=740323919]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 18)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_250" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=2095316843]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 17.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_251" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1066146273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 17)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_252" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1049580814]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 16.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_253" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1240555768]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 16)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_254" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=144229505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 15.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_255" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1642373429]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_256" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1317442580]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 14.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_257" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=616055791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 14)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_258" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=533024974]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 13.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_259" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1662715614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 13)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_260" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1760736192]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 12.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_261" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=569470424]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 12)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_262" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1663201581]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 11.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_263" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=2058797296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 11)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_264" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1159056721]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 10.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_265" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=985191238]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 10)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_266" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1142608795]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 9.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_267" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1500974712]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 9)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_268" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=176822159]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 8.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_269" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1717700815]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 8)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_270" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1176339081]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 7.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_271" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1155024718]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 7)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_272" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=922670576]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 6.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_273" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=963877246]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 6)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_274" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1175540111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 5.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_275" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1412176170]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_276" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=985252685]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 4.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_277" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=145875039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 4)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_278" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=721107374]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 3.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_279" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=41030268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 3)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_280" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1536921849]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 2.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_281" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1151637228]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 2)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_282" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=414529771]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 1.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_283" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1019812922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 1)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_284" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=822444214]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 0.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_285" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1691743466]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_286" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=690734681]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -0.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_287" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1522985453]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -1)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_288" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=388748514]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -1.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_289" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1987570206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -2)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_290" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1943231345]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -2.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_291" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=230471914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -3)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_292" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1137034021]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -3.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_293" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1832834016]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -4)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_294" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=424577447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -4.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_295" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1770507704]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_296" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1752600464]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -5.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_297" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=35856788]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -6)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_298" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=134808705]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -6.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_299" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1680339942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -7)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_300" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1317478667]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -7.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_301" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1038464689]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -8)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_302" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=435550319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -8.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_303" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=226698204]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -9)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_304" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=275936652]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -9.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_305" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=171206979]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -10)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_306" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=797909564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -10.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_307" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1818561078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -11)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_308" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=187360013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -11.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_309" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1570745514]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -12)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_310" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=1556367224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -12.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_311" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=475898955]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -13)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_312" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=13682851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -13.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_313" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=277264569]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -14)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_314" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=49869312]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -14.5)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_315" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Right" unique_id=930567749]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="FencePanel_Back" type="Node3D" parent="SanatoriumCSG" unique_id=1970212519]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+
+[node name="Rail_316" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1169546325]
+transform = Transform3D(90, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -15)
+mesh = SubResource("BoxMesh_horiz_rail")
+skeleton = NodePath("../../..")
+
+[node name="Rail_317" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=906127068]
+transform = Transform3D(90, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -15)
+mesh = SubResource("BoxMesh_horiz_rail")
+skeleton = NodePath("../../..")
+
+[node name="Pole_318" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1174201524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_319" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=856339713]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_320" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1688318874]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_321" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1011083744]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_322" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1245437109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_323" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1648787222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_324" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1001613887]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_325" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=2136576058]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_326" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=216865894]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_327" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=887835367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_328" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=375241628]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_329" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=326371543]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_330" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=323611260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_331" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1804757914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_332" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1932583829]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_333" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1817548348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_334" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=197505167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_335" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=574910421]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_336" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=550895509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_337" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=2039236132]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_338" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=517561902]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_339" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1417467631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_340" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1781920604]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_341" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=796438648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_342" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1929290561]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_343" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1143286315]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_344" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1852194394]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_345" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=882762265]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_346" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=340784995]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_347" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=142663011]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_348" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=2135073833]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_349" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1630295965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_350" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=205882832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_351" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1838844123]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_352" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=520238649]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_353" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=495591769]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_354" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1131609014]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_355" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=124728187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_356" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=916243255]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_357" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1651049172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_358" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=623407525]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_359" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=290887599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_360" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1082048914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_361" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1832531634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_362" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=2101598418]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_363" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1931220898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_364" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1661002745]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_365" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=364149163]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_366" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1119494619]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_367" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1728326373]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_368" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1927902952]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_369" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1637631035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_370" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1048135731]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_371" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=399463616]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_372" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1445012340]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_373" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1769630190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_374" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1217786890]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_375" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=876801804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_376" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=2014926278]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_377" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=200409186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_378" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1693947516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_379" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=900508290]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_380" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=283707753]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_381" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=204109297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_382" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=77225542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_383" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1838260440]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_384" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=132632181]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_385" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=422146920]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_386" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=795100455]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_387" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1637833671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_388" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=490811451]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_389" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1893073289]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_390" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=695982892]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_391" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=277774018]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_392" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1503627232]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_393" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1596047009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_394" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1166355750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_395" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=2086018625]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_396" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=278449664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_397" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=184075412]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_398" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=55176331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_399" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=517459848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_400" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=710304869]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_401" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=68505077]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_402" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1718056035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_403" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=746609109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_404" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1022212553]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_405" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1900677344]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_406" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=436434915]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_407" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1298083711]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_408" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=591436350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_409" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=2001067066]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_410" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1164031835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_411" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1806594041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_412" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1698330852]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_413" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=22284107]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_414" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1765645280]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_415" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1759478589]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_416" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1018010897]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_417" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=521609210]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_418" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1450842002]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_419" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=609348666]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_420" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1454442758]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_421" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1102935631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_422" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=891224611]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_423" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1831604256]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_424" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=314856015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_425" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=492357295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_426" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=215856664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_427" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1987621604]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_428" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=393573276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_429" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=335827019]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_430" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=924467288]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_431" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1296845323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_432" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=538147225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_433" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1005285015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_434" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=531635404]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_435" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=2102781898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_436" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1147679847]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_437" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1817844051]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_438" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=462601465]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_439" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1878900924]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_440" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=376639641]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_441" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1952703350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_442" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1860347564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_443" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=633320965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_444" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=219913172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_445" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=698989492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_446" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1143796850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_447" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=836137556]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_448" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1982850696]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_449" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1273411312]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_450" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=547239049]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_451" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=242814652]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_452" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1253933698]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_453" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1556837311]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_454" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=2025039779]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_455" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=599538295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_456" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1999204360]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_457" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=2037671806]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_458" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=451024966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_459" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=874079719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_460" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1928033178]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_461" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=514328516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_462" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1119771375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_463" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=670624974]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_464" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1507258011]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_465" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1537321305]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_466" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1251859366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_467" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1328433015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_468" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1764179921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_469" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=212702321]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_470" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1135660218]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_471" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=685900978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_472" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1867283879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_473" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1024803773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_474" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=218995377]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_475" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=351547564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_476" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1517748837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_477" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=765919461]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_478" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=500549206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_479" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=353078601]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_480" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=633563797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_481" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1146995203]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_482" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=2814643]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_483" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=724787415]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_484" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=467184146]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_485" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1087340570]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_486" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=133424028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_487" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=934780977]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_488" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1144012371]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_489" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=289585051]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_490" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1158806177]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_491" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1868790073]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_492" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1076264218]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_493" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=935323530]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_494" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=421636972]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_495" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1969536624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_496" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1549879287]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_497" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=938670844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.5, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="Pole_498" type="MeshInstance3D" parent="SanatoriumCSG/FencePanel_Back" unique_id=1701263418]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -15)
+mesh = SubResource("BoxMesh_vert_pole")
+skeleton = NodePath("../../..")
+
+[node name="LeftGateHinge" type="Node3D" parent="SanatoriumCSG" unique_id=304212841]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 22)
+
+[node name="LeftGateFrame" type="Node3D" parent="SanatoriumCSG/LeftGateHinge" unique_id=1001701218]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.5, 0)
+
+[node name="GateRail_499" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1218787408]
+transform = Transform3D(5.8, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.4, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateRail_499" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame/GateRail_499" unique_id=1111204891]
+transform = Transform3D(5.8, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999998, 0.53405684, -2.3999994, -9.851391)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateRail_500" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1797976180]
+transform = Transform3D(5.8, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_501" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1266370378]
+transform = Transform3D(0.35, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, 2.4, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_502" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=2048311248]
+transform = Transform3D(0.34917137, 0.0687704, 0, -0.02406964, 0.9976325, 0, 0, 0, 1, -2.5947368, 2.4181118, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_503" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=9840069]
+transform = Transform3D(0.3483434, 0.09717924, 0, -0.034012735, 0.9952669, 0, 0, 0, 1, -2.2894738, 2.451228, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_504" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=944497293]
+transform = Transform3D(0.34751612, 0.11892578, 0, -0.04162402, 0.9929032, 0, 0, 0, 1, -1.9842105, 2.4941115, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_505" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1698426654]
+transform = Transform3D(0.34668943, 0.13721517, 0, -0.048025306, 0.9905413, 0, 0, 0, 1, -1.6789473, 2.5448942, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_506" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=179308847]
+transform = Transform3D(0.34586343, 0.15328999, 0, -0.053651497, 0.98818123, 0, 0, 0, 1, -1.3736842, 2.6024957, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_507" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1076029693]
+transform = Transform3D(0.3450381, 0.16778801, 0, -0.058725804, 0.9858231, 0, 0, 0, 1, -1.068421, 2.6661875, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_508" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1749371382]
+transform = Transform3D(0.34421337, 0.18108846, 0, -0.063380964, 0.9834668, 0, 0, 0, 1, -0.7631579, 2.7354345, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_509" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=846650348]
+transform = Transform3D(0.34338933, 0.19343857, 0, -0.0677035, 0.98111236, 0, 0, 0, 1, -0.45789474, 2.8098226, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_510" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1073147367]
+transform = Transform3D(0.34256592, 0.20501024, 0, -0.071753584, 0.9787598, 0, 0, 0, 1, -0.15263158, 2.8890178, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_511" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1237979025]
+transform = Transform3D(0.3417432, 0.2159287, 0, -0.075575046, 0.97640914, 0, 0, 0, 1, 0.15263158, 2.9727445, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_512" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=813288943]
+transform = Transform3D(0.3409211, 0.22628862, 0, -0.07920101, 0.9740603, 0, 0, 0, 1, 0.45789474, 3.0607693, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_513" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=141309769]
+transform = Transform3D(0.34009966, 0.23616357, 0, -0.08265725, 0.9717133, 0, 0, 0, 1, 0.7631579, 3.152892, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_514" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=561713293]
+transform = Transform3D(0.33927888, 0.24561207, 0, -0.085964225, 0.9693682, 0, 0, 0, 1, 1.068421, 3.2489378, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_515" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=206935533]
+transform = Transform3D(0.33845872, 0.2546817, 0, -0.0891386, 0.9670249, 0, 0, 0, 1, 1.3736842, 3.3487525, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_516" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=281025094]
+transform = Transform3D(0.33763924, 0.2634116, 0, -0.092194065, 0.96468353, 0, 0, 0, 1, 1.6789473, 3.4521987, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_517" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=596904024]
+transform = Transform3D(0.3368204, 0.27183458, 0, -0.095142104, 0.962344, 0, 0, 0, 1, 1.9842105, 3.559153, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_518" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=486864953]
+transform = Transform3D(0.3360022, 0.2799784, 0, -0.097992435, 0.9600063, 0, 0, 0, 1, 2.2894738, 3.6695044, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_519" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1560162272]
+transform = Transform3D(0.33518466, 0.2878668, 0, -0.10075338, 0.95767045, 0, 0, 0, 1, 2.5947368, 3.7831511, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_520" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=242276750]
+transform = Transform3D(0.33436778, 0.29552022, 0, -0.103432074, 0.9553365, 0, 0, 0, 1, 2.9, 3.9, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GatePole_521" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1560248296]
+transform = Transform3D(1, 0, 0, 0, 0.9833541, 0, 0, 0, 1, -2.6999998, -0.028515816, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_522" type="CSGCone3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1068827681]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7, 0.06677051, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_523" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=609566515]
+transform = Transform3D(1, 0, 0, 0, 0.99460596, 0, 0, 0, 1, -2.1999998, -0.08782816, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_524" type="CSGCone3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1526364356]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0.12302967, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_525" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1470512791]
+transform = Transform3D(1, 0, 0, 0, 1.0102558, 0, 0, 0, 1, -1.6999998, -0.048703432, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_526" type="CSGCone3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=269152124]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, 0.20127927, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_527" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=2062283981]
+transform = Transform3D(1, 0, 0, 0, 1.0292951, 0, 0, 0, 1, -1.1999998, -0.0011053085, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_528" type="CSGCone3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1825225620]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.29647514, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_529" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1441630329]
+transform = Transform3D(1, 0, 0, 0, 1.051201, 0, 0, 0, 1, -0.70000005, 0.05365944, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_530" type="CSGCone3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=2054334839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.40600502, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_531" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=719418830]
+transform = Transform3D(1, 0, 0, 0, 1.0756382, 0, 0, 0, 1, -0.20000005, 0.11475253, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_532" type="CSGCone3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=76792538]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.52819103, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_533" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1927682973]
+transform = Transform3D(1, 0, 0, 0, 1.1023673, 0, 0, 0, 1, 0.29999995, 0.1815753, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_534" type="CSGCone3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=226342720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.6618364, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_535" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1820667215]
+transform = Transform3D(1, 0, 0, 0, 1.1312063, 0, 0, 0, 1, 0.79999995, 0.2536726, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_536" type="CSGCone3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1707712075]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.8060313, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_537" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1544380230]
+transform = Transform3D(1, 0, 0, 0, 1.1620108, 0, 0, 0, 1, 1.3, 0.33068395, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_538" type="CSGCone3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1524737608]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0.9600538, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_539" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=694701255]
+transform = Transform3D(1, 0, 0, 0, 1.1946626, 0, 0, 0, 1, 1.8, 0.41231346, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_540" type="CSGCone3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1784407628]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.1233126, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_541" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=2075369913]
+transform = Transform3D(1, 0, 0, 0, 1.2290624, 0, 0, 0, 1, 2.3, 0.6197376, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_542" type="CSGCone3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1862591346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 1.295312, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_543" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=527275393]
+transform = Transform3D(1, 0, 0, 0, 1.2651258, 0, 0, 0, 1, 2.8, 0.7701616, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_544" type="CSGCone3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1459246987]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 1.4756285, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="RightGateHinge" type="Node3D" parent="SanatoriumCSG" unique_id=1732130709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 22)
+
+[node name="RightGateFrame" type="Node3D" parent="SanatoriumCSG/RightGateHinge" unique_id=2053915035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2.5, 0)
+
+[node name="GateRail_545" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=957915899]
+transform = Transform3D(5.8, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025656939, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateRail_546" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=604918382]
+transform = Transform3D(5.8, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4256573, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_547" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=815653609]
+transform = Transform3D(0.35, 0, 0, 0, 1, 0, 0, 0, 1, 2.9, 2.4, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_548" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=532240821]
+transform = Transform3D(0.34917137, -0.0687704, 0, 0.02406964, 0.9976325, 0, 0, 0, 1, 2.5947368, 2.4181118, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_549" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=608134941]
+transform = Transform3D(0.3483434, -0.09717924, 0, 0.034012735, 0.9952669, 0, 0, 0, 1, 2.2894738, 2.451228, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_550" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1654417815]
+transform = Transform3D(0.34751612, -0.11892578, 0, 0.04162402, 0.9929032, 0, 0, 0, 1, 1.9842105, 2.4941115, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_551" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=801146334]
+transform = Transform3D(0.34668943, -0.13721517, 0, 0.048025306, 0.9905413, 0, 0, 0, 1, 1.6789473, 2.5448942, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_552" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1324757522]
+transform = Transform3D(0.34586343, -0.15328999, 0, 0.053651497, 0.98818123, 0, 0, 0, 1, 1.3736842, 2.6024957, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_553" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=443882289]
+transform = Transform3D(0.3450381, -0.16778801, 0, 0.058725804, 0.9858231, 0, 0, 0, 1, 1.068421, 2.6661875, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_554" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1449713316]
+transform = Transform3D(0.34421337, -0.18108846, 0, 0.063380964, 0.9834668, 0, 0, 0, 1, 0.7631579, 2.7354345, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_555" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=12065843]
+transform = Transform3D(0.34338933, -0.19343857, 0, 0.0677035, 0.98111236, 0, 0, 0, 1, 0.45789474, 2.8098226, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_556" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1494978072]
+transform = Transform3D(0.34256592, -0.20501024, 0, 0.071753584, 0.9787598, 0, 0, 0, 1, 0.15263158, 2.8890178, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_557" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=259087540]
+transform = Transform3D(0.3417432, -0.2159287, 0, 0.075575046, 0.97640914, 0, 0, 0, 1, -0.15263158, 2.9727445, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_558" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1060980974]
+transform = Transform3D(0.3409211, -0.22628862, 0, 0.07920101, 0.9740603, 0, 0, 0, 1, -0.45789474, 3.0607693, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_559" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1448891095]
+transform = Transform3D(0.34009966, -0.23616357, 0, 0.08265725, 0.9717133, 0, 0, 0, 1, -0.7631579, 3.152892, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_560" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=2022479427]
+transform = Transform3D(0.33927888, -0.24561207, 0, 0.085964225, 0.9693682, 0, 0, 0, 1, -1.068421, 3.2489378, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_561" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=211448294]
+transform = Transform3D(0.33845872, -0.2546817, 0, 0.0891386, 0.9670249, 0, 0, 0, 1, -1.3736842, 3.3487525, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_562" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=83935029]
+transform = Transform3D(0.33763924, -0.2634116, 0, 0.092194065, 0.96468353, 0, 0, 0, 1, -1.6789473, 3.4521987, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_563" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=300177160]
+transform = Transform3D(0.3368204, -0.27183458, 0, 0.095142104, 0.962344, 0, 0, 0, 1, -1.9842105, 3.559153, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_564" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1379743288]
+transform = Transform3D(0.3360022, -0.2799784, 0, 0.097992435, 0.9600063, 0, 0, 0, 1, -2.2894738, 3.6695044, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_565" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=76763894]
+transform = Transform3D(0.33518466, -0.2878668, 0, 0.10075338, 0.95767045, 0, 0, 0, 1, -2.5947368, 3.7831511, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GateArch_566" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=155751589]
+transform = Transform3D(0.33436778, -0.29552022, 0, 0.103432074, 0.9553365, 0, 0, 0, 1, -2.9, 3.9, 0)
+mesh = SubResource("BoxMesh_horiz_rail")
+
+[node name="GatePole_567" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=489310922]
+transform = Transform3D(1, 0, 0, 0, 1.2577837, 0, 0, 0, 1, -2.7, 0.6298499, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_568" type="CSGCone3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=522865767]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7, 1.4389182, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_569" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1222777352]
+transform = Transform3D(1, 0, 0, 0, 1.2220469, 0, 0, 0, 1, -2.2, 0.46287823, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_570" type="CSGCone3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=133666582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 1.2602341, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_571" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1544927047]
+transform = Transform3D(1, 0, 0, 0, 1.1879894, 0, 0, 0, 1, -1.7, 0.3956306, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_572" type="CSGCone3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1506319015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, 1.0899469, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_573" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=382556203]
+transform = Transform3D(1, 0, 0, 0, 1.1556987, 0, 0, 0, 1, -1.2, 0.3149035, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_574" type="CSGCone3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=107853966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.928493, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_575" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=505707176]
+transform = Transform3D(1, 0, 0, 0, 1.125277, 0, 0, 0, 1, -0.70000005, 0.23884964, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_576" type="CSGCone3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=312090270]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.7763852, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_577" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1312797526]
+transform = Transform3D(1, 0, 0, 0, 1.0968475, 0, 0, 0, 1, -0.20000005, 0.16777563, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_578" type="CSGCone3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=693440021]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.6342374, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_579" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1406277386]
+transform = Transform3D(1, 0, 0, 0, 1.0705607, 0, 0, 0, 1, 0.29999995, 0.10205889, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_580" type="CSGCone3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1790364899]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.50280374, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_581" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1698502110]
+transform = Transform3D(1, 0, 0, 0, 1.0466083, 0, 0, 0, 1, 0.79999995, 0.042177916, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_582" type="CSGCone3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=2087804981]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.38304153, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_583" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=793338018]
+transform = Transform3D(1, 0, 0, 0, 1.0252447, 0, 0, 0, 1, 1.3000002, -0.011231184, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_584" type="CSGCone3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=875196711]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0.2762235, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_585" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1480123459]
+transform = Transform3D(1, 0, 0, 0, 1.0068328, 0, 0, 0, 1, 1.8000002, -0.05726099, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_586" type="CSGCone3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=2031741970]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0.18416408, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_587" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=176139737]
+transform = Transform3D(1, 0, 0, 0, 0.9919548, 0, 0, 0, 1, 2.3000002, -0.09445596, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_588" type="CSGCone3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1251119984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 0.10977388, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="GatePole_589" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1536502585]
+transform = Transform3D(1, 0, 0, 0, 0.98182577, 0, 0, 0, 1, 2.8000002, -0.11977863, 0)
+mesh = SubResource("BoxMesh_vert_pole")
+
+[node name="GateSpike_590" type="CSGCone3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=619794445]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 0.05912871, 0)
+radius = 0.06
+height = 0.3
+material_override = SubResource("StandardMaterial3D_gate_frame")

@@ -1,0 +1,394 @@
+[gd_scene format=3 uid="uid://dfnr4cr1o3bab"]
+
+[ext_resource type="Texture2D" uid="uid://bf63ei66hw43s" path="res://textures/pinstripe_suit.tres" id="1_suit"]
+[ext_resource type="Texture2D" path="res://textures/pinpoint_shirt.tres" id="2_shirt"]
+[ext_resource type="Texture2D" path="res://textures/hair_texture.tres" id="3_hair"]
+[ext_resource type="Texture2D" uid="uid://b0kv5f1614mmv" path="res://textures/face.png" id="4_faceclosed"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_Suit"]
+albedo_texture = ExtResource("1_suit")
+uv1_scale = Vector3(15, 15, 15)
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="Mat_Shirt"]
+albedo_texture = ExtResource("2_shirt")
+uv1_scale = Vector3(15, 15, 15)
+texture_filter = 0
+
+[sub_resource type="FastNoiseLite" id="Noise_Tie"]
+frequency = 0.05
+
+[sub_resource type="NoiseTexture2D" id="NoiseTex_Tie"]
+noise = SubResource("Noise_Tie")
+
+[sub_resource type="StandardMaterial3D" id="Mat_Tie"]
+albedo_color = Color(0.02, 0.02, 0.02, 1)
+albedo_texture = SubResource("NoiseTex_Tie")
+roughness = 0.85
+texture_filter = 0
+
+[sub_resource type="FastNoiseLite" id="Noise_Skin"]
+frequency = 0.05
+
+[sub_resource type="NoiseTexture2D" id="NoiseTex_Skin"]
+noise = SubResource("Noise_Skin")
+
+[sub_resource type="StandardMaterial3D" id="Mat_Skin"]
+albedo_color = Color(0.9, 0.8, 0.75, 1)
+albedo_texture = SubResource("NoiseTex_Skin")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="Mat_Head"]
+albedo_texture = ExtResource("4_faceclosed")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="Mat_Hair"]
+albedo_texture = ExtResource("3_hair")
+metallic = 0.2
+roughness = 0.5
+uv1_scale = Vector3(4, 4, 4)
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="Mat_Shoe"]
+albedo_color = Color(0.03, 0.03, 0.03, 1)
+metallic = 0.1
+roughness = 0.35
+texture_filter = 0
+
+[sub_resource type="Animation" id="Animation_aqoen"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightShoulderPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftShoulderPivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RightHipPivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LeftHipPivot:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("RightHipPivot/RightUpperLeg/RightKneePivot:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LeftHipPivot/LeftUpperLeg/LeftKneePivot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Torso/Neck:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wkoq8"]
+length = 3.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Torso/Neck:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.6, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -0.02, 0), Vector3(0.015, 0.02, 0), Vector3(0, -0.02, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_t7v6j"]
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightHipPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.32, 0, 0), Vector3(-0.32, 0, 0), Vector3(0.32, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftHipPivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.32, 0, 0), Vector3(0.32, 0, 0), Vector3(-0.32, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RightHipPivot/RightUpperLeg/RightKneePivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.45, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LeftHipPivot/LeftUpperLeg/LeftKneePivot:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(-0.45, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("RightShoulderPivot:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.12, 0, 0), Vector3(0.12, 0, 0), Vector3(-0.12, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LeftShoulderPivot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.12, 0, 0), Vector3(-0.12, 0, 0), Vector3(0.12, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c7wxs"]
+_data = {
+&"RESET": SubResource("Animation_aqoen"),
+&"idle": SubResource("Animation_wkoq8"),
+&"walk": SubResource("Animation_t7v6j")
+}
+
+[node name="ManInSuit" type="Node3D" unique_id=1723775867]
+
+[node name="Torso" type="CSGCombiner3D" parent="." unique_id=989865522]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+
+[node name="TorsoBody" type="CSGPolygon3D" parent="Torso" unique_id=67503071]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+polygon = PackedVector2Array(-0.25, -0.4, -0.35, 0.35, 0.35, 0.35, 0.25, -0.4)
+depth = 0.4
+material = SubResource("Mat_Suit")
+
+[node name="Shirt" type="CSGPolygon3D" parent="Torso" unique_id=1191061783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.18998814)
+polygon = PackedVector2Array(0, 0, -0.15, 0.35, 0.15, 0.35)
+depth = 0.02
+material = SubResource("Mat_Shirt")
+
+[node name="Tie" type="CSGPolygon3D" parent="Torso" unique_id=746107898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.17048906)
+polygon = PackedVector2Array(0, -0.2, -0.04, 0.1, -0.03, 0.35, 0.03, 0.35, 0.04, 0.1)
+depth = 0.02
+material = SubResource("Mat_Tie")
+
+[node name="Neck" type="CSGCylinder3D" parent="Torso" unique_id=1570715137]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36076212, -0.34720677)
+radius = 0.09
+height = 0.25
+material = SubResource("Mat_Skin")
+
+[node name="Head" type="CSGBox3D" parent="Torso/Neck" unique_id=947546763]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, 0)
+size = Vector3(0.25, 0.3, 0.25)
+material = SubResource("Mat_Head")
+
+[node name="Hair1" type="CSGSphere3D" parent="Torso/Neck/Head" unique_id=1771926147]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.15, -0.05)
+radius = 0.16
+radial_segments = 6
+material = SubResource("Mat_Hair")
+
+[node name="Hair2" type="CSGSphere3D" parent="Torso/Neck/Head" unique_id=2052213579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0.12, 0.02)
+radius = 0.15
+radial_segments = 6
+material = SubResource("Mat_Hair")
+
+[node name="Hair3" type="CSGSphere3D" parent="Torso/Neck/Head" unique_id=51287690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18, 0.05)
+radius = 0.18
+radial_segments = 5
+rings = 5
+material = SubResource("Mat_Hair")
+
+[node name="BreastPocket" type="CSGBox3D" parent="Torso" unique_id=1624384106]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22608238, 0.14999998, -0.18963277)
+size = Vector3(0.08, 0.1, 0.01)
+material = SubResource("Mat_Suit")
+
+[node name="RightShoulderPivot" type="Node3D" parent="." unique_id=415718842]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 1.55, 0)
+
+[node name="RightUpperArm" type="CSGCylinder3D" parent="RightShoulderPivot" unique_id=1526276372]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+radius = 0.1
+height = 0.4
+material = SubResource("Mat_Suit")
+
+[node name="RightElbowPivot" type="Node3D" parent="RightShoulderPivot/RightUpperArm" unique_id=1291429366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="RightForearm" type="CSGCylinder3D" parent="RightShoulderPivot/RightUpperArm/RightElbowPivot" unique_id=830287832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+radius = 0.09
+height = 0.4
+material = SubResource("Mat_Suit")
+
+[node name="RightHand" type="CSGBox3D" parent="RightShoulderPivot/RightUpperArm/RightElbowPivot/RightForearm" unique_id=1644114086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+size = Vector3(0.12, 0.15, 0.1)
+material = SubResource("Mat_Skin")
+
+[node name="LeftShoulderPivot" type="Node3D" parent="." unique_id=641411582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 1.55, 0)
+
+[node name="LeftUpperArm" type="CSGCylinder3D" parent="LeftShoulderPivot" unique_id=1960460578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+radius = 0.1
+height = 0.4
+material = SubResource("Mat_Suit")
+
+[node name="LeftElbowPivot" type="Node3D" parent="LeftShoulderPivot/LeftUpperArm" unique_id=909370839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="LeftForearm" type="CSGCylinder3D" parent="LeftShoulderPivot/LeftUpperArm/LeftElbowPivot" unique_id=1305477036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+radius = 0.09
+height = 0.4
+material = SubResource("Mat_Suit")
+
+[node name="LeftHand" type="CSGBox3D" parent="LeftShoulderPivot/LeftUpperArm/LeftElbowPivot/LeftForearm" unique_id=1310247325]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+size = Vector3(0.12, 0.15, 0.1)
+material = SubResource("Mat_Skin")
+
+[node name="RightHipPivot" type="Node3D" parent="." unique_id=1683955366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.8, 0)
+
+[node name="RightUpperLeg" type="CSGCylinder3D" parent="RightHipPivot" unique_id=1431414336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+radius = 0.115
+height = 0.4
+material = SubResource("Mat_Suit")
+
+[node name="RightKneePivot" type="Node3D" parent="RightHipPivot/RightUpperLeg" unique_id=26480942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="RightLowerLeg" type="CSGCylinder3D" parent="RightHipPivot/RightUpperLeg/RightKneePivot" unique_id=1998958357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18, 0)
+radius = 0.095
+height = 0.36
+material = SubResource("Mat_Suit")
+
+[node name="RightShoe" type="CSGBox3D" parent="RightHipPivot/RightUpperLeg/RightKneePivot/RightLowerLeg" unique_id=906273588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0.06)
+size = Vector3(0.14, 0.11, 0.3)
+material = SubResource("Mat_Shoe")
+
+[node name="LeftHipPivot" type="Node3D" parent="." unique_id=1425117352]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.8, 0)
+
+[node name="LeftUpperLeg" type="CSGCylinder3D" parent="LeftHipPivot" unique_id=193902446]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+radius = 0.115
+height = 0.4
+material = SubResource("Mat_Suit")
+
+[node name="LeftKneePivot" type="Node3D" parent="LeftHipPivot/LeftUpperLeg" unique_id=951133978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="LeftLowerLeg" type="CSGCylinder3D" parent="LeftHipPivot/LeftUpperLeg/LeftKneePivot" unique_id=1085026619]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18, 0)
+radius = 0.095
+height = 0.36
+material = SubResource("Mat_Suit")
+
+[node name="LeftShoe" type="CSGBox3D" parent="LeftHipPivot/LeftUpperLeg/LeftKneePivot/LeftLowerLeg" unique_id=1127923536]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0.06)
+size = Vector3(0.14, 0.11, 0.3)
+material = SubResource("Mat_Shoe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=356774095]
+libraries/ = SubResource("AnimationLibrary_c7wxs")

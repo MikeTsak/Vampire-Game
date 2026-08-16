@@ -7,6 +7,7 @@ extends Node3D
 
 var player: CharacterBody3D
 var carcasses_on_tarp: int = 0
+var level_ended: bool = false
 
 func _ready():
 	var player_scene = load("res://scenes/characters/Player.tscn")
@@ -56,7 +57,18 @@ func _process(_delta):
 	if player and player.has_node("HUD/TimerLabel"):
 		player.get_node("HUD/TimerLabel").text = "%d:%02d" % [mins, secs]
 
+func _unhandled_input(event):
+	# Debug: F10 force-ends the current level immediately, same path as a natural timeout
+	# (Level1 -> MidCutscene -> Level2, Level2 -> Level3, Level3 -> OutroCutscene).
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F10:
+		if timer:
+			timer.stop()
+		_on_timeout()
+
 func _on_timeout():
+	if level_ended:
+		return
+	level_ended = true
 	var gm = get_node_or_null("/root/GameManager")
 	var current_level = gm.level if gm else 1
 

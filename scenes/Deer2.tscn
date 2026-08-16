@@ -1,0 +1,407 @@
+[gd_scene format=3 uid="uid://d0ujuj4mrblhu"]
+
+[ext_resource type="Script" uid="uid://dljeknpjmiq8u" path="res://scripts/animal.gd" id="1_xtk18"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s0npy"]
+size = Vector3(0.6, 1.2, 1.6)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fixwh"]
+noise_type = 0
+frequency = 0.05
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xtk18"]
+noise = SubResource("FastNoiseLite_fixwh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0npy"]
+albedo_color = Color(0.4, 0.25, 0.1, 1)
+albedo_texture = SubResource("NoiseTexture2D_xtk18")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bpug0"]
+albedo_color = Color(0.8, 0.7, 0.6, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fixwh"]
+albedo_color = Color(0.05, 0.05, 0.05, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uixv5"]
+albedo_color = Color(0.05, 0.05, 0.05, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4yy6b"]
+albedo_color = Color(0.05, 0.05, 0.05, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbtsc"]
+albedo_color = Color(0.05, 0.05, 0.05, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52any"]
+albedo_color = Color(0.05, 0.05, 0.05, 1)
+
+[sub_resource type="Animation" id="Animation_eojo5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Torso/FrontLeftShoulderPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Torso/FrontLeftShoulderPivot/UpperLeg/KneePivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Torso/FrontRightShoulderPivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Torso/FrontRightShoulderPivot/UpperLeg/KneePivot:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Torso/BackLeftHipPivot:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Torso/BackLeftHipPivot/UpperLeg/KneePivot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Torso/BackRightHipPivot:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Torso/BackRightHipPivot/UpperLeg/KneePivot:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8tlke"]
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Torso/FrontLeftShoulderPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.34906584, 0, 0), Vector3(-0.34906584, 0, 0), Vector3(0.34906584, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Torso/FrontLeftShoulderPivot/UpperLeg/KneePivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0.43633232, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Torso/BackRightHipPivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.34906584, 0, 0), Vector3(-0.34906584, 0, 0), Vector3(0.34906584, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Torso/BackRightHipPivot/UpperLeg/KneePivot:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0.43633232, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Torso/FrontRightShoulderPivot:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.34906584, 0, 0), Vector3(0.34906584, 0, 0), Vector3(-0.34906584, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Torso/FrontRightShoulderPivot/UpperLeg/KneePivot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.43633232, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Torso/BackLeftHipPivot:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.34906584, 0, 0), Vector3(0.34906584, 0, 0), Vector3(-0.34906584, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Torso/BackLeftHipPivot/UpperLeg/KneePivot:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.43633232, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qtvue"]
+_data = {
+&"RESET": SubResource("Animation_eojo5"),
+&"walk": SubResource("Animation_8tlke")
+}
+
+[node name="Deer2" type="CharacterBody3D" unique_id=301864122]
+script = ExtResource("1_xtk18")
+
+[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="." unique_id=1090937220]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("BoxShape3D_s0npy")
+
+[node name="MeshBase" type="Node3D" parent="." unique_id=1178468918]
+
+[node name="Torso" type="CSGSphere3D" parent="MeshBase" unique_id=355074721]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 1.4, 0)
+radius = 0.4
+rings = 8
+material = SubResource("StandardMaterial3D_s0npy")
+
+[node name="NeckPivot" type="Node3D" parent="MeshBase/Torso" unique_id=1950738968]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -0.7)
+
+[node name="Neck" type="CSGCylinder3D" parent="MeshBase/Torso/NeckPivot" unique_id=1599396750]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0.20000005, 0.2701828)
+radius = 0.12
+height = 0.6
+material = SubResource("StandardMaterial3D_s0npy")
+
+[node name="Head" type="CSGBox3D" parent="MeshBase/Torso/NeckPivot" unique_id=480596861]
+transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 0.5500001, -0.029817224)
+size = Vector3(0.3, 0.3, 0.35)
+material = SubResource("StandardMaterial3D_s0npy")
+
+[node name="LeftAntler" type="CSGCylinder3D" parent="MeshBase/Torso/NeckPivot/Head" unique_id=427589239]
+transform = Transform3D(0.95048493, 0.060776792, 0.30476975, -0.13838679, 0.96086544, 0.2399723, -0.27825797, -0.27026606, 0.92169887, 0.1, 0.25, 0.099999994)
+radius = 0.02
+height = 0.4
+material = SubResource("StandardMaterial3D_bpug0")
+
+[node name="RightAntler" type="CSGCylinder3D" parent="MeshBase/Torso/NeckPivot/Head" unique_id=684685078]
+transform = Transform3D(0.9261988, -0.15376815, -0.34425458, 0.23453389, 0.9498738, 0.20672116, 0.29521132, -0.27220425, 0.91583586, -0.1, 0.25, 0.099999994)
+radius = 0.02
+height = 0.4
+material = SubResource("StandardMaterial3D_bpug0")
+
+[node name="Snout" type="CSGBox3D" parent="MeshBase/Torso/NeckPivot/Head" unique_id=1438258780]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.3)
+size = Vector3(0.18, 0.15, 0.3)
+material = SubResource("StandardMaterial3D_s0npy")
+
+[node name="Nose" type="CSGBox3D" parent="MeshBase/Torso/NeckPivot/Head/Snout" unique_id=1018246501]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, -0.15)
+size = Vector3(0.08, 0.08, 0.08)
+material = SubResource("StandardMaterial3D_fixwh")
+
+[node name="Snout" type="CSGBox3D" parent="MeshBase/Torso/NeckPivot/Head/Snout" unique_id=1806030952]
+transform = Transform3D(1, 0, 0, 0, 0.50130385, -0.8652741, 0, 0.8652741, 0.50130385, 0, -0.854054, 1.2616714)
+size = Vector3(0.18, 0.15, 0.4428467)
+material = SubResource("StandardMaterial3D_s0npy")
+
+[node name="Nose" type="CSGBox3D" parent="MeshBase/Torso/NeckPivot/Head/Snout/Snout" unique_id=1543420940]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, -0.15)
+size = Vector3(0.08, 0.08, 0.08)
+material = SubResource("StandardMaterial3D_fixwh")
+
+[node name="EyeLeft" type="CSGBox3D" parent="MeshBase/Torso/NeckPivot/Head" unique_id=1942375779]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.05, -0.05)
+size = Vector3(0.06, 0.06, 0.06)
+material = SubResource("StandardMaterial3D_fixwh")
+
+[node name="EyeRight" type="CSGBox3D" parent="MeshBase/Torso/NeckPivot/Head" unique_id=589159931]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.05, -0.05)
+size = Vector3(0.06, 0.06, 0.06)
+material = SubResource("StandardMaterial3D_fixwh")
+
+[node name="FrontLeftShoulderPivot" type="Node3D" parent="MeshBase/Torso" unique_id=1144180194]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.1, -0.25)
+
+[node name="UpperLeg" type="CSGCylinder3D" parent="MeshBase/Torso/FrontLeftShoulderPivot" unique_id=1520906924]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+radius = 0.08
+height = 0.6
+material = SubResource("StandardMaterial3D_s0npy")
+
+[node name="KneePivot" type="Node3D" parent="MeshBase/Torso/FrontLeftShoulderPivot/UpperLeg" unique_id=1055884172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+
+[node name="LowerLeg" type="CSGCylinder3D" parent="MeshBase/Torso/FrontLeftShoulderPivot/UpperLeg/KneePivot" unique_id=1188530535]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+radius = 0.06
+height = 0.5
+material = SubResource("StandardMaterial3D_s0npy")
+
+[node name="Hoof" type="CSGBox3D" parent="MeshBase/Torso/FrontLeftShoulderPivot/UpperLeg/KneePivot" unique_id=18937901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0.02)
+size = Vector3(0.08, 0.1, 0.1)
+material = SubResource("StandardMaterial3D_uixv5")
+
+[node name="FrontRightShoulderPivot" type="Node3D" parent="MeshBase/Torso" unique_id=1008248615]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.1, -0.25)
+
+[node name="UpperLeg" type="CSGCylinder3D" parent="MeshBase/Torso/FrontRightShoulderPivot" unique_id=881179524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+radius = 0.08
+height = 0.6
+material = SubResource("StandardMaterial3D_s0npy")
+
+[node name="KneePivot" type="Node3D" parent="MeshBase/Torso/FrontRightShoulderPivot/UpperLeg" unique_id=1828600576]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+
+[node name="LowerLeg" type="CSGCylinder3D" parent="MeshBase/Torso/FrontRightShoulderPivot/UpperLeg/KneePivot" unique_id=2003419115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+radius = 0.06
+height = 0.5
+material = SubResource("StandardMaterial3D_s0npy")
+
+[node name="Hoof" type="CSGBox3D" parent="MeshBase/Torso/FrontRightShoulderPivot/UpperLeg/KneePivot" unique_id=1259777957]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0.02)
+size = Vector3(0.08, 0.1, 0.1)
+material = SubResource("StandardMaterial3D_4yy6b")
+
+[node name="BackLeftHipPivot" type="Node3D" parent="MeshBase/Torso" unique_id=959850099]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.1, 0.25)
+
+[node name="UpperLeg" type="CSGCylinder3D" parent="MeshBase/Torso/BackLeftHipPivot" unique_id=693800032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+radius = 0.08
+height = 0.6
+material = SubResource("StandardMaterial3D_s0npy")
+
+[node name="KneePivot" type="Node3D" parent="MeshBase/Torso/BackLeftHipPivot/UpperLeg" unique_id=1822081873]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+
+[node name="LowerLeg" type="CSGCylinder3D" parent="MeshBase/Torso/BackLeftHipPivot/UpperLeg/KneePivot" unique_id=1041545141]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+radius = 0.06
+height = 0.5
+material = SubResource("StandardMaterial3D_s0npy")
+
+[node name="Hoof" type="CSGBox3D" parent="MeshBase/Torso/BackLeftHipPivot/UpperLeg/KneePivot" unique_id=800074423]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0.02)
+size = Vector3(0.08, 0.1, 0.1)
+material = SubResource("StandardMaterial3D_cbtsc")
+
+[node name="BackRightHipPivot" type="Node3D" parent="MeshBase/Torso" unique_id=1192636314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.1, 0.25)
+
+[node name="UpperLeg" type="CSGCylinder3D" parent="MeshBase/Torso/BackRightHipPivot" unique_id=1515139306]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+radius = 0.08
+height = 0.6
+material = SubResource("StandardMaterial3D_s0npy")
+
+[node name="KneePivot" type="Node3D" parent="MeshBase/Torso/BackRightHipPivot/UpperLeg" unique_id=2042675788]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+
+[node name="LowerLeg" type="CSGCylinder3D" parent="MeshBase/Torso/BackRightHipPivot/UpperLeg/KneePivot" unique_id=91970716]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+radius = 0.06
+height = 0.5
+material = SubResource("StandardMaterial3D_s0npy")
+
+[node name="Hoof" type="CSGBox3D" parent="MeshBase/Torso/BackRightHipPivot/UpperLeg/KneePivot" unique_id=1998523931]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0.02)
+size = Vector3(0.08, 0.1, 0.1)
+material = SubResource("StandardMaterial3D_52any")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MeshBase" unique_id=1489385311]
+libraries/ = SubResource("AnimationLibrary_qtvue")
+
+[node name="PickupArea" type="Area3D" parent="." unique_id=1329185607]

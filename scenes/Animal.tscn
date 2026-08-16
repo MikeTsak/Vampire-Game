@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://bqypf45w4kgqd"]
+
+[ext_resource type="Script" uid="uid://dljeknpjmiq8u" path="res://scripts/animal.gd" id="1_lynl0"]
+[ext_resource type="Material" path="res://materials/meat_material.tres" id="1_rf67h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lynl0"]
+size = Vector3(0.8, 0.8, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lynl0"]
+albedo_color = Color(0.1, 0.1, 0.15, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lxtgp"]
+albedo_color = Color(0.1, 0.1, 0.15, 1)
+
+[node name="Animal" type="CharacterBody3D" unique_id=186675559]
+collision_layer = 2
+script = ExtResource("1_lynl0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=759154436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("BoxShape3D_lynl0")
+
+[node name="OldMesh" type="CSGBox3D" parent="." unique_id=1095098514]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+material_override = ExtResource("1_rf67h")
+size = Vector3(0.8, 0.8, 1.2)
+
+[node name="AnimalAudio" type="AudioStreamPlayer3D" parent="." unique_id=1589910181]
+
+[node name="OldMesh2" type="CSGCombiner3D" parent="." unique_id=1553145397]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+material_override = SubResource("StandardMaterial3D_lynl0")
+
+[node name="@CSGBox3D@5" type="CSGBox3D" parent="OldMesh2" unique_id=215788615]
+size = Vector3(0.6, 0.5, 1)
+
+[node name="@CSGSphere3D@6" type="CSGSphere3D" parent="OldMesh2" unique_id=1269957312]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -0.6)
+radius = 0.3
+radial_segments = 8
+
+[node name="@CSGCylinder3D@7" type="CSGCylinder3D" parent="OldMesh2" unique_id=1825155592]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.4, 0.3)
+radius = 0.08
+height = 0.6
+sides = 5
+
+[node name="@CSGCylinder3D@8" type="CSGCylinder3D" parent="OldMesh2" unique_id=699323671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, -0.4, 0.3)
+radius = 0.08
+height = 0.6
+sides = 5
+
+[node name="@CSGCylinder3D@9" type="CSGCylinder3D" parent="OldMesh2" unique_id=1364523273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.4, -0.3)
+radius = 0.08
+height = 0.6
+sides = 5
+
+[node name="@CSGCylinder3D@10" type="CSGCylinder3D" parent="OldMesh2" unique_id=377652180]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, -0.4, -0.3)
+radius = 0.08
+height = 0.6
+sides = 5
+
+[node name="Mesh" type="CSGCombiner3D" parent="." unique_id=1968607067]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+material_override = SubResource("StandardMaterial3D_lxtgp")
+
+[node name="@CSGBox3D@6" type="CSGBox3D" parent="Mesh" unique_id=1569764935]
+size = Vector3(0.6, 0.5, 1)
+
+[node name="@CSGSphere3D@7" type="CSGSphere3D" parent="Mesh" unique_id=1459626056]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -0.6)
+radius = 0.3
+radial_segments = 8
+
+[node name="@CSGCylinder3D@8" type="CSGCylinder3D" parent="Mesh" unique_id=1913221287]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.4, 0.3)
+radius = 0.08
+height = 0.6
+sides = 5
+
+[node name="@CSGCylinder3D@9" type="CSGCylinder3D" parent="Mesh" unique_id=793175601]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, -0.4, 0.3)
+radius = 0.08
+height = 0.6
+sides = 5
+
+[node name="@CSGCylinder3D@10" type="CSGCylinder3D" parent="Mesh" unique_id=327196998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.4, -0.3)
+radius = 0.08
+height = 0.6
+sides = 5
+
+[node name="@CSGCylinder3D@11" type="CSGCylinder3D" parent="Mesh" unique_id=1415559215]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, -0.4, -0.3)
+radius = 0.08
+height = 0.6
+sides = 5

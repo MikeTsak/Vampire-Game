@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://bgb7hybrdrkk6"]
+
+[ext_resource type="Material" path="res://materials/concrete_material.tres" id="1_concrete"]
+[ext_resource type="PackedScene" uid="uid://cfyujvk56df3b" path="res://models/environment/trees/Tree_Dead.tscn" id="2_dead_tree"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ground"]
+albedo_color = Color(0.18, 0.17, 0.16, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lit"]
+albedo_color = Color(1, 0.85, 0.5, 1)
+emission_enabled = true
+emission = Color(1, 0.75, 0.35, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_debris"]
+albedo_color = Color(0.3, 0.28, 0.25, 1)
+roughness = 0.9
+
+[node name="SanatoriumInterior_new" type="Node3D" unique_id=24238373]
+
+[node name="CourtyardFloor" type="CSGBox3D" parent="." unique_id=1833533624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 20)
+use_collision = true
+size = Vector3(36, 1, 40)
+material = SubResource("StandardMaterial3D_ground")
+
+[node name="NorthWall" type="CSGBox3D" parent="." unique_id=2047573321]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 40)
+use_collision = true
+size = Vector3(37, 6, 1)
+material = ExtResource("1_concrete")
+
+[node name="WestWall" type="CSGBox3D" parent="." unique_id=961871419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3, 20)
+use_collision = true
+size = Vector3(1, 6, 40)
+material = ExtResource("1_concrete")
+
+[node name="EastWall" type="CSGBox3D" parent="." unique_id=1304979183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 3, 20)
+use_collision = true
+size = Vector3(1, 6, 40)
+material = ExtResource("1_concrete")
+
+[node name="WestWallCap" type="CSGBox3D" parent="." unique_id=1030810701]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3, -2)
+use_collision = true
+size = Vector3(1, 6, 4)
+material = ExtResource("1_concrete")
+
+[node name="EastWallCap" type="CSGBox3D" parent="." unique_id=72737479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 3, -2)
+use_collision = true
+size = Vector3(1, 6, 4)
+material = ExtResource("1_concrete")
+
+[node name="WallLight1" type="OmniLight3D" parent="." unique_id=1037107529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4.5, 10)
+light_color = Color(1, 0.8, 0.45, 1)
+light_energy = 1.6
+shadow_enabled = true
+omni_range = 12.0
+
+[node name="WallLight1Fixture" type="CSGBox3D" parent="WallLight1" unique_id=159100108]
+size = Vector3(0.3, 0.3, 0.3)
+material = SubResource("StandardMaterial3D_lit")
+
+[node name="WallLight2" type="OmniLight3D" parent="." unique_id=958749442]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 4.5, 22)
+light_color = Color(1, 0.8, 0.45, 1)
+light_energy = 1.6
+shadow_enabled = true
+omni_range = 12.0
+
+[node name="WallLight2Fixture" type="CSGBox3D" parent="WallLight2" unique_id=1938954954]
+size = Vector3(0.3, 0.3, 0.3)
+material = SubResource("StandardMaterial3D_lit")
+
+[node name="WallLight3" type="OmniLight3D" parent="." unique_id=1583210604]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 38.5)
+light_color = Color(1, 0.8, 0.45, 1)
+light_energy = 1.4
+shadow_enabled = true
+omni_range = 12.0
+
+[node name="WallLight3Fixture" type="CSGBox3D" parent="WallLight3" unique_id=940744036]
+size = Vector3(0.3, 0.3, 0.3)
+material = SubResource("StandardMaterial3D_lit")
+
+[node name="Debris1" type="CSGBox3D" parent="." unique_id=1276700451]
+transform = Transform3D(0.7660444, 0, 0.6427876, 0, 1, 0, -0.6427876, 0, 0.7660444, -10, 0.3, 8)
+size = Vector3(1.2, 0.6, 0.8)
+material = SubResource("StandardMaterial3D_debris")
+
+[node name="Debris2" type="CSGBox3D" parent="." unique_id=828310261]
+transform = Transform3D(0.5, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, 0.5, 9, 0.25, 33)
+size = Vector3(0.9, 0.5, 0.7)
+material = SubResource("StandardMaterial3D_debris")
+
+[node name="Debris3" type="CSGBox3D" parent="." unique_id=1907739859]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.2, 6)
+size = Vector3(0.6, 0.4, 0.6)
+material = SubResource("StandardMaterial3D_debris")
+
+[node name="DeadTree1" parent="." unique_id=168358204 instance=ExtResource("2_dead_tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 32)
+
+[node name="DeadTree2" parent="." unique_id=1269211206 instance=ExtResource("2_dead_tree")]
+transform = Transform3D(0.8660254, 0, -0.5, 0, 1, 0, 0.5, 0, 0.8660254, 13, 0, 15)

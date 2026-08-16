@@ -3,6 +3,8 @@ extends Node3D
 @onready var suited_man = $SuitedMan
 @onready var subtitle_label = $Subtitles/SubtitleLabel
 @onready var fade_rect = $Subtitles/FadeRect
+@onready var sequence = $Sequence
+@onready var coin_player = $CoinSfxPlayer
 
 var transitioning = false
 var skipping = false
@@ -13,75 +15,69 @@ func _ready():
 	if body_anim and body_anim.has_animation("RESET"):
 		body_anim.play("RESET")
 		body_anim.stop()
-	_run_sequence()
+	if sequence:
+		sequence.animation_finished.connect(_on_sequence_finished)
+		sequence.play("sequence")
 
 func _unhandled_input(event):
 	if transitioning:
 		return
 	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_select") or (event is InputEventKey and event.pressed and event.keycode == KEY_SPACE):
 		skipping = true
-		_transition_to_level2()
+		_go_to_level2()
 
-func _say(text: String, duration: float) -> bool:
-	# typewriter_subtitle.gd on subtitle_label drives SuitedMan's lip-sync
-	# automatically whenever .text changes (see scripts/typewriter_subtitle.gd).
-	if subtitle_label:
-		subtitle_label.text = text
-	await get_tree().create_timer(duration).timeout
-	if subtitle_label:
-		subtitle_label.text = ""
-	if skipping:
-		return true
-	await get_tree().create_timer(0.4).timeout
-	return skipping
+func _on_sequence_finished(_anim_name: StringName):
+	_go_to_level2()
 
-func _run_sequence():
-	await get_tree().create_timer(1.0).timeout
-	if skipping: return
-
-	if await _say("So. You made it back in one piece.", 3.0): return
-	if skipping: return
-
-	var gm = get_node_or_null("/root/GameManager")
-	var score = gm.drachmas if gm else 0
-	if await _say("Here is your %d ₯, as agreed." % score, 3.2): return
-	if skipping: return
-
-	if await _say("Good, honest meat. The mountain provides.", 3.0): return
-	if skipping: return
-
-	_play_point_gesture()
-	if await _say("But I need more. Go past the old road, to the wooden park by the mountain...", 4.2): return
-	if skipping: return
-
-	if await _say("...and the ruin beyond it. There is more waiting for you there.", 3.8): return
-	if skipping: return
-
-	if await _say("Do not disappoint me.", 2.5): return
-	if skipping: return
-
-	_transition_to_level2()
-
-func _play_point_gesture():
+func _set_model_state(state: String):
 	if not suited_man:
 		return
-	var shoulder = suited_man.get_node_or_null("RightShoulderPivot")
-	var elbow = suited_man.get_node_or_null("RightShoulderPivot/RightUpperArm/RightElbowPivot")
-	if shoulder:
-		var tween = create_tween()
-		tween.tween_property(shoulder, "rotation", Vector3(-0.3, -0.9, 0.1), 1.0)
-	if elbow:
-		var tween2 = create_tween()
-		tween2.tween_property(elbow, "rotation", Vector3(-0.2, 0, 0), 1.0)
+	var anim = suited_man.get_node_or_null("AnimationPlayer")
+	if anim and anim.has_animation(state):
+		anim.play(state)
 
-func _transition_to_level2():
+func _show_payment():
+	var gm = get_node_or_null("/root/GameManager")
+	var payment = gm.drachmas if gm else 0
+	if subtitle_label:
+		subtitle_label.text = "Payment received: %d ₯" % payment
+	_play_coin_sfx()
+
+func _play_coin_sfx():
+	if not coin_player:
+		return
+	var gen := AudioStreamGenerator.new()
+	gen.mix_rate = 44100.0
+	gen.buffer_length = 0.6
+	coin_player.stream = gen
+	coin_player.play()
+	var playback: AudioStreamGeneratorPlayback = coin_player.get_stream_playback()
+	if not playback:
+		return
+	var sample_rate = gen.mix_rate
+	var freqs = [1568.0, 2093.0, 2637.0, 3136.0]
+	var total_frames = int(sample_rate * 0.5)
+	for i in range(total_frames):
+		var t = float(i) / sample_rate
+		var sample = 0.0
+		for j in range(freqs.size()):
+			var start = j * 0.05
+			if t >= start:
+				var local_t = t - start
+				var env = exp(-local_t * 10.0)
+				sample += sin(TAU * freqs[j] * local_t) * env * 0.25
+		playback.push_frame(Vector2(sample, sample))
+
+func _go_to_level2():
 	if transitioning:
 		return
 	transitioning = true
+	if sequence:
+		sequence.stop()
 	if fade_rect:
 		fade_rect.visible = true
 		var tween = create_tween()
-		tween.tween_property(fade_rect, "modulate:a", 1.0, 0.6)
+		tween.tween_property(fade_rect, "modulate:a", 1.0, 0.8)
 		await tween.finished
 	var gm = get_node_or_null("/root/GameManager")
 	if gm and "level" in gm:
