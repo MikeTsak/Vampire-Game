@@ -72,15 +72,16 @@ func _on_timeout():
 	var gm = get_node_or_null("/root/GameManager")
 	var current_level = gm.level if gm else 1
 
+	if current_level == 1:
+		_start_mid_cutscene()
+		return
+
 	if end_panel:
 		end_panel.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 	var next_scene = ""
-	if current_level == 1:
-		if end_text: end_text.text = "The night is over. Time to collect your pay...\n\nTransitioning..."
-		next_scene = "res://scenes/cutscenes/MidCutscene.tscn"
-	elif current_level == 2:
+	if current_level == 2:
 		if end_text: end_text.text = "The whispers grow louder. The dizzying potion wears off.\n\nTransitioning..."
 		next_scene = "res://scenes/levels/Level3.tscn"
 	else:
@@ -93,3 +94,27 @@ func _on_timeout():
 		gm.level = 3
 
 	get_tree().change_scene_to_file(next_scene)
+
+func _start_mid_cutscene():
+	# The Man in the Suit walks up in-place near the tarp instead of cutting to a
+	# separate scene: freeze the player where they stand, snap them to a clean
+	# vantage point overlooking the tarp, and let the cutscene play out live.
+	if player:
+		player.set_frozen(true)
+		player.position = Vector3(0, 1, -1.5)
+		player.rotation = Vector3.ZERO
+		if player.head:
+			player.head.rotation.x = 0
+
+	var mid_scene = load("res://scenes/cutscenes/MidCutscene.tscn")
+	if not mid_scene:
+		return
+	var mid = mid_scene.instantiate()
+	add_child(mid)
+	mid.cutscene_finished.connect(_on_mid_cutscene_finished)
+
+func _on_mid_cutscene_finished():
+	var gm = get_node_or_null("/root/GameManager")
+	if gm and "level" in gm:
+		gm.level = 2
+	get_tree().change_scene_to_file("res://scenes/levels/Level2.tscn")

@@ -19,6 +19,11 @@ var carried_animal_name: String = ""
 var carried_instance: Node3D = null
 var is_on_tarp: bool = false
 var carried_score_value: int = 5000
+var frozen: bool = false
+
+func set_frozen(f: bool):
+	frozen = f
+	velocity = Vector3.ZERO
 
 @onready var head = $Head
 @onready var cam = $Head/Camera3D
@@ -64,6 +69,8 @@ func _ready():
 		score_label.text = "%d ₯" % gm.drachmas
 
 func _input(event):
+	if frozen:
+		return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * 0.005)
 		head.rotate_x(-event.relative.y * 0.005)
@@ -80,6 +87,8 @@ var can_shoot: bool = true
 @onready var shoulder_carcass = get_node_or_null("Head/Camera3D/CarcassMesh")
 
 func _physics_process(delta):
+	if frozen:
+		return
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 

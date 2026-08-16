@@ -153,16 +153,6 @@ tracks/10/keys = {
 "update": 1,
 "values": [false, true]
 }
-tracks/11/type = "animation"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("SuitedMan/AnimationPlayer")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"clips": PackedStringArray("talking", "[stop]"),
-"times": PackedFloat32Array(0, 17.5)
-}
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2kd0m"]
 _data = {
 &"intro_seq": SubResource("Animation_cdel8")
