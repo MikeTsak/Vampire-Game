@@ -28,7 +28,7 @@ func get_floor_height(x: float, z: float) -> float:
 
 func spawn_environment():
 	var spawned_positions = []
-	for i in range(80):
+	for i in range(110):
 		var r = randf()
 		var tree
 		if r > 0.7: tree = platanus_scene.instantiate()
@@ -72,7 +72,7 @@ func spawn_environment():
 		rock.scale = Vector3.ONE * randf_range(0.5, 2.0)
 		add_child(rock)
 		
-	for i in range(30):
+	for i in range(8):
 		var is_sheep = randf() > 0.5
 		var animal = sheep_scene.instantiate() if is_sheep else deer_scene.instantiate()
 		var pos = get_random_pos()
@@ -80,27 +80,34 @@ func spawn_environment():
 		var road_center_x = sin(pos.z * 0.05) * 20.0
 		if abs(pos.x - road_center_x) < 8.0: pos = get_random_pos()
 		if abs(pos.x) < 4.0 and pos.z > -25.0 and pos.z < 5.0: pos = get_random_pos()
-		
+
 		pos.y = get_floor_height(pos.x, pos.z)
 		animal.position = pos
 		add_child(animal)
-		
+
 		var gm = get_node_or_null("/root/GameManager")
 		if gm and gm.level >= 2:
 			var baby_scene = load("res://scenes/animals/BabySheep.tscn") if is_sheep else load("res://scenes/animals/BabyDeer_new.tscn")
 			if baby_scene:
 				var baby = baby_scene.instantiate()
-				baby.position = pos + Vector3(1.5, 0, 1.5)
+				# Keep the little ones a genuine short walk from the adult, tucked
+				# further into the forest rather than sitting right beside it.
+				var baby_angle = randf_range(0, TAU)
+				var baby_dist = randf_range(10.0, 16.0)
+				baby.position = pos + Vector3(cos(baby_angle) * baby_dist, 0, sin(baby_angle) * baby_dist)
 				baby.position.y = get_floor_height(baby.position.x, baby.position.z)
 				add_child(baby)
 
 	var gm = get_node_or_null("/root/GameManager")
 	if gm and gm.level >= 2:
 		var park = park_scene.instantiate()
+		park.name = "ParkOfSouls"
+		# Anywhere is fine -- just keep it off the sanatorium's side of the map
+		# (the sanatorium sits in the -Z half, around world z=-140).
 		var park_pos = get_random_pos()
-		for p_attempt in range(50):
+		for attempt in range(30):
 			park_pos = get_random_pos()
-			if park_pos.length() > 60.0:
+			if park_pos.z > 20.0:
 				break
 		park_pos.y = get_floor_height(park_pos.x, park_pos.z)
 		park.position = park_pos
@@ -108,4 +115,11 @@ func spawn_environment():
 		add_child(park)
 
 func get_random_pos() -> Vector3:
-	return Vector3(randf_range(-100, 100), 0, randf_range(-100, 100))
+	# Match the actual configured terrain size instead of a hardcoded range --
+	# this was previously fixed at +-100 regardless of level, which left the
+	# outer ring of a larger map (Level2 is 300x300) completely unpopulated.
+	var half_extent = 90.0
+	var terrain_generator = get_node_or_null("../TerrainGenerator")
+	if terrain_generator:
+		half_extent = min(terrain_generator.size.x, terrain_generator.size.y) * 0.5 * 0.9
+	return Vector3(randf_range(-half_extent, half_extent), 0, randf_range(-half_extent, half_extent))

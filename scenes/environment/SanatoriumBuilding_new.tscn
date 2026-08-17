@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cvwws2y5id6wh"]
 
 [ext_resource type="Texture2D" uid="uid://q36yeb1x6ckb" path="res://textures/ps1_concrete.tga" id="tex_concrete"]
 
@@ -31,6 +31,9 @@ size = Vector3(1, 0.08, 0.08)
 [sub_resource type="BoxMesh" id="BoxMesh_vert_pole"]
 material = SubResource("StandardMaterial3D_gate_frame")
 size = Vector3(0.08, 5, 0.08)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gqyt6"]
+size = Vector3(82, 6, 14)
 
 [node name="SanatoriumBuilding" type="Node3D" unique_id=389834005]
 
@@ -3600,10 +3603,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_522" type="CSGCylinder3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1068827681]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7, 0.06677051, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_523" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=609566515]
 transform = Transform3D(1, 0, 0, 0, 0.99460596, 0, 0, 0, 1, -2.1999998, -0.08782816, 0)
@@ -3611,10 +3614,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_524" type="CSGCylinder3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1526364356]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0.12302967, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_525" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1470512791]
 transform = Transform3D(1, 0, 0, 0, 1.0102558, 0, 0, 0, 1, -1.6999998, -0.048703432, 0)
@@ -3622,10 +3625,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_526" type="CSGCylinder3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=269152124]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, 0.20127927, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_527" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=2062283981]
 transform = Transform3D(1, 0, 0, 0, 1.0292951, 0, 0, 0, 1, -1.1999998, -0.0011053085, 0)
@@ -3633,10 +3636,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_528" type="CSGCylinder3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1825225620]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.29647514, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_529" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1441630329]
 transform = Transform3D(1, 0, 0, 0, 1.051201, 0, 0, 0, 1, -0.70000005, 0.05365944, 0)
@@ -3644,10 +3647,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_530" type="CSGCylinder3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=2054334839]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.40600502, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_531" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=719418830]
 transform = Transform3D(1, 0, 0, 0, 1.0756382, 0, 0, 0, 1, -0.20000005, 0.11475253, 0)
@@ -3655,10 +3658,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_532" type="CSGCylinder3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=76792538]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.52819103, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_533" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1927682973]
 transform = Transform3D(1, 0, 0, 0, 1.1023673, 0, 0, 0, 1, 0.29999995, 0.1815753, 0)
@@ -3666,10 +3669,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_534" type="CSGCylinder3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=226342720]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.6618364, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_535" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1820667215]
 transform = Transform3D(1, 0, 0, 0, 1.1312063, 0, 0, 0, 1, 0.79999995, 0.2536726, 0)
@@ -3677,10 +3680,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_536" type="CSGCylinder3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1707712075]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.8060313, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_537" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1544380230]
 transform = Transform3D(1, 0, 0, 0, 1.1620108, 0, 0, 0, 1, 1.3, 0.33068395, 0)
@@ -3688,10 +3691,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_538" type="CSGCylinder3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1524737608]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0.9600538, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_539" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=694701255]
 transform = Transform3D(1, 0, 0, 0, 1.1946626, 0, 0, 0, 1, 1.8, 0.41231346, 0)
@@ -3699,10 +3702,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_540" type="CSGCylinder3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1784407628]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.1233126, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_541" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=2075369913]
 transform = Transform3D(1, 0, 0, 0, 1.2290624, 0, 0, 0, 1, 2.3, 0.6197376, 0)
@@ -3710,10 +3713,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_542" type="CSGCylinder3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1862591346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 1.295312, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_543" type="MeshInstance3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=527275393]
 transform = Transform3D(1, 0, 0, 0, 1.2651258, 0, 0, 0, 1, 2.8, 0.7701616, 0)
@@ -3721,10 +3724,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_544" type="CSGCylinder3D" parent="SanatoriumCSG/LeftGateHinge/LeftGateFrame" unique_id=1459246987]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 1.4756285, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="RightGateHinge" type="Node3D" parent="SanatoriumCSG" unique_id=1732130709]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 22)
@@ -3826,10 +3829,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_568" type="CSGCylinder3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=522865767]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7, 1.4389182, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_569" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1222777352]
 transform = Transform3D(1, 0, 0, 0, 1.2220469, 0, 0, 0, 1, -2.2, 0.46287823, 0)
@@ -3837,10 +3840,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_570" type="CSGCylinder3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=133666582]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 1.2602341, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_571" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1544927047]
 transform = Transform3D(1, 0, 0, 0, 1.1879894, 0, 0, 0, 1, -1.7, 0.3956306, 0)
@@ -3848,10 +3851,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_572" type="CSGCylinder3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1506319015]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, 1.0899469, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_573" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=382556203]
 transform = Transform3D(1, 0, 0, 0, 1.1556987, 0, 0, 0, 1, -1.2, 0.3149035, 0)
@@ -3859,10 +3862,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_574" type="CSGCylinder3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=107853966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.928493, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_575" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=505707176]
 transform = Transform3D(1, 0, 0, 0, 1.125277, 0, 0, 0, 1, -0.70000005, 0.23884964, 0)
@@ -3870,10 +3873,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_576" type="CSGCylinder3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=312090270]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.7763852, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_577" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1312797526]
 transform = Transform3D(1, 0, 0, 0, 1.0968475, 0, 0, 0, 1, -0.20000005, 0.16777563, 0)
@@ -3881,10 +3884,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_578" type="CSGCylinder3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=693440021]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.6342374, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_579" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1406277386]
 transform = Transform3D(1, 0, 0, 0, 1.0705607, 0, 0, 0, 1, 0.29999995, 0.10205889, 0)
@@ -3892,10 +3895,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_580" type="CSGCylinder3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1790364899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.50280374, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_581" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1698502110]
 transform = Transform3D(1, 0, 0, 0, 1.0466083, 0, 0, 0, 1, 0.79999995, 0.042177916, 0)
@@ -3903,10 +3906,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_582" type="CSGCylinder3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=2087804981]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.38304153, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_583" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=793338018]
 transform = Transform3D(1, 0, 0, 0, 1.0252447, 0, 0, 0, 1, 1.3000002, -0.011231184, 0)
@@ -3914,10 +3917,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_584" type="CSGCylinder3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=875196711]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0.2762235, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_585" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1480123459]
 transform = Transform3D(1, 0, 0, 0, 1.0068328, 0, 0, 0, 1, 1.8000002, -0.05726099, 0)
@@ -3925,10 +3928,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_586" type="CSGCylinder3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=2031741970]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0.18416408, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_587" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=176139737]
 transform = Transform3D(1, 0, 0, 0, 0.9919548, 0, 0, 0, 1, 2.3000002, -0.09445596, 0)
@@ -3936,10 +3939,10 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_588" type="CSGCylinder3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1251119984]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 0.10977388, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
 
 [node name="GatePole_589" type="MeshInstance3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=1536502585]
 transform = Transform3D(1, 0, 0, 0, 0.98182577, 0, 0, 0, 1, 2.8000002, -0.11977863, 0)
@@ -3947,7 +3950,58 @@ mesh = SubResource("BoxMesh_vert_pole")
 
 [node name="GateSpike_590" type="CSGCylinder3D" parent="SanatoriumCSG/RightGateHinge/RightGateFrame" unique_id=619794445]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 0.05912871, 0)
+material_override = SubResource("StandardMaterial3D_gate_frame")
 radius = 0.06
 height = 0.3
 cone = true
-material_override = SubResource("StandardMaterial3D_gate_frame")
+
+[node name="EntranceDoorCut2" type="CSGBox3D" parent="SanatoriumCSG" unique_id=687528767]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 15)
+operation = 2
+size = Vector3(2.6, 3.8, 1.2)
+
+[node name="Step1" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1822788204]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 17.4)
+size = Vector3(4, 0.15, 0.5)
+
+[node name="Step2" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1981158119]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 16.9)
+size = Vector3(4, 0.3, 0.5)
+
+[node name="Step3" type="CSGBox3D" parent="SanatoriumCSG" unique_id=241506553]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225, 16.4)
+size = Vector3(4, 0.45, 0.5)
+
+[node name="Step4" type="CSGBox3D" parent="SanatoriumCSG" unique_id=1534111866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 15.9)
+size = Vector3(4, 0.6, 0.5)
+
+[node name="LeftAnnex" type="CSGBox3D" parent="SanatoriumCSG" unique_id=926921663]
+transform = Transform3D(0.90475166, 0, 0.42593947, 0, 1, 0, -0.42593947, 0, 0.90475166, -48, 6, 6)
+size = Vector3(16, 12, 14)
+
+[node name="AnnexWin1" type="CSGBox3D" parent="SanatoriumCSG/LeftAnnex" unique_id=835659562]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -2, 7)
+operation = 2
+size = Vector3(2, 1.6, 1)
+
+[node name="AnnexWin2" type="CSGBox3D" parent="SanatoriumCSG/LeftAnnex" unique_id=1234836819]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -2, 7)
+operation = 2
+size = Vector3(2, 1.6, 1)
+
+[node name="AnnexWin3" type="CSGBox3D" parent="SanatoriumCSG/LeftAnnex" unique_id=917241668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3, 7)
+operation = 2
+size = Vector3(2, 1.6, 1)
+
+[node name="AnnexWin4" type="CSGBox3D" parent="SanatoriumCSG/LeftAnnex" unique_id=1335150275]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 7)
+operation = 2
+size = Vector3(2, 1.6, 1)
+
+[node name="FenceBlocker" type="StaticBody3D" parent="." unique_id=1989361000]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 16)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FenceBlocker" unique_id=1687415430]
+shape = SubResource("BoxShape3D_gqyt6")

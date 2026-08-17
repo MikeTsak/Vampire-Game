@@ -9,10 +9,16 @@ var player: CharacterBody3D
 var carcasses_on_tarp: int = 0
 var level_ended: bool = false
 
+func _get_tarp_position() -> Vector3:
+	var tarp = get_node_or_null("Tarp")
+	return tarp.position if tarp else Vector3.ZERO
+
 func _ready():
 	var player_scene = load("res://scenes/characters/Player.tscn")
 	player = player_scene.instantiate()
-	player.position = Vector3(0, 1, 0)
+	# Spawn on the tarp itself so the player never starts overlapping procedural
+	# forest geometry (trees/rocks) placed elsewhere in the level.
+	player.position = _get_tarp_position() + Vector3(0, 1, 0)
 	add_child(player)
 
 	# Spawn initial animals (pack spawning: babies join adults from level 2 onward)
@@ -42,7 +48,11 @@ func _ready():
 					if baby_scene:
 						var baby = baby_scene.instantiate()
 						add_child(baby)
-						baby.position = animal.position + Vector3(1.2, 0, 1.2)
+						# Keep the little ones a genuine short walk from the adult
+						# rather than glued right next to it.
+						var baby_angle = randf_range(0, TAU)
+						var baby_dist = randf_range(10.0, 16.0)
+						baby.position = animal.position + Vector3(cos(baby_angle) * baby_dist, 0, sin(baby_angle) * baby_dist)
 						baby.rotation_degrees.y = randf_range(0, 360)
 
 	timer.timeout.connect(_on_timeout)
@@ -101,7 +111,7 @@ func _start_mid_cutscene():
 	# vantage point overlooking the tarp, and let the cutscene play out live.
 	if player:
 		player.set_frozen(true)
-		player.position = Vector3(0, 1, -1.5)
+		player.position = _get_tarp_position() + Vector3(0, 1, 2.5)
 		player.rotation = Vector3.ZERO
 		if player.head:
 			player.head.rotation.x = 0

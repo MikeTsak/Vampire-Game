@@ -10,7 +10,7 @@ font_names = PackedStringArray("Courier New", "Consolas", "Monospace")
 subpixel_positioning = 0
 
 [sub_resource type="Animation" id="Animation_x7bng"]
-length = 22.5
+length = 27.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -18,7 +18,7 @@ tracks/0/path = NodePath("SuitedMan:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 5, 18, 22, 22.5),
+"times": PackedFloat32Array(0, 1, 5, 23, 27, 27.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, -10), Vector3(0, 0, -10), Vector3(0, 0, -6), Vector3(0, 0, -6), Vector3(0, 0, -10), Vector3(0, 0, -10)]
@@ -30,8 +30,8 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1, 5, 5.3, 8.3, 9, 12.7, 13, 17.7, 18, 22),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(1, 5, 5.3, 8.3, 9, 12.7, 13, 17.5, 17.8, 22.5, 23, 27),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
 "args": ["walk"],
 "method": &"_set_model_state"
@@ -51,7 +51,13 @@ tracks/1/keys = {
 "args": [""],
 "method": &"_set_subtitle"
 }, {
-"args": ["Actually... keep hunting. And if you find any... young ones... I will pay you 10,000 ₯ for each."],
+"args": ["Actually... follow the road south, near the sanatorium. That's where the young ones are."],
+"method": &"_set_subtitle"
+}, {
+"args": [""],
+"method": &"_set_subtitle"
+}, {
+"args": ["I'll pay you 10,000 ₯ for each one... that's why I keep it locked."],
 "method": &"_set_subtitle"
 }, {
 "args": [""],
@@ -74,7 +80,7 @@ _data = {
 script = ExtResource("1_driver")
 
 [node name="SuitedMan" parent="." unique_id=1363157416 instance=ExtResource("2_man")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 script = ExtResource("3_manscript")
 
 [node name="CoinSfxPlayer" type="AudioStreamPlayer" parent="." unique_id=342304060]

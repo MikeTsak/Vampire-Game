@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dhb6lsyfv14uv" path="res://scripts/level.gd" id="1_odhdn"]
 [ext_resource type="Script" uid="uid://c15lccee7qodc" path="res://scripts/forest_generator.gd" id="4_dw26h"]
 [ext_resource type="PackedScene" uid="uid://cy247l8eaf4p" path="res://models/props/OilLamp.tscn" id="lamp_scene"]
+[ext_resource type="PackedScene" uid="uid://yvhkawsto53o" path="res://scenes/characters/skinwalker_new.tscn" id="skinwalker_scene"]
 [ext_resource type="PackedScene" uid="uid://dyggwvlcccl7g" path="res://models/props/Tarp.tscn" id="tarp_scene"]
-[ext_resource type="PackedScene" path="res://scenes/characters/skinwalker_new.tscn" id="skinwalker_scene"]
 [ext_resource type="Script" uid="uid://dkornaugkk3ul" path="res://scripts/terrain_generator.gd" id="terrain_script"]
 [ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/ps1_moon.png" id="tex_ps1_moon"]
 [ext_resource type="Texture2D" uid="uid://c6ad5c75rrro6" path="res://textures/ps1_stars.png" id="tex_ps1_stars"]
@@ -74,30 +74,19 @@ text = "You survived."
 
 [node name="EndPanel2" type="ColorRect" parent="UILayer" unique_id=795522507]
 
-[node name="Spawns#Spawn1" type="Marker3D" parent="." unique_id=466384023]
-
 [node name="Spawns" type="Node3D" parent="." unique_id=1479572543]
-
-[node name="Spawn2" type="Marker3D" parent="Spawns" unique_id=2032926097]
 
 [node name="Spawn0" type="Marker3D" parent="Spawns" unique_id=1741390504]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.598442, 0, -15.126976)
 
-[node name="Spawn3" type="Marker3D" parent="Spawns" unique_id=237520778]
-
 [node name="Spawn1" type="Marker3D" parent="Spawns" unique_id=1457638942]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.105793, 0, 4.45838)
-
-[node name="Spawn4" type="Marker3D" parent="Spawns" unique_id=563253195]
 
 [node name="Spawn5" type="Marker3D" parent="Spawns" unique_id=1991218494]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.085832, 0, -19.15373)
 
 [node name="Spawn6" type="Marker3D" parent="Spawns" unique_id=223374245]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.752645, 0, 16.846224)
-
-[node name="Spawn7" type="Marker3D" parent="Spawns" unique_id=1963739255]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.275572, 0, -14.987939)
 
 [node name="Boundaries" type="Node3D" parent="." unique_id=537491748]
 
@@ -206,4 +195,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 [node name="OilLamp" parent="." unique_id=865134509 instance=ExtResource("lamp_scene")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -4)
 
-[node name="Skinwalker" parent="." instance=ExtResource("skinwalker_scene")]
+[node name="Skinwalker" parent="." unique_id=1268335632 instance=ExtResource("skinwalker_scene")]

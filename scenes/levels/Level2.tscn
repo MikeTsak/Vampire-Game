@@ -2,35 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dhb6lsyfv14uv" path="res://scripts/level.gd" id="1_l6gr7"]
 [ext_resource type="Script" uid="uid://c15lccee7qodc" path="res://scripts/forest_generator.gd" id="4_sp0w3"]
-[ext_resource type="Texture2D" uid="uid://cl7qmigkexoht" path="res://textures/bark_post.tres" id="5_lrl65"]
 [ext_resource type="PackedScene" uid="uid://cy247l8eaf4p" path="res://models/props/OilLamp.tscn" id="lamp_scene"]
-[ext_resource type="PackedScene" uid="uid://6nntmos60iia" path="res://scenes/environment/ParkOfSouls.tscn" id="park_of_souls"]
+[ext_resource type="PackedScene" uid="uid://cvwws2y5id6wh" path="res://scenes/environment/SanatoriumBuilding_new.tscn" id="sanatorium_building"]
+[ext_resource type="PackedScene" uid="uid://yvhkawsto53o" path="res://scenes/characters/skinwalker_new.tscn" id="skinwalker_scene"]
 [ext_resource type="PackedScene" uid="uid://dyggwvlcccl7g" path="res://models/props/Tarp.tscn" id="tarp_scene"]
-[ext_resource type="PackedScene" path="res://scenes/environment/SanatoriumBuilding_new.tscn" id="sanatorium_building"]
-[ext_resource type="PackedScene" path="res://scenes/characters/skinwalker_new.tscn" id="skinwalker_scene"]
 [ext_resource type="Script" uid="uid://dkornaugkk3ul" path="res://scripts/terrain_generator.gd" id="terrain_script"]
 [ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/ps1_moon.png" id="tex_ps1_moon"]
 [ext_resource type="Texture2D" uid="uid://c6ad5c75rrro6" path="res://textures/ps1_stars.png" id="tex_ps1_stars"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n34uq"]
-albedo_color = Color(0.23921569, 0.16862746, 0.101960786, 1)
-albedo_texture = ExtResource("5_lrl65")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbo48"]
-albedo_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
-metallic = 1.0
-roughness = 0.3
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dyl1"]
-transparency = 1
-albedo_color = Color(1, 0.8, 0.2, 0.8)
-emission_enabled = true
-emission = Color(1, 0.6666667, 0.13333334, 1)
-emission_energy_multiplier = 3.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_park_base"]
-albedo_color = Color(0.25, 0.2, 0.15, 1)
-texture_filter = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wall0"]
 size = Vector3(300, 20, 1)
@@ -94,52 +72,19 @@ text = "You survived."
 [node name="Spawns" type="Node3D" parent="." unique_id=476464157]
 
 [node name="Spawn0" type="Marker3D" parent="Spawns" unique_id=1067575240]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.619485, 20, 17.586664)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.619485, 0, 17.586664)
 
 [node name="Spawn1" type="Marker3D" parent="Spawns" unique_id=1761919705]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.25985, 20, -10.442295)
-
-[node name="Spawn2" type="Marker3D" parent="Spawns" unique_id=80550136]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29072306, 20, -3.0282102)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.25985, 0, -10.442295)
 
 [node name="Spawn3" type="Marker3D" parent="Spawns" unique_id=1718715931]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2488976, 20, 18.740606)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2488976, 0, 18.740606)
 
 [node name="Spawn4" type="Marker3D" parent="Spawns" unique_id=1645909742]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.230746, 20, -4.168949)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.230746, 0, -4.168949)
 
 [node name="ForestGenerator" type="Node3D" parent="." unique_id=1410511000]
 script = ExtResource("4_sp0w3")
-
-[node name="LanternPost" type="CSGCylinder3D" parent="." unique_id=694309838]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.25, -2)
-material_override = SubResource("StandardMaterial3D_n34uq")
-radius = 0.08
-height = 2.5
-
-[node name="LanternBody" type="CSGBox3D" parent="LanternPost" unique_id=1069587201]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-material_override = SubResource("StandardMaterial3D_kbo48")
-size = Vector3(0.35, 0.5, 0.35)
-
-[node name="LanternGlass" type="CSGBox3D" parent="LanternPost/LanternBody" unique_id=1161192352]
-material_override = SubResource("StandardMaterial3D_4dyl1")
-size = Vector3(0.25, 0.35, 0.25)
-
-[node name="LanternLight" type="OmniLight3D" parent="LanternPost/LanternBody" unique_id=1029311505]
-light_color = Color(1, 0.7, 0.2, 1)
-light_energy = 10.0
-shadow_enabled = true
-omni_range = 50.0
-
-[node name="SoulParkPlateau" type="CSGBox3D" parent="." unique_id=1351491167]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 5, -40)
-use_collision = true
-size = Vector3(50, 10, 50)
-material = SubResource("StandardMaterial3D_park_base")
-
-[node name="ParkOfSouls" parent="." unique_id=586099378 instance=ExtResource("park_of_souls")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 10, -40)
 
 [node name="SanatoriumBuilding" parent="." unique_id=336532386 instance=ExtResource("sanatorium_building")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, -140)
@@ -198,4 +143,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 [node name="OilLamp" parent="." unique_id=974173117 instance=ExtResource("lamp_scene")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -4)
 
-[node name="Skinwalker" parent="." instance=ExtResource("skinwalker_scene")]
+[node name="Skinwalker" parent="." unique_id=620644000 instance=ExtResource("skinwalker_scene")]

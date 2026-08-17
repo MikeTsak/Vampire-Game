@@ -18,7 +18,8 @@ func _ready():
 	noise.fractal_octaves = 4
 
 	generate_terrain()
-	
+	generate_road()
+
 	# Spawn Trees
 	var tree_scenes = [
 		load("res://models/environment/trees/Tree_AleppoPine.tscn"),
@@ -137,6 +138,57 @@ func generate_terrain():
 	var conc_shape = array_mesh.create_trimesh_shape()
 	collision_shape.shape = conc_shape
 	static_body.add_child(collision_shape)
+
+func generate_road():
+	# The terrain height field already flattens a winding strip for the dirt road
+	# (see road_center_x below), but that strip previously used the same material
+	# as the rest of the ground, so it wasn't actually visible as a road. Lay a
+	# distinct ribbon mesh along that same curve so it reads clearly.
+	var st = SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var half_width = 3.5
+	var step = 4.0
+	var z = -size.y * 0.5
+	while z < size.y * 0.5:
+		var z2 = z + step
+		var cx1 = sin(z * 0.05) * 20.0
+		var cx2 = sin(z2 * 0.05) * 20.0
+		var y1 = get_height_at(cx1, z) + 0.04
+		var y2 = get_height_at(cx2, z2) + 0.04
+		var a = Vector3(cx1 - half_width, y1, z)
+		var b = Vector3(cx1 + half_width, y1, z)
+		var c = Vector3(cx2 - half_width, y2, z2)
+		var d = Vector3(cx2 + half_width, y2, z2)
+
+		st.set_uv(Vector2(0.0, z * 0.1)); st.add_vertex(a)
+		st.set_uv(Vector2(0.0, z2 * 0.1)); st.add_vertex(c)
+		st.set_uv(Vector2(1.0, z * 0.1)); st.add_vertex(b)
+
+		st.set_uv(Vector2(1.0, z * 0.1)); st.add_vertex(b)
+		st.set_uv(Vector2(0.0, z2 * 0.1)); st.add_vertex(c)
+		st.set_uv(Vector2(1.0, z2 * 0.1)); st.add_vertex(d)
+
+		z = z2
+	st.generate_normals()
+	var road_mesh = st.commit()
+
+	var road_instance = MeshInstance3D.new()
+	road_instance.mesh = road_mesh
+
+	var mat = StandardMaterial3D.new()
+	var road_noise = FastNoiseLite.new()
+	road_noise.frequency = 0.8
+	var road_tex = NoiseTexture2D.new()
+	road_tex.noise = road_noise
+	road_tex.width = 64
+	road_tex.height = 64
+	mat.albedo_texture = road_tex
+	mat.albedo_color = Color(0.42, 0.36, 0.28)
+	mat.roughness = 0.95
+	mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+	mat.uv1_scale = Vector3(3, 20, 1)
+	road_instance.material_override = mat
+	add_child(road_instance)
 
 func get_height_at(x: float, z: float) -> float:
 	var h = noise.get_noise_2d(x, z) * max_height
