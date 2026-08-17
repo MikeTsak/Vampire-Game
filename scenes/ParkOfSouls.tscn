@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c50i3wl35fpi3"]
+[gd_scene format=3 uid="uid://cbahhl0uwfydn"]
 
 [ext_resource type="Material" path="res://materials/weathered_wood_material.tres" id="1_wood"]
 [ext_resource type="Material" path="res://materials/scaffolding_metal.tres" id="2_metal"]

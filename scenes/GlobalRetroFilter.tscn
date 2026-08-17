@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://b7ub3lcdqwvge"]
+[gd_scene format=3 uid="uid://d35fwhr3tefq0"]
 
 [ext_resource type="Script" uid="uid://bboisb52xd722" path="res://scripts/global_retro_filter.gd" id="1_7o43y"]
 [ext_resource type="Shader" uid="uid://wliymbgus6bm" path="res://shaders/retro_ps1.gdshader" id="2_nwnwi"]

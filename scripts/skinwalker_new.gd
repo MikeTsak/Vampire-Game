@@ -1,8 +1,8 @@
 extends Node3D
 
-@export var min_radius: float = 40.0
-@export var max_radius: float = 70.0
-@export var flee_distance: float = 25.0
+@export var min_radius: float = 18.0
+@export var max_radius: float = 32.0
+@export var flee_distance: float = 10.0
 @export var stare_time_limit: float = 1.2
 @export var view_dot_threshold: float = 0.94
 @export var reroll_interval: float = 20.0
@@ -50,8 +50,10 @@ func _set_active(new_active: bool):
 	if active == new_active:
 		return
 	active = new_active
+	if active:
+		print("Skinwalker Activated")
 	if debug_label:
-		debug_label.text = "SKINWALKER ACTIVATED" if active else ""
+		debug_label.text = "Skinwalker Activated" if active else ""
 
 func _find_player():
 	player = get_tree().get_first_node_in_group("player")

@@ -87,7 +87,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.230746, 0, -4.168949)
 script = ExtResource("4_sp0w3")
 
 [node name="SanatoriumBuilding" parent="." unique_id=336532386 instance=ExtResource("sanatorium_building")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, -140)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -140)
 
 [node name="FacadeSpotlight" type="SpotLight3D" parent="." unique_id=1411210318]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 20, -80)

@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://diwgcs4tele1d"]
+[gd_scene format=3 uid="uid://pos036rvj0et"]
 
 [ext_resource type="Script" path="res://scenes/MidCutscene.gd" id="1_driver"]
 [ext_resource type="Script" uid="uid://bn7t4h21b1pm" path="res://scripts/typewriter_subtitle.gd" id="2_c6cun"]
-[ext_resource type="PackedScene" uid="uid://bajhito6tdoki" path="res://scenes/SuitedMan.tscn" id="3_rvryt"]
+[ext_resource type="PackedScene" uid="uid://cct52n40a4llx" path="res://scenes/SuitedMan.tscn" id="3_rvryt"]
 [ext_resource type="Script" path="res://scenes/SuitedMan.gd" id="4_nir0v"]
 
 [sub_resource type="SystemFont" id="SystemFont_du6q1"]

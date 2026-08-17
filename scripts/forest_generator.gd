@@ -28,7 +28,7 @@ func get_floor_height(x: float, z: float) -> float:
 
 func spawn_environment():
 	var spawned_positions = []
-	for i in range(110):
+	for i in range(500):
 		var r = randf()
 		var tree
 		if r > 0.7: tree = platanus_scene.instantiate()
@@ -37,7 +37,7 @@ func spawn_environment():
 		
 		var pos = get_random_pos()
 		var valid = false
-		for attempt in range(10):
+		for attempt in range(15):
 			pos = get_random_pos()
 			if pos.length() < 8.0: continue # Small exclusion radius at player spawn
 			var road_center_x = sin(pos.z * 0.05) * 20.0
@@ -45,7 +45,7 @@ func spawn_environment():
 			if abs(pos.x) < 4.0 and pos.z > -25.0 and pos.z < 5.0: continue # Clear cinematic path
 			valid = true
 			for p in spawned_positions:
-				if pos.distance_to(p) < 15.0:
+				if pos.distance_to(p) < 6.0:
 					valid = false
 					break
 			if valid: break
@@ -105,14 +105,32 @@ func spawn_environment():
 		# Anywhere is fine -- just keep it off the sanatorium's side of the map
 		# (the sanatorium sits in the -Z half, around world z=-140).
 		var park_pos = get_random_pos()
-		for attempt in range(30):
+		for attempt in range(60):
 			park_pos = get_random_pos()
-			if park_pos.z > 20.0:
+			if park_pos.z > 40.0:
 				break
+		if park_pos.z <= 40.0:
+			# Couldn't roll a spot on the far side after all retries -- force it
+			# there deterministically so it never ends up near the sanatorium.
+			park_pos = Vector3(0, 0, 70)
 		park_pos.y = get_floor_height(park_pos.x, park_pos.z)
 		park.position = park_pos
 		park.rotation.y = randf_range(0, TAU)
 		add_child(park)
+
+	# Safety net: some dev/testing workflows launch Level2 directly without
+	# going through GameManager progression, so gm.level never reaches 2 and
+	# the gated block above gets skipped entirely. Guarantee the Park of
+	# Souls still exists whenever this generator is actually running inside
+	# Level2, regardless of how the scene was reached.
+	var level_root = get_parent()
+	if level_root and level_root.name == "Level2" and not level_root.find_child("ParkOfSouls", true, false):
+		var fallback_park = park_scene.instantiate()
+		fallback_park.name = "ParkOfSouls"
+		var fallback_pos = Vector3(0, 0, 70)
+		fallback_pos.y = get_floor_height(fallback_pos.x, fallback_pos.z)
+		fallback_park.position = fallback_pos
+		add_child(fallback_park)
 
 func get_random_pos() -> Vector3:
 	# Match the actual configured terrain size instead of a hardcoded range --

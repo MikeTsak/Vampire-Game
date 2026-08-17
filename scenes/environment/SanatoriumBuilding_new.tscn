@@ -33,7 +33,22 @@ material = SubResource("StandardMaterial3D_gate_frame")
 size = Vector3(0.08, 5, 0.08)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gqyt6"]
-size = Vector3(82, 6, 14)
+size = Vector3(39, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mqyp6"]
+size = Vector3(39, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nlg3a"]
+size = Vector3(12, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ou8d1"]
+size = Vector3(1, 5, 37)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tj7nc"]
+size = Vector3(1, 5, 37)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jf03v"]
+size = Vector3(90, 5, 1)
 
 [node name="SanatoriumBuilding" type="Node3D" unique_id=389834005]
 
@@ -4001,7 +4016,27 @@ operation = 2
 size = Vector3(2, 1.6, 1)
 
 [node name="FenceBlocker" type="StaticBody3D" parent="." unique_id=1989361000]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 16)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FenceBlocker" unique_id=1687415430]
+[node name="Collision_FrontLeft" type="CollisionShape3D" parent="FenceBlocker" unique_id=1687415430]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 2.5, 22)
 shape = SubResource("BoxShape3D_gqyt6")
+
+[node name="Collision_FrontRight" type="CollisionShape3D" parent="FenceBlocker" unique_id=1215781568]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 2.5, 22)
+shape = SubResource("BoxShape3D_mqyp6")
+
+[node name="Collision_Gate" type="CollisionShape3D" parent="FenceBlocker" unique_id=1372719434]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 22)
+shape = SubResource("BoxShape3D_nlg3a")
+
+[node name="Collision_Left" type="CollisionShape3D" parent="FenceBlocker" unique_id=376915584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 2.5, 3.5)
+shape = SubResource("BoxShape3D_ou8d1")
+
+[node name="Collision_Right" type="CollisionShape3D" parent="FenceBlocker" unique_id=232913710]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 2.5, 3.5)
+shape = SubResource("BoxShape3D_tj7nc")
+
+[node name="Collision_Back" type="CollisionShape3D" parent="FenceBlocker" unique_id=1261576241]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -15)
+shape = SubResource("BoxShape3D_jf03v")

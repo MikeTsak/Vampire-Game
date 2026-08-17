@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bag1nkwc1pylg"]
+[gd_scene format=3 uid="uid://b22s0t348tpys"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blood_pool"]
 albedo_color = Color(0.28, 0.01, 0.015, 1)

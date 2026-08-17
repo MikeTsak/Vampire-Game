@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bqypf45w4kgqd"]
+[gd_scene format=3 uid="uid://chbn7ay6stmvb"]
 
 [ext_resource type="Script" uid="uid://dljeknpjmiq8u" path="res://scripts/animal.gd" id="1_lynl0"]
 [ext_resource type="Material" path="res://materials/meat_material.tres" id="1_rf67h"]

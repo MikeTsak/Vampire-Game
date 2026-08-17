@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 GameManager="*res://scripts/game_manager.gd"
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
-GlobalRetroFilter="*res://scenes/environment/GlobalRetroFilter.tscn"
 
 [display]
 

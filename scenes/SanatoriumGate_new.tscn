@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://boykqs8sggwvt"]
+[gd_scene format=3 uid="uid://btkxiow32v1te"]
 
 [ext_resource type="Material" path="res://materials/concrete_material.tres" id="1_concrete"]
 [ext_resource type="FontFile" uid="uid://dtdvhmo7i3h7q" path="res://textures/fonts/fonnts.com-PF-Hellenica-.otf" id="2_font"]

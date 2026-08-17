@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bgb7hybrdrkk6"]
+[gd_scene format=3 uid="uid://e8s68oepknsy"]
 
 [ext_resource type="Material" path="res://materials/concrete_material.tres" id="1_concrete"]
 [ext_resource type="PackedScene" uid="uid://cfyujvk56df3b" path="res://models/environment/trees/Tree_Dead.tscn" id="2_dead_tree"]

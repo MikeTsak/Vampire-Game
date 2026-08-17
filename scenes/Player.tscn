@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://h0b51cmggdgv"]
+[gd_scene format=3 uid="uid://d3epreolpmoq0"]
 
 [ext_resource type="Script" uid="uid://be2fmgx05uvim" path="res://scripts/player.gd" id="1_p0vlq"]
 [ext_resource type="Texture2D" uid="uid://clqsb5dnklbv8" path="res://textures/metal_texture.jpg" id="TexMetal"]
