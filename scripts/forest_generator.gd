@@ -115,7 +115,7 @@ func spawn_environment():
 			park_pos = Vector3(0, 0, 70)
 		park_pos.y = get_floor_height(park_pos.x, park_pos.z)
 		park.position = park_pos
-		park.rotation.y = randf_range(0, TAU)
+		_orient_toward_tarp(park, park_pos)
 		add_child(park)
 
 	# Safety net: some dev/testing workflows launch Level2 directly without
@@ -130,7 +130,19 @@ func spawn_environment():
 		var fallback_pos = Vector3(0, 0, 70)
 		fallback_pos.y = get_floor_height(fallback_pos.x, fallback_pos.z)
 		fallback_park.position = fallback_pos
+		_orient_toward_tarp(fallback_park, fallback_pos)
 		add_child(fallback_park)
+
+func _orient_toward_tarp(node: Node3D, node_pos: Vector3):
+	# The park's gate/archway sits on the model's local +Z side, which is the
+	# opposite of Godot's default -Z "forward" -- always rotate the park so
+	# that side faces the tarp/spawn point, no matter where it lands.
+	var level_root = get_parent()
+	var tarp_node = level_root.get_node_or_null("Tarp") if level_root else null
+	var tarp_pos = tarp_node.position if tarp_node else Vector3(0, 0, -4)
+	if node_pos.distance_to(tarp_pos) > 0.01:
+		var facing_tarp = Transform3D(Basis(), node_pos).looking_at(tarp_pos, Vector3.UP)
+		node.rotation.y = facing_tarp.basis.get_euler().y + PI
 
 func get_random_pos() -> Vector3:
 	# Match the actual configured terrain size instead of a hardcoded range --

@@ -100,7 +100,16 @@ func _process_dormant(delta):
 		_reposition_far()
 
 func _process_idle(delta):
-	# Subtle unnatural sway, even while "idle" this thing should never look relaxed.
+	# It never approaches or retreats while idle -- it plants itself and just
+	# slowly, deliberately turns to keep facing (and "watching") the player,
+	# no matter where they move. Classic living-statue horror beat.
+	var look_target = player.global_position
+	look_target.y = global_position.y
+	if look_target.distance_to(global_position) > 0.01:
+		var target_yaw = global_transform.looking_at(look_target, Vector3.UP).basis.get_euler().y
+		rotation.y = lerp_angle(rotation.y, target_yaw, delta * 1.8)
+
+	# Subtle unnatural sway on top of that, even while "idle" this thing should never look relaxed.
 	mesh_base.rotation.y = sin(Time.get_ticks_msec() * 0.0003) * 0.05
 
 	var to_self = global_position - player.global_position

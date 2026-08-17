@@ -7,6 +7,7 @@
 [ext_resource type="Material" uid="uid://tfge3g6rflcf" path="res://materials/skinwalker_teeth.tres" id="5_8fbpo"]
 
 [node name="skinwalker_new" type="Node3D" unique_id=657711808]
+transform = Transform3D(1.1, 0, 0, 0, 1.25, 0, 0, 0, 1.1, 0, 0, 0)
 script = ExtResource("1_script")
 
 [node name="MeshBase" type="Node3D" parent="." unique_id=1877048726]
@@ -167,14 +168,24 @@ size = Vector3(0.13, 0.09, 0.13)
 material = ExtResource("4_jextf")
 
 [node name="EyeGlintL" type="CSGBox3D" parent="MeshBase/Skeleton3D/BoneAttach_Head/Skull" unique_id=653613294]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0.05, -0.09)
-size = Vector3(0.02, 0.02, 0.015)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0.05, -0.095)
+size = Vector3(0.045, 0.045, 0.03)
 material = ExtResource("3_8fbpo")
 
+[node name="EyeGlow" type="OmniLight3D" parent="MeshBase/Skeleton3D/BoneAttach_Head/Skull/EyeGlintL" unique_id=1637113450]
+light_color = Color(1, 0.95, 0.75, 1)
+light_energy = 0.9
+omni_range = 2.5
+
 [node name="EyeGlintR" type="CSGBox3D" parent="MeshBase/Skeleton3D/BoneAttach_Head/Skull" unique_id=1890415520]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.05, -0.09)
-size = Vector3(0.02, 0.02, 0.015)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.05, -0.095)
+size = Vector3(0.045, 0.045, 0.03)
 material = ExtResource("3_8fbpo")
+
+[node name="EyeGlow" type="OmniLight3D" parent="MeshBase/Skeleton3D/BoneAttach_Head/Skull/EyeGlintR" unique_id=1458601570]
+light_color = Color(1, 0.95, 0.75, 1)
+light_energy = 0.9
+omni_range = 2.5
 
 [node name="ToothUpper1" type="CSGBox3D" parent="MeshBase/Skeleton3D/BoneAttach_Head/Skull" unique_id=1345719346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, -0.0475, -0.075)

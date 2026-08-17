@@ -1,0 +1,298 @@
+[gd_scene format=3 uid="uid://bu55mmwlyexqb"]
+
+[ext_resource type="Script" path="res://scenes/IntroCutscene.gd" id="1_872o4"]
+[ext_resource type="PackedScene" uid="uid://cct52n40a4llx" path="res://scenes/SuitedMan.tscn" id="2_nuwxb"]
+[ext_resource type="PackedScene" uid="uid://bkacyevtjymee" path="res://scenes/DrinkGlass.tscn" id="3_du6q1"]
+[ext_resource type="Script" path="res://scenes/SuitedMan.gd" id="3_t6y0e"]
+[ext_resource type="Script" uid="uid://bn7t4h21b1pm" path="res://scripts/typewriter_subtitle.gd" id="4_t6y0e"]
+
+[sub_resource type="Environment" id="Environment_0xuf1"]
+background_mode = 1
+ambient_light_source = 2
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_du6q1"]
+noise_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t6y0e"]
+noise = SubResource("FastNoiseLite_du6q1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8wwff"]
+albedo_color = Color(0.05, 0.05, 0.05, 1)
+albedo_texture = SubResource("NoiseTexture2D_t6y0e")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gqb4e"]
+noise_type = 2
+cellular_return_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0f8n4"]
+noise = SubResource("FastNoiseLite_gqb4e")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p6ax6"]
+albedo_color = Color(0.9, 0.9, 0.9, 1)
+albedo_texture = SubResource("NoiseTexture2D_0f8n4")
+
+[sub_resource type="SystemFont" id="SystemFont_du6q1"]
+font_names = PackedStringArray("Courier New", "Consolas", "Monospace")
+
+[sub_resource type="Animation" id="Animation_cdel8"]
+length = 25.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Subtitles/SubtitleLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4.8, 5, 9.8, 10, 14.3, 14.5, 17.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["You survived the Great War, but you need ₯ to survive peace.", "", "Mount Parnitha is full of food. I need that for a reason...", "", "...and I will pay a high price for it. 5,000 ₯ per food. Do we have a deal?", "", "Good. Let's drink to this.", ""]
+}
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SuitedMan/RightShoulderPivot")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 14.5, 1, 0, 0, 0, 1, 16, 1, -0.3390941, 0.122654505, 0.044642586, 0.93165344)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SuitedMan/RightShoulderPivot/RightUpperArm/RightElbowPivot")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 14.5, 1, 0, 0, 0, 1, 16, 1, -0.5, 0, 0, 0.8660254)
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera3D/PlayerGlass:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 16.1, 17.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.5, -0.4, -0.8), Vector3(0.05, -0.6, -1.5), Vector3(0, -0.35, -0.6)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SuitedMan/Torso/Neck/Head:rotation")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6, 8, 10, 12, 14, 16),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.04, 0), Vector3(0.033773158, 0.0067986855, 0), Vector3(-0.04980823, -0.037688892, 0), Vector3(0.039683394, -0.019610433, 0), Vector3(-0.008716339, 0.031022634, 0), Vector3(-0.026828647, 0.03015609, 0), Vector3(0.048282888, -0.020771546, 0), Vector3(-0.04437835, -0.03721705, 0), Vector3(0.017165747, 0.008120195, 0)]
+}
+tracks/5/type = "rotation_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SuitedMan/LeftShoulderPivot")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 2, 1, 0.0070559415, 0, 0, 0.9999751, 4, 1, -0.01397032, 0, 0, 0.9999024, 6, 1, 0.020604465, 0, 0, 0.9997877, 8, 1, -0.026825428, 0, 0, 0.9996401, 10, 1, 0.032508664, 0, 0, 0.9994714, 12, 1, -0.03754054, 0, 0, 0.9992951, 14, 1, 0.041820582, 0, 0, 0.9991251, 16, 1, -0.045263447, 0, 0, 0.9989751)
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SuitedMan/Torso:rotation")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6, 8, 10, 12, 14, 16),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.02), Vector3(0.029987209, 0, 0.010806046), Vector3(-0.0017512243, 0, -0.0083229365), Vector3(-0.029884938, 0, -0.019799849), Vector3(0.0034964762, 0, -0.013072873), Vector3(0.029680748, 0, 0.0056732437), Vector3(-0.0052298033, 0, 0.019203406), Vector3(-0.029375331, 0, 0.015078045), Vector3(0.006945295, 0, -0.0029100007)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Camera3D:fov")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 18.5, 19.5, 20.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [55.0, 55.0, 100.0, 55.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Camera3D:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(18.5, 19, 20, 20.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.17453292, 0, 0.17453292), Vector3(-0.17453292, 0, -0.17453292), Vector3(0, 0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Subtitles/FadeRect:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(19.5, 21),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Camera3D/PlayerGlass:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 16.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/11/type = "animation"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("SuitedMan/AnimationPlayer")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"clips": PackedStringArray("talking", "[stop]"),
+"times": PackedFloat32Array(0, 17.5)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2kd0m"]
+_data = {
+&"intro_seq": SubResource("Animation_cdel8")
+}
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_t6y0e"]
+noise_type = 0
+frequency = 0.1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8wwff"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_t6y0e")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gqb4e"]
+albedo_color = Color(0.2, 0.2, 0.2, 1)
+albedo_texture = SubResource("NoiseTexture2D_8wwff")
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0f8n4"]
+albedo_color = Color(0.1, 0.1, 0.1, 1)
+albedo_texture = SubResource("NoiseTexture2D_8wwff")
+metallic = 0.8
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_erdjy"]
+albedo_color = Color(0.15, 0.1, 0.1, 1)
+albedo_texture = SubResource("NoiseTexture2D_8wwff")
+metallic = 0.8
+roughness = 0.7
+
+[node name="IntroCutscene" type="Node3D" unique_id=1794110170]
+script = ExtResource("1_872o4")
+
+[node name="@WorldEnvironment@2" type="WorldEnvironment" parent="." unique_id=415156265]
+environment = SubResource("Environment_0xuf1")
+
+[node name="Room" type="CSGBox3D" parent="." unique_id=1620747556]
+flip_faces = true
+size = Vector3(20, 10, 20)
+material = SubResource("StandardMaterial3D_8wwff")
+
+[node name="Table" type="CSGBox3D" parent="." unique_id=147641655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(1.5, 1, 1.2)
+material = SubResource("StandardMaterial3D_p6ax6")
+
+[node name="SpotLight" type="SpotLight3D" parent="." unique_id=1580540846]
+transform = Transform3D(1, 0, 0, 0, 0.59522754, 0.80355716, 0, -0.80355716, 0.59522754, 0, 4, 0.5)
+light_color = Color(0.8, 0.8, 0.4, 1)
+light_energy = 12.0
+shadow_enabled = true
+spot_range = 10.0
+spot_angle = 75.0
+
+[node name="SuitedMan" parent="." unique_id=442084215 instance=ExtResource("2_nuwxb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25000003, -1.5)
+script = ExtResource("3_t6y0e")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1554791297]
+transform = Transform3D(1, 0, 0, 0, 0.99939084, 0.034899496, 0, -0.034899496, 0.99939084, 0, 1.25, 1.2)
+current = true
+fov = 55.0
+
+[node name="PlayerGlass" parent="Camera3D" unique_id=179923684 instance=ExtResource("3_du6q1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.4, -0.8)
+
+[node name="Subtitles" type="CanvasLayer" parent="." unique_id=1820441091]
+layer = 10
+
+[node name="SubtitleLabel" type="Label" parent="Subtitles" unique_id=1115039068]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+offset_bottom = -30.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.1, 0.9, 0.1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = SubResource("SystemFont_du6q1")
+theme_override_font_sizes/font_size = 44
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+script = ExtResource("4_t6y0e")
+
+[node name="FadeRect" type="ColorRect" parent="Subtitles" unique_id=994436000]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MainAnimation" type="AnimationPlayer" parent="." unique_id=896748790]
+libraries/ = SubResource("AnimationLibrary_2kd0m")
+autoplay = &"intro_seq"
+
+[node name="EnvironmentBackground" type="Node3D" parent="." unique_id=1483639584]
+
+[node name="BackWall" type="CSGBox3D" parent="EnvironmentBackground" unique_id=96913510]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -6)
+size = Vector3(20, 10, 1)
+material = SubResource("StandardMaterial3D_gqb4e")
+
+[node name="MetalDoor" type="CSGBox3D" parent="EnvironmentBackground" unique_id=1667828745]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -6)
+size = Vector3(2, 4, 1.2)
+material = SubResource("StandardMaterial3D_0f8n4")
+
+[node name="HorizontalPipe" type="CSGCylinder3D" parent="EnvironmentBackground" unique_id=2098359788]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 4, -5.5)
+radius = 0.2
+height = 20.0
+material = SubResource("StandardMaterial3D_erdjy")
+
+[node name="VerticalPipe" type="CSGCylinder3D" parent="EnvironmentBackground" unique_id=2018608818]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, -5.3)
+radius = 0.3
+height = 10.0
+material = SubResource("StandardMaterial3D_erdjy")
+
+[node name="MoodyBackgroundLight" type="OmniLight3D" parent="EnvironmentBackground" unique_id=754122865]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, -4.5)
+light_color = Color(0.2, 0.5, 0.2, 1)
+light_energy = 0.25
+shadow_enabled = true
+omni_range = 4.0
