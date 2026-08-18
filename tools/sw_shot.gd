@@ -12,7 +12,60 @@ func _ready() -> void:
 	DisplayServer.window_set_size(Vector2i(768, 768))
 	call_deferred("_run")
 
+## Optional framing overrides, so a detail pass can get in close without
+## editing the generated scene: SW_TARGET="x,y,z", SW_DIST, SW_FOV.
+func _reframe() -> void:
+	var tgt := OS.get_environment("SW_TARGET")
+	if tgt != "":
+		var parts := tgt.split(",")
+		if parts.size() == 3:
+			$Turntable.position = Vector3(float(parts[0]), float(parts[1]), float(parts[2]))
+	var dist := OS.get_environment("SW_DIST")
+	if dist != "":
+		$Turntable/Camera3D.position = Vector3(0, 0, float(dist))
+		$Turntable/Camera3D.rotation = Vector3.ZERO
+	var fov := OS.get_environment("SW_FOV")
+	if fov != "":
+		$Turntable/Camera3D.fov = float(fov)
+
 func _run() -> void:
+	_reframe()
+	# SW_NOCULL=1 renders both faces: if a "hollow / inside-out" look vanishes
+	# under it the cause is winding, if it survives it is a real gap in the mesh.
+	# SW_DARK=1 drops the stage to night levels. The eye glow has to be judged
+	# in the lighting it actually ships in -- a bright studio makes any emissive
+	# read as a garish flood.
+	if OS.get_environment("SW_DARK") == "1":
+		var env: Environment = $WorldEnvironment.environment
+		env.background_color = Color(0.03, 0.035, 0.05)
+		env.ambient_light_color = Color(0.10, 0.12, 0.18)
+		env.ambient_light_energy = 0.30
+		$KeyLight.light_energy = 0.16
+		$KeyLight.light_color = Color(0.55, 0.62, 0.85)
+		$FillLight.light_energy = 0.05
+		var ground := MeshInstance3D.new()
+		var pm := PlaneMesh.new()
+		pm.size = Vector2(14, 14)
+		ground.mesh = pm
+		var gm := StandardMaterial3D.new()
+		gm.albedo_color = Color(0.24, 0.22, 0.20)
+		gm.roughness = 1.0
+		ground.material_override = gm
+		add_child(ground)
+	# SW_EYE="energy,range" overrides the eye lamps, for sweeping the glow
+	# without a rebuild between each try.
+	var eye := OS.get_environment("SW_EYE")
+	if eye != "":
+		var ev := eye.split(",")
+		for lamp in $Skinwalker/MeshBase/Skeleton3D/HeadAttach.get_children():
+			lamp.light_energy = float(ev[0])
+			if ev.size() > 1:
+				lamp.omni_range = float(ev[1])
+	if OS.get_environment("SW_NOCULL") == "1":
+		var mi: MeshInstance3D = $Skinwalker/MeshBase/Skeleton3D/SkinwalkerLOD0
+		var m: StandardMaterial3D = mi.mesh.surface_get_material(0).duplicate()
+		m.cull_mode = BaseMaterial3D.CULL_DISABLED
+		mi.set_surface_override_material(0, m)
 	var dir := OS.get_environment("SW_SHOT_DIR")
 	if dir == "":
 		dir = "res://"

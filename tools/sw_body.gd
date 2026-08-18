@@ -206,7 +206,7 @@ func _skull() -> void:
 		h + Vector3(0, 0.002, -0.088),
 		h + Vector3(0, -0.014, -0.205),
 		h + Vector3(0, -0.032, -0.322),
-	], [0.082, 0.069, 0.055], _s(6), 0.0, 1.0, false, true, [], 0.0)
+	], [0.082, 0.069, 0.055], _s(6), 0.0, 1.0, true, true, [], 0.0)
 	m.box(h + Vector3(0, -0.044, -0.344), Vector3(0.094, 0.065, 0.054))
 
 	# Lower jaw, hung open. Weighted to Jaw so it can snap independently.
@@ -271,20 +271,21 @@ func _mouth_interior() -> void:
 		for sd in [1.0, -1.0]:
 			m.quad(h + Vector3(w0 * sd, -0.052, z0), h + Vector3(w1 * sd, -0.052, z1),
 				h + Vector3(w1 * sd, -0.100, z1), h + Vector3(w0 * sd, -0.098, z0),
-				m.u(0, 0), m.u(1, 0), m.u(1, 1), m.u(0, 1), Vector3(sd, 0, 0))
+				m.u(0, 0), m.u(1, 0), m.u(1, 1), m.u(0, 1), Vector3(-sd, 0, 0))
 
-## Small, sunken, dull amber. Socket plate behind reads as a dark hollow.
+## Sunken socket with a glowing block set into it. Built as boxes rather than
+## flat cards so the eye reads from the front as well as the side -- a plane
+## facing sideways vanishes to a sliver head-on, and one tucked inside the
+## cranium (half-width 0.094) does not show at all.
 func _eyes() -> void:
 	var h := _bp("Head")
 	for sd in [1.0, -1.0]:
 		var bone := "Eye.L" if sd > 0.0 else "Eye.R"
-		var c := h + Vector3(0.069 * sd, 0.040, -0.092)
-		var outward := Vector3(0.80 * sd, 0.22, -0.56).normalized()
 		if lod == 0:
-			m.begin(["Head"], "dark", 0.45)
-			m.plane(c - outward * 0.006, Vector3(0, 0, 0.030), Vector3(0, 0.026, 0), outward)
+			m.begin(["Head"], "dark", 0.40)
+			m.box(h + Vector3(0.086 * sd, 0.045, -0.100), Vector3(0.036, 0.062, 0.070))
 		m.begin([bone, "Head"], "eye", 1.0)
-		m.plane(c + outward * 0.004, Vector3(0, 0, 0.019), Vector3(0, 0.017, 0), outward)
+		m.box(h + Vector3(0.096 * sd, 0.045, -0.100), Vector3(0.030, 0.046, 0.054))
 
 func _ears() -> void:
 	var h := _bp("Head")

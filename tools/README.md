@@ -58,7 +58,7 @@ clips, the collision proxy, and writes `models/skinwalker/skinwalker.glb`.
 | `build_skinwalker.gd` | orchestrator -- run this |
 | `run_validate.gd` | export validation + glTF |
 
-## Two gotchas worth knowing
+## Gotchas worth knowing
 
 - **`MeshInstance3D.skeleton` must be set explicitly.** Its documented default
   (`..`) does not bind when the node is built in code and packed — the mesh
@@ -68,3 +68,16 @@ clips, the collision proxy, and writes `models/skinwalker/skinwalker.glb`.
   reloads the `.tscn` but keeps the cached mesh and material, so a rebuilt
   asset appears unchanged. Review through the shot scene (a real game process)
   instead of editor screenshots.
+- **Winding is CCW-front in Godot** (`WIND_CW = false` in `sw_mesh.gd`). Get it
+  backwards and a closed convex form keeps its silhouette — you just see the
+  inside of the far wall, lit by an outward normal — so the torso merely looks
+  a bit flat. It only becomes obvious on the skull, where the muzzle sits
+  inside the cranium and the interior shows straight through. If the model ever
+  looks subtly wrong and "hollow" around overlapping parts, check this first.
+  `SW_NOCULL=1` on the shot scene is the quick test: if the problem vanishes
+  with culling off, it is winding, not a gap in the mesh.
+- **The eye lamps must not light the creature.** They sit ~12cm from the antler
+  pedicles, so any energy strong enough to reach the ground blows those out to
+  white. The creature renders on layer 2 and the lamps mask it out, which lets
+  them run at a useful energy and throw light into the world instead. Raising
+  their energy without that mask just floodlights the model orange.

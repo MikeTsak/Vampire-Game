@@ -11,6 +11,13 @@ const SCENE_PATH := "res://scenes/characters/skinwalker_new.tscn"
 const PREVIEW_PATH := "res://scenes/dev/SkinwalkerPreview.tscn"
 const SHOT_PATH := "res://scenes/dev/SkinwalkerShot.tscn"
 const ANIM_PATH := "res://animations/skinwalker.res"
+## The creature renders on its own layer so the eye lamps can be excluded from
+## lighting it. They sit ~12cm from the antler pedicles and the brow, so any
+## energy strong enough to reach the ground blows those out to white; masking
+## the creature lets the eyes throw real light into the world instead.
+## Nothing else in this project uses layers or cull masks.
+const CREATURE_LAYER := 2
+const LIGHT_MASK_EXCEPT_CREATURE := 1048575 & ~CREATURE_LAYER
 ## The scene this replaces; Level1-3 reference it by this uid, so it is
 ## restored into the header after save rather than letting Godot mint a new one.
 const KEEP_UID := "uid://yvhkawsto53o"
@@ -79,7 +86,7 @@ func _material(pbr: bool) -> StandardMaterial3D:
 	# across the whole surface and the creature glows solid white. Multiplying
 	# means only the lit texels in the emission map (the eyes) actually emit.
 	m.emission_operator = BaseMaterial3D.EMISSION_OP_MULTIPLY
-	m.emission_energy_multiplier = 1.8
+	m.emission_energy_multiplier = 3.2
 	if pbr:
 		# Modern read: per-pixel, normal-mapped, texture-driven roughness.
 		m.normal_enabled = true
@@ -116,6 +123,30 @@ func _skeleton() -> Skeleton3D:
 		sk.set_bone_pose_scale(i, Vector3.ONE)
 	return sk
 
+## Two amber omnis riding the Head bone, so the eye glow throws light on the
+## muzzle and the ground and travels with every head turn in the animations.
+## Shadows are off: at this range they buy nothing and cost a cubemap each.
+func _head_lights(sk: Skeleton3D) -> BoneAttachment3D:
+	var att := BoneAttachment3D.new()
+	att.name = "HeadAttach"
+	att.bone_name = "Head"
+	att.bone_idx = sk.find_bone("Head")
+	for sd in [1.0, -1.0]:
+		var lamp := OmniLight3D.new()
+		lamp.name = "EyeGlow%s" % ("L" if sd > 0.0 else "R")
+		lamp.position = Vector3(0.098 * sd, 0.045, -0.106)
+		lamp.light_color = Color(1.0, 0.70, 0.24)
+		# Tuned to pool on the muzzle and the ground just ahead. Pushed harder
+		# than this the pair simply floodlights the whole creature orange.
+		lamp.light_energy = 1.8
+		lamp.light_specular = 0.2
+		lamp.omni_range = 5.5
+		lamp.omni_attenuation = 1.4
+		lamp.light_cull_mask = LIGHT_MASK_EXCEPT_CREATURE
+		lamp.shadow_enabled = false
+		att.add_child(lamp)
+	return att
+
 # ------------------------------------------------------------------ scene
 
 func _save_character(meshes: Array) -> void:
@@ -143,7 +174,9 @@ func _save_character(meshes: Array) -> void:
 		mi.visibility_range_begin = ranges[i][0]
 		mi.visibility_range_end = ranges[i][1]
 		mi.visibility_range_fade_mode = GeometryInstance3D.VISIBILITY_RANGE_FADE_DISABLED
+		mi.layers = CREATURE_LAYER
 		sk.add_child(mi)
+	sk.add_child(_head_lights(sk))
 
 	root.add_child(_hit_proxy())
 
@@ -207,13 +240,13 @@ func _save_preview(meshes: Array) -> void:
 	env.background_color = Color(0.56, 0.58, 0.60)
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.ambient_light_color = Color(0.50, 0.52, 0.58)
-	env.ambient_light_energy = 0.62
+	env.ambient_light_energy = 0.48
 	we.environment = env
 	root.add_child(we)
 
 	var key := DirectionalLight3D.new()
 	key.name = "KeyLight"
-	key.light_energy = 1.7
+	key.light_energy = 1.05
 	key.transform = Transform3D().looking_at(Vector3(-0.5, -0.85, 0.55), Vector3.UP)
 	root.add_child(key)
 
@@ -251,7 +284,9 @@ func _save_preview(meshes: Array) -> void:
 	mi.mesh = meshes[0]
 	mi.skin = sk.create_skin_from_rest_transforms()
 	mi.skeleton = NodePath("..")
+	mi.layers = CREATURE_LAYER
 	sk.add_child(mi)
+	sk.add_child(_head_lights(sk))
 	var ap := AnimationPlayer.new()
 	ap.name = "AnimationPlayer"
 	ap.add_animation_library("", load(ANIM_PATH))

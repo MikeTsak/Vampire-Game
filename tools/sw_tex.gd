@@ -107,8 +107,8 @@ func paint_all() -> void:
 func _paint_skin() -> void:
 	var r: Rect2i = Atlas.R["skin"]
 	var pal := [
-		Color8(58, 45, 36), Color8(84, 66, 51), Color8(110, 87, 65),
-		Color8(138, 110, 81), Color8(165, 132, 96), Color8(190, 154, 112),
+		Color8(45, 33, 25), Color8(65, 49, 35), Color8(85, 64, 45),
+		Color8(106, 81, 56), Color8(127, 98, 66), Color8(146, 114, 77),
 	]
 	var rough: float = Atlas.ROUGH["skin"]
 	for y in r.size.y:
@@ -125,10 +125,10 @@ func _paint_skin() -> void:
 			# Sparse scabbing / bruising, high contrast against the hide.
 			var b := _cn(x, y, 3, 0.30, 3)
 			if b > 0.84:
-				c = c.lerp(Color8(109, 41, 30), 0.72)
+				c = c.lerp(Color8(84, 30, 21), 0.72)
 				h -= 0.05
 			elif b < 0.10:
-				c = c.lerp(Color8(29, 22, 17), 0.75)
+				c = c.lerp(Color8(22, 16, 12), 0.75)
 			var ao := _edge_ao(r, x, y, 0.30)
 			_emit(r, x, y, Color(c.r * ao, c.g * ao, c.b * ao, 1.0), h, rough)
 
@@ -136,8 +136,8 @@ func _paint_skin() -> void:
 func _paint_belly() -> void:
 	var r: Rect2i = Atlas.R["belly"]
 	var pal := [
-		Color8(78, 58, 49), Color8(107, 83, 68), Color8(134, 104, 84),
-		Color8(157, 125, 98), Color8(178, 144, 113), Color8(197, 163, 129),
+		Color8(63, 45, 36), Color8(86, 65, 50), Color8(108, 81, 62),
+		Color8(126, 98, 73), Color8(143, 112, 84), Color8(158, 127, 96),
 	]
 	var rough: float = Atlas.ROUGH["belly"]
 	for y in r.size.y:
@@ -146,10 +146,10 @@ func _paint_belly() -> void:
 			var broad := _cn(x, y, 8, 0.09, 14)
 			var c := _pal(fine * 0.55 + broad * 0.45, pal, 6)
 			# Thin taut skin: warm red reads through from underneath.
-			c = c.lerp(Color8(166, 78, 58), _cn(x, y, 4, 0.16, 12) * 0.34)
+			c = c.lerp(Color8(133, 61, 43), _cn(x, y, 4, 0.16, 12) * 0.34)
 			# Necrotic gray-green blotches creeping up from the pelvis.
 			if _cn(x, y, 3, 0.26, 13) > 0.78:
-				c = c.lerp(Color8(96, 97, 69), 0.70)
+				c = c.lerp(Color8(77, 76, 51), 0.70)
 			# Stretch lines over the starved gut.
 			if _cn(x / 3, y, 1, 0.75, 15) > 0.88:
 				c = c.darkened(0.38)
@@ -159,8 +159,8 @@ func _paint_belly() -> void:
 func _paint_fur() -> void:
 	var r: Rect2i = Atlas.R["fur"]
 	var pal := [
-		Color8(16, 12, 9), Color8(27, 20, 14), Color8(40, 31, 21),
-		Color8(53, 41, 29), Color8(67, 52, 36),
+		Color8(13, 10, 7), Color8(22, 16, 11), Color8(33, 25, 16),
+		Color8(43, 33, 22), Color8(55, 42, 28),
 	]
 	var rough: float = Atlas.ROUGH["fur"]
 	for y in r.size.y:
@@ -172,12 +172,12 @@ func _paint_fur() -> void:
 			if strand < 0.20:
 				c = c.darkened(0.55)  # near-black parting where the coat splits
 			# Coat thins toward the bottom of the tile (patchy coverage).
-			c = c.lerp(Color8(78, 61, 46), clampf(float(y) / float(r.size.y), 0.0, 1.0) * 0.18)
+			c = c.lerp(Color8(64, 49, 35), clampf(float(y) / float(r.size.y), 0.0, 1.0) * 0.18)
 			_emit(r, x, y, c, 0.35 + strand * 0.45, rough)
 
 func _paint_furcard() -> void:
 	var r: Rect2i = Atlas.R["furcard"]
-	var pal := [Color8(11, 9, 7), Color8(22, 17, 13), Color8(36, 28, 19), Color8(49, 38, 27)]
+	var pal := [Color8(9, 7, 5), Color8(18, 14, 10), Color8(29, 22, 15), Color8(40, 30, 21)]
 	var rough: float = Atlas.ROUGH["furcard"]
 	for y in r.size.y:
 		for x in r.size.x:
@@ -238,8 +238,8 @@ func _paint_rib() -> void:
 func _paint_skull() -> void:
 	var r: Rect2i = Atlas.R["skull"]
 	var pal := [
-		Color8(88, 79, 62), Color8(112, 102, 81), Color8(138, 127, 102),
-		Color8(162, 151, 124), Color8(184, 173, 145), Color8(202, 192, 164),
+		Color8(77, 68, 51), Color8(98, 88, 67), Color8(121, 109, 84),
+		Color8(142, 130, 102), Color8(161, 149, 120), Color8(177, 165, 135),
 	]
 	var rough: float = Atlas.ROUGH["skull"]
 	for y in r.size.y:
@@ -249,17 +249,17 @@ func _paint_skull() -> void:
 			# Connected wavy suture lines across the plate, not stray specks.
 			var sut := absf(sin(float(y) * 0.85 + _cn(x, y, 4, 0.30, 53) * 3.0))
 			if sut < 0.12:
-				c = c.lerp(Color8(54, 46, 34), 0.80)
+				c = c.lerp(Color8(47, 40, 28), 0.80)
 			# Grime and dried matter settling in the hollows.
-			c = c.lerp(Color8(70, 57, 40), _cn(x, y, 3, 0.22, 54) * 0.35)
+			c = c.lerp(Color8(61, 49, 33), _cn(x, y, 3, 0.22, 54) * 0.35)
 			var ao := _edge_ao(r, x, y, 0.28)
 			_emit(r, x, y, Color(c.r * ao, c.g * ao, c.b * ao, 1.0), 0.4 + fine * 0.22, rough)
 
 func _paint_antler() -> void:
 	var r: Rect2i = Atlas.R["antler"]
 	var pal := [
-		Color8(84, 68, 46), Color8(108, 88, 60), Color8(134, 112, 78),
-		Color8(158, 135, 97), Color8(180, 158, 118),
+		Color8(71, 56, 35), Color8(91, 72, 46), Color8(113, 92, 60),
+		Color8(133, 111, 75), Color8(152, 130, 91),
 	]
 	var rough: float = Atlas.ROUGH["antler"]
 	for y in r.size.y:
@@ -274,7 +274,7 @@ func _paint_antler() -> void:
 				h -= 0.18
 			# Bleached, chipped tips toward the top of the tile.
 			var tipf := 1.0 - clampf(float(y) / float(r.size.y), 0.0, 1.0)
-			c = c.lerp(Color8(196, 182, 152), tipf * tipf * 0.55)
+			c = c.lerp(Color8(166, 149, 117), tipf * tipf * 0.55)
 			_emit(r, x, y, c, h, rough)
 
 func _paint_teeth() -> void:
@@ -320,11 +320,14 @@ func _paint_eye() -> void:
 			elif d < 0.60:
 				# Dull amber iris, banded rather than smoothly graded.
 				c = _pal(_cn(x, y, 2, 0.35, 91), iris, 4)
-				# Low, sullen glow -- "still alive", not a lamp.
-				e = Color(c.r * 0.55, c.g * 0.38, c.b * 0.10, 1.0)
+				# Bright amber core: these are meant to carry across a dark
+				# forest, so the emission runs near full rather than sullen.
+				e = Color(minf(1.0, c.r * 1.65), minf(1.0, c.g * 1.15), c.b * 0.35, 1.0)
 			else:
-				# Sunken socket rim swallowing the eye.
+				# Sunken socket rim swallowing the eye, with a faint bleed of
+				# the glow onto it.
 				c = Color8(30, 22, 18).lerp(Color8(12, 9, 8), clampf((d - 0.6) * 2.5, 0.0, 1.0))
+				e = Color(0.22, 0.13, 0.03, 1.0) * (1.0 - clampf((d - 0.6) * 2.2, 0.0, 1.0))
 			_emit(r, x, y, c, 0.6 - d * 0.3, rough, e)
 
 func _paint_keratin(region: String, pal: Array) -> void:
@@ -442,8 +445,8 @@ func _paint_blood() -> void:
 func _paint_skin_limb() -> void:
 	var r: Rect2i = Atlas.R["skinlimb"]
 	var pal := [
-		Color8(51, 40, 31), Color8(75, 57, 43), Color8(100, 78, 58),
-		Color8(126, 98, 70), Color8(152, 119, 85), Color8(177, 139, 100),
+		Color8(39, 29, 20), Color8(57, 41, 28), Color8(76, 56, 38),
+		Color8(95, 71, 46), Color8(115, 86, 56), Color8(134, 100, 66),
 	]
 	var rough: float = Atlas.ROUGH["skinlimb"]
 	for y in r.size.y:
@@ -455,19 +458,19 @@ func _paint_skin_limb() -> void:
 			# a 6-sided limb tube into corduroy.
 			var cord := absf(sin(float(x) * 0.52 + _cn(x, y, 5, 0.22, 153) * 3.4))
 			cord = cord * (0.55 + _cn(x, y, 7, 0.09, 155) * 0.45)
-			c = c.lerp(Color8(156, 122, 87), clampf(cord - 0.74, 0.0, 1.0) * 1.2)
+			c = c.lerp(Color8(118, 88, 57), clampf(cord - 0.74, 0.0, 1.0) * 1.2)
 			if cord < 0.13:
 				c = c.darkened(0.32)  # hollow between the cords
 			if _cn(x, y, 3, 0.34, 154) > 0.88:
-				c = c.lerp(Color8(103, 37, 26), 0.6)  # raw abrasion
+				c = c.lerp(Color8(78, 27, 17), 0.6)  # raw abrasion
 			var ao := _edge_ao(r, x, y, 0.30)
 			_emit(r, x, y, Color(c.r * ao, c.g * ao, c.b * ao, 1.0), 0.4 + cord * 0.25, rough)
 
 func _paint_face() -> void:
 	var r: Rect2i = Atlas.R["face"]
 	var pal := [
-		Color8(46, 36, 29), Color8(70, 55, 42), Color8(95, 76, 57),
-		Color8(122, 99, 74), Color8(150, 122, 91), Color8(175, 144, 108),
+		Color8(36, 27, 21), Color8(55, 42, 30), Color8(74, 58, 41),
+		Color8(96, 75, 53), Color8(117, 93, 65), Color8(137, 109, 77),
 	]
 	var rough: float = Atlas.ROUGH["face"]
 	for y in r.size.y:
@@ -476,19 +479,19 @@ func _paint_face() -> void:
 			var fine := _cn(x, y, 2, 0.44, 161)
 			var c := _pal(fine * 0.6 + _cn(x, y, 8, 0.12, 162) * 0.4, pal, 6)
 			# Dark across the bridge (top of tile), paling toward the muzzle.
-			c = c.lerp(Color8(36, 28, 22), (1.0 - fv) * 0.55)
-			c = c.lerp(Color8(187, 156, 120), clampf(fv - 0.55, 0.0, 1.0) * 0.9)
+			c = c.lerp(Color8(28, 21, 16), (1.0 - fv) * 0.55)
+			c = c.lerp(Color8(146, 119, 86), clampf(fv - 0.55, 0.0, 1.0) * 0.9)
 			# Bloodied, ragged lip line along the bottom edge.
 			if fv > 0.80:
 				var lip := _cn(x, y, 2, 0.4, 163)
-				c = c.lerp(Color8(118, 26, 19), clampf((fv - 0.80) * 5.0, 0.0, 1.0) * (0.45 + lip * 0.45))
+				c = c.lerp(Color8(92, 20, 14), clampf((fv - 0.80) * 5.0, 0.0, 1.0) * (0.45 + lip * 0.45))
 			var ao := _edge_ao(r, x, y, 0.26)
 			_emit(r, x, y, Color(c.r * ao, c.g * ao, c.b * ao, 1.0), 0.42 + fine * 0.2, rough)
 
 func _paint_pelt() -> void:
 	var r: Rect2i = Atlas.R["pelt"]
-	var fur_pal := [Color8(13, 10, 8), Color8(24, 19, 14), Color8(38, 29, 21), Color8(53, 41, 29)]
-	var hide_pal := [Color8(80, 63, 48), Color8(105, 83, 63), Color8(129, 103, 77)]
+	var fur_pal := [Color8(10, 8, 6), Color8(19, 15, 10), Color8(30, 23, 16), Color8(42, 32, 22)]
+	var hide_pal := [Color8(64, 49, 36), Color8(84, 65, 47), Color8(103, 80, 58)]
 	var rough: float = Atlas.ROUGH["pelt"]
 	for y in r.size.y:
 		for x in r.size.x:
@@ -507,5 +510,5 @@ func _paint_pelt() -> void:
 				h = 0.30
 				# Ragged fur edge feathering onto the bald patch.
 				if strand > 0.72:
-					c = c.lerp(Color8(33, 27, 19), 0.6)
+					c = c.lerp(Color8(26, 21, 14), 0.6)
 			_emit(r, x, y, c, h, rough)

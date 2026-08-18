@@ -21,6 +21,7 @@ func _initialize() -> void:
 			i, mesh.get_faces().size() / 3, mat.resource_path.get_file(),
 			mi.skin.get_bind_count(), mi.skeleton,
 			mi.visibility_range_begin, mi.visibility_range_end])
+		ok = ok and mi.layers == 2
 		ok = ok and mat != null and mi.skin.get_bind_count() == 68
 
 	var ap: AnimationPlayer = n.get_node_or_null("AnimationPlayer")
@@ -31,6 +32,13 @@ func _initialize() -> void:
 		print("   %-12s %.2fs  %2d tracks  loop=%s" % [c, an.length, an.get_track_count(),
 			"yes" if an.loop_mode != Animation.LOOP_NONE else "no"])
 	ok = ok and clips.size() == 9
+
+	var att: BoneAttachment3D = skel.get_node_or_null("HeadAttach")
+	var lamps := [] if att == null else att.get_children()
+	for l in lamps:
+		print("eye light     : %s energy=%.2f range=%.1f cull_mask=%d" % [
+			l.name, l.light_energy, l.omni_range, l.light_cull_mask])
+	ok = ok and lamps.size() == 2 and att.bone_name == "Head"
 
 	var proxy: Area3D = n.get_node_or_null("HitProxy")
 	var shapes := []

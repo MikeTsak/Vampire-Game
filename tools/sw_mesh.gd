@@ -12,9 +12,16 @@ extends RefCounted
 
 const Atlas := preload("res://tools/sw_atlas.gd")
 
-## Godot treats clockwise winding as front-facing; tri() reorders against the
-## outward normal it is handed, so this single flag covers the convention.
-const WIND_CW := true
+## Godot's front face is counter-clockwise when the triangle is viewed from
+## outside. tri() first orients each triangle against the outward normal it is
+## handed, then this flag applies the winding convention on top.
+##
+## Getting this backwards is nastier than it sounds: a closed convex form keeps
+## its silhouette either way -- you simply see the inside of the far wall lit by
+## an outward normal -- so the torso looked merely a bit flat. It only became
+## obvious on the skull, where the muzzle sits inside the cranium and the far
+## interior showed straight through.
+const WIND_CW := false
 
 var bone_names: PackedStringArray = PackedStringArray()
 var bone_pos: Array = []
