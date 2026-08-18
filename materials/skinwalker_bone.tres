@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dpf6tiewughmf"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bone"]
+noise_type = 2
+frequency = 0.8
+cellular_distance_function = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bone"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_bone")
+
+[resource]
+albedo_color = Color(0.72, 0.68, 0.58, 1)
+albedo_texture = SubResource("NoiseTexture2D_bone")
+roughness = 0.75
+uv1_scale = Vector3(3, 3, 1)
+texture_filter = 0

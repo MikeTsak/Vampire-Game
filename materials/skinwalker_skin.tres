@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://bmsb14l21r6yu" path="res://materials/skinwalker_skin_normal.tres" id="2_iv15t"]
 
 [resource]
+albedo_color = Color(0.1, 0.09, 0.095, 1)
 albedo_texture = ExtResource("1_3iwtm")
-roughness = 0.88
+roughness = 0.9
 normal_enabled = true
 normal_scale = 2.0
 normal_texture = ExtResource("2_iv15t")

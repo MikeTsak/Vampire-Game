@@ -14,11 +14,60 @@ var time_alive: float = 0.0
 	get_node_or_null("MeshBase/Leg0"), get_node_or_null("MeshBase/Leg1"), get_node_or_null("MeshBase/Leg2"), get_node_or_null("MeshBase/Leg3")
 ]
 
+# ── Audio nodes (created dynamically in _ready) ──────────────────
+var hoof_sound: AudioStreamPlayer3D = null
+var idle_sound: AudioStreamPlayer3D = null
+var death_sound: AudioStreamPlayer3D = null
+
+# ── Footstep timing ──────────────────────────────────────────────
+var _hoof_timer: float = 0.0
+const HOOF_INTERVAL: float = 0.38   # seconds between hoof steps
+
+# ── Idle sound timing ────────────────────────────────────────────
+var _idle_timer: float = 0.0
+
 func _ready():
 	add_to_group("animals")
 	if "Baby" in name or "Baby" in scene_file_path:
 		score_value = 10000
 	randomize_wander()
+	_setup_audio()
+	_idle_timer = randf_range(3.0, 10.0)  # First idle sound after 3-10s
+
+func _setup_audio():
+	# Determine species from name/path for choosing idle sound
+	var is_sheep = "Sheep" in name or "Sheep" in scene_file_path
+	var idle_stream_path = "res://audio/sheep_bleat.wav" if is_sheep else "res://audio/deer_snort.wav"
+
+	# ── HoofSteps ────────────────────────────────────────────────
+	hoof_sound = AudioStreamPlayer3D.new()
+	hoof_sound.name = "HoofSteps"
+	hoof_sound.stream = load("res://audio/hoof_step.wav")
+	hoof_sound.bus = &"PS1_Retro"
+	hoof_sound.volume_db = -3.0
+	hoof_sound.max_distance = 25.0
+	hoof_sound.unit_size = 5.0
+	add_child(hoof_sound)
+
+	# ── IdleSound ─────────────────────────────────────────────────
+	idle_sound = AudioStreamPlayer3D.new()
+	idle_sound.name = "IdleSound"
+	idle_sound.stream = load(idle_stream_path)
+	idle_sound.bus = &"PS1_Retro"
+	idle_sound.volume_db = 1.0
+	idle_sound.max_distance = 40.0
+	idle_sound.unit_size = 8.0
+	add_child(idle_sound)
+
+	# ── DeathSound ────────────────────────────────────────────────
+	death_sound = AudioStreamPlayer3D.new()
+	death_sound.name = "DeathSound"
+	death_sound.stream = load("res://audio/animal_death.wav")
+	death_sound.bus = &"PS1_Retro"
+	death_sound.volume_db = 4.0
+	death_sound.max_distance = 50.0
+	death_sound.unit_size = 10.0
+	add_child(death_sound)
 
 func randomize_wander():
 	if dead: return
@@ -44,6 +93,26 @@ func _physics_process(delta):
 	velocity.z = move_direction.z * SPEED
 
 	move_and_slide()
+	
+	# ── Footstep Audio ───────────────────────────────────────────
+	var horiz_speed = Vector2(velocity.x, velocity.z).length()
+	if is_on_floor() and horiz_speed > 0.5:
+		_hoof_timer -= delta
+		if _hoof_timer <= 0.0:
+			_hoof_timer = HOOF_INTERVAL * (SPEED / max(horiz_speed, 0.1))
+			if hoof_sound and hoof_sound.stream:
+				hoof_sound.pitch_scale = randf_range(0.88, 1.12)
+				hoof_sound.play()
+	else:
+		_hoof_timer = 0.0
+
+	# ── Idle Audio ────────────────────────────────────────────────
+	_idle_timer -= delta
+	if _idle_timer <= 0.0:
+		_idle_timer = randf_range(5.0, 15.0)
+		if idle_sound and idle_sound.stream:
+			idle_sound.pitch_scale = randf_range(0.9, 1.1)
+			idle_sound.play()
 	
 	# Procedural Animation
 	time_alive += delta
@@ -93,6 +162,26 @@ func _physics_process(delta):
 func die():
 	if dead: return
 	dead = true
+
+	# ── Play Death Sound ─────────────────────────────────────────
+	# Orphan the AudioStreamPlayer3D to the scene root so it
+	# survives queue_free() on this node. It self-destructs after play.
+	if death_sound and death_sound.stream:
+		var orphan = AudioStreamPlayer3D.new()
+		orphan.stream = death_sound.stream
+		orphan.bus = &"PS1_Retro"
+		orphan.volume_db = death_sound.volume_db
+		orphan.max_distance = death_sound.max_distance
+		orphan.unit_size = death_sound.unit_size
+		orphan.pitch_scale = randf_range(0.9, 1.1)
+		var scene = get_tree().current_scene
+		if scene:
+			scene.add_child(orphan)
+			orphan.global_position = global_position + Vector3(0, 0.5, 0)
+			orphan.play()
+			# Self-destruct after stream length + small buffer
+			var ttl = orphan.stream.get_length() + 0.5
+			orphan.get_tree().create_timer(ttl).timeout.connect(orphan.queue_free)
 	
 	var carcass = RigidBody3D.new()
 	carcass.add_to_group("carcass")

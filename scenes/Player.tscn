@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://d3epreolpmoq0"]
 
 [ext_resource type="Script" uid="uid://be2fmgx05uvim" path="res://scripts/player.gd" id="1_p0vlq"]
+[ext_resource type="AudioStream" uid="uid://q7fafulf0qlm" path="res://audio/gunshot.wav" id="4_qu4a1"]
+[ext_resource type="AudioStream" uid="uid://yftpocx7o15b" path="res://audio/footstep.wav" id="5_70d11"]
 [ext_resource type="Texture2D" uid="uid://clqsb5dnklbv8" path="res://textures/metal_texture.jpg" id="TexMetal"]
 [ext_resource type="Texture2D" uid="uid://oya643tor6uo" path="res://textures/wood_texture.jpg" id="TexWood"]
 
@@ -262,3 +264,13 @@ light_color = Color(1, 0.8, 0.4, 1)
 light_energy = 1.416
 light_indirect_energy = 0.525
 omni_range = 15.0
+
+[node name="GunSound" type="AudioStreamPlayer" parent="." unique_id=168602250]
+stream = ExtResource("4_qu4a1")
+volume_db = 2.0
+bus = &"PS1_Retro"
+
+[node name="FootstepSound" type="AudioStreamPlayer" parent="." unique_id=293179814]
+stream = ExtResource("5_70d11")
+volume_db = -4.0
+bus = &"PS1_Retro"

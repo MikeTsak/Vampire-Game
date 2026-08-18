@@ -1,12 +1,17 @@
-[gd_scene format=3 uid="uid://yvhkawsto53o"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://c4t0olk0rxrlb" path="res://scripts/skinwalker_new.gd" id="1_uvcrk"]
-[ext_resource type="ArrayMesh" path="res://models/skinwalker/skinwalker_lod0.res" id="2_2yu4o"]
-[ext_resource type="ArrayMesh" path="res://models/skinwalker/skinwalker_lod1.res" id="3_j5v8t"]
-[ext_resource type="ArrayMesh" path="res://models/skinwalker/skinwalker_lod2.res" id="4_hui54"]
-[ext_resource type="AnimationLibrary" path="res://animations/skinwalker.res" id="5_um0p6"]
+[ext_resource type="Script" uid="uid://cy1makhi2hjhw" path="res://tools/sw_shot.gd" id="1_sw72w"]
+[ext_resource type="ArrayMesh" path="res://models/skinwalker/skinwalker_lod0.res" id="2_lyscw"]
+[ext_resource type="AnimationLibrary" path="res://animations/skinwalker.res" id="3_eyoa4"]
 
-[sub_resource type="Skin" id="Skin_4ys8j"]
+[sub_resource type="Environment" id="Environment_0vnf3"]
+background_mode = 1
+background_color = Color(0.56, 0.58, 0.6, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.5, 0.52, 0.58, 1)
+ambient_light_energy = 0.62
+
+[sub_resource type="Skin" id="Skin_0o6wa"]
 bind_count = 68
 bind/0/name = &""
 bind/0/bone = 0
@@ -213,23 +218,34 @@ bind/67/name = &""
 bind/67/bone = 67
 bind/67/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.178, -0.018000007, -0.019999996)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hdxdf"]
-radius = 0.34
-height = 1.72
+[node name="SkinwalkerPreview" type="Node3D" unique_id=1653967851]
+script = ExtResource("1_sw72w")
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qr2r7"]
-radius = 0.17
-height = 0.62
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=558283002]
+environment = SubResource("Environment_0vnf3")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_meybx"]
-size = Vector3(0.2, 0.22, 0.46)
+[node name="KeyLight" type="DirectionalLight3D" parent="." unique_id=1013318413]
+transform = Transform3D(-0.73994005, -0.50636965, 0.44280744, 0, 0.65828055, 0.7527727, -0.67267275, 0.55700666, -0.4870882, 0, 0, 0)
+light_energy = 1.7
 
-[node name="skinwalker_new" type="Node3D" unique_id=887909748]
-script = ExtResource("1_uvcrk")
+[node name="FillLight" type="DirectionalLight3D" parent="." unique_id=937476958]
+transform = Transform3D(0.59999996, 0.1940285, -0.77611405, 0, 0.9701425, 0.24253564, 0.79999995, -0.14552137, 0.58208555, 0, 0, 0)
+light_color = Color(0.75, 0.8, 0.95, 1)
+light_energy = 0.45
 
-[node name="MeshBase" type="Node3D" parent="." unique_id=1094665194]
+[node name="Turntable" type="Node3D" parent="." unique_id=1821100983]
+transform = Transform3D(-0.81915206, 0, 0.57357645, 0, 1, 0, -0.57357645, 0, -0.81915206, 0, 1.35, -0.25)
 
-[node name="Skeleton3D" type="Skeleton3D" parent="MeshBase" unique_id=1092149918]
+[node name="Camera3D" type="Camera3D" parent="Turntable" unique_id=456357944]
+transform = Transform3D(1, 0, 0, 0, 0.9981348, 0.06104854, 0, -0.06104854, 0.9981348, 0, 0.3, 4.45)
+current = true
+fov = 36.0
+
+[node name="Skinwalker" type="Node3D" parent="." unique_id=1386951297]
+
+[node name="MeshBase" type="Node3D" parent="Skinwalker" unique_id=654368534]
+
+[node name="Skeleton3D" type="Skeleton3D" parent="Skinwalker/MeshBase" unique_id=780638086]
 bones/0/name = "Hips"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0.4)
@@ -707,39 +723,10 @@ bones/67/position = Vector3(0, -0.127, -0.19500001)
 bones/67/rotation = Quaternion(0, 0, 0, 1)
 bones/67/scale = Vector3(1, 1, 1)
 
-[node name="SkinwalkerLOD0" type="MeshInstance3D" parent="MeshBase/Skeleton3D" unique_id=334872481]
-visibility_range_end = 20.0
-mesh = ExtResource("2_2yu4o")
-skin = SubResource("Skin_4ys8j")
+[node name="SkinwalkerLOD0" type="MeshInstance3D" parent="Skinwalker/MeshBase/Skeleton3D" unique_id=1180028704]
+mesh = ExtResource("2_lyscw")
+skin = SubResource("Skin_0o6wa")
 skeleton = NodePath("..")
 
-[node name="SkinwalkerLOD1" type="MeshInstance3D" parent="MeshBase/Skeleton3D" unique_id=2059511529]
-visibility_range_begin = 20.0
-visibility_range_end = 48.0
-mesh = ExtResource("3_j5v8t")
-skin = SubResource("Skin_4ys8j")
-skeleton = NodePath("..")
-
-[node name="SkinwalkerLOD2" type="MeshInstance3D" parent="MeshBase/Skeleton3D" unique_id=1405762686]
-visibility_range_begin = 48.0
-mesh = ExtResource("4_hui54")
-skin = SubResource("Skin_4ys8j")
-skeleton = NodePath("..")
-
-[node name="HitProxy" type="Area3D" parent="." unique_id=138529180]
-monitoring = false
-
-[node name="BodyMass" type="CollisionShape3D" parent="HitProxy" unique_id=1177935957]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.86, -0.06)
-shape = SubResource("CapsuleShape3D_hdxdf")
-
-[node name="Torso" type="CollisionShape3D" parent="HitProxy" unique_id=505090999]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.67, 0.01)
-shape = SubResource("CapsuleShape3D_qr2r7")
-
-[node name="Head" type="CollisionShape3D" parent="HitProxy" unique_id=1641054786]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93, -0.72)
-shape = SubResource("BoxShape3D_meybx")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1225204445]
-libraries/ = ExtResource("5_um0p6")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Skinwalker" unique_id=2064098220]
+libraries/ = ExtResource("3_eyoa4")

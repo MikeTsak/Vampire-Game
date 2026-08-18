@@ -1,21 +1,23 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dwtrhx57dh50c"]
 
-[ext_resource type="Script" path="res://scenes/cutscenes/IntroCutscene.gd" id="1_872o4"]
+[ext_resource type="Script" uid="uid://bxmfhosjoao18" path="res://scenes/cutscenes/IntroCutscene.gd" id="1_872o4"]
 [ext_resource type="PackedScene" path="res://scenes/characters/SuitedMan.tscn" id="2_nuwxb"]
 [ext_resource type="PackedScene" path="res://scenes/props/DrinkGlass.tscn" id="3_du6q1"]
-[ext_resource type="Script" path="res://scenes/characters/SuitedMan.gd" id="3_t6y0e"]
-[ext_resource type="Script" path="res://scripts/typewriter_subtitle.gd" id="4_t6y0e"]
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nuwxb"]
+[ext_resource type="Script" uid="uid://c2kcjo2ukh6xo" path="res://scenes/characters/SuitedMan.gd" id="3_t6y0e"]
+[ext_resource type="Script" uid="uid://bn7t4h21b1pm" path="res://scripts/typewriter_subtitle.gd" id="4_t6y0e"]
+[ext_resource type="AudioStream" uid="uid://bj6gpqs1okkip" path="res://audio/forest_ambience.wav" id="6_at25o"]
+[ext_resource type="AudioStream" uid="uid://djfuwvbjfo5b4" path="res://audio/dialogue_blip.wav" id="7_phj6d"]
+
 [sub_resource type="Environment" id="Environment_0xuf1"]
 background_mode = 1
 ambient_light_source = 2
-albedo_color = Color(0.2, 0.2, 0.2, 1)
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_du6q1"]
 noise_type = 0
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_du6q1"]
+
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t6y0e"]
 noise = SubResource("FastNoiseLite_du6q1")
-noise = SubResource("FastNoiseLite_du6q1")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8wwff"]
 albedo_color = Color(0.05, 0.05, 0.05, 1)
 albedo_texture = SubResource("NoiseTexture2D_t6y0e")
@@ -153,50 +155,56 @@ tracks/10/keys = {
 "update": 1,
 "values": [false, true]
 }
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2kd0m"]
 _data = {
 &"intro_seq": SubResource("Animation_cdel8")
 }
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_t6y0e"]
 noise_type = 0
 frequency = 0.1
-radius = 0.1
+
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8wwff"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_t6y0e")
 seamless = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gqb4e"]
 albedo_color = Color(0.2, 0.2, 0.2, 1)
 albedo_texture = SubResource("NoiseTexture2D_8wwff")
 roughness = 0.9
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0f8n4"]
 albedo_color = Color(0.1, 0.1, 0.1, 1)
 albedo_texture = SubResource("NoiseTexture2D_8wwff")
 metallic = 0.8
 roughness = 0.7
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_erdjy"]
 albedo_color = Color(0.15, 0.1, 0.1, 1)
 albedo_texture = SubResource("NoiseTexture2D_8wwff")
 metallic = 0.8
 roughness = 0.7
-[node name="IntroCutscene" type="Node3D"]
+
+[node name="IntroCutscene" type="Node3D" unique_id=40242321]
 script = ExtResource("1_872o4")
 
-[node name="@WorldEnvironment@2" type="WorldEnvironment" parent="."]
+[node name="@WorldEnvironment@2" type="WorldEnvironment" parent="." unique_id=357600465]
 environment = SubResource("Environment_0xuf1")
 
-[node name="Room" type="CSGBox3D" parent="."]
+[node name="Room" type="CSGBox3D" parent="." unique_id=1113556356]
 flip_faces = true
 size = Vector3(20, 10, 20)
 material = SubResource("StandardMaterial3D_8wwff")
 
-[node name="Table" type="CSGBox3D" parent="."]
+[node name="Table" type="CSGBox3D" parent="." unique_id=239632481]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 size = Vector3(1.5, 1, 1.2)
 material = SubResource("StandardMaterial3D_p6ax6")
 
-[node name="SpotLight" type="SpotLight3D" parent="."]
+[node name="SpotLight" type="SpotLight3D" parent="." unique_id=286555682]
 transform = Transform3D(1, 0, 0, 0, 0.59522754, 0.80355716, 0, -0.80355716, 0.59522754, 0, 4, 0.5)
 light_color = Color(0.8, 0.8, 0.4, 1)
 light_energy = 12.0
@@ -204,22 +212,22 @@ shadow_enabled = true
 spot_range = 10.0
 spot_angle = 75.0
 
-[node name="SuitedMan" type="Node3D" parent="." instance=ExtResource("2_nuwxb")]
+[node name="SuitedMan" parent="." unique_id=1294184803 instance=ExtResource("2_nuwxb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25000003, -1.5)
 script = ExtResource("3_t6y0e")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=442487494]
 transform = Transform3D(1, 0, 0, 0, 0.99939084, 0.034899496, 0, -0.034899496, 0.99939084, 0, 1.25, 1.2)
 current = true
 fov = 55.0
 
-[node name="PlayerGlass" type="Node3D" parent="Camera3D" instance=ExtResource("3_du6q1")]
+[node name="PlayerGlass" parent="Camera3D" unique_id=2099996153 instance=ExtResource("3_du6q1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.4, -0.8)
 
-[node name="Subtitles" type="CanvasLayer" parent="."]
+[node name="Subtitles" type="CanvasLayer" parent="." unique_id=1724544223]
 layer = 10
 
-[node name="SubtitleLabel" type="Label" parent="Subtitles"]
+[node name="SubtitleLabel" type="Label" parent="Subtitles" unique_id=498789811]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -227,17 +235,17 @@ anchor_bottom = 1.0
 offset_top = -150.0
 offset_bottom = -30.0
 grow_vertical = 0
-theme_override_fonts/font = SubResource("SystemFont_du6q1")
-theme_override_font_sizes/font_size = 44
 theme_override_colors/font_color = Color(0.1, 0.9, 0.1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
+theme_override_fonts/font = SubResource("SystemFont_du6q1")
+theme_override_font_sizes/font_size = 44
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 script = ExtResource("4_t6y0e")
 
-[node name="FadeRect" type="ColorRect" parent="Subtitles"]
+[node name="FadeRect" type="ColorRect" parent="Subtitles" unique_id=259599328]
 visible = false
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
@@ -246,37 +254,48 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="MainAnimation" type="AnimationPlayer" parent="."]
+[node name="MainAnimation" type="AnimationPlayer" parent="." unique_id=1800303783]
 libraries/ = SubResource("AnimationLibrary_2kd0m")
 autoplay = &"intro_seq"
 
-[node name="EnvironmentBackground" type="Node3D" parent="."]
+[node name="EnvironmentBackground" type="Node3D" parent="." unique_id=777936918]
 
-[node name="BackWall" type="CSGBox3D" parent="EnvironmentBackground"]
+[node name="BackWall" type="CSGBox3D" parent="EnvironmentBackground" unique_id=612087874]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -6)
 size = Vector3(20, 10, 1)
 material = SubResource("StandardMaterial3D_gqb4e")
 
-[node name="MetalDoor" type="CSGBox3D" parent="EnvironmentBackground"]
+[node name="MetalDoor" type="CSGBox3D" parent="EnvironmentBackground" unique_id=884820231]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -6)
 size = Vector3(2, 4, 1.2)
 material = SubResource("StandardMaterial3D_0f8n4")
 
-[node name="HorizontalPipe" type="CSGCylinder3D" parent="EnvironmentBackground"]
+[node name="HorizontalPipe" type="CSGCylinder3D" parent="EnvironmentBackground" unique_id=1053698321]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 4, -5.5)
 radius = 0.2
 height = 20.0
 material = SubResource("StandardMaterial3D_erdjy")
 
-[node name="VerticalPipe" type="CSGCylinder3D" parent="EnvironmentBackground"]
+[node name="VerticalPipe" type="CSGCylinder3D" parent="EnvironmentBackground" unique_id=1640848649]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, -5.3)
 radius = 0.3
 height = 10.0
 material = SubResource("StandardMaterial3D_erdjy")
 
-[node name="MoodyBackgroundLight" type="OmniLight3D" parent="EnvironmentBackground"]
+[node name="MoodyBackgroundLight" type="OmniLight3D" parent="EnvironmentBackground" unique_id=249217622]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, -4.5)
 light_color = Color(0.2, 0.5, 0.2, 1)
 light_energy = 0.25
 shadow_enabled = true
 omni_range = 4.0
+
+[node name="AmbientSound" type="AudioStreamPlayer" parent="." unique_id=394333799]
+stream = ExtResource("6_at25o")
+volume_db = -6.0
+autoplay = true
+bus = &"PS1_Retro"
+
+[node name="DialogueBlip" type="AudioStreamPlayer" parent="." unique_id=641306128]
+stream = ExtResource("7_phj6d")
+volume_db = -8.0
+bus = &"PS1_Retro"

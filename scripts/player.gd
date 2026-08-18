@@ -33,6 +33,12 @@ func set_frozen(f: bool):
 @onready var score_label = $HUD/ScoreLabel
 @onready var timer_label = $HUD/TimerLabel
 @onready var interaction_label = $HUD/InteractionLabel
+@onready var gun_sound: AudioStreamPlayer = $GunSound
+@onready var footstep_sound: AudioStreamPlayer = $FootstepSound
+
+# Footstep timing
+var _footstep_timer: float = 0.0
+const FOOTSTEP_INTERVAL: float = 0.42  # seconds between footstep sounds
 
 func _ready():
 	set_physics_process(true)
@@ -114,6 +120,18 @@ func _physics_process(delta):
 
 	move_and_slide()
 	
+	# ── Footstep Audio ──────────────────────────────────────────────
+	var horiz_speed = Vector2(velocity.x, velocity.z).length()
+	if is_on_floor() and horiz_speed > 1.0:
+		_footstep_timer -= delta
+		if _footstep_timer <= 0.0:
+			_footstep_timer = FOOTSTEP_INTERVAL / (horiz_speed / WALK_SPEED)
+			if footstep_sound and footstep_sound.stream:
+				footstep_sound.pitch_scale = randf_range(0.9, 1.1)
+				footstep_sound.play()
+	else:
+		_footstep_timer = 0.0  # Reset so next step fires immediately
+	
 	var target_fov = NORMAL_FOV
 	var target_pos = default_weapon_pos
 
@@ -141,7 +159,11 @@ func shoot():
 	if not can_shoot: return
 	can_shoot = false
 	print("Bang!")
-	if has_node("ShootAudio"):
+	# ── Gunshot Audio ───────────────────────────────────────────────
+	if gun_sound and gun_sound.stream:
+		gun_sound.pitch_scale = randf_range(0.95, 1.05)
+		gun_sound.play()
+	elif has_node("ShootAudio"):
 		$ShootAudio.play()
 		
 	if weapon_root and weapon_root.has_node("AnimationPlayer"):

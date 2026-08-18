@@ -24,11 +24,14 @@ var park_search_done: bool = false
 var debug_label: Label = null
 
 @onready var mesh_base = $MeshBase
+@onready var skeleton: Skeleton3D = $MeshBase/Skeleton3D
+var head_bone_idx: int = -1
 
 func _ready():
 	randomize()
 	idle_timer = reroll_interval
 	visible = false
+	head_bone_idx = skeleton.find_bone("Head")
 	_create_debug_label()
 	call_deferred("_find_player")
 
@@ -112,6 +115,8 @@ func _process_idle(delta):
 	# Subtle unnatural sway on top of that, even while "idle" this thing should never look relaxed.
 	mesh_base.rotation.y = sin(Time.get_ticks_msec() * 0.0003) * 0.05
 
+	_track_player_with_head(delta)
+
 	var to_self = global_position - player.global_position
 	var dist = to_self.length()
 
@@ -137,9 +142,34 @@ func _process_idle(delta):
 	elif idle_timer <= 0.0:
 		_relocate()
 
+func _track_player_with_head(delta):
+	# Independent neck/head swivel toward the player, on top of (and faster
+	# than) the slow body turn -- the "eyes never leave you" beat. Allowed to
+	# swing further than a real neck could, since that wrongness is the point.
+	if head_bone_idx < 0:
+		return
+	var target = player.global_position
+	if player_cam:
+		target = player_cam.global_position
+	var dir = target - global_position
+	if dir.length() < 0.01:
+		return
+	dir = dir.normalized()
+	var world_look = Transform3D(Basis(), Vector3.ZERO).looking_at(dir, Vector3.UP).basis
+	var body_basis = Basis(Vector3.UP, rotation.y)
+	var head_pose_basis = body_basis.inverse() * world_look
+	var current_pose = skeleton.get_bone_pose_rotation(head_bone_idx)
+	var target_pose = head_pose_basis.get_rotation_quaternion()
+	skeleton.set_bone_pose_rotation(head_bone_idx, current_pose.slerp(target_pose, clamp(delta * 6.0, 0.0, 1.0)))
+
+func _reset_head_pose():
+	if head_bone_idx >= 0 and skeleton:
+		skeleton.reset_bone_pose(head_bone_idx)
+
 func _start_flee():
 	fleeing = true
 	stare_timer = 0.0
+	_reset_head_pose()
 
 func _process_flee(delta):
 	if not visible:
@@ -174,6 +204,7 @@ func _relocate():
 	stare_timer = 0.0
 	idle_timer = randf_range(reroll_interval * 0.5, reroll_interval * 1.5)
 	visible = false
+	_reset_head_pose()
 	# Unpredictable hide time -- sometimes it's back almost immediately, sometimes
 	# it takes a while, so there's no reliable rhythm to learn.
 	var hide_time = randf_range(0.4, 3.0)

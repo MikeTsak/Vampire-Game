@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://caa30qcy48o3n"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fur"]
+noise_type = 2
+frequency = 1.5
+cellular_distance_function = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fur"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_fur")
+
+[resource]
+albedo_color = Color(0.14, 0.1, 0.08, 1)
+albedo_texture = SubResource("NoiseTexture2D_fur")
+roughness = 0.95
+uv1_scale = Vector3(4, 4, 1)
+texture_filter = 0

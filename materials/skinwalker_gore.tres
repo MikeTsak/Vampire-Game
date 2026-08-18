@@ -1,0 +1,22 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://yianm46pmtro"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gore"]
+noise_type = 2
+frequency = 1.2
+cellular_distance_function = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gore"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_gore")
+
+[resource]
+albedo_color = Color(0.75, 0.03, 0.03, 1)
+albedo_texture = SubResource("NoiseTexture2D_gore")
+metallic = 0.1
+roughness = 0.15
+emission_enabled = true
+emission = Color(0.9, 0.05, 0.02, 1)
+emission_energy_multiplier = 1.6
+uv1_scale = Vector3(2, 2, 1)
+texture_filter = 0
