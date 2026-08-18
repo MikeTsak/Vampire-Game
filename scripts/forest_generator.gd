@@ -28,7 +28,14 @@ func get_floor_height(x: float, z: float) -> float:
 
 func spawn_environment():
 	var spawned_positions = []
-	for i in range(500):
+	# Scale population with the map so Level 2 (300x300) is not sparser than
+	# Level 1 (200x200). Floored at the previous fixed counts so Level 1 is
+	# unchanged.
+	var h := _half_extent()
+	var area := (h * 2.0) * (h * 2.0)
+	var tree_count := maxi(500, int(area / 130.0))
+	var rock_count := maxi(150, int(area / 450.0))
+	for i in range(tree_count):
 		var r = randf()
 		var tree
 		if r > 0.7: tree = platanus_scene.instantiate()
@@ -37,7 +44,7 @@ func spawn_environment():
 		
 		var pos = get_random_pos()
 		var valid = false
-		for attempt in range(15):
+		for attempt in range(25):
 			pos = get_random_pos()
 			if pos.length() < 8.0: continue # Small exclusion radius at player spawn
 			var road_center_x = sin(pos.z * 0.05) * 20.0
@@ -58,7 +65,7 @@ func spawn_environment():
 		tree.rotation.y = randf_range(0, TAU)
 		add_child(tree)
 		
-	for i in range(150):
+	for i in range(rock_count):
 		var rock = rock_scene.instantiate()
 		var pos = get_random_pos()
 		if pos.length() < 8.0: continue
@@ -144,12 +151,16 @@ func _orient_toward_tarp(node: Node3D, node_pos: Vector3):
 		var facing_tarp = Transform3D(Basis(), node_pos).looking_at(tarp_pos, Vector3.UP)
 		node.rotation.y = facing_tarp.basis.get_euler().y + PI
 
-func get_random_pos() -> Vector3:
-	# Match the actual configured terrain size instead of a hardcoded range --
-	# this was previously fixed at +-100 regardless of level, which left the
-	# outer ring of a larger map (Level2 is 300x300) completely unpopulated.
-	var half_extent = 90.0
+## Half-width of the playable area. The old version multiplied by 0.9, which
+## left a bare ring roughly 15m wide around the whole of Level 2; only a couple
+## of metres are held back now so trees genuinely reach the map edge.
+func _half_extent() -> float:
+	var half := 90.0
 	var terrain_generator = get_node_or_null("../TerrainGenerator")
 	if terrain_generator:
-		half_extent = min(terrain_generator.size.x, terrain_generator.size.y) * 0.5 * 0.9
-	return Vector3(randf_range(-half_extent, half_extent), 0, randf_range(-half_extent, half_extent))
+		half = min(terrain_generator.size.x, terrain_generator.size.y) * 0.5 - 4.0
+	return maxf(half, 10.0)
+
+func get_random_pos() -> Vector3:
+	var h := _half_extent()
+	return Vector3(randf_range(-h, h), 0, randf_range(-h, h))

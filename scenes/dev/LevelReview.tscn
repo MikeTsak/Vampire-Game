@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tools/level_review.gd" id="1_fadnj"]
+
+[node name="LevelReview" type="Node3D" unique_id=90794333]
+script = ExtResource("1_fadnj")
