@@ -93,3 +93,55 @@ clips, the collision proxy, and writes `models/skinwalker/skinwalker.glb`.
   `gore` tile fades to hide colour at its border for exactly this reason, and
   blood is drawn as several narrow runs of uneven length rather than one wide
   card.
+
+---
+
+# Rifle / muzzle flash pipeline
+
+```sh
+# Muzzle flash mesh, material and scene.
+"$GODOT" --headless --path . --script res://tools/build_weapon.gd
+
+# Sub-bass layer for the gunshot (needs an editor import pass after).
+python tools/generate_gun_audio.py
+
+# Iron sights, muzzle marker + flash, audio players, animation set.
+"$GODOT" --headless --path . --script res://tools/patch_player.gd
+
+# Rebuild the test range, then fire a shot and grab a contact sheet.
+"$GODOT" --headless --path . --script res://tools/build_guntest.gd
+GUN_SHOT_DIR=/tmp/gun "$GODOT" --path . res://scenes/dev/GunTest.tscn
+```
+
+`patch_player.gd` re-packs `Player.tscn` rather than editing its text, and is
+idempotent — rerunning it will not duplicate nodes. It re-adds the `player`
+group explicitly, because the skinwalker AI finds the player by group and a
+re-pack must not drop it.
+
+## Weapon gotchas
+
+- **One owner for weapon position.** `WeaponPivot` is positioned by
+  `player.gd` (hip carry ↔ ADS) and the recoil springs add to it. `WWIRifle`
+  sits at the pivot origin and the animations only add sway/bob/bolt on top.
+  Previously both nodes carried offsets *and* the clips keyed absolute
+  positions, so aiming and animating fought and ADS never centred the gun.
+- **Recoil rides the Camera3D, not the Head.** Mouse look owns
+  `head.rotation.x`; adding kick there fights the player's aim on the same axis.
+- **Sight geometry sets the ADS distance.** The rear notch must be far enough
+  forward that lining it up does not put the buttstock on the lens — that is why
+  it is barrel-mounted rather than on the receiver.
+- **The gunshot is a real recording, not synthesised.** `tools/fetch_gunshot.py`
+  pulls track 04 of *GOLD TAPE: 33 Explosions and War* from archive.org, which
+  is **CC0 1.0** (public domain dedication -- shippable commercially, no
+  attribution required), isolates the cleanest single shot and trims it. Run it
+  to regenerate; the 5MB source caches under `tools/.cache/` which carries a
+  `.gdignore` so Godot never imports it.
+  It is deliberately kept at 48kHz where the rest of the audio set is 22050Hz
+  lo-fi: a rifle's crack lives in the top octaves and downsampling is precisely
+  what made the synthesised one sound like a toy. Both weapon sounds are also
+  forced to **PCM** in their `.import` (`compress/mode=0`) rather than Godot's
+  default QOA, because lossy compression smears the transient that makes the
+  shot hit. The previous synthesised version is kept as `audio/gunshot_synth.wav`.
+- **Additive flash colour stays under white.** The three flame petals overlap,
+  and their colours sum; authored near white the whole flash saturates into a
+  flat blob.

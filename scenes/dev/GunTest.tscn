@@ -1,0 +1,58 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tools/gun_shot.gd" id="1_01otj"]
+[ext_resource type="PackedScene" path="res://scenes/characters/Player.tscn" id="2_n7sb3"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="3_q0ijo"]
+
+[sub_resource type="Environment" id="Environment_cv5ie"]
+background_mode = 1
+background_color = Color(0.06, 0.07, 0.09, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.22, 0.25, 0.32, 1)
+ambient_light_energy = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ytsn1"]
+size = Vector3(40, 1, 40)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o3abx"]
+albedo_color = Color(0.2, 0.19, 0.17, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_83ghk"]
+size = Vector3(40, 1, 40)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08o8t"]
+albedo_color = Color(0.3, 0.27, 0.24, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_t5arq"]
+size = Vector3(9, 5, 0.4)
+
+[node name="GunTest" type="Node3D" unique_id=443717164]
+script = ExtResource("1_01otj")
+
+[node name="@WorldEnvironment@2" type="WorldEnvironment" parent="." unique_id=992395999]
+environment = SubResource("Environment_cv5ie")
+
+[node name="Key" type="DirectionalLight3D" parent="." unique_id=688130420]
+transform = Transform3D(0.7808689, -0.48771194, 0.39036, 0, 0.62488097, 0.78072, -0.62469506, -0.60963994, 0.48795, 0, 0, 0)
+light_energy = 0.35
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=41609447]
+
+[node name="@CollisionShape3D@3" type="CollisionShape3D" parent="Floor" unique_id=500705625]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_ytsn1")
+
+[node name="@MeshInstance3D@4" type="MeshInstance3D" parent="Floor" unique_id=2086983982]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_o3abx")
+mesh = SubResource("BoxMesh_83ghk")
+
+[node name="Wall" type="MeshInstance3D" parent="." unique_id=13877711]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -4.5)
+material_override = SubResource("StandardMaterial3D_08o8t")
+mesh = SubResource("BoxMesh_t5arq")
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=1028949874 groups=["player"] instance=ExtResource("2_n7sb3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+collision_layer = 3
+script = ExtResource("3_q0ijo")

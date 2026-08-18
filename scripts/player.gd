@@ -4,8 +4,37 @@ const NORMAL_FOV = 75.0
 const ADS_FOV = 50.0
 const AIM_SPEED = 12.0
 
-var default_weapon_pos := Vector3(0.3, -0.2, -0.6) 
-var ads_weapon_pos := Vector3(0.0, -0.2, -0.5)
+## The rifle sits at the origin of WeaponPivot, so these place the whole gun.
+## ADS puts x at 0 and y at minus the sight height, which drops the front post
+## and rear notch exactly onto the centre of the screen.
+const SIGHT_HEIGHT := 0.070
+var default_weapon_pos := Vector3(0.24, -0.26, -0.62)
+var ads_weapon_pos := Vector3(0.0, -SIGHT_HEIGHT, -0.37)
+
+# ── Recoil ──────────────────────────────────────────────────────
+## Stiff spring with light damping: the gun snaps back hard and settles with a
+## small overshoot, which is what makes a shot feel like it has mass.
+const KICK_STIFF := 190.0
+const KICK_DAMP := 19.0
+const CAM_KICK_STIFF := 120.0
+const CAM_KICK_DAMP := 13.0
+const FOV_KICK_STIFF := 200.0
+const FOV_KICK_DAMP := 22.0
+## Seconds between shots. Slow on purpose -- it is a bolt-action.
+const FIRE_COOLDOWN := 0.9
+
+var _kick_pos := Vector3.ZERO
+var _kick_pos_vel := Vector3.ZERO
+var _kick_rot := Vector3.ZERO
+var _kick_rot_vel := Vector3.ZERO
+var _cam_kick := Vector3.ZERO
+var _cam_kick_vel := Vector3.ZERO
+var _fov_kick := 0.0
+var _fov_kick_vel := 0.0
+var _weapon_base := Vector3.ZERO
+var _fov_base := NORMAL_FOV
+var _horiz_speed := 0.0
+var _cam_rest_rot := Vector3.ZERO
 
 const WALK_SPEED = 5.0
 const SPRINT_SPEED = 8.5
@@ -33,8 +62,11 @@ func set_frozen(f: bool):
 @onready var score_label = $HUD/ScoreLabel
 @onready var timer_label = $HUD/TimerLabel
 @onready var interaction_label = $HUD/InteractionLabel
-@onready var gun_sound: AudioStreamPlayer = $GunSound
-@onready var footstep_sound: AudioStreamPlayer = $FootstepSound
+@onready var gun_sound: AudioStreamPlayer = get_node_or_null("GunSound")
+@onready var gun_body_sound: AudioStreamPlayer = get_node_or_null("GunBodySound")
+@onready var footstep_sound: AudioStreamPlayer = get_node_or_null("FootstepSound")
+@onready var muzzle_flash: Node3D = get_node_or_null(
+	"Head/Camera3D/WeaponPivot/WWIRifle/Muzzle/MuzzleFlash")
 
 # Footstep timing
 var _footstep_timer: float = 0.0
@@ -47,6 +79,13 @@ func _ready():
 	head = $Head
 	cam = $Head/Camera3D
 	weapon_root = $Head/Camera3D/WeaponPivot
+	_weapon_base = default_weapon_pos
+	weapon_root.position = _weapon_base
+	_fov_base = NORMAL_FOV
+	_cam_rest_rot = cam.rotation
+	# The view model comes close to the lens when aiming; a tighter near plane
+	# keeps the receiver from being sliced open.
+	cam.near = 0.02
 	raycast = $Head/Camera3D/RayCast3D
 	raycast.add_exception(self)
 	
@@ -122,6 +161,7 @@ func _physics_process(delta):
 	
 	# ── Footstep Audio ──────────────────────────────────────────────
 	var horiz_speed = Vector2(velocity.x, velocity.z).length()
+	_horiz_speed = horiz_speed
 	if is_on_floor() and horiz_speed > 1.0:
 		_footstep_timer -= delta
 		if _footstep_timer <= 0.0:
@@ -132,33 +172,67 @@ func _physics_process(delta):
 	else:
 		_footstep_timer = 0.0  # Reset so next step fires immediately
 	
-	var target_fov = NORMAL_FOV
-	var target_pos = default_weapon_pos
 
-	if Input.is_action_pressed("aim"):
-		target_fov = ADS_FOV
-		target_pos = ads_weapon_pos
+## Damped spring step toward zero. Returns [value, velocity].
+func _spring3(cur: Vector3, vel: Vector3, stiff: float, damp: float, delta: float) -> Array:
+	vel += (-cur * stiff - vel * damp) * delta
+	cur += vel * delta
+	return [cur, vel]
 
-		if weapon_root and weapon_root.has_node("AnimationPlayer"):
-			if weapon_root.get_node("AnimationPlayer").current_animation == "idle":
-				weapon_root.get_node("AnimationPlayer").stop()
-		if crosshair: crosshair.visible = true
-	else:
-		if weapon_root and weapon_root.has_node("AnimationPlayer"):
-			var anim = weapon_root.get_node("AnimationPlayer")
-			if anim.has_animation("idle") and not anim.is_playing():
-				anim.play("idle")
-		if crosshair: crosshair.visible = false
+func _process(delta: float) -> void:
+	if frozen:
+		return
+	var aiming: bool = Input.is_action_pressed("aim")
 
-	if cam:
-		cam.fov = lerp(cam.fov, target_fov, AIM_SPEED * delta)
+	var r := _spring3(_kick_pos, _kick_pos_vel, KICK_STIFF, KICK_DAMP, delta)
+	_kick_pos = r[0]
+	_kick_pos_vel = r[1]
+	r = _spring3(_kick_rot, _kick_rot_vel, KICK_STIFF, KICK_DAMP, delta)
+	_kick_rot = r[0]
+	_kick_rot_vel = r[1]
+	r = _spring3(_cam_kick, _cam_kick_vel, CAM_KICK_STIFF, CAM_KICK_DAMP, delta)
+	_cam_kick = r[0]
+	_cam_kick_vel = r[1]
+	_fov_kick_vel += (-_fov_kick * FOV_KICK_STIFF - _fov_kick_vel * FOV_KICK_DAMP) * delta
+	_fov_kick += _fov_kick_vel * delta
+
+	var target_pos: Vector3 = ads_weapon_pos if aiming else default_weapon_pos
+	var target_fov: float = ADS_FOV if aiming else NORMAL_FOV
+	var k: float = clampf(AIM_SPEED * delta, 0.0, 1.0)
+	_weapon_base = _weapon_base.lerp(target_pos, k)
+	_fov_base = lerpf(_fov_base, target_fov, k)
+
 	if weapon_root:
-		weapon_root.position = weapon_root.position.lerp(target_pos, AIM_SPEED * delta)
+		weapon_root.position = _weapon_base + _kick_pos
+		weapon_root.rotation = _kick_rot
+	if cam:
+		cam.fov = _fov_base + _fov_kick
+		# Recoil rides the Camera3D, not the Head. Mouse look owns
+		# head.rotation.x, and two writers on one axis fight each other.
+		cam.rotation = _cam_rest_rot + _cam_kick
+	if crosshair:
+		crosshair.visible = aiming
+
+	_update_weapon_anim(aiming)
+
+func _update_weapon_anim(aiming: bool) -> void:
+	if weapon_root == null:
+		return
+	var anim: AnimationPlayer = weapon_root.get_node_or_null("AnimationPlayer")
+	if anim == null:
+		return
+	# Never cut the bolt cycle or a reload short.
+	if anim.is_playing() and anim.current_animation in ["shoot", "reload"]:
+		return
+	var want := "idle"
+	if not aiming and _horiz_speed > 1.0:
+		want = "walk_bob"
+	if anim.current_animation != want and anim.has_animation(want):
+		anim.play(want, 0.25)
 
 func shoot():
 	if not can_shoot: return
 	can_shoot = false
-	print("Bang!")
 	# ── Gunshot Audio ───────────────────────────────────────────────
 	if gun_sound and gun_sound.stream:
 		gun_sound.pitch_scale = 1.0                     # Real guns don't vary in pitch
@@ -166,10 +240,26 @@ func shoot():
 		gun_sound.play()
 	elif has_node("ShootAudio"):
 		$ShootAudio.play()
+	# Sub-bass layer under the crack -- this carries most of the weight.
+	if gun_body_sound and gun_body_sound.stream:
+		gun_body_sound.pitch_scale = randf_range(0.96, 1.04)
+		gun_body_sound.play()
 		
+	if muzzle_flash and muzzle_flash.has_method("fire"):
+		muzzle_flash.fire()
+
+	# Recoil impulses. Shouldering the rifle braces it, so aimed shots kick less.
+	var brace: float = 0.6 if Input.is_action_pressed("aim") else 1.0
+	_kick_pos_vel += Vector3(randf_range(-0.08, 0.08), 0.42, 1.45) * brace
+	_kick_rot_vel += Vector3(2.4, randf_range(-0.35, 0.35), randf_range(-0.9, 0.9)) * brace
+	_cam_kick_vel += Vector3(0.95, randf_range(-0.5, 0.5), randf_range(-0.6, 0.6)) * brace
+	_fov_kick_vel += 55.0 * brace
+
 	if weapon_root and weapon_root.has_node("AnimationPlayer"):
-		weapon_root.get_node("AnimationPlayer").stop()
-		weapon_root.get_node("AnimationPlayer").play("shoot")
+		var anim: AnimationPlayer = weapon_root.get_node("AnimationPlayer")
+		if anim.has_animation("shoot"):
+			anim.stop()
+			anim.play("shoot")
 		
 	if raycast and raycast.is_colliding():
 		for i in range(raycast.get_collision_count()):
@@ -178,7 +268,7 @@ func shoot():
 				target.die()
 				break
 	
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(FIRE_COOLDOWN).timeout
 	can_shoot = true
 
 func pickup_animal(animal_name: String = "Deer", score: int = 5000):

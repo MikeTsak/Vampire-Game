@@ -19,3 +19,6 @@ Desktop.ini
 
 # Project specific
 backup/
+
+# Cached CC0 source for tools/fetch_gunshot.py (re-downloadable)
+tools/.cache/
