@@ -1,84 +1,216 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_yqorp"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_x262b"]
+[ext_resource type="Texture2D" path="res://textures/branding/logo_glow.png" id="2_qo3sn"]
+[ext_resource type="Texture2D" path="res://textures/branding/att_logo.png" id="3_g5fyd"]
+[ext_resource type="FontFile" path="res://textures/fonts/fonnts.com-PF-Hellenica-.otf" id="4_uwsby"]
+[ext_resource type="Texture2D" path="res://textures/branding/agileadvisors_logo.png" id="5_uvwf2"]
 
-[node name="MainMenu" type="Control"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_youui"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.9, 0.88, 0.84, 0.93)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="MainMenu" type="Control" unique_id=1263659676]
 layout_mode = 3
-anchors_preset = 15
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource("1_yqorp")
+mouse_filter = 2
+script = ExtResource("1_x262b")
 
-[node name="@ColorRect@12" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1022620652]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0, 0, 0, 1)
+mouse_filter = 2
+color = Color(0.035, 0.03, 0.038, 1)
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Header" type="VBoxContainer" parent="." unique_id=36317206]
 layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0, 0, 0, 1)
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -320.0
+offset_top = 18.0
+offset_right = 320.0
+offset_bottom = 308.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="LogoStack" type="Control" parent="Header" unique_id=2085828277]
+custom_minimum_size = Vector2(0, 132)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Glow" type="TextureRect" parent="Header/LogoStack" unique_id=866062370]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -64.0
-offset_right = 60.0
-offset_bottom = 64.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
+mouse_filter = 2
+texture = ExtResource("2_qo3sn")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Title" type="Label" parent="VBoxContainer"]
+[node name="AttLogo" type="TextureRect" parent="Header/LogoStack" unique_id=282827912]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -65.0
+offset_right = 84.0
+offset_bottom = 65.0
+mouse_filter = 2
+texture = ExtResource("3_g5fyd")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Eyebrow" type="Label" parent="Header" unique_id=1752041688]
 layout_mode = 2
-theme_override_font_sizes/font_size = 64
-theme_override_colors/font_color = Color(0.7, 0, 0, 1)
-text = "VAMPIRE GAME"
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.58, 0.54, 0.48, 1)
+text = "ATHENS  THROUGH  TIME"
 horizontal_alignment = 1
 
-[node name="PlayButton" type="Button" parent="VBoxContainer"]
+[node name="Title" type="Label" parent="Header" unique_id=690193237]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
-theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_uwsby")
+theme_override_font_sizes/font_size = 66
+theme_override_colors/font_color = Color(0.62, 0.07, 0.09, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+text = "PARNITHA 1939"
+horizontal_alignment = 1
+
+[node name="TitleGreek" type="Label" parent="Header" unique_id=1921114542]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_uwsby")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.5, 0.46, 0.44, 1)
+text = "ΠΑΡΝΗΘΑ 1939"
+horizontal_alignment = 1
+
+[node name="Tagline" type="Label" parent="Header" unique_id=587792380]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.42, 0.39, 0.38, 1)
+text = "an Athens Through Time LARP story"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=988067142]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -6.0
+offset_right = 110.0
+offset_bottom = 186.0
+grow_horizontal = 2
+theme_override_constants/separation = 3
+
+[node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=1215400793]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+theme_override_colors/font_focus_color = Color(0.92, 0.16, 0.16, 1)
+theme_override_colors/font_hover_color = Color(0.92, 0.16, 0.16, 1)
+theme_override_fonts/font = ExtResource("4_uwsby")
+theme_override_font_sizes/font_size = 20
 text = "Play"
+flat = true
 
-[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="VBoxContainer" unique_id=610243918]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
-theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+theme_override_colors/font_focus_color = Color(0.92, 0.16, 0.16, 1)
+theme_override_colors/font_hover_color = Color(0.92, 0.16, 0.16, 1)
+theme_override_fonts/font = ExtResource("4_uwsby")
+theme_override_font_sizes/font_size = 20
 text = "Settings"
+flat = true
 
-[node name="ModelViewerButton" type="Button" parent="VBoxContainer"]
+[node name="ModelViewerButton" type="Button" parent="VBoxContainer" unique_id=698388382]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
-theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+theme_override_colors/font_focus_color = Color(0.92, 0.16, 0.16, 1)
+theme_override_colors/font_hover_color = Color(0.92, 0.16, 0.16, 1)
+theme_override_fonts/font = ExtResource("4_uwsby")
+theme_override_font_sizes/font_size = 20
 text = "Model Viewer"
+flat = true
 
-[node name="ExitButton" type="Button" parent="VBoxContainer"]
+[node name="ExitButton" type="Button" parent="VBoxContainer" unique_id=1998372542]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
-theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+theme_override_colors/font_focus_color = Color(0.92, 0.16, 0.16, 1)
+theme_override_colors/font_hover_color = Color(0.92, 0.16, 0.16, 1)
+theme_override_fonts/font = ExtResource("4_uwsby")
+theme_override_font_sizes/font_size = 20
 text = "Exit Game"
+flat = true
 
-[node name="CopyrightLabel" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 7
+[node name="Footer" type="VBoxContainer" parent="." unique_id=1335773709]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -40.0
-offset_right = 150.0
-offset_bottom = -10.0
+offset_left = -300.0
+offset_top = -118.0
+offset_right = 300.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Credit" type="Label" parent="Footer" unique_id=1576797911]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.58, 0.54, 0.49, 1)
+text = "created by  Michail Tsakiroglou"
+horizontal_alignment = 1
+
+[node name="PartnerRow" type="CenterContainer" parent="Footer" unique_id=1587240921]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Plaque" type="PanelContainer" parent="Footer/PartnerRow" unique_id=232333122]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_youui")
+
+[node name="AgileAdvisorsLogo" type="TextureRect" parent="Footer/PartnerRow/Plaque" unique_id=810005292]
+custom_minimum_size = Vector2(140, 44)
+layout_mode = 2
+texture = ExtResource("5_uvwf2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Links" type="Label" parent="Footer" unique_id=957427545]
+layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Copyright © 2026 MikeTsak.gr"
+theme_override_colors/font_color = Color(0.44, 0.41, 0.4, 1)
+text = "miketsak.gr   ·   agileadvisors.gr   ·   attlarp.gr"
+horizontal_alignment = 1
+
+[node name="CopyrightLabel" type="Label" parent="Footer" unique_id=1324752522]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.32, 0.3, 0.3, 1)
+text = "© 2026 Michail Tsakiroglou"
 horizontal_alignment = 1

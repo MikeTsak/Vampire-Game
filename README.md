@@ -1,12 +1,19 @@
-# Project: Vampire / Parnitha Horror
+# Parnitha 1939
+
+**an _Athens Through Time_ LARP story**
 
 ![Godot Engine](https://img.shields.io/badge/Godot_4-478cbf?style=for-the-badge&logo=godotengine&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-In_Development-orange?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)
 
-A retro PS1-styled 3D horror game built in Godot 4. The player explores a pitch-black forest using an ultra-powerful WWI trench flashlight. The core gameplay involves hunting and trapping corrupted wildlife (deer, sheep, and their young), dragging their carcasses, and stacking them on a tarp drop-off zone to earn Drachmas (₯). 
+Created by **Michail Tsakiroglou** — [miketsak.gr](https://miketsak.gr) · [agileadvisors.gr](https://agileadvisors.gr)
+Part of the **Athens Through Time** LARP universe — [attlarp.gr](https://attlarp.gr)
 
-Set in the eerie Greek wilderness, the game features heavy retro screen filters, scanlines, and an oppressive atmosphere spanning landmarks like the **"Soul Park"** and the looming **"Sanatorium of Parnitha"**.
+---
+
+A retro PS1-styled 3D horror game built in Godot 4. The player explores a pitch-black forest using an ultra-powerful WWI trench flashlight. The core gameplay involves hunting and trapping corrupted wildlife (deer, sheep, and their young), dragging their carcasses, and stacking them on a tarp drop-off zone to earn Drachmas (₯).
+
+Set in the eerie Greek wilderness of Mount Parnitha in 1939, the game features heavy retro screen filters, scanlines, and an oppressive atmosphere spanning landmarks like the **"Soul Park"** and the looming **"Sanatorium of Parnitha"**.
 
 ---
 

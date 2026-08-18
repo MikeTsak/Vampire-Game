@@ -145,3 +145,36 @@ re-pack must not drop it.
 - **Additive flash colour stays under white.** The three flame petals overlap,
   and their colours sum; authored near white the whole flash saturates into a
   flat blob.
+
+---
+
+# Branding — Parnitha 1939
+
+```sh
+# Trim + downscale the supplied logos and bake the glow plate.
+"$GODOT" --headless --path . --script res://tools/prep_logos.gd
+
+# Rebuild ui/MainMenu.tscn with the branding.
+"$GODOT" --headless --path . --script res://tools/build_menu.gd
+
+# Preview it without opening the editor.
+MENU_SHOT_DIR=/tmp "$GODOT" --path . res://scenes/dev/MenuShot.tscn
+```
+
+`prep_logos.gd` reads the originals from an absolute path in the scratchpad —
+point `SRC` at wherever the source PNGs live if they need re-processing.
+
+## Branding gotchas
+
+- **Both supplied logos are drawn for light backgrounds.** The ATT hourglass is
+  black linework over dark red and the Agile Advisors mark has a black wordmark;
+  on the near-black menu each loses half of itself. The ATT mark gets a baked
+  radial glow plate behind it, and the AA mark sits on a light plaque. Neither
+  logo is recoloured — brand assets are used as supplied.
+- **Resize before scanning alpha.** `prep_logos.gd` trims transparent margins,
+  but scanning 4096×4096 with `get_pixel()` from GDScript takes minutes; it
+  downscales first and reads the raw buffer, which is visually identical and
+  runs in seconds.
+- **`main_menu.gd` owns node paths.** It reaches for
+  `VBoxContainer/PlayButton` and friends and inserts a debug button at index 1,
+  so the rebuilt menu keeps those exact names.
