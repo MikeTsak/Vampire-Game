@@ -5,7 +5,6 @@
 [ext_resource type="Script" path="res://scripts/muzzle_flash.gd" id="5_m6phi"]
 [ext_resource type="AudioStream" path="res://audio/gunshot.wav" id="6_oihyf"]
 [ext_resource type="AudioStream" path="res://audio/footstep.wav" id="7_7lms1"]
-[ext_resource type="AudioStream" path="res://audio/gunshot_body.wav" id="7_m6phi"]
 [ext_resource type="Texture2D" path="res://textures/metal_texture.jpg" id="TexMetal"]
 [ext_resource type="Texture2D" path="res://textures/wood_texture.jpg" id="TexWood"]
 
@@ -32,7 +31,7 @@ metallic = 0.8
 roughness = 0.4
 texture_filter = 0
 
-[sub_resource type="Animation" id="Animation_m6phi"]
+[sub_resource type="Animation" id="Animation_miirx"]
 length = 4.0
 loop_mode = 1
 tracks/0/type = "value"
@@ -60,58 +59,34 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0.01, 0.006, 0), Vector3(-0.006, -0.008, 0.004), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_oihyf"]
+[sub_resource type="Animation" id="Animation_m6phi"]
 length = 1.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WWIRifle:rotation")
-tracks/0/interp = 2
+tracks/0/path = NodePath("WWIRifle/Bolt:rotation")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 1.2, 1.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.32, 0.16, 0.3), Vector3(-0.32, 0.16, 0.3), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("WWIRifle:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 1.2, 1.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.04, -0.03, 0.06), Vector3(-0.04, -0.03, 0.06), Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("WWIRifle/Bolt:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.35, 1.05, 1.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0.9), Vector3(0, 0, 0.9), Vector3(0, 0, 0)]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("WWIRifle/Bolt:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WWIRifle/Bolt:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.4, 0.6, 1, 1.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0.03, 0.03, 0.4393), Vector3(0.03, 0.03, 0.4393), Vector3(0.03, 0.03, 0.5493), Vector3(0.03, 0.03, 0.5493), Vector3(0.03, 0.03, 0.4393)]
 }
 
-[sub_resource type="Animation" id="Animation_7lms1"]
+[sub_resource type="Animation" id="Animation_oihyf"]
 length = 0.55
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -138,7 +113,7 @@ tracks/1/keys = {
 "values": [Vector3(0.03, 0.03, 0.4393), Vector3(0.03, 0.03, 0.4393), Vector3(0.03, 0.03, 0.5393), Vector3(0.03, 0.03, 0.5393), Vector3(0.03, 0.03, 0.4393)]
 }
 
-[sub_resource type="Animation" id="Animation_ufbvs"]
+[sub_resource type="Animation" id="Animation_7lms1"]
 length = 0.9
 loop_mode = 1
 tracks/0/type = "value"
@@ -166,12 +141,12 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0.02), Vector3(0, 0, -0.02), Vector3(0, 0, 0.02)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mqro2"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ufbvs"]
 _data = {
-&"idle": SubResource("Animation_m6phi"),
-&"reload": SubResource("Animation_oihyf"),
-&"shoot": SubResource("Animation_7lms1"),
-&"walk_bob": SubResource("Animation_ufbvs")
+&"idle": SubResource("Animation_miirx"),
+&"reload": SubResource("Animation_m6phi"),
+&"shoot": SubResource("Animation_oihyf"),
+&"walk_bob": SubResource("Animation_7lms1")
 }
 
 [node name="Player" type="CharacterBody3D" unique_id=1028949874 groups=["player"]]
@@ -282,7 +257,7 @@ visible = false
 script = ExtResource("5_m6phi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera3D/WeaponPivot" unique_id=1411326448]
-libraries/ = SubResource("AnimationLibrary_mqro2")
+libraries/ = SubResource("AnimationLibrary_ufbvs")
 autoplay = &"idle"
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1884948274]
@@ -340,10 +315,6 @@ omni_range = 15.0
 
 [node name="GunSound" type="AudioStreamPlayer" parent="." unique_id=1212269009]
 stream = ExtResource("6_oihyf")
-
-[node name="GunBodySound" type="AudioStreamPlayer" parent="." unique_id=1767473389]
-stream = ExtResource("7_m6phi")
-volume_db = -14.0
 
 [node name="FootstepSound" type="AudioStreamPlayer" parent="." unique_id=298395923]
 stream = ExtResource("7_7lms1")

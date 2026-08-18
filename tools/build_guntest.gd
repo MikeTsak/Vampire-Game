@@ -55,6 +55,12 @@ func _initialize() -> void:
 	wall.material_override = wmat
 	root.add_child(wall)
 
+	if OS.get_environment("GUN_AUDIO_PROBE") == "1":
+		var probe := Node.new()
+		probe.name = "AudioProbe"
+		probe.set_script(load("res://tools/audio_probe.gd"))
+		root.add_child(probe)
+
 	var player: Node = load("res://scenes/characters/Player.tscn").instantiate()
 	player.name = "Player"
 	player.position = Vector3(0, 0.2, 0)

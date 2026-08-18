@@ -91,16 +91,17 @@ func _add_muzzle(rifle: Node3D, own: Node) -> void:
 		fl.name = "MuzzleFlash"
 		mk2.add_child(fl)
 
-## player.gd already reads $GunSound and $FootstepSound; neither node existed,
-## so no weapon or footstep audio has ever been heard. GunBodySound layers the
-## sub-bass punch under the crack.
+## player.gd reads $GunSound and $FootstepSound; neither node existed, so no
+## weapon or footstep audio had ever been heard.
 func _add_audio(root: Node) -> void:
+	# The synthetic sub-bass layer is gone: the supplied recording carries its
+	# own low end, and its wav is no longer in the project.
+	if root.has_node("GunBodySound"):
+		var dead := root.get_node("GunBodySound")
+		root.remove_child(dead)
+		dead.free()
 	var want := [
 		["GunSound", "res://audio/gunshot.wav", 0.0],
-		# Sits well under the real recording now. The archive.org shot already
-		# carries ~half its energy below 160Hz, so this is a touch of reinforcement
-		# rather than the main body -- drop it to -80 to mute it entirely.
-		["GunBodySound", "res://audio/gunshot_body.wav", -14.0],
 		["FootstepSound", "res://audio/footstep.wav", -6.0],
 	]
 	for w in want:
@@ -199,12 +200,10 @@ func _rebuild_anims(root: Node) -> void:
 	# Reload: tip the rifle in, work the bolt, bring it back on target.
 	var reload := Animation.new()
 	reload.length = 1.6
-	_track(reload, "WWIRifle:rotation", [0.0, 0.30, 1.20, 1.60], [
-		Vector3(0, 0, 0), Vector3(-0.32, 0.16, 0.30),
-		Vector3(-0.32, 0.16, 0.30), Vector3(0, 0, 0)], cub)
-	_track(reload, "WWIRifle:position", [0.0, 0.30, 1.20, 1.60], [
-		Vector3(0, 0, 0), Vector3(-0.04, -0.03, 0.06),
-		Vector3(-0.04, -0.03, 0.06), Vector3(0, 0, 0)], cub)
+	# Deliberately NO WWIRifle position/rotation tracks here. Shouldered, the
+	# receiver sits centimetres from the lens, so any body motion baked into the
+	# clip punches through the near plane. player.gd applies that sway
+	# procedurally instead, faded out by how far into the sights the player is.
 	_track(reload, "WWIRifle/Bolt:rotation", [0.0, 0.35, 1.05, 1.30], [
 		Vector3(0, 0, 0), Vector3(0, 0, 0.90), Vector3(0, 0, 0.90), Vector3(0, 0, 0)], lin)
 	_track(reload, "WWIRifle/Bolt:position", [0.0, 0.40, 0.60, 1.00, 1.25], [

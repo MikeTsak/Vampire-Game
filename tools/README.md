@@ -127,9 +127,39 @@ re-pack must not drop it.
   positions, so aiming and animating fought and ADS never centred the gun.
 - **Recoil rides the Camera3D, not the Head.** Mouse look owns
   `head.rotation.x`; adding kick there fights the player's aim on the same axis.
+- **Nothing that moves the rifle body belongs in the reload clip.** Shouldered,
+  the receiver sits centimetres from the lens, so body motion baked into the
+  animation punches straight through the near plane. The clip carries the bolt
+  tracks only; `player.gd` applies the tip-away sway procedurally and blends it
+  between a full hip value and a much smaller aimed one via `_ads_blend`.
+  Blending rather than gating also covers aiming part-way through a reload, or
+  releasing aim mid-cycle — the sway follows the sights in and out.
+- **Aimed, the bolt is behind the camera.** With no sway at all a reload reads
+  as nothing happening, so the aimed values are deliberately non-zero: enough
+  to feel, an order of magnitude too small to reach the lens.
 - **Sight geometry sets the ADS distance.** The rear notch must be far enough
   forward that lining it up does not put the buttstock on the lens — that is why
   it is barrel-mounted rather than on the receiver.
+- **The gunshot must be ONE shot.** The supplied take
+  (`audio/source/gunshot_full_take.wav`, kept behind a `.gdignore` so Godot
+  never imports the 1.3MB original) is 14.71s holding ~25 separate shots.
+  Assigned whole it plays the entire firing sequence per trigger pull, which
+  sounds exactly like an infinite loop but is not one — the stream's
+  `loop_mode` is disabled. `tools/trim_gunshot.py` lifts the single best bang
+  out of it (9.10s in, sharpest attack in the take) and soft-clips it for
+  loudness: peak-normalising alone only moves the highest sample to full scale,
+  whereas driving into a tanh lifts RMS by ~5.6dB, which is what the ear reads
+  as loud.
+- **`compress/mode` in a `.import` can be reverted by a later editor pass.**
+  Both weapon sounds want `compress/mode=0` (PCM) because QOA smears the
+  transient. Set it, run the import, then *verify* — a full editor scan has
+  overwritten it back to QOA before.
+- **The audio probe self-gates at runtime.** `GUN_AUDIO_PROBE=1` bakes an
+  AudioProbe node into `GunTest.tscn`; left active it pulls the trigger every
+  0.25s, which looks precisely like the game re-firing on its own. It now frees
+  itself unless the env var is set at run time too.
+- **The archive.org recording below is superseded** by the supplied take, but
+  `tools/fetch_gunshot.py` still works if you want it back.
 - **The gunshot is a real recording, not synthesised.** `tools/fetch_gunshot.py`
   pulls track 04 of *GOLD TAPE: 33 Explosions and War* from archive.org, which
   is **CC0 1.0** (public domain dedication -- shippable commercially, no

@@ -20,6 +20,10 @@ func _grab(sheet: Image, slot: int) -> void:
 		Vector2i((slot % 2) * CELL, (slot / 2) * CELL))
 
 func _run() -> void:
+	# The audio probe drives its own timeline and quits when done; two drivers
+	# racing to quit() cuts whichever is slower off mid-run.
+	if OS.get_environment("GUN_AUDIO_PROBE") == "1":
+		return
 	var dir := OS.get_environment("GUN_SHOT_DIR")
 	if dir == "":
 		dir = "res://"
@@ -34,21 +38,24 @@ func _run() -> void:
 	# 1. hip carry, at rest
 	await _grab(sheet, 0)
 
-	# 2. the instant of the shot -- flash still up
-	player.shoot()
+	# 2. shouldered and settled -- the sight picture.
+	# GUN_HIP=1 runs the same beats from the hip, to check the full sway still
+	# plays there and that only the aimed case is damped.
+	var hip := OS.get_environment("GUN_HIP") == "1"
+	if not hip:
+		Input.action_press("aim")
+	await get_tree().create_timer(0.9).timeout
 	await _grab(sheet, 1)
 
-	# 3. deep in the recoil, flash gone
-	for i in 6:
-		await RenderingServer.frame_post_draw
+	# 3 & 4. fire WHILE shouldered and catch the bolt cycle mid-swing. This is
+	# the case that was clipping the rifle through the near plane.
+	player.shoot()
+	await get_tree().create_timer(0.35).timeout
 	await _grab(sheet, 2)
-
-	# 4. aimed down the sights, settled
-	Input.action_press("aim")
-	for i in 45:
-		await RenderingServer.frame_post_draw
+	await get_tree().create_timer(0.55).timeout
 	await _grab(sheet, 3)
-	Input.action_release("aim")
+	if not hip:
+		Input.action_release("aim")
 
 	print("gun sheet err=%d" % sheet.save_png(dir + "gun_test.png"))
 	get_tree().quit()

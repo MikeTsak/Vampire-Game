@@ -2,7 +2,7 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://djfuwvbjfo5b4"
+uid="uid://8sm3437sxo4u"
 path="res://.godot/imported/dialogue_blip.wav-ed0f304ec153a9cf66b6b2eaf3bdfabb.sample"
 
 [deps]
@@ -21,4 +21,4 @@ edit/normalize=false
 edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
-compress/mode=0
+compress/mode=2

@@ -26,28 +26,28 @@ albedo_color = Color(0.3, 0.27, 0.24, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_t5arq"]
 size = Vector3(9, 5, 0.4)
 
-[node name="GunTest" type="Node3D" unique_id=443717164]
+[node name="GunTest" type="Node3D" unique_id=1285874155]
 script = ExtResource("1_01otj")
 
-[node name="@WorldEnvironment@2" type="WorldEnvironment" parent="." unique_id=992395999]
+[node name="@WorldEnvironment@2" type="WorldEnvironment" parent="." unique_id=1725552268]
 environment = SubResource("Environment_cv5ie")
 
-[node name="Key" type="DirectionalLight3D" parent="." unique_id=688130420]
+[node name="Key" type="DirectionalLight3D" parent="." unique_id=39324041]
 transform = Transform3D(0.7808689, -0.48771194, 0.39036, 0, 0.62488097, 0.78072, -0.62469506, -0.60963994, 0.48795, 0, 0, 0)
 light_energy = 0.35
 
-[node name="Floor" type="StaticBody3D" parent="." unique_id=41609447]
+[node name="Floor" type="StaticBody3D" parent="." unique_id=254723194]
 
-[node name="@CollisionShape3D@3" type="CollisionShape3D" parent="Floor" unique_id=500705625]
+[node name="@CollisionShape3D@3" type="CollisionShape3D" parent="Floor" unique_id=1145377511]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_ytsn1")
 
-[node name="@MeshInstance3D@4" type="MeshInstance3D" parent="Floor" unique_id=2086983982]
+[node name="@MeshInstance3D@4" type="MeshInstance3D" parent="Floor" unique_id=1390642431]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 material_override = SubResource("StandardMaterial3D_o3abx")
 mesh = SubResource("BoxMesh_83ghk")
 
-[node name="Wall" type="MeshInstance3D" parent="." unique_id=13877711]
+[node name="Wall" type="MeshInstance3D" parent="." unique_id=132345002]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -4.5)
 material_override = SubResource("StandardMaterial3D_08o8t")
 mesh = SubResource("BoxMesh_t5arq")

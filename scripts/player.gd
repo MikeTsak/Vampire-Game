@@ -23,6 +23,18 @@ const FOV_KICK_DAMP := 22.0
 ## Seconds between shots. Slow on purpose -- it is a bolt-action.
 const FIRE_COOLDOWN := 0.9
 
+## How far the rifle tips away while the bolt is worked. Applied here rather
+## than in the clip so it can be scaled out as the player enters the sights --
+## at ADS the gun is close enough to the lens that any sway clips through it.
+const RELOAD_SWAY_POS := Vector3(-0.03, -0.035, -0.05)
+const RELOAD_SWAY_ROT := Vector3(-0.22, 0.12, 0.20)
+## Shouldered, the bolt itself is behind the camera and invisible, so without a
+## little motion a reload reads as nothing happening at all. These are kept an
+## order of magnitude smaller than the hip values -- enough to feel the bolt
+## being worked, far too small to bring anything near the near plane.
+const RELOAD_SWAY_POS_ADS := Vector3(0.0, -0.012, 0.0)
+const RELOAD_SWAY_ROT_ADS := Vector3(-0.05, 0.02, 0.03)
+
 var _kick_pos := Vector3.ZERO
 var _kick_pos_vel := Vector3.ZERO
 var _kick_rot := Vector3.ZERO
@@ -34,6 +46,11 @@ var _fov_kick_vel := 0.0
 var _weapon_base := Vector3.ZERO
 var _fov_base := NORMAL_FOV
 var _horiz_speed := 0.0
+## 0 = hip carry, 1 = fully shouldered. Drives weapon position, FOV and how
+## much of the reload sway is allowed.
+var _ads_blend := 0.0
+var _reload_t := 0.0
+var _reload_len := 0.0
 var _cam_rest_rot := Vector3.ZERO
 
 const WALK_SPEED = 5.0
@@ -63,7 +80,6 @@ func set_frozen(f: bool):
 @onready var timer_label = $HUD/TimerLabel
 @onready var interaction_label = $HUD/InteractionLabel
 @onready var gun_sound: AudioStreamPlayer = get_node_or_null("GunSound")
-@onready var gun_body_sound: AudioStreamPlayer = get_node_or_null("GunBodySound")
 @onready var footstep_sound: AudioStreamPlayer = get_node_or_null("FootstepSound")
 @onready var muzzle_flash: Node3D = get_node_or_null(
 	"Head/Camera3D/WeaponPivot/WWIRifle/Muzzle/MuzzleFlash")
@@ -196,15 +212,26 @@ func _process(delta: float) -> void:
 	_fov_kick_vel += (-_fov_kick * FOV_KICK_STIFF - _fov_kick_vel * FOV_KICK_DAMP) * delta
 	_fov_kick += _fov_kick_vel * delta
 
-	var target_pos: Vector3 = ads_weapon_pos if aiming else default_weapon_pos
-	var target_fov: float = ADS_FOV if aiming else NORMAL_FOV
 	var k: float = clampf(AIM_SPEED * delta, 0.0, 1.0)
-	_weapon_base = _weapon_base.lerp(target_pos, k)
-	_fov_base = lerpf(_fov_base, target_fov, k)
+	_ads_blend = lerpf(_ads_blend, 1.0 if aiming else 0.0, k)
+	_weapon_base = default_weapon_pos.lerp(ads_weapon_pos, _ads_blend)
+	_fov_base = lerpf(NORMAL_FOV, ADS_FOV, _ads_blend)
+
+	# Reload sway, faded out by the aim blend. Scaling by (1 - blend) also covers
+	# aiming part-way through a reload, or releasing aim mid-cycle: the sway
+	# follows the sights in and out instead of snapping.
+	var sway_pos := Vector3.ZERO
+	var sway_rot := Vector3.ZERO
+	if _reload_t > 0.0:
+		_reload_t = maxf(0.0, _reload_t - delta)
+		var done: float = 1.0 - _reload_t / maxf(_reload_len, 0.001)
+		var env: float = sin(clampf(done, 0.0, 1.0) * PI)
+		sway_pos = RELOAD_SWAY_POS.lerp(RELOAD_SWAY_POS_ADS, _ads_blend) * env
+		sway_rot = RELOAD_SWAY_ROT.lerp(RELOAD_SWAY_ROT_ADS, _ads_blend) * env
 
 	if weapon_root:
-		weapon_root.position = _weapon_base + _kick_pos
-		weapon_root.rotation = _kick_rot
+		weapon_root.position = _weapon_base + _kick_pos + sway_pos
+		weapon_root.rotation = _kick_rot + sway_rot
 	if cam:
 		cam.fov = _fov_base + _fov_kick
 		# Recoil rides the Camera3D, not the Head. Mouse look owns
@@ -240,10 +267,6 @@ func shoot():
 		gun_sound.play()
 	elif has_node("ShootAudio"):
 		$ShootAudio.play()
-	# Sub-bass layer under the crack -- this carries most of the weight.
-	if gun_body_sound and gun_body_sound.stream:
-		gun_body_sound.pitch_scale = randf_range(0.96, 1.04)
-		gun_body_sound.play()
 		
 	if muzzle_flash and muzzle_flash.has_method("fire"):
 		muzzle_flash.fire()
@@ -255,11 +278,17 @@ func shoot():
 	_cam_kick_vel += Vector3(0.95, randf_range(-0.5, 0.5), randf_range(-0.6, 0.6)) * brace
 	_fov_kick_vel += 55.0 * brace
 
+	# Work the bolt. The lock below runs for exactly this clip's length, so the
+	# player can never fire again part-way through the reload.
+	var reload_time := FIRE_COOLDOWN
 	if weapon_root and weapon_root.has_node("AnimationPlayer"):
 		var anim: AnimationPlayer = weapon_root.get_node("AnimationPlayer")
-		if anim.has_animation("shoot"):
+		if anim.has_animation("reload"):
 			anim.stop()
-			anim.play("shoot")
+			anim.play("reload")
+			reload_time = anim.get_animation("reload").length
+	_reload_len = reload_time
+	_reload_t = reload_time
 		
 	if raycast and raycast.is_colliding():
 		for i in range(raycast.get_collision_count()):
@@ -268,7 +297,7 @@ func shoot():
 				target.die()
 				break
 	
-	await get_tree().create_timer(FIRE_COOLDOWN).timeout
+	await get_tree().create_timer(reload_time).timeout
 	can_shoot = true
 
 func pickup_animal(animal_name: String = "Deer", score: int = 5000):
