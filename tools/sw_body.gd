@@ -1,27 +1,29 @@
 extends RefCounted
 ## Assembles the Skinwalker body from the rig, part by part.
 ##
-## Every landmark below is read off the concept art: pelvis low and set back,
-## ribcage the widest point of a body that is otherwise starved hollow, a
-## ventral strip of torn flesh running from sternum to gut, arms that reach
-## the ground, and hind legs with a real reversed hock.
+## The creature stands upright, so the torso is a VERTICAL column and every
+## wrap-around helper works on a horizontal cross-section: `ang == 0` is the
+## spine ridge at the back (+Z) and `ang == PI` is the sternum (-Z).
 
 const Atlas := preload("res://tools/sw_atlas.gd")
 
-## Torso is a tube slung BELOW the spine bones -- the backbone rides the top
-## of the ribcage, it is not the centreline of the body.
+## Torso shell. Each entry is [centre, radius]; the centre sits forward of its
+## spine bone by roughly half a radius, which keeps the backbone riding the
+## rear of the ribcage without throwing the chest out past the head.
 const TORSO := [
-	# [centre, radius] -- each entry's top touches its spine bone, while the
-	# underside is authored as a deep chest tucking up hard into a starved
-	# waist, greyhound-fashion.
-	[Vector3(0, 1.262, 0.440), 0.138],   # pelvis
-	[Vector3(0, 1.335, 0.280), 0.120],   # waist, tucked up and pinched in
-	[Vector3(0, 1.330, 0.160), 0.180],
-	[Vector3(0, 1.323, 0.040), 0.233],
-	[Vector3(0, 1.332, -0.085), 0.257],  # ribcage, widest point
-	[Vector3(0, 1.353, -0.210), 0.243],
-	[Vector3(0, 1.393, -0.330), 0.168],  # chest front
+	[Vector3(0, 1.775, 0.035), 0.172],   # pelvis
+	[Vector3(0, 1.950, 0.027), 0.133],   # waist, pinched in hard
+	[Vector3(0, 2.100, -0.052), 0.208],
+	[Vector3(0, 2.240, -0.129), 0.256],
+	[Vector3(0, 2.365, -0.213), 0.300],  # ribcage, widest
+	[Vector3(0, 2.470, -0.268), 0.266],
+	[Vector3(0, 2.556, -0.269), 0.180],  # top of chest, under the shoulders
 ]
+
+## The torso tube is swept with this cross-section squash, so anything that
+## rides the shell -- ribs, ventral strip, wounds, mane -- has to use the same
+## ellipse. Treating it as a circle floats the ribs off the flank.
+const TORSO_SQUASH := Vector2(1.0, 0.86)
 
 var m  # sw_mesh instance
 var bones: Array
@@ -37,14 +39,16 @@ func build(mesh, bone_list: Array, lod_level: int = 0) -> void:
 	lod = lod_level
 	_torso()
 	_ventral()
+	_rib_bed()
 	_ribcage()
-	_neck()
 	_wounds()
+	_neck()
 	_skull()
 	_antlers()
 	_arms()
 	_legs()
 	if lod < 2:
+		_blood()
 		_fur()
 
 ## Ring count for the current LOD, floored at a triangular cross-section.
@@ -60,6 +64,31 @@ func _bp(n: String) -> Vector3:
 	push_error("sw_body: missing bone %s" % n)
 	return Vector3.ZERO
 
+# ------------------------------------------------------- torso cross-section
+
+## Radial direction on the horizontal cross-section. 0 = spine ridge (+Z),
+## PI = sternum (-Z), PI/2 = the creature's left flank (+X).
+func _radial(ang: float) -> Vector3:
+	return Vector3(sin(ang) * TORSO_SQUASH.x, 0.0, cos(ang) * TORSO_SQUASH.y)
+
+func _torso_lerp(idx: float) -> Array:
+	var i := clampi(int(floor(idx)), 0, TORSO.size() - 2)
+	var f := clampf(idx - float(i), 0.0, 1.0)
+	return [
+		(TORSO[i][0] as Vector3).lerp(TORSO[i + 1][0], f),
+		lerpf(float(TORSO[i][1]), float(TORSO[i + 1][1]), f),
+	]
+
+## Point on the shell, pushed out along the true radial normal.
+func _torso_shell(idx: float, ang: float, push: float = 0.0) -> Vector3:
+	var cs := _torso_lerp(idx)
+	return (cs[0] as Vector3) + _radial(ang) * (float(cs[1]) + push)
+
+## Same, but scaling the radius instead of adding to it.
+func _torso_shell_mult(idx: float, ang: float, mult: float) -> Vector3:
+	var cs := _torso_lerp(idx)
+	return (cs[0] as Vector3) + _radial(ang) * (float(cs[1]) * mult)
+
 # ------------------------------------------------------------------- torso
 
 func _torso() -> void:
@@ -69,30 +98,27 @@ func _torso() -> void:
 	for e in TORSO:
 		path.append(e[0])
 		radii.append(e[1])
-	# Slightly flattened side-to-side: a starved ribcage is a deep, narrow keel.
+	# Wider across than deep: a standing ribcage, not a barrel.
 	var sq := []
 	for i in path.size():
-		sq.append(Vector2(1.0, 0.92))
+		sq.append(TORSO_SQUASH)
 	m.tube(path, radii, _s(8), 0.0, 1.0, true, true, sq, 0.55)
 
-## Torn flesh down the sternum, giving way to raw belly toward the pelvis.
-## Built as a narrow strip of decal quads riding just proud of the hide.
+## Torn flesh down the sternum giving way to raw belly toward the pelvis,
+## as a narrow strip of decal quads riding just proud of the hide.
 func _ventral() -> void:
-	var cols := [-0.80, -0.27, 0.27, 0.80]  # radians either side of straight down
+	var cols := [PI - 0.78, PI - 0.26, PI + 0.26, PI + 0.78]
 	var pts := []
-	for e in TORSO:
-		var c: Vector3 = e[0]
-		var r: float = e[1]
+	for i in TORSO.size():
 		var row := []
 		for a in cols:
-			row.append(c + Vector3(sin(a) * r, -cos(a) * r, 0.0) * 1.015)
+			row.append(_torso_shell(float(i), a, 0.007))
 		pts.append(row)
 
-	# Front of the strip (sternum, z negative) is open wound; the run back
-	# toward the pelvis is thin, discoloured belly skin.
 	for seg in range(TORSO.size() - 1):
-		var front := seg >= 3
-		m.begin(["Hips", "Spine*"], "gore" if front else "belly", 0.62)
+		# Upper half is open chest wound, lower half thin discoloured belly.
+		var chest := seg >= 3
+		m.begin(["Hips", "Spine*"], "gore" if chest else "belly", 0.66)
 		for col in range(cols.size() - 1):
 			var a: Vector3 = pts[seg][col]
 			var b: Vector3 = pts[seg][col + 1]
@@ -103,90 +129,86 @@ func _ventral() -> void:
 			var vv0 := float(seg) / float(TORSO.size() - 1)
 			var vv1 := float(seg + 1) / float(TORSO.size() - 1)
 			m.quad(a, b, c, d, m.u(uu0, vv0), m.u(uu1, vv0), m.u(uu1, vv1), m.u(uu0, vv1),
-				Vector3(0, -1, 0))
+				_radial(PI).normalized())
 
-## Interpolate the torso cross-section at a given z -> [centre_y, radius].
-func _torso_cs(z: float) -> Array:
-	var lo := 0
-	for i in range(TORSO.size() - 1):
-		if z <= float((TORSO[i][0] as Vector3).z) and z >= float((TORSO[i + 1][0] as Vector3).z):
-			lo = i
-			break
-	var z0 := float((TORSO[lo][0] as Vector3).z)
-	var z1 := float((TORSO[lo + 1][0] as Vector3).z)
-	var t := 0.0 if is_equal_approx(z0, z1) else clampf((z - z0) / (z1 - z0), 0.0, 1.0)
-	return [
-		lerpf(float((TORSO[lo][0] as Vector3).y), float((TORSO[lo + 1][0] as Vector3).y), t),
-		lerpf(float(TORSO[lo][1]), float(TORSO[lo + 1][1]), t),
-	]
+## Raw flesh laid across the flank underneath the ribs, so the gaps between
+## them read as an open wound rather than clean hide. Without this the cage
+## looks like pale slats stuck onto the outside of the body.
+func _rib_bed() -> void:
+	for side in [1.0, -1.0]:
+		m.begin(["Spine2", "Spine3", "Spine4", "Spine5"], "gore", 0.70)
+		var a0: float = 0.72 * side
+		var a1: float = 2.14 * side
+		for seg in 3:
+			var i0 := 2.45 + float(seg) * 0.72
+			var i1 := 2.45 + float(seg + 1) * 0.72
+			for k in 3:
+				var b0 := lerpf(a0, a1, float(k) / 3.0)
+				var b1 := lerpf(a0, a1, float(k + 1) / 3.0)
+				m.quad(
+					_torso_shell(i0, b0, 0.004), _torso_shell(i0, b1, 0.004),
+					_torso_shell(i1, b1, 0.004), _torso_shell(i1, b0, 0.004),
+					m.u(float(k) / 3.0, float(seg) / 3.0), m.u(float(k + 1) / 3.0, float(seg) / 3.0),
+					m.u(float(k + 1) / 3.0, float(seg + 1) / 3.0), m.u(float(k) / 3.0, float(seg + 1) / 3.0),
+					_radial((b0 + b1) * 0.5).normalized())
 
-## Five ribs a side, swept round the actual cage cross-section and pushed
-## just proud of the hide so the cage reads in silhouette.
+## Five ribs a side, swept round the cross-section and standing proud across
+## the flank so the cage reads in silhouette.
 func _ribcage() -> void:
-	var angs := [0.45, 1.02, 1.58, 2.08, 2.36]  # radians from the spine ridge
-	# Push tapers off at both ends so the ribs sink back into the hide at the
-	# spine and at the sternum, and only stand proud across the flank.
-	var push := [1.010, 1.055, 1.075, 1.030, 0.950]
+	var angs := [0.45, 1.02, 1.58, 2.08, 2.42]
+	# Push tapers off at both ends: the ribs sink into the hide at the spine
+	# and at the sternum, and only stand proud across the flank.
+	var mult := [1.005, 1.020, 1.032, 1.018, 0.965]
 	for side in [1.0, -1.0]:
 		for i in 5:
-			# Thin the cage with distance but keep it spanning the full chest,
-			# so the ribcage still reads in silhouette at LOD2.
 			if lod == 1 and i == 4:
 				continue
 			if lod >= 2 and i % 2 == 1:
 				continue
 			m.begin(["Spine2", "Spine3", "Spine4", "Spine5"], "rib", 0.90)
-			var z := -0.215 + float(i) * 0.062
-			var cs := _torso_cs(z)
-			var cy: float = cs[0]
-			var r: float = cs[1]
+			var idx := 2.35 + float(i) * 0.64
 			var path := []
 			for ai in angs.size():
-				var a: float = angs[ai]
-				var pu: float = push[ai]
-				path.append(Vector3(sin(a) * r * pu * side, cy + cos(a) * r * pu, z))
+				var p := _torso_shell_mult(idx, angs[ai] * side, mult[ai])
+				p.y -= angs[ai] / PI * 0.085   # ribs slope down toward the sternum
+				path.append(p)
 			# Third rib back is snapped short -- cracked/missing, per the brief.
 			if i == 2 and side > 0.0:
 				path.resize(4)
-			var radii := [0.019, 0.030, 0.034, 0.026, 0.013]
+			var radii := [0.016, 0.024, 0.027, 0.022, 0.012]
 			radii.resize(path.size())
 			m.tube(path, radii, 3, 0.0, 1.0, true, true, [], 0.0)
 
-## Torn patches on the flanks and haunch. The ventral strip covers the sternum
-## and gut, but none of that reads from a 3/4 view -- these do.
+## Torn patches around the flanks, chest and haunch.
 func _wounds() -> void:
-	# [segment along the torso, angle from the ridge, half-width in radians,
-	#  half-height in torso segments] -- both are parametric, not metres.
+	# [idx up the torso, angle from the spine ridge, half-width rad, half-height idx]
 	var patches := [
-		[2.40, 1.55, 0.62, 0.95], [4.20, 1.02, 0.50, 0.70],
-		[1.10, 1.38, 0.55, 0.80], [3.50, 2.00, 0.46, 0.62],
+		[3.10, 1.55, 0.62, 0.55], [4.55, 1.05, 0.52, 0.45],
+		[1.60, 1.42, 0.58, 0.50], [3.90, 2.15, 0.50, 0.42],
+		[2.35, 2.55, 0.46, 0.40], [5.10, 0.72, 0.44, 0.34],
 	]
 	for i in patches.size():
 		var side := 1.0 if i % 2 == 0 else -1.0
-		var seg: float = patches[i][0]
+		var idx: float = patches[i][0]
 		var ang: float = patches[i][1] * side
 		var hw: float = patches[i][2]
 		var hh: float = patches[i][3]
-		m.begin(["Hips", "Spine*"], "wound", 0.80)
-		var p0 := _torso_shell(seg - hh, ang - hw, 0.006)
-		var p1 := _torso_shell(seg - hh, ang + hw, 0.006)
-		var p2 := _torso_shell(seg + hh, ang + hw, 0.006)
-		var p3 := _torso_shell(seg + hh, ang - hw, 0.006)
-		m.quad(p0, p1, p2, p3, m.u(0, 0), m.u(1, 0), m.u(1, 1), m.u(0, 1),
-			Vector3(sin(ang), cos(ang), 0.0))
+		m.begin(["Hips", "Spine*"], "wound", 0.82)
+		m.quad(
+			_torso_shell(idx - hh, ang - hw, 0.006), _torso_shell(idx - hh, ang + hw, 0.006),
+			_torso_shell(idx + hh, ang + hw, 0.006), _torso_shell(idx + hh, ang - hw, 0.006),
+			m.u(0, 0), m.u(1, 0), m.u(1, 1), m.u(0, 1), _radial(ang).normalized())
 
 # -------------------------------------------------------------------- neck
 
 func _neck() -> void:
 	m.begin(["Spine5", "Neck1", "Neck2", "Head"], "sinew", 0.94)
-	var path := [
-		_bp("Spine5") + Vector3(0, -0.05, 0.02),
+	m.tube([
+		_bp("Spine5") + Vector3(0, -0.06, 0.02),
 		_bp("Neck1"),
 		_bp("Neck2"),
 		_bp("Head") + Vector3(0, -0.01, 0.01),
-	]
-	var radii := [0.118, 0.092, 0.080, 0.082]
-	m.tube(path, radii, _s(6), 0.0, 1.0, false, false, [], 0.30)
+	], [0.118, 0.092, 0.080, 0.082], _s(6), 0.0, 1.0, false, false, [], 0.30)
 
 # ------------------------------------------------------------------- skull
 
@@ -195,12 +217,10 @@ func _neck() -> void:
 func _skull() -> void:
 	var h := _bp("Head")
 
-	# Cranium and brow. The brow block is where the antler pedicles sit.
 	m.begin(["Head"], "skull", 0.98)
 	m.box(h + Vector3(0, 0.008, -0.035), Vector3(0.188, 0.168, 0.195))
 	m.box(h + Vector3(0, 0.044, -0.096), Vector3(0.168, 0.087, 0.119))
 
-	# Long cervine muzzle, tapering to the nose.
 	m.begin(["Head"], "face", 1.0)
 	m.tube([
 		h + Vector3(0, 0.002, -0.088),
@@ -209,74 +229,74 @@ func _skull() -> void:
 	], [0.082, 0.069, 0.055], _s(6), 0.0, 1.0, true, true, [], 0.0)
 	m.box(h + Vector3(0, -0.044, -0.344), Vector3(0.094, 0.065, 0.054))
 
-	# Lower jaw, hung open. Weighted to Jaw so it can snap independently.
+	# Lower jaw dropped to a full gape. The hinge stays put, so the Jaw bone
+	# still closes the mouth when an animation rotates it back up.
 	m.begin(["Jaw"], "face", 0.90)
 	m.tube([
-		h + Vector3(0, -0.052, -0.052),
-		h + Vector3(0, -0.082, -0.170),
-		h + Vector3(0, -0.102, -0.288),
+		h + Vector3(0, -0.048, -0.052),
+		h + Vector3(0, -0.170, -0.150),
+		h + Vector3(0, -0.292, -0.248),
 	], [0.068, 0.056, 0.044], _s(5), 0.0, 1.0, true, true, [], 0.0)
 
+	_mouth_interior()
 	_teeth()
-	if lod == 0:
-		_mouth_interior()
 	_eyes()
 	if lod < 2:
 		_ears()
 
-## Broken, uneven dentition -- lengths vary and one upper tooth is missing.
+## Height of the jaw's upper edge at a given z offset from the Head bone --
+## where the lower fangs are rooted.
+func _jaw_top(z: float) -> float:
+	return 0.020 + 1.367 * (z + 0.052)
+
+## Big, uneven, badly-set fangs. Lengths vary hard, one upper tooth is missing
+## and the canines overhang the jawline.
 func _teeth() -> void:
 	var h := _bp("Head")
-	var xs := [-0.040, -0.027, -0.014, 0.0, 0.014, 0.027, 0.040]
-	var upper_len := [0.020, 0.026, 0.018, 0.023, 0.0, 0.025, 0.019]  # 0 == gap
-	var lower_len := [0.017, 0.022, 0.015, 0.021, 0.024, 0.016, 0.020]
+	var xs := [-0.048, -0.034, -0.020, -0.007, 0.007, 0.020, 0.034, 0.048]
+	var upper := [0.040, 0.055, 0.032, 0.048, 0.044, 0.0, 0.052, 0.036]
+	var lower := [0.034, 0.048, 0.028, 0.044, 0.040, 0.030, 0.050, 0.033]
+	var thick := [0.011, 0.013, 0.009, 0.012, 0.012, 0.010, 0.013, 0.010]
 	for i in xs.size():
 		if lod >= 2 and i % 2 == 1:
 			continue
 		var x: float = xs[i]
-		var zf := -0.275 - absf(x) * 0.45
-		if upper_len[i] > 0.0:
+		if upper[i] > 0.0:
 			m.begin(["Head"], "teeth", 0.95)
-			m.cone(h + Vector3(x, -0.050, zf),
-				h + Vector3(x, -0.050 - upper_len[i], zf - 0.004), 0.0065, 4)
-		if lower_len[i] > 0.0:
+			var zu := -0.272 - absf(x) * 0.42
+			m.cone(h + Vector3(x, -0.050, zu),
+				h + Vector3(x * 1.05, -0.050 - upper[i], zu - 0.006), thick[i], 4)
+		if lower[i] > 0.0:
 			m.begin(["Jaw"], "teeth", 0.95)
-			var zl := -0.258 - absf(x) * 0.45
-			m.cone(h + Vector3(x, -0.105, zl),
-				h + Vector3(x, -0.105 + lower_len[i], zl - 0.004), 0.0060, 4)
+			var zl := -0.212 - absf(x) * 0.40
+			m.cone(h + Vector3(x, _jaw_top(zl) - 0.006, zl),
+				h + Vector3(x * 1.05, _jaw_top(zl) + lower[i], zl - 0.006), thick[i] * 0.92, 4)
 	if lod >= 2:
 		return
-	# A pair of longer canines further back, one each side.
-	m.begin(["Head"], "teeth", 0.95)
+	# Overhanging canines, one pair up and one pair down.
 	for d in [-1.0, 1.0]:
-		m.cone(h + Vector3(0.048 * d, -0.048, -0.190),
-			h + Vector3(0.050 * d, -0.082, -0.196), 0.0075, 4)
+		m.begin(["Head"], "teeth", 0.95)
+		m.cone(h + Vector3(0.052 * d, -0.046, -0.196),
+			h + Vector3(0.056 * d, -0.118, -0.206), 0.014, 4)
+		m.begin(["Jaw"], "teeth", 0.95)
+		var zc := -0.170
+		m.cone(h + Vector3(0.050 * d, _jaw_top(zc) - 0.006, zc),
+			h + Vector3(0.054 * d, _jaw_top(zc) + 0.062, zc - 0.008), 0.013, 4)
 
-## Dark wet interior filling the gap between the tooth rows.
+## A solid dark form filling the gape. Modelling the maw as a hollow cavity
+## would need inward-facing walls and would show its own back face through the
+## opening; a dark plug reads as a black throat from every angle and costs less.
 func _mouth_interior() -> void:
 	var h := _bp("Head")
-	m.begin(["Head"], "mouth", 0.30)
-	var zs := [-0.090, -0.170, -0.250, -0.300]
-	for i in range(zs.size() - 1):
-		var z0: float = zs[i]
-		var z1: float = zs[i + 1]
-		var w0 := 0.050 - float(i) * 0.006
-		var w1 := 0.050 - float(i + 1) * 0.006
-		m.quad(h + Vector3(-w0, -0.052, z0), h + Vector3(w0, -0.052, z0),
-			h + Vector3(w1, -0.052, z1), h + Vector3(-w1, -0.052, z1),
-			m.u(0, 0), m.u(1, 0), m.u(1, 1), m.u(0, 1), Vector3(0, -1, 0))
-		m.quad(h + Vector3(-w0, -0.098, z0), h + Vector3(w0, -0.098, z0),
-			h + Vector3(w1, -0.100, z1), h + Vector3(-w1, -0.100, z1),
-			m.u(0, 0), m.u(1, 0), m.u(1, 1), m.u(0, 1), Vector3(0, 1, 0))
-		for sd in [1.0, -1.0]:
-			m.quad(h + Vector3(w0 * sd, -0.052, z0), h + Vector3(w1 * sd, -0.052, z1),
-				h + Vector3(w1 * sd, -0.100, z1), h + Vector3(w0 * sd, -0.098, z0),
-				m.u(0, 0), m.u(1, 0), m.u(1, 1), m.u(0, 1), Vector3(-sd, 0, 0))
+	m.begin(["Head", "Jaw"], "mouth", 0.30)
+	m.tube([
+		h + Vector3(0, -0.160, -0.262),
+		h + Vector3(0, -0.120, -0.170),
+		h + Vector3(0, -0.075, -0.078),
+	], [0.048, 0.058, 0.050], _s(6), 0.0, 1.0, true, true, [], 0.0)
 
-## Sunken socket with a glowing block set into it. Built as boxes rather than
-## flat cards so the eye reads from the front as well as the side -- a plane
-## facing sideways vanishes to a sliver head-on, and one tucked inside the
-## cranium (half-width 0.094) does not show at all.
+## Sunken socket with a glowing block set into it, built as boxes so the eye
+## reads from the front as well as the side.
 func _eyes() -> void:
 	var h := _bp("Head")
 	for sd in [1.0, -1.0]:
@@ -291,34 +311,33 @@ func _ears() -> void:
 	var h := _bp("Head")
 	for sd in [1.0, -1.0]:
 		m.begin(["Head"], "pelt", 0.85)
-		var root := h + Vector3(0.070 * sd, 0.050, 0.010)
-		var tip := h + Vector3(0.150 * sd, 0.095, 0.100)
-		m.card(root, tip, Vector3(0.10 * sd, 0.10, 0.30).normalized(), 0.055, 0.018)
+		m.card(h + Vector3(0.070 * sd, 0.050, 0.010), h + Vector3(0.150 * sd, 0.095, 0.100),
+			Vector3(0.10 * sd, 0.10, 0.30).normalized(), 0.055, 0.018)
 
 # ----------------------------------------------------------------- antlers
 
 func _antlers() -> void:
-	# Main beams follow the 3-bone chains, tapering to a point.
 	for s in ["L", "R"]:
 		m.begin(["Antler.%s1" % s, "Antler.%s2" % s, "Antler.%s3" % s, "Head"], "antler", 1.0)
-		var tip := _bp("Antler.%s3" % s) + (_bp("Antler.%s3" % s) - _bp("Antler.%s2" % s)).normalized() * 0.19
+		var t3 := _bp("Antler.%s3" % s)
+		var tip := t3 + (t3 - _bp("Antler.%s2" % s)).normalized() * 0.19
 		m.tube([
 			_bp("Antler.%s1" % s) + Vector3(0, -0.03, 0.02),
 			_bp("Antler.%s1" % s),
 			_bp("Antler.%s2" % s),
-			_bp("Antler.%s3" % s),
+			t3,
 			tip,
 		], [0.036, 0.031, 0.024, 0.016, 0.006], _s(5), 0.0, 1.0, true, true, [], 0.34)
 
-	# Tines. Left carries three clean points; right carries two plus a snapped
-	# stub, so the rack is asymmetric the way a real one is.
+	# Left carries three clean points; right carries two plus a snapped stub,
+	# so the rack is asymmetric the way a real one is.
 	var tines := [
-		["L", Vector3(0.155, 1.865, -0.555), Vector3(0.115, 2.030, -0.750), 0.017],
-		["L", Vector3(0.255, 2.110, -0.462), Vector3(0.248, 2.345, -0.620), 0.015],
-		["L", Vector3(0.298, 2.230, -0.392), Vector3(0.418, 2.395, -0.440), 0.013],
-		["R", Vector3(-0.145, 1.855, -0.548), Vector3(-0.105, 2.040, -0.728), 0.017],
-		["R", Vector3(-0.262, 2.100, -0.410), Vector3(-0.312, 2.318, -0.528), 0.015],
-		["R", Vector3(-0.310, 2.172, -0.336), Vector3(-0.368, 2.242, -0.318), 0.014],  # snapped short
+		["L", Vector3(0.155, 2.825, -0.425), Vector3(0.115, 2.990, -0.620), 0.017],
+		["L", Vector3(0.255, 3.070, -0.332), Vector3(0.248, 3.305, -0.490), 0.015],
+		["L", Vector3(0.298, 3.190, -0.262), Vector3(0.418, 3.355, -0.310), 0.013],
+		["R", Vector3(-0.145, 2.815, -0.418), Vector3(-0.105, 3.000, -0.598), 0.017],
+		["R", Vector3(-0.262, 3.060, -0.280), Vector3(-0.312, 3.278, -0.398), 0.015],
+		["R", Vector3(-0.310, 3.132, -0.206), Vector3(-0.368, 3.202, -0.188), 0.014],  # snapped
 	]
 	for t in tines:
 		var s: String = t[0]
@@ -337,16 +356,16 @@ func _arms() -> void:
 			_bp("Forearm1.%s" % s),
 			_bp("Forearm2.%s" % s),
 			_bp("Hand.%s" % s),
-		], [0.125, 0.085, 0.056, 0.046, 0.041], _s(6), 0.0, 1.0, false, false, [], 0.45)
+		], [0.128, 0.086, 0.056, 0.046, 0.041], _s(6), 0.0, 1.0, false, false, [], 0.45)
 		_hand(s)
 
 func _hand(s: String) -> void:
 	var wrist := _bp("Hand.%s" % s)
+	# Palm hangs vertically now, so it is tall and thin rather than a flat pad.
 	m.begin(["Hand.%s" % s, "Forearm2.%s" % s], "skinlimb", 0.90)
-	m.box(wrist + Vector3(0, -0.016, -0.034), Vector3(0.126, 0.042, 0.100))
+	m.box(wrist + Vector3(0, -0.038, -0.014), Vector3(0.120, 0.092, 0.052))
 
 	for f in 5:
-		# Fingers are invisible past a few metres; drop the outer ones first.
 		if lod == 1 and f == 0:
 			continue
 		if lod >= 2 and (f == 0 or f == 4):
@@ -361,10 +380,9 @@ func _hand(s: String) -> void:
 		var wl := ["Hand.%s" % s, "Finger%d_0.%s" % [f, s],
 			"Finger%d_1.%s" % [f, s], "Finger%d_2.%s" % [f, s]]
 		m.begin(wl, "skinlimb", 0.88)
-		m.tube([j0, j1, j2], [0.021, 0.017, 0.013], _s(4), 0.0, 1.0, true, false, [], 0.0)
-		# Long hooked claw finishing each finger.
+		m.tube([j0, j1, j2], [0.022, 0.018, 0.014], _s(4), 0.0, 1.0, true, false, [], 0.0)
 		m.begin(wl, "claw", 0.92)
-		m.cone(j2, tail, 0.013, 4)
+		m.cone(j2, tail, 0.014, 4)
 
 # -------------------------------------------------------------------- legs
 
@@ -373,13 +391,13 @@ func _legs() -> void:
 		m.begin(["Hips", "Thigh.%s" % s, "Shin.%s" % s, "Hock.%s" % s,
 			"Foot.%s" % s, "Toe.%s" % s], "skinlimb", 0.95)
 		m.tube([
-			_bp("Thigh.%s" % s) + Vector3(0, 0.048, 0.022),
+			_bp("Thigh.%s" % s) + Vector3(0, 0.052, 0.026),
 			_bp("Thigh.%s" % s),
 			_bp("Shin.%s" % s),
 			_bp("Hock.%s" % s),
 			_bp("Foot.%s" % s),
 			_bp("Toe.%s" % s),
-		], [0.112, 0.130, 0.080, 0.054, 0.044, 0.036], _s(6), 0.0, 1.0, false, false, [], 0.50)
+		], [0.132, 0.156, 0.094, 0.060, 0.048, 0.038], _s(6), 0.0, 1.0, false, false, [], 0.50)
 		_foot(s)
 
 ## Cloven hoof-claw hybrid: two forward claws plus a raised dewclaw behind.
@@ -388,83 +406,104 @@ func _foot(s: String) -> void:
 	var mul := 1.0 if s == "L" else -1.0
 	m.begin(["Toe.%s" % s, "Foot.%s" % s], "hoof", 0.80)
 	for d in [-1.0, 1.0]:
-		var base := toe + Vector3(0.020 * d * mul, 0.008, -0.010)
-		var tip := toe + Vector3(0.026 * d * mul, -0.020, -0.108)
-		m.cone(base, tip, 0.024, 4)
+		m.cone(toe + Vector3(0.022 * d * mul, 0.010, -0.008),
+			toe + Vector3(0.028 * d * mul, -0.018, -0.112), 0.026, 4)
 	if lod >= 1:
 		return
-	# Dewclaw, hooked backward off the pastern.
-	var db := toe + Vector3(0.0, 0.052, 0.030)
-	m.cone(db, db + Vector3(0.0, -0.042, 0.056), 0.015, 4)
+	var db := toe + Vector3(0.0, 0.058, 0.052)
+	m.cone(db, db + Vector3(0.0, -0.046, 0.060), 0.016, 4)
+
+# ------------------------------------------------------------------- blood
+
+## Wet blood as narrow vertical runs. A single wide quad reads as a flat card
+## stuck to the model; several thin ones of uneven length read as drips.
+func _blood() -> void:
+	var h := _bp("Head")
+
+	# Off the lower jaw.
+	m.begin(["Jaw", "Head"], "blood", 0.92)
+	for i in 3:
+		var x := (float(i) - 1.0) * 0.026
+		var ln := 0.050 + float(i % 2) * 0.034
+		m.plane(h + Vector3(x, -0.232 - ln * 0.5, -0.238),
+			Vector3(0.011, 0, 0), Vector3(0, ln * 0.5, 0.004), Vector3(0, 0.12, -1).normalized())
+
+	# Down the throat.
+	m.begin(["Neck1", "Neck2", "Head"], "blood", 0.92)
+	var n := _bp("Neck2")
+	for i in 3:
+		var x2 := (float(i) - 1.0) * 0.030
+		var ln2 := 0.075 + float((i + 1) % 2) * 0.040
+		m.plane(n + Vector3(x2, 0.010 - ln2 * 0.5, -0.086),
+			Vector3(0.013, 0, 0), Vector3(0, ln2 * 0.5, 0.006), Vector3(0, 0.10, -1).normalized())
+
+	# Sheeting down the open sternum.
+	m.begin(["Spine*"], "blood", 0.88)
+	for i in 4:
+		var ang := (PI - 0.30) + float(i) * 0.20
+		var top := 5.45 - float(i % 2) * 0.55
+		var bot := top - 1.15 - float(i % 3) * 0.45
+		m.quad(
+			_torso_shell(bot, ang - 0.075, 0.010), _torso_shell(bot, ang + 0.075, 0.010),
+			_torso_shell(top, ang + 0.075, 0.010), _torso_shell(top, ang - 0.075, 0.010),
+			m.u(0, 1), m.u(1, 1), m.u(1, 0), m.u(0, 0), _radial(ang).normalized())
+
+	# Slicking the hands.
+	for sd in ["L", "R"]:
+		m.begin(["Hand.%s" % sd, "Forearm2.%s" % sd], "blood", 0.88)
+		var w := _bp("Hand.%s" % sd)
+		for i in 2:
+			m.plane(w + Vector3((float(i) - 0.5) * 0.042, -0.048, -0.030),
+				Vector3(0.014, 0, 0), Vector3(0, 0.040, 0), Vector3(0, 0, -1))
 
 # --------------------------------------------------------------------- fur
 
-## A point on the torso shell, optionally pushed out along the true radial
-## normal. ang == 0 is the spine ridge.
-func _torso_shell(idx: float, ang: float, push: float = 0.0) -> Vector3:
-	var i := clampi(int(floor(idx)), 0, TORSO.size() - 2)
-	var f := clampf(idx - float(i), 0.0, 1.0)
-	var c: Vector3 = (TORSO[i][0] as Vector3).lerp(TORSO[i + 1][0], f)
-	var r: float = lerpf(float(TORSO[i][1]), float(TORSO[i + 1][1]), f)
-	return c + Vector3(sin(ang), cos(ang), 0.0) * (r + push)
-
 func _fur() -> void:
-	# Heavy coat panel over the withers and shoulders, laid just off the shell.
-	# The push is along the radial normal -- scaling world positions instead
-	# would shove the panel away from the world origin, not off the body.
+	# Heavy coat panel over the shoulders and upper back.
 	m.begin(["Spine*"], "pelt", 0.95)
-	var angs := [-0.62, -0.36, -0.12, 0.12, 0.36, 0.62]
+	var angs := [-0.66, -0.40, -0.13, 0.13, 0.40, 0.66]
 	for seg in range(3, 6):
 		for a in range(angs.size() - 1):
 			var a0: float = angs[a]
 			var a1: float = angs[a + 1]
-			var p0 := _torso_shell(float(seg), a0, 0.008)
-			var p1 := _torso_shell(float(seg), a1, 0.008)
-			var p2 := _torso_shell(float(seg + 1), a1, 0.008)
-			var p3 := _torso_shell(float(seg + 1), a0, 0.008)
 			var am := (a0 + a1) * 0.5
-			m.quad(p0, p1, p2, p3, m.u(0, 0), m.u(1, 0), m.u(1, 1), m.u(0, 1),
-				Vector3(sin(am), cos(am), 0.0))
+			m.quad(
+				_torso_shell(float(seg), a0, 0.008), _torso_shell(float(seg), a1, 0.008),
+				_torso_shell(float(seg + 1), a1, 0.008), _torso_shell(float(seg + 1), a0, 0.008),
+				m.u(0, 0), m.u(1, 0), m.u(1, 1), m.u(0, 1), _radial(am).normalized())
 
-	# Mane running the spine ridge: short, narrow, leaning back.
+	# Mane running down the spine ridge, leaning back off the body.
 	m.begin(["Spine*"], "furcard", 0.95)
 	for i in 9:
 		if lod >= 1 and i % 2 == 1:
 			continue
-		var idx := 2.0 + float(i) * 0.48
-		var lean := sin(float(i) * 1.7) * 0.22
-		# Deterministic but uneven: clump height and width both wander.
+		var idx := 1.6 + float(i) * 0.54
 		var jig := sin(float(i) * 2.9 + 1.3) * 0.5 + 0.5
+		var lean := sin(float(i) * 1.7) * 0.20
 		var root := _torso_shell(idx, lean * 0.4, -0.004)
-		m.card(root, root + Vector3(lean * 0.05, 0.024 + jig * 0.030, 0.052 + jig * 0.034),
-			Vector3(0, 0, 1), 0.062 + jig * 0.030, 0.034 + jig * 0.022)
+		m.card(root, root + Vector3(lean * 0.04, 0.026 + jig * 0.026, 0.048 + jig * 0.034),
+			Vector3(0, 1, 0), 0.060 + jig * 0.028, 0.030 + jig * 0.020)
 
-	# Ruff along the neck crest, and a thinner hang underneath.
+	# Ruff around the neck.
 	m.begin(["Neck1", "Neck2", "Spine5", "Head"], "furcard", 0.95)
 	for i in 6:
 		if lod >= 1 and i % 2 == 1:
 			continue
 		var t := float(i) / 5.0
 		var base: Vector3 = _bp("Spine5").lerp(_bp("Neck2"), t)
-		var root2 := base + Vector3(0, 0.052, 0)
-		m.card(root2, root2 + Vector3(0, 0.034, 0.052), Vector3(0, 0, 1), 0.046, 0.020)
-	for i in 3:
-		var t2 := float(i) / 2.0
-		var base2: Vector3 = _bp("Neck1").lerp(_bp("Head"), t2)
-		var root3 := base2 + Vector3(0, -0.046, 0)
-		m.card(root3, root3 + Vector3(0, -0.052, 0.026), Vector3(0, 0, 1), 0.038, 0.014)
+		var root2 := base + Vector3(0, 0.020, 0.058)
+		m.card(root2, root2 + Vector3(0, 0.030, 0.062), Vector3(1, 0, 0), 0.052, 0.020)
 
-	# Sparse clumps on the shoulders and haunches, keyed off the bones so they
-	# follow any later change to the rig.
+	# Sparse clumps on the shoulders and haunches.
 	for sd in [1.0, -1.0]:
 		var sn := "L" if sd > 0.0 else "R"
 		m.begin(["Clavicle.%s" % sn, "UpperArm.%s" % sn, "Spine5"], "furcard", 0.92)
 		var sh: Vector3 = _bp("Clavicle.%s" % sn).lerp(_bp("UpperArm.%s" % sn), 0.55)
 		for i in 4:
-			var root4 := sh + Vector3(0.030 * sd * float(i) - 0.030 * sd, 0.060 - float(i) * 0.058, 0.010 * float(i))
-			m.card(root4, root4 + Vector3(0.048 * sd, 0.058, 0.016), Vector3(0, 0, 1), 0.042, 0.014)
+			var root4 := sh + Vector3(0.026 * sd * float(i) - 0.026 * sd,
+				0.052 - float(i) * 0.056, 0.026 + 0.014 * float(i))
+			m.card(root4, root4 + Vector3(0.032 * sd, 0.030, 0.052), Vector3(0, 1, 0), 0.048, 0.016)
 		m.begin(["Hips", "Spine1", "Thigh.%s" % sn], "furcard", 0.92)
-		var hp := _bp("Hips")
 		for i in 3:
-			var root5 := hp + Vector3(0.105 * sd, 0.015 - float(i) * 0.048, -0.130 + float(i) * 0.042)
-			m.card(root5, root5 + Vector3(0.026 * sd, 0.058, 0.030), Vector3(0, 0, 1), 0.046, 0.016)
+			var root5 := _torso_shell(0.5 + float(i) * 0.45, 0.9 * sd, -0.004)
+			m.card(root5, root5 + Vector3(0.030 * sd, 0.024, 0.048), Vector3(0, 1, 0), 0.052, 0.018)

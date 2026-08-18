@@ -180,11 +180,13 @@ func clip_walk() -> Animation:
 	rot(a, "Head", func(p): return Vector3(
 		3.0 * _s(p, 2.0, 0.5), 6.0 * _s(p, 1.0, 0.55), 3.0 * _s(p, 1.0, 0.3)))
 	rot(a, "Jaw", func(p): return Vector3(6.0 + 3.0 * _s(p, 2.0, 0.2), 0, 0))
-	# Off-beat phases: 0.00 / 0.42 for the arms, 0.55 / 0.05 for the legs.
-	add_arm(a, "L", 0.00, 26.0, 30.0)
-	add_arm(a, "R", 0.42, 24.0, 27.0)
-	add_leg(a, "L", 0.55, 22.0, 26.0)
-	add_leg(a, "R", 0.05, 21.0, 24.0)
+	# Off-beat phases so the rhythm limps instead of resolving into a clean
+	# gait. Arms now swing counter to the legs rather than reaching for the
+	# ground -- they carry no weight in the upright stance.
+	add_arm(a, "L", 0.52, 15.0, 12.0)
+	add_arm(a, "R", 0.06, 13.0, 10.0)
+	add_leg(a, "L", 0.55, 23.0, 27.0)
+	add_leg(a, "R", 0.05, 22.0, 25.0)
 	add_antler_sway(a, 4.0, 1.0, 0.1)
 	return a
 
@@ -200,11 +202,12 @@ func clip_run() -> Animation:
 	rot(a, "Neck2", func(p): return Vector3(-10.0 + 4.0 * _s(p, 1.0, 0.4), 0, 0))
 	rot(a, "Head", func(p): return Vector3(-6.0 + 4.0 * _s(p, 1.0, 0.5), 3.0 * _s(p, 1.0, 0.5), 0))
 	rot(a, "Jaw", func(p): return Vector3(12.0 + 6.0 * _s(p, 1.0, 0.2), 0, 0))
-	# Bound: the two arms land almost together, then the two legs.
-	add_arm(a, "L", 0.00, 44.0, 52.0)
-	add_arm(a, "R", 0.10, 42.0, 50.0)
-	add_leg(a, "L", 0.52, 38.0, 46.0)
-	add_leg(a, "R", 0.60, 37.0, 44.0)
+	# Sprinting upright: long driving strides with the arms pumping hard and
+	# out of step with each other.
+	add_arm(a, "L", 0.54, 30.0, 26.0)
+	add_arm(a, "R", 0.02, 28.0, 24.0)
+	add_leg(a, "L", 0.00, 40.0, 48.0)
+	add_leg(a, "R", 0.52, 38.0, 45.0)
 	add_antler_sway(a, 6.0, 1.0, 0.12)
 	return a
 
@@ -344,8 +347,8 @@ func clip_death() -> Animation:
 	var twitch := func(p): return _pulse(p, 0.80, 0.03) * 0.5
 	pos(a, "Hips", func(p): return Vector3(
 		0.05 * sink.call(p),
-		-0.58 * buckle.call(p) - 0.46 * sink.call(p),
-		0.08 * buckle.call(p) - 0.04 * sink.call(p)))
+		-0.86 * buckle.call(p) - 0.68 * sink.call(p),
+		0.12 * buckle.call(p) - 0.06 * sink.call(p)))
 	rot(a, "Hips", func(p): return Vector3(
 		-8.0 * buckle.call(p) + 16.0 * sink.call(p), 6.0 * sink.call(p),
 		10.0 * buckle.call(p) + 26.0 * sink.call(p)))

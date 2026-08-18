@@ -1,5 +1,12 @@
 # Skinwalker (Wendigo-Elk) asset pipeline
 
+The creature stands upright at ~3.4m to the antler tips. Its torso is a
+VERTICAL column, so every helper that wraps the body works on a horizontal
+cross-section: `ang == 0` is the spine ridge at the back (+Z), `ang == PI` is
+the sternum. Anything riding the shell must use `_radial()`, which carries the
+same squash as the torso tube -- treating the cross-section as a circle floats
+the ribs off the flank.
+
 The whole creature -- skeleton, meshes, textures, materials, animations,
 collision and scenes -- is generated from these scripts. Nothing here is
 hand-edited binary; change a number, rerun, and the asset rebuilds.
@@ -81,3 +88,8 @@ clips, the collision proxy, and writes `models/skinwalker/skinwalker.glb`.
   white. The creature renders on layer 2 and the lamps mask it out, which lets
   them run at a useful energy and throw light into the world instead. Raising
   their energy without that mask just floodlights the model orange.
+- **Decals need feathered tiles.** Gore and wound patches are quads laid on the
+  hide; a tile with a hard edge reads as a rectangle pasted on the model. The
+  `gore` tile fades to hide colour at its border for exactly this reason, and
+  blood is drawn as several narrow runs of uneven length rather than one wide
+  card.

@@ -208,6 +208,13 @@ func _paint_gore() -> void:
 			if t < 0.18:
 				c = c.darkened(0.4)  # clotted near-black crust
 				rr = 0.55
+			# Feather the outer border into hide colour. These tiles are used as
+			# decal patches, and a hard tile edge reads as a pasted rectangle.
+			var bx := minf(float(x), float(r.size.x - 1 - x)) / float(r.size.x)
+			var by := minf(float(y), float(r.size.y - 1 - y)) / float(r.size.y)
+			var edge := clampf(minf(bx, by) * 5.5, 0.0, 1.0)
+			c = Color8(58, 46, 39).lerp(c, edge)
+			rr = lerpf(0.85, rr, edge)
 			var ao := _edge_ao(r, x, y, 0.30)
 			_emit(r, x, y, Color(c.r * ao, c.g * ao, c.b * ao, 1.0), h, rr)
 

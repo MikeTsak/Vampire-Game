@@ -202,28 +202,28 @@ func _hit_proxy() -> Area3D:
 	var body := CollisionShape3D.new()
 	body.name = "BodyMass"
 	var bc := CapsuleShape3D.new()
-	bc.radius = 0.34
-	bc.height = 1.72
+	bc.radius = 0.36
+	bc.height = 2.10
 	body.shape = bc
-	body.position = Vector3(0, 0.86, -0.06)
+	body.position = Vector3(0, 1.05, 0.02)
 	area.add_child(body)
 
 	var torso := CollisionShape3D.new()
 	torso.name = "Torso"
 	var tc := CapsuleShape3D.new()
-	tc.radius = 0.17
-	tc.height = 0.62
+	tc.radius = 0.25
+	tc.height = 0.80
 	torso.shape = tc
-	# Laid along Z: the ribcage is horizontal in this hunched stance.
-	torso.transform = Transform3D(Basis(Vector3.RIGHT, PI * 0.5), Vector3(0, 1.67, 0.01))
+	# Upright with the column, leaning forward with the hunch.
+	torso.transform = Transform3D(Basis(Vector3.RIGHT, deg_to_rad(-12.0)), Vector3(0, 2.16, -0.12))
 	area.add_child(torso)
 
 	var head := CollisionShape3D.new()
 	head.name = "Head"
 	var hb := BoxShape3D.new()
-	hb.size = Vector3(0.20, 0.22, 0.46)
+	hb.size = Vector3(0.24, 0.26, 0.52)
 	head.shape = hb
-	head.position = Vector3(0, 1.93, -0.72)
+	head.position = Vector3(0, 2.60, -0.60)
 	area.add_child(head)
 	return area
 
@@ -260,7 +260,7 @@ func _save_preview(meshes: Array) -> void:
 	# Orbit rig: spin Turntable.rotation.y to change the review angle.
 	var turn := Node3D.new()
 	turn.name = "Turntable"
-	turn.position = Vector3(0, 1.35, -0.25)
+	turn.position = Vector3(0, 1.80, -0.16)
 	turn.rotation = Vector3(0, deg_to_rad(145.0), 0)
 	root.add_child(turn)
 
@@ -268,7 +268,7 @@ func _save_preview(meshes: Array) -> void:
 	cam.name = "Camera3D"
 	cam.current = true
 	cam.fov = 36.0
-	cam.position = Vector3(0, 0.30, 4.45)
+	cam.position = Vector3(0, 0.35, 6.10)
 	cam.rotation = Vector3(deg_to_rad(-3.5), 0, 0)
 	turn.add_child(cam)
 
