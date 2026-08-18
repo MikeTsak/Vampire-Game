@@ -267,7 +267,7 @@ omni_range = 15.0
 
 [node name="GunSound" type="AudioStreamPlayer" parent="." unique_id=168602250]
 stream = ExtResource("4_qu4a1")
-volume_db = 2.0
+volume_db = 4.0
 bus = &"PS1_Retro"
 
 [node name="FootstepSound" type="AudioStreamPlayer" parent="." unique_id=293179814]

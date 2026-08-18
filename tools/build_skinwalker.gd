@@ -180,12 +180,14 @@ func _save_character(meshes: Array) -> void:
 
 	root.add_child(_hit_proxy())
 
-	# Autoplay is left empty on purpose. The existing AI script drives the Head
-	# bone directly every frame; letting a clip play unasked would fight it.
-	# The gameplay layer opts in when it is ready (see the handover notes).
+	# Safe to autoplay now: neither looping clip keys the Head bone, so the AI
+	# script's per-frame head look-at no longer has a second writer to fight.
+	# The attached driver swaps idle/run from the AI's own state.
 	var ap := AnimationPlayer.new()
 	ap.name = "AnimationPlayer"
 	ap.add_animation_library("", load(ANIM_PATH))
+	ap.autoplay = "idle"
+	ap.set_script(load("res://scripts/skinwalker_anim.gd"))
 	root.add_child(ap)
 
 	_pack(root, SCENE_PATH, KEEP_UID)

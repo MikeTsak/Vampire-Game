@@ -137,32 +137,48 @@ func add_antler_sway(a: Animation, amp: float, cycles: float, phase: float = 0.0
 
 # ----------------------------------------------------------------- the clips
 
-## 1. Idle -- labored breathing, the ribcage visibly working, occasional head
-## twitch, weight rocking between the long arms and the hind legs.
+## 1. Idle -- labored breathing with the ribcage visibly working, weight
+## rocking foot to foot, and two sharp wrong-looking head twitches per loop.
+##
+## Note: this clip does NOT key the Head bone. skinwalker_new.gd writes the
+## head pose every frame for its look-at, and two writers fighting over one
+## bone jitters. Driving the twitch from Neck2 still carries the skull with it
+## (Head is a child) and leaves the AI free to aim it.
 func clip_idle() -> Animation:
-	var a := _anim(4.0, true)
-	# Breath is 2 cycles over the clip, with a sharp intake and slow release.
-	var breath := func(p): return pow(maxf(0.0, sin(p * 2.0 * TAU)), 0.6)
-	pos(a, "Hips", func(p): return Vector3(0, -0.014 * breath.call(p) + 0.008 * _s(p, 1.0), 0))
-	rot(a, "Hips", func(p): return Vector3(1.2 * breath.call(p), 0, 2.0 * _s(p, 1.0)))
-	for i in [2, 3, 4]:
+	var a := _anim(4.4, true)
+	# Sharp intake, slow release -- two breaths per loop.
+	var breath := func(p): return pow(maxf(0.0, sin(p * 2.0 * TAU)), 0.55)
+	var shift := func(p): return sin(p * TAU)
+	# Two twitches, the second smaller and in the other direction.
+	var twitch := func(p): return _pulse(p, 0.30, 0.030) - 0.75 * _pulse(p, 0.66, 0.024)
+
+	pos(a, "Hips", func(p): return Vector3(
+		0.016 * shift.call(p), -0.030 * breath.call(p) + 0.010 * _s(p, 1.0, 0.25), 0.0))
+	rot(a, "Hips", func(p): return Vector3(
+		1.8 * breath.call(p), 3.0 * shift.call(p), 4.5 * shift.call(p)))
+	for i in [1, 2, 3, 4, 5]:
 		rot(a, "Spine%d" % i, func(p): return Vector3(
-			-2.4 * breath.call(p), 0.6 * _s(p, 1.0, 0.2), 1.1 * _s(p, 1.0, 0.3)))
-	# Two quick, wrong-looking head twitches per loop.
-	var twitch := func(p): return _pulse(p, 0.34, 0.035) - 0.7 * _pulse(p, 0.71, 0.028)
-	rot(a, "Neck1", func(p): return Vector3(2.0 * breath.call(p) - 1.5, 3.0 * _s(p, 1.0, 0.1), 0))
-	rot(a, "Neck2", func(p): return Vector3(2.5 * _s(p, 1.0, 0.25), 5.0 * _s(p, 1.0, 0.35), 0))
-	rot(a, "Head", func(p): return Vector3(
-		1.8 * _s(p, 2.0, 0.4) - 2.0 * twitch.call(p),
-		16.0 * twitch.call(p) + 2.5 * _s(p, 1.0, 0.5),
-		4.0 * twitch.call(p)))
-	# Jaw hangs open and works with the breath.
-	rot(a, "Jaw", func(p): return Vector3(7.0 + 4.0 * breath.call(p), 0, 0))
-	add_arm(a, "L", 0.0, 3.0, 2.0)
-	add_arm(a, "R", 0.5, 2.4, 1.6)
-	add_leg(a, "L", 0.25, 2.0, 1.2)
-	add_leg(a, "R", 0.75, 2.0, 1.2)
-	add_antler_sway(a, 2.2, 1.0)
+			-3.6 * breath.call(p), 1.4 * _s(p, 1.0, 0.2), 2.2 * _s(p, 1.0, 0.3)))
+	rot(a, "Neck1", func(p): return Vector3(
+		3.0 * breath.call(p) - 2.0 + 2.0 * _s(p, 1.0, 0.1),
+		5.0 * _s(p, 1.0, 0.15) + 11.0 * twitch.call(p), 0.0))
+	rot(a, "Neck2", func(p): return Vector3(
+		-2.5 * _s(p, 2.0, 0.25) - 3.5 * twitch.call(p),
+		8.0 * _s(p, 1.0, 0.35) + 26.0 * twitch.call(p),
+		7.0 * twitch.call(p)))
+	rot(a, "Jaw", func(p): return Vector3(6.0 + 7.0 * breath.call(p), 0, 0))
+
+	# The arms hang free now, so they swing like loaded pendulums.
+	rot(a, "UpperArm.L", func(p): return Vector3(3.6 * _s(p, 1.0, 0.0), 0, -2.2 * _s(p, 1.0, 0.1)))
+	rot(a, "UpperArm.R", func(p): return Vector3(3.0 * _s(p, 1.0, 0.45), 0, 2.0 * _s(p, 1.0, 0.55)))
+	rot(a, "Forearm1.L", func(p): return Vector3(-4.5 * _s(p, 1.0, 0.15), 0, 0))
+	rot(a, "Forearm1.R", func(p): return Vector3(-3.8 * _s(p, 1.0, 0.60), 0, 0))
+	rot(a, "Forearm2.L", func(p): return Vector3(-2.5 * _s(p, 1.0, 0.22), 0, 0))
+	rot(a, "Forearm2.R", func(p): return Vector3(-2.0 * _s(p, 1.0, 0.66), 0, 0))
+	# Knees barely give -- enough to live, not enough to slide the feet.
+	add_leg(a, "L", 0.25, 1.0, 0.8)
+	add_leg(a, "R", 0.75, 0.9, 0.7)
+	add_antler_sway(a, 3.2, 1.0)
 	return a
 
 ## 2. Walk -- semi-quadrupedal lope. Limb phases are deliberately NOT evenly
@@ -176,9 +192,10 @@ func clip_walk() -> Animation:
 		rot(a, "Spine%d" % i, func(p): return Vector3(
 			-3.0 + 2.2 * _s(p, 2.0), 2.0 * _s(p, 1.0, 0.2), -2.5 * _s(p, 1.0, 0.15)))
 	rot(a, "Neck1", func(p): return Vector3(6.0 + 4.0 * _s(p, 2.0, 0.3), 4.0 * _s(p, 1.0, 0.4), 0))
-	rot(a, "Neck2", func(p): return Vector3(-4.0 + 3.0 * _s(p, 2.0, 0.45), 5.0 * _s(p, 1.0, 0.5), 0))
-	rot(a, "Head", func(p): return Vector3(
-		3.0 * _s(p, 2.0, 0.5), 6.0 * _s(p, 1.0, 0.55), 3.0 * _s(p, 1.0, 0.3)))
+	# Head-bob folded into Neck2: like idle, walk loops under AI control and
+	# must not fight skinwalker_new.gd for the Head bone.
+	rot(a, "Neck2", func(p): return Vector3(
+		-4.0 + 4.5 * _s(p, 2.0, 0.45), 8.0 * _s(p, 1.0, 0.5), 3.0 * _s(p, 1.0, 0.3)))
 	rot(a, "Jaw", func(p): return Vector3(6.0 + 3.0 * _s(p, 2.0, 0.2), 0, 0))
 	# Off-beat phases so the rhythm limps instead of resolving into a clean
 	# gait. Arms now swing counter to the legs rather than reaching for the

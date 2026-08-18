@@ -218,34 +218,34 @@ bind/67/name = &""
 bind/67/bone = 67
 bind/67/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, -0.019999996, 0.17000002)
 
-[node name="SkinwalkerPreview" type="Node3D" unique_id=1435835002]
+[node name="SkinwalkerPreview" type="Node3D" unique_id=889253591]
 script = ExtResource("1_sw72w")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=737322252]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1036312659]
 environment = SubResource("Environment_0vnf3")
 
-[node name="KeyLight" type="DirectionalLight3D" parent="." unique_id=1678423408]
+[node name="KeyLight" type="DirectionalLight3D" parent="." unique_id=975146353]
 transform = Transform3D(-0.73994005, -0.50636965, 0.44280744, 0, 0.65828055, 0.7527727, -0.67267275, 0.55700666, -0.4870882, 0, 0, 0)
 light_energy = 1.05
 
-[node name="FillLight" type="DirectionalLight3D" parent="." unique_id=1061453528]
+[node name="FillLight" type="DirectionalLight3D" parent="." unique_id=747691612]
 transform = Transform3D(0.59999996, 0.1940285, -0.77611405, 0, 0.9701425, 0.24253564, 0.79999995, -0.14552137, 0.58208555, 0, 0, 0)
 light_color = Color(0.75, 0.8, 0.95, 1)
 light_energy = 0.45
 
-[node name="Turntable" type="Node3D" parent="." unique_id=427573178]
+[node name="Turntable" type="Node3D" parent="." unique_id=223664875]
 transform = Transform3D(-0.81915206, 0, 0.57357645, 0, 1, 0, -0.57357645, 0, -0.81915206, 0, 1.8, -0.16)
 
-[node name="Camera3D" type="Camera3D" parent="Turntable" unique_id=2131008195]
+[node name="Camera3D" type="Camera3D" parent="Turntable" unique_id=791193521]
 transform = Transform3D(1, 0, 0, 0, 0.9981348, 0.06104854, 0, -0.06104854, 0.9981348, 0, 0.35, 6.1)
 current = true
 fov = 36.0
 
-[node name="Skinwalker" type="Node3D" parent="." unique_id=120355938]
+[node name="Skinwalker" type="Node3D" parent="." unique_id=707287265]
 
-[node name="MeshBase" type="Node3D" parent="Skinwalker" unique_id=326424463]
+[node name="MeshBase" type="Node3D" parent="Skinwalker" unique_id=167224143]
 
-[node name="Skeleton3D" type="Skeleton3D" parent="Skinwalker/MeshBase" unique_id=2086050569]
+[node name="Skeleton3D" type="Skeleton3D" parent="Skinwalker/MeshBase" unique_id=1731256914]
 bones/0/name = "Hips"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82, 0.13)
@@ -723,17 +723,17 @@ bones/67/position = Vector3(0, -0.165, -0.19)
 bones/67/rotation = Quaternion(0, 0, 0, 1)
 bones/67/scale = Vector3(1, 1, 1)
 
-[node name="SkinwalkerLOD0" type="MeshInstance3D" parent="Skinwalker/MeshBase/Skeleton3D" unique_id=785293892]
+[node name="SkinwalkerLOD0" type="MeshInstance3D" parent="Skinwalker/MeshBase/Skeleton3D" unique_id=1688827340]
 layers = 2
 mesh = ExtResource("2_lyscw")
 skin = SubResource("Skin_0o6wa")
 skeleton = NodePath("..")
 
-[node name="HeadAttach" type="BoneAttachment3D" parent="Skinwalker/MeshBase/Skeleton3D" unique_id=87069410]
+[node name="HeadAttach" type="BoneAttachment3D" parent="Skinwalker/MeshBase/Skeleton3D" unique_id=78273206]
 bone_name = "Head"
 bone_idx = 8
 
-[node name="EyeGlowL" type="OmniLight3D" parent="Skinwalker/MeshBase/Skeleton3D/HeadAttach" unique_id=929054109]
+[node name="EyeGlowL" type="OmniLight3D" parent="Skinwalker/MeshBase/Skeleton3D/HeadAttach" unique_id=1389172343]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.098, 0.045, -0.106)
 light_color = Color(1, 0.7, 0.24, 1)
 light_energy = 1.8
@@ -742,7 +742,7 @@ light_cull_mask = 1048573
 omni_range = 5.5
 omni_attenuation = 1.4
 
-[node name="EyeGlowR" type="OmniLight3D" parent="Skinwalker/MeshBase/Skeleton3D/HeadAttach" unique_id=1977648221]
+[node name="EyeGlowR" type="OmniLight3D" parent="Skinwalker/MeshBase/Skeleton3D/HeadAttach" unique_id=971681279]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.098, 0.045, -0.106)
 light_color = Color(1, 0.7, 0.24, 1)
 light_energy = 1.8
@@ -751,5 +751,5 @@ light_cull_mask = 1048573
 omni_range = 5.5
 omni_attenuation = 1.4
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Skinwalker" unique_id=1768400342]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Skinwalker" unique_id=2008972427]
 libraries/ = ExtResource("3_eyoa4")

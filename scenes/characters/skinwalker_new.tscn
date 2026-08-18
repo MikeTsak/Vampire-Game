@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://yvhkawsto53o"]
 
-[ext_resource type="Script" uid="uid://c4t0olk0rxrlb" path="res://scripts/skinwalker_new.gd" id="1_uvcrk"]
-[ext_resource type="ArrayMesh" path="res://models/skinwalker/skinwalker_lod0.res" id="2_2yu4o"]
-[ext_resource type="ArrayMesh" path="res://models/skinwalker/skinwalker_lod1.res" id="3_j5v8t"]
-[ext_resource type="ArrayMesh" path="res://models/skinwalker/skinwalker_lod2.res" id="4_hui54"]
-[ext_resource type="AnimationLibrary" path="res://animations/skinwalker.res" id="5_um0p6"]
+[ext_resource type="Script" uid="uid://c4t0olk0rxrlb" path="res://scripts/skinwalker_new.gd" id="1_2yu4o"]
+[ext_resource type="ArrayMesh" path="res://models/skinwalker/skinwalker_lod0.res" id="2_j5v8t"]
+[ext_resource type="ArrayMesh" path="res://models/skinwalker/skinwalker_lod1.res" id="3_hui54"]
+[ext_resource type="ArrayMesh" path="res://models/skinwalker/skinwalker_lod2.res" id="4_um0p6"]
+[ext_resource type="AnimationLibrary" path="res://animations/skinwalker.res" id="5_4ys8j"]
+[ext_resource type="Script" path="res://scripts/skinwalker_anim.gd" id="6_hdxdf"]
 
-[sub_resource type="Skin" id="Skin_4ys8j"]
+[sub_resource type="Skin" id="Skin_qr2r7"]
 bind_count = 68
 bind/0/name = &""
 bind/0/bone = 0
@@ -213,23 +214,23 @@ bind/67/name = &""
 bind/67/bone = 67
 bind/67/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, -0.019999996, 0.17000002)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hdxdf"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_meybx"]
 radius = 0.36
 height = 2.1
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qr2r7"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2wljm"]
 radius = 0.25
 height = 0.8
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_meybx"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_41o2a"]
 size = Vector3(0.24, 0.26, 0.52)
 
-[node name="skinwalker_new" type="Node3D" unique_id=338040603]
-script = ExtResource("1_uvcrk")
+[node name="skinwalker_new" type="Node3D" unique_id=1841528327]
+script = ExtResource("1_2yu4o")
 
-[node name="MeshBase" type="Node3D" parent="." unique_id=1916603976]
+[node name="MeshBase" type="Node3D" parent="." unique_id=701516852]
 
-[node name="Skeleton3D" type="Skeleton3D" parent="MeshBase" unique_id=1009145295]
+[node name="Skeleton3D" type="Skeleton3D" parent="MeshBase" unique_id=468691194]
 bones/0/name = "Hips"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82, 0.13)
@@ -707,33 +708,33 @@ bones/67/position = Vector3(0, -0.165, -0.19)
 bones/67/rotation = Quaternion(0, 0, 0, 1)
 bones/67/scale = Vector3(1, 1, 1)
 
-[node name="SkinwalkerLOD0" type="MeshInstance3D" parent="MeshBase/Skeleton3D" unique_id=179517229]
+[node name="SkinwalkerLOD0" type="MeshInstance3D" parent="MeshBase/Skeleton3D" unique_id=1197067896]
 layers = 2
 visibility_range_end = 20.0
-mesh = ExtResource("2_2yu4o")
-skin = SubResource("Skin_4ys8j")
+mesh = ExtResource("2_j5v8t")
+skin = SubResource("Skin_qr2r7")
 skeleton = NodePath("..")
 
-[node name="SkinwalkerLOD1" type="MeshInstance3D" parent="MeshBase/Skeleton3D" unique_id=795077853]
+[node name="SkinwalkerLOD1" type="MeshInstance3D" parent="MeshBase/Skeleton3D" unique_id=1334804164]
 layers = 2
 visibility_range_begin = 20.0
 visibility_range_end = 48.0
-mesh = ExtResource("3_j5v8t")
-skin = SubResource("Skin_4ys8j")
+mesh = ExtResource("3_hui54")
+skin = SubResource("Skin_qr2r7")
 skeleton = NodePath("..")
 
-[node name="SkinwalkerLOD2" type="MeshInstance3D" parent="MeshBase/Skeleton3D" unique_id=204198057]
+[node name="SkinwalkerLOD2" type="MeshInstance3D" parent="MeshBase/Skeleton3D" unique_id=2089527251]
 layers = 2
 visibility_range_begin = 48.0
-mesh = ExtResource("4_hui54")
-skin = SubResource("Skin_4ys8j")
+mesh = ExtResource("4_um0p6")
+skin = SubResource("Skin_qr2r7")
 skeleton = NodePath("..")
 
-[node name="HeadAttach" type="BoneAttachment3D" parent="MeshBase/Skeleton3D" unique_id=1647820821]
+[node name="HeadAttach" type="BoneAttachment3D" parent="MeshBase/Skeleton3D" unique_id=92549467]
 bone_name = "Head"
 bone_idx = 8
 
-[node name="EyeGlowL" type="OmniLight3D" parent="MeshBase/Skeleton3D/HeadAttach" unique_id=1918655795]
+[node name="EyeGlowL" type="OmniLight3D" parent="MeshBase/Skeleton3D/HeadAttach" unique_id=2010558488]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.098, 0.045, -0.106)
 light_color = Color(1, 0.7, 0.24, 1)
 light_energy = 1.8
@@ -742,7 +743,7 @@ light_cull_mask = 1048573
 omni_range = 5.5
 omni_attenuation = 1.4
 
-[node name="EyeGlowR" type="OmniLight3D" parent="MeshBase/Skeleton3D/HeadAttach" unique_id=590224048]
+[node name="EyeGlowR" type="OmniLight3D" parent="MeshBase/Skeleton3D/HeadAttach" unique_id=180230646]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.098, 0.045, -0.106)
 light_color = Color(1, 0.7, 0.24, 1)
 light_energy = 1.8
@@ -751,20 +752,22 @@ light_cull_mask = 1048573
 omni_range = 5.5
 omni_attenuation = 1.4
 
-[node name="HitProxy" type="Area3D" parent="." unique_id=1154755807]
+[node name="HitProxy" type="Area3D" parent="." unique_id=2114169952]
 monitoring = false
 
-[node name="BodyMass" type="CollisionShape3D" parent="HitProxy" unique_id=1843475636]
+[node name="BodyMass" type="CollisionShape3D" parent="HitProxy" unique_id=523234340]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0.02)
-shape = SubResource("CapsuleShape3D_hdxdf")
+shape = SubResource("CapsuleShape3D_meybx")
 
-[node name="Torso" type="CollisionShape3D" parent="HitProxy" unique_id=392040142]
+[node name="Torso" type="CollisionShape3D" parent="HitProxy" unique_id=1412703469]
 transform = Transform3D(1, 0, 0, 0, 0.9781476, 0.2079117, 0, -0.2079117, 0.9781476, 0, 2.16, -0.12)
-shape = SubResource("CapsuleShape3D_qr2r7")
+shape = SubResource("CapsuleShape3D_2wljm")
 
-[node name="Head" type="CollisionShape3D" parent="HitProxy" unique_id=204051267]
+[node name="Head" type="CollisionShape3D" parent="HitProxy" unique_id=778325405]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, -0.6)
-shape = SubResource("BoxShape3D_meybx")
+shape = SubResource("BoxShape3D_41o2a")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1823678722]
-libraries/ = ExtResource("5_um0p6")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1099055108]
+libraries/ = ExtResource("5_4ys8j")
+autoplay = &"idle"
+script = ExtResource("6_hdxdf")

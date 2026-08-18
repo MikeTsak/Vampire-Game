@@ -161,7 +161,8 @@ func shoot():
 	print("Bang!")
 	# ── Gunshot Audio ───────────────────────────────────────────────
 	if gun_sound and gun_sound.stream:
-		gun_sound.pitch_scale = randf_range(0.95, 1.05)
+		gun_sound.pitch_scale = 1.0                     # Real guns don't vary in pitch
+		gun_sound.volume_db = randf_range(-0.5, 0.5)    # Tiny vol variation per shot
 		gun_sound.play()
 	elif has_node("ShootAudio"):
 		$ShootAudio.play()
