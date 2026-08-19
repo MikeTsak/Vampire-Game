@@ -1,4 +1,4 @@
-# Parnitha 1939
+# Parnitha 1937
 
 **an _Athens Through Time_ LARP story**
 
@@ -13,7 +13,7 @@ Part of the **Athens Through Time** LARP universe — [attlarp.gr](https://attla
 
 A retro PS1-styled 3D horror game built in Godot 4. The player explores a pitch-black forest using an ultra-powerful WWI trench flashlight. The core gameplay involves hunting and trapping corrupted wildlife (deer, sheep, and their young), dragging their carcasses, and stacking them on a tarp drop-off zone to earn Drachmas (₯).
 
-Set in the eerie Greek wilderness of Mount Parnitha in 1939, the game features heavy retro screen filters, scanlines, and an oppressive atmosphere spanning landmarks like the **"Soul Park"** and the looming **"Sanatorium of Parnitha"**.
+Set in the eerie Greek wilderness of Mount Parnitha in 1937, the game features heavy retro screen filters, scanlines, and an oppressive atmosphere spanning landmarks like the **"Soul Park"** and the looming **"Sanatorium of Parnitha"**.
 
 ---
 

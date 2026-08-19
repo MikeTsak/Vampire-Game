@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://c6a8b1c2d3e4f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_black"]
+shading_mode = 0
+albedo_color = Color(0.05, 0.05, 0.05, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_red"]
+shading_mode = 0
+albedo_color = Color(0.5, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_frame_base"]
+material = SubResource("StandardMaterial3D_black")
+top_radius = 1.2
+bottom_radius = 1.2
+height = 0.2
+radial_segments = 16
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pillar"]
+material = SubResource("StandardMaterial3D_black")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 3.0
+radial_segments = 8
+
+[sub_resource type="ConeMesh" id="ConeMesh_sand"]
+material = SubResource("StandardMaterial3D_red")
+top_radius = 0.0
+bottom_radius = 0.8
+height = 1.2
+radial_segments = 16
+
+[sub_resource type="PrismMesh" id="PrismMesh_wing"]
+material = SubResource("StandardMaterial3D_red")
+size = Vector3(2.0, 2.0, 0.1)
+
+[node name="StudioLogo" type="Node3D"]
+
+[node name="FrameTop" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_frame_base")
+
+[node name="FrameBottom" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+mesh = SubResource("CylinderMesh_frame_base")
+
+[node name="PillarLeft" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0, 0)
+mesh = SubResource("CylinderMesh_pillar")
+
+[node name="PillarRight" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0, 0)
+mesh = SubResource("CylinderMesh_pillar")
+
+[node name="SandTop" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0.8, 0)
+mesh = SubResource("ConeMesh_sand")
+
+[node name="SandBottom" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+mesh = SubResource("ConeMesh_sand")
+
+[node name="WingLeft" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="WingLeft"]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -1.0, 0, 0)
+mesh = SubResource("PrismMesh_wing")
+
+[node name="WingRight" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="WingRight"]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 1.0, 0, 0)
+mesh = SubResource("PrismMesh_wing")

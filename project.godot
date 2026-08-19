@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Parnitha 1939"
-config/description="Parnitha 1939 — an Athens Through Time LARP story.
+config/name="Parnitha 1937"
+config/description="Parnitha 1937 — an Athens Through Time LARP story.
 Created by Michail Tsakiroglou (miketsak.gr / agileadvisors.gr).
 https://attlarp.gr"
 run/main_scene="res://ui/MainMenu.tscn"
@@ -31,7 +31,7 @@ window/stretch/aspect="expand"
 
 [dotnet]
 
-project/assembly_name="Parnitha1939"
+project/assembly_name="Parnitha1937"
 
 [editor_plugins]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_x262b"]
-[ext_resource type="AudioStream" path="res://audio/forest_ambience.wav" id="2_fa"]
+[ext_resource type="AudioStream" path="res://audio/classic_horror_3.wav" id="2_fa"]
 [ext_resource type="PackedScene" path="res://scenes/environment/SanatoriumBuilding_new.tscn" id="3_sb"]
 [ext_resource type="Script" path="res://scripts/menu_camera.gd" id="4_mc"]
 [ext_resource type="Texture2D" path="res://textures/branding/logo_glow.png" id="5_qo3sn"]
@@ -18,24 +18,13 @@ fog_enabled = true
 fog_light_color = Color(0, 0, 0, 1)
 fog_density = 0.02
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_youui"]
-content_margin_left = 12.0
-content_margin_top = 6.0
-content_margin_right = 12.0
-content_margin_bottom = 6.0
-bg_color = Color(0.9, 0.88, 0.84, 0.93)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
 [node name="MainMenu" type="Node"]
 script = ExtResource("1_x262b")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_fa")
 autoplay = true
-bus = &"PS1_Retro"
+bus = &"Music"
 
 [node name="Background3D" type="Node3D" parent="."]
 
@@ -117,7 +106,7 @@ theme_override_font_sizes/font_size = 66
 theme_override_colors/font_color = Color(0.62, 0.07, 0.09, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-text = "ΠΑΡΝΗΘΑ 1939"
+text = "ΠΑΡΝΗΘΑ 1937"
 horizontal_alignment = 1
 
 
@@ -229,27 +218,23 @@ grow_vertical = 0
 mouse_filter = 2
 theme_override_constants/separation = 4
 
+[node name="PartnerRow" type="CenterContainer" parent="UILayer/Control/Footer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="AgileAdvisorsLogo" type="TextureRect" parent="UILayer/Control/Footer/PartnerRow"]
+custom_minimum_size = Vector2(140, 44)
+layout_mode = 2
+texture = ExtResource("8_uvwf2")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Credit" type="Label" parent="UILayer/Control/Footer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 theme_override_colors/font_color = Color(0.58, 0.54, 0.49, 1)
 text = "created by  Michail Tsakiroglou"
 horizontal_alignment = 1
-
-[node name="PartnerRow" type="CenterContainer" parent="UILayer/Control/Footer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="Plaque" type="PanelContainer" parent="UILayer/Control/Footer/PartnerRow"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_youui")
-
-[node name="AgileAdvisorsLogo" type="TextureRect" parent="UILayer/Control/Footer/PartnerRow/Plaque"]
-custom_minimum_size = Vector2(140, 44)
-layout_mode = 2
-texture = ExtResource("8_uvwf2")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="Links" type="Label" parent="UILayer/Control/Footer"]
 layout_mode = 2

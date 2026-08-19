@@ -59,6 +59,26 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 
+[node name="MusicVolumeBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/MusicVolumeBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ff")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+text = "MUSIC VOLUME"
+
+[node name="MusicSlider" type="HSlider" parent="CenterContainer/VBoxContainer/MusicVolumeBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
 [node name="SFXVolumeBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
@@ -89,7 +109,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ff")
 theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
-text = "MOUSE SENSITIVITY"
+text = "SENSITIVITY"
 
 [node name="SensitivitySlider" type="HSlider" parent="CenterContainer/VBoxContainer/SensitivityBox"]
 custom_minimum_size = Vector2(200, 0)
@@ -98,48 +118,6 @@ size_flags_vertical = 4
 min_value = 0.1
 max_value = 5.0
 step = 0.1
-value = 1.0
-
-[node name="GamepadBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/GamepadBox"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_ff")
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
-text = "GAMEPAD SENSITIVITY"
-
-[node name="GamepadSlider" type="HSlider" parent="CenterContainer/VBoxContainer/GamepadBox"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_vertical = 4
-min_value = 0.1
-max_value = 5.0
-step = 0.1
-value = 2.0
-
-[node name="PixelationBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PixelationBox"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_ff")
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
-text = "3D PIXELATION"
-
-[node name="PixelationSlider" type="HSlider" parent="CenterContainer/VBoxContainer/PixelationBox"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_vertical = 4
-min_value = 0.25
-max_value = 1.0
-step = 0.05
 value = 1.0
 
 [node name="BrightnessBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]

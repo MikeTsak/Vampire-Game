@@ -1,5 +1,5 @@
 extends MainLoop
-## Rebuilds ui/MainMenu.tscn with the Parnitha 1939 branding.
+## Rebuilds ui/MainMenu.tscn with the Parnitha 1937 branding.
 ##
 ## Node names main_menu.gd depends on are preserved exactly: a VBoxContainer
 ## holding PlayButton / SettingsButton / ModelViewerButton / ExitButton, since
@@ -106,12 +106,12 @@ func _header() -> Control:
 	eyebrow.add_theme_color_override("font_color", Color(0.58, 0.54, 0.48))
 	box.add_child(eyebrow)
 
-	var title := _label("Title", "PARNITHA 1939", 66, BLOOD, _font)
+	var title := _label("Title", "PARNITHA 1937", 66, BLOOD, _font)
 	title.add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
 	title.add_theme_constant_override("outline_size", 8)
 	box.add_child(title)
 
-	var greek := _label("TitleGreek", "ΠΑΡΝΗΘΑ 1939", 20, Color(0.50, 0.46, 0.44), _font)
+	var greek := _label("TitleGreek", "ΠΑΡΝΗΘΑ 1937", 20, Color(0.50, 0.46, 0.44), _font)
 	box.add_child(greek)
 
 	var tag := _label("Tagline", "an Athens Through Time LARP story", 14, DIM)

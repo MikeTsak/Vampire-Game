@@ -137,7 +137,7 @@ func _input(event):
 		head.rotate_x(-event.relative.y * 0.005 * SettingsManager.mouse_sensitivity)
 		head.rotation.x = clamp(head.rotation.x, -PI/2, PI/2)
 		
-	if event.is_action_pressed("shoot") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		shoot()
 
 	pass
@@ -199,15 +199,6 @@ func _process(delta: float) -> void:
 	if frozen:
 		return
 	var aiming: bool = Input.is_action_pressed("aim")
-
-	# Controller Camera
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		var r_stick = Input.get_vector("look_left", "look_right", "look_up", "look_down")
-		if r_stick.length() > 0.2:
-			var look_speed = SettingsManager.controller_sensitivity * delta * 2.0
-			rotate_y(-r_stick.x * look_speed)
-			head.rotate_x(-r_stick.y * look_speed)
-			head.rotation.x = clamp(head.rotation.x, -PI/2, PI/2)
 
 	var r := _spring3(_kick_pos, _kick_pos_vel, KICK_STIFF, KICK_DAMP, delta)
 	_kick_pos = r[0]

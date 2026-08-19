@@ -10,14 +10,16 @@ extends Node
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
-	play_button.pressed.connect(_on_play_pressed)
-	settings_button.pressed.connect(_on_settings_pressed)
+	$AudioStreamPlayer.finished.connect($AudioStreamPlayer.play)
+	
+	if play_button: play_button.pressed.connect(_on_play_pressed)
+	if settings_button: settings_button.pressed.connect(_on_settings_pressed)
 	if model_viewer_button: model_viewer_button.pressed.connect(_on_model_viewer_pressed)
-	exit_button.pressed.connect(_on_exit_pressed)
+	if exit_button: exit_button.pressed.connect(_on_exit_pressed)
 	if level2_button: level2_button.pressed.connect(_on_level2_pressed)
 	if level3_button: level3_button.pressed.connect(_on_level3_pressed)
 	
-	play_button.grab_focus()
+	if play_button: play_button.grab_focus()
 
 func _on_play_pressed():
 	get_tree().change_scene_to_file("res://scenes/cutscenes/IntroCutscene.tscn")
@@ -33,7 +35,13 @@ func _on_exit_pressed():
 	get_tree().quit()
 
 func _on_level2_pressed():
-	get_tree().change_scene_to_file("res://scenes/levels/Level2.tscn")
+	_go_to_level(2)
 
 func _on_level3_pressed():
-	get_tree().change_scene_to_file("res://scenes/levels/Level3.tscn")
+	_go_to_level(3)
+
+func _go_to_level(level: int):
+	var gm = get_node_or_null("/root/GameManager")
+	if gm and "level" in gm:
+		gm.level = level
+	get_tree().change_scene_to_file("res://scenes/levels/Level%d.tscn" % level)

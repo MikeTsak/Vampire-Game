@@ -178,7 +178,7 @@ re-pack must not drop it.
 
 ---
 
-# Branding — Parnitha 1939
+# Branding — Parnitha 1937
 
 ```sh
 # Trim + downscale the supplied logos and bake the glow plate.
