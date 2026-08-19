@@ -42,6 +42,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "RESUME"
 
+[node name="SettingsBtn" type="Button" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "SETTINGS"
+
 [node name="MainMenuBtn" type="Button" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24

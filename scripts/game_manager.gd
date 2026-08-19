@@ -43,4 +43,7 @@ func toggle_pause():
 		get_tree().paused = true
 		if pause_menu:
 			pause_menu.visible = true
+			var resume_btn = pause_menu.get_node_or_null("ColorRect/VBoxContainer/ResumeBtn")
+			if resume_btn:
+				resume_btn.grab_focus()
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

@@ -5,6 +5,7 @@ func _ready():
 	visible = false
 	
 	$ColorRect/VBoxContainer/ResumeBtn.pressed.connect(_on_resume)
+	$ColorRect/VBoxContainer/SettingsBtn.pressed.connect(_on_settings)
 	$ColorRect/VBoxContainer/MainMenuBtn.pressed.connect(_on_main_menu)
 	$ColorRect/VBoxContainer/ExitBtn.pressed.connect(_on_exit)
 
@@ -12,6 +13,10 @@ func _on_resume():
 	var gm = get_node_or_null("/root/GameManager")
 	if gm:
 		gm.toggle_pause()
+
+func _on_settings():
+	var settings = load("res://ui/SettingsMenu.tscn").instantiate()
+	add_child(settings)
 
 func _on_main_menu():
 	var gm = get_node_or_null("/root/GameManager")

@@ -1,0 +1,215 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/settings_menu.gd" id="1_sm"]
+[ext_resource type="FontFile" path="res://textures/fonts/fonnts.com-PF-Hellenica-.otf" id="2_ff"]
+
+[node name="SettingsMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_sm")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.02, 0.02, 0.95)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ff")
+theme_override_font_sizes/font_size = 48
+theme_override_colors/font_color = Color(0.62, 0.07, 0.09, 1)
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="MasterVolumeBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/MasterVolumeBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ff")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+text = "MASTER VOLUME"
+
+[node name="MasterSlider" type="HSlider" parent="CenterContainer/VBoxContainer/MasterVolumeBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="SFXVolumeBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/SFXVolumeBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ff")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+text = "SFX VOLUME"
+
+[node name="SFXSlider" type="HSlider" parent="CenterContainer/VBoxContainer/SFXVolumeBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="SensitivityBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/SensitivityBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ff")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+text = "MOUSE SENSITIVITY"
+
+[node name="SensitivitySlider" type="HSlider" parent="CenterContainer/VBoxContainer/SensitivityBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 0.1
+max_value = 5.0
+step = 0.1
+value = 1.0
+
+[node name="GamepadBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/GamepadBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ff")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+text = "GAMEPAD SENSITIVITY"
+
+[node name="GamepadSlider" type="HSlider" parent="CenterContainer/VBoxContainer/GamepadBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 0.1
+max_value = 5.0
+step = 0.1
+value = 2.0
+
+[node name="PixelationBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PixelationBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ff")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+text = "3D PIXELATION"
+
+[node name="PixelationSlider" type="HSlider" parent="CenterContainer/VBoxContainer/PixelationBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 0.25
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="BrightnessBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/BrightnessBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ff")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+text = "BRIGHTNESS"
+
+[node name="BrightnessSlider" type="HSlider" parent="CenterContainer/VBoxContainer/BrightnessBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 2.0
+step = 0.05
+value = 1.0
+
+[node name="FPSBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/FPSBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ff")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+text = "FRAMERATE LIMIT"
+
+[node name="FPSOption" type="OptionButton" parent="CenterContainer/VBoxContainer/FPSBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "30 FPS (Retro)"
+popup/item_0/id = 0
+popup/item_1/text = "60 FPS (Modern)"
+popup/item_1/id = 1
+popup/item_2/text = "Uncapped"
+popup/item_2/id = 2
+
+[node name="FullscreenBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/FullscreenBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ff")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+text = "FULLSCREEN"
+
+[node name="FullscreenCheck" type="CheckButton" parent="CenterContainer/VBoxContainer/FullscreenBox"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Spacer2" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+theme_override_colors/font_hover_color = Color(0.92, 0.16, 0.16, 1)
+theme_override_fonts/font = ExtResource("2_ff")
+theme_override_font_sizes/font_size = 24
+text = "BACK"
+flat = true
