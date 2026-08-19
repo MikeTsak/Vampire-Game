@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://tools/level_review.gd" id="1_fadnj"]
 
-[node name="LevelReview" type="Node3D" unique_id=90794333]
+[node name="LevelReview" type="Node3D" unique_id=500035476]
 script = ExtResource("1_fadnj")

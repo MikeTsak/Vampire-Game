@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tools/skinwalker_test.gd" id="1_yvk5w"]
+
+[node name="SkinwalkerTest" type="Node3D" unique_id=746824780]
+script = ExtResource("1_yvk5w")

@@ -8,8 +8,11 @@ extends Node3D
 @export var reroll_interval: float = 20.0
 @export var flee_speed: float = 22.0
 @export var jitter_strength: float = 1.6
-@export var park_trigger_radius: float = 70.0
-@export var park_search_timeout: float = 5.0
+## Which level it is allowed to wake on. It stays inert everywhere else.
+@export var active_level: int = 2
+## Debug switch: wakes it immediately without walking to the park. The
+## "Skinwalker Activated" readout behaves exactly the same either way.
+@export var debug_force_activate: bool = false
 
 var player: Node3D = null
 var player_cam: Node3D = null
@@ -18,9 +21,7 @@ var idle_timer: float = 0.0
 var relocating: bool = false
 var fleeing: bool = false
 var active: bool = false
-var park_of_souls: Node3D = null
-var park_search_timer: float = 0.0
-var park_search_done: bool = false
+var park_trigger: Area3D = null
 var debug_label: Label = null
 
 @onready var mesh_base = $MeshBase
@@ -53,8 +54,6 @@ func _set_active(new_active: bool):
 	if active == new_active:
 		return
 	active = new_active
-	if active:
-		print("Skinwalker Activated")
 	if debug_label:
 		debug_label.text = "Skinwalker Activated" if active else ""
 
@@ -83,24 +82,51 @@ func _process(delta):
 
 	_process_idle(delta)
 
-func _process_dormant(delta):
-	# Stay completely inert until the player wanders toward the Park of Souls
-	# (or, in a level with no Park of Souls, fall back to the old always-roaming
-	# behavior after a short grace period so it doesn't just sit disabled forever).
-	if not park_search_done:
-		if not park_of_souls:
-			park_of_souls = get_tree().current_scene.find_child("ParkOfSouls", true, false)
-		park_search_timer += delta
-		if park_of_souls or park_search_timer >= park_search_timeout:
-			park_search_done = true
-			if not park_of_souls:
-				_set_active(true)
-				_reposition_far()
-				return
+func _process_dormant(_delta):
+	# Completely inert until the player physically steps inside the Park of
+	# Souls, and only on the level this is armed for. There is deliberately no
+	# "no park found, wake up anyway" fallback any more -- that made it roam in
+	# Level 1 and Level 3, where there is no park at all.
+	if debug_force_activate:
+		_wake("debug")
+		return
+	_bind_park_trigger()
 
-	if park_of_souls and player.global_position.distance_to(park_of_souls.global_position) < park_trigger_radius:
-		_set_active(true)
-		_reposition_far()
+## The park is spawned at runtime by forest_generator, so it will not exist on
+## the first frames. Keep looking until it does, then listen for the player
+## crossing into it.
+func _bind_park_trigger():
+	if park_trigger and is_instance_valid(park_trigger):
+		return
+	var scene = get_tree().current_scene
+	if not scene:
+		return
+	var park = scene.find_child("ParkOfSouls", true, false)
+	if not park:
+		return
+	var area = park.find_child("ParkTrigger", true, false)
+	if area is Area3D:
+		park_trigger = area
+		if not area.body_entered.is_connected(_on_park_body_entered):
+			area.body_entered.connect(_on_park_body_entered)
+
+func _on_park_body_entered(body: Node3D):
+	if active or not body.is_in_group("player"):
+		return
+	if not _is_active_level():
+		return
+	_wake("entered the Park of Souls")
+
+func _is_active_level() -> bool:
+	var gm = get_node_or_null("/root/GameManager")
+	return gm != null and gm.level == active_level
+
+func _wake(reason: String):
+	if active:
+		return
+	print("Skinwalker Activated (%s)" % reason)
+	_set_active(true)
+	_reposition_far()
 
 func _process_idle(delta):
 	# It never approaches or retreats while idle -- it plants itself and just

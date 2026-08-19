@@ -1,18 +1,21 @@
-[gd_scene format=3 uid="uid://6nntmos60iia"]
+[gd_scene format=3]
 
 [ext_resource type="Material" path="res://materials/weathered_wood_material.tres" id="1_wood"]
 [ext_resource type="Material" path="res://materials/scaffolding_metal.tres" id="2_metal"]
-[ext_resource type="FontFile" uid="uid://dtdvhmo7i3h7q" path="res://textures/fonts/fonnts.com-PF-Hellenica-.otf" id="3_font"]
-[ext_resource type="Texture2D" uid="uid://bunhg5tp4uf0j" path="res://textures/carved_face.jpg" id="4_face"]
-[ext_resource type="Texture2D" uid="uid://c65lf1aby7n1k" path="res://textures/carved_face_female.jpg" id="5_face_f"]
-[ext_resource type="Texture2D" uid="uid://b5t5qo61p3yqa" path="res://textures/carved_face_seated.jpg" id="6_face_s"]
-[ext_resource type="Material" uid="uid://2eebv788gle6" path="res://materials/carved_log_material.tres" id="7_log"]
-[ext_resource type="ArrayMesh" uid="uid://bnb7rhtbmt03b" path="res://models/park_statues/statue_pregnant.obj" id="8_obj_preg"]
-[ext_resource type="ArrayMesh" uid="uid://bongehb8vq8gs" path="res://models/park_statues/statue_cross.obj" id="9_obj_cross"]
-[ext_resource type="ArrayMesh" uid="uid://cywaykjglxmg" path="res://models/park_statues/statue_seated.obj" id="10_obj_seat"]
-[ext_resource type="ArrayMesh" uid="uid://crsf0g68f46ca" path="res://models/park_statues/statue_winged.obj" id="11_obj_wing"]
-[ext_resource type="ArrayMesh" uid="uid://bl8dckf0aa2xy" path="res://models/park_statues/statue_hugging.obj" id="12_obj_hug"]
-[ext_resource type="ArrayMesh" uid="uid://dk62v7bs2qeuf" path="res://models/park_statues/statue_eyepole.obj" id="13_obj_pole"]
+[ext_resource type="FontFile" path="res://textures/fonts/fonnts.com-PF-Hellenica-.otf" id="3_font"]
+[ext_resource type="Texture2D" path="res://textures/carved_face.jpg" id="4_face"]
+[ext_resource type="Texture2D" path="res://textures/carved_face_female.jpg" id="5_face_f"]
+[ext_resource type="Texture2D" path="res://textures/carved_face_seated.jpg" id="6_face_s"]
+[ext_resource type="Material" path="res://materials/carved_log_material.tres" id="7_log"]
+[ext_resource type="ArrayMesh" path="res://models/park_statues/statue_pregnant.obj" id="8_obj_preg"]
+[ext_resource type="ArrayMesh" path="res://models/park_statues/statue_cross.obj" id="9_obj_cross"]
+[ext_resource type="ArrayMesh" path="res://models/park_statues/statue_seated.obj" id="10_obj_seat"]
+[ext_resource type="ArrayMesh" path="res://models/park_statues/statue_winged.obj" id="11_obj_wing"]
+[ext_resource type="ArrayMesh" path="res://models/park_statues/statue_hugging.obj" id="12_obj_hug"]
+[ext_resource type="ArrayMesh" path="res://models/park_statues/statue_eyepole.obj" id="13_obj_pole"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lwug8"]
+size = Vector3(25.25, 12, 25.139162)
 
 [node name="ParkOfSouls" type="Node3D" unique_id=2002351214]
 
@@ -742,3 +745,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 1)
 light_color = Color(0.8, 0.5, 0.2, 1)
 light_energy = 0.8
 omni_range = 15.0
+
+[node name="ParkTrigger" type="Area3D" parent="." unique_id=1371656186]
+collision_layer = 0
+monitorable = false
+
+[node name="Volume" type="CollisionShape3D" parent="ParkTrigger" unique_id=1558479291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.625, 4, 0.94041896)
+shape = SubResource("BoxShape3D_lwug8")

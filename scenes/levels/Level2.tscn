@@ -39,6 +39,7 @@ billboard_mode = 1
 
 [node name="Level2" type="Node3D" unique_id=160080438]
 script = ExtResource("1_l6gr7")
+level_number = 2
 
 [node name="TerrainGenerator" type="Node3D" parent="." unique_id=1620226379]
 script = ExtResource("terrain_script")

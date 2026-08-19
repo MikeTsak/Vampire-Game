@@ -44,6 +44,7 @@ billboard_mode = 1
 [node name="Level1" type="Node3D" unique_id=1722568088]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 script = ExtResource("1_odhdn")
+level_number = 1
 
 [node name="TerrainGenerator" type="Node3D" parent="." unique_id=1608265245]
 script = ExtResource("terrain_script")

@@ -208,3 +208,41 @@ point `SRC` at wherever the source PNGs live if they need re-processing.
 - **`main_menu.gd` owns node paths.** It reaches for
   `VBoxContainer/PlayButton` and friends and inserts a debug button at index 1,
   so the rebuilt menu keeps those exact names.
+
+---
+
+# Skinwalker activation
+
+Armed by `active_level` (2) plus physically entering the Park of Souls.
+
+```sh
+# Rebuild the park's trigger volume if the park geometry changes.
+"$GODOT" --headless --path . --script res://tools/add_park_trigger.gd
+
+# Verify: dormant on 1 and 3, wakes on entry in 2.
+SW_LEVEL=2 LEVEL_PATH=res://scenes/levels/Level2.tscn "$GODOT" --path . res://scenes/dev/SkinwalkerTest.tscn
+SW_DEBUG_FORCE=1 SW_LEVEL=1 LEVEL_PATH=res://scenes/levels/Level1.tscn "$GODOT" --path . res://scenes/dev/SkinwalkerTest.tscn
+```
+
+## Gotchas
+
+- **The level scene owns `GameManager.level`.** `level.gd` exports
+  `level_number` and writes it to GameManager at the top of `_ready()`. Before
+  this, the main menu's *Debug Level 2* button (and running a level .tscn
+  directly from the editor) jumped straight into the scene without touching
+  GameManager, so `level` stayed at 1 — the skinwalker could never arm, and
+  pack spawning silently produced no babies. If a new level is added, set
+  `level_number` on its root or it will behave as Level 1.
+- **The old fallback woke it on every level.** `_process_dormant` used to activate
+  the skinwalker if no Park of Souls turned up within 5 seconds, so it roamed in
+  Level 1 and Level 3 where no park exists at all. That fallback is gone; there
+  is now no path to activation except the park trigger or `debug_force_activate`.
+- **Proximity is not entry.** It used to fire at 70m from the park's origin.
+  `ParkOfSouls.tscn` now carries a `ParkTrigger` Area3D sized to the park's own
+  footprint (~25x25m), so the player has to walk in among the statues.
+- **The park is spawned at runtime** by `forest_generator.gd`, so the trigger
+  cannot be bound in `_ready`. `_bind_park_trigger()` retries each dormant frame
+  until it appears.
+- **The HUD readout is unchanged.** It still reads exactly
+  `"Skinwalker Activated"`; only the console line carries the reason, so debug
+  activation and real activation look identical in game.
