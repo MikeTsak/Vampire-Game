@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://d8iyml1urcng"]
+[gd_scene format=3 uid="uid://cdp8nf03ngc67"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trunk"]
 albedo_color = Color(0.25, 0.15, 0.05, 1)

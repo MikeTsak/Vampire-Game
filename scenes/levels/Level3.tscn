@@ -15,18 +15,21 @@
 [ext_resource type="Texture2D" uid="uid://c4uhydk368uhm" path="res://textures/ps1/metal.tga" id="t_metal"]
 [ext_resource type="Texture2D" uid="uid://x7rpemm4avdl" path="res://textures/ps1/rubble.tga" id="t_rubble"]
 [ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/ps1_moon.png" id="t_moon"]
-[ext_resource type="Texture2D" uid="uid://c6ad5c75rrro6" path="res://textures/ps1_stars.png" id="t_stars"]
 [ext_resource type="PackedScene" uid="uid://cfyujvk56df3b" path="res://models/environment/trees/Tree_Dead.tscn" id="t_tree_dead"]
-[ext_resource type="PackedScene" uid="uid://colmwvn8q0sef" path="res://models/environment/trees/Tree_Twisted.tscn" id="t_tree_twisted"]
-[ext_resource type="PackedScene" uid="uid://bjb1p3gi4atkm" path="res://models/environment/trees/Tree_Thin.tscn" id="t_tree_thin"]
-[ext_resource type="PackedScene" uid="uid://d8iyml1urcng" path="res://models/environment/trees/Tree_Pine.tscn" id="t_tree_pine"]
+[ext_resource type="PackedScene" path="res://models/environment/trees/Tree_Fir.tscn" id="t_tree_fir"]
+[ext_resource type="PackedScene" uid="uid://djgblr74x8xn6" path="res://models/environment/trees/Tree_KermesOak.tscn" id="t_tree_oak"]
+[ext_resource type="PackedScene" path="res://models/environment/trees/Tree_AleppoPine.tscn" id="t_tree_aleppo"]
+[ext_resource type="PackedScene" uid="uid://bwlbxs2arv2yx" path="res://models/environment/trees/Tree_Plane.tscn" id="t_tree_plane"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_l3"]
-panorama = ExtResource("t_stars")
-filter = false
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l3"]
+sky_top_color = Color(0.03, 0.045, 0.09, 1)
+sky_horizon_color = Color(0.14, 0.17, 0.24, 1)
+sky_curve = 0.12
+ground_bottom_color = Color(0.02, 0.025, 0.03, 1)
+ground_horizon_color = Color(0.11, 0.13, 0.17, 1)
 
 [sub_resource type="Sky" id="Sky_l3"]
-sky_material = SubResource("PanoramaSkyMaterial_l3")
+sky_material = SubResource("ProceduralSkyMaterial_l3")
 
 [sub_resource type="StandardMaterial3D" id="Mat_moon"]
 transparency = 1
@@ -40,12 +43,12 @@ billboard_mode = 1
 background_mode = 2
 sky = SubResource("Sky_l3")
 ambient_light_source = 2
-ambient_light_color = Color(0.03, 0.038, 0.034, 1)
-ambient_light_energy = 0.1
+ambient_light_color = Color(0.1, 0.13, 0.19, 1)
+ambient_light_energy = 0.4
 fog_enabled = true
 fog_light_color = Color(0.045, 0.056, 0.07, 1)
-fog_light_energy = 0.35
-fog_density = 0.055
+fog_light_energy = 0.5
+fog_density = 0.028
 fog_sky_affect = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_unit"]
@@ -145,6 +148,23 @@ uv1_triplanar = true
 uv1_world_triplanar = true
 uv1_triplanar_sharpness = 4.0
 
+[sub_resource type="StandardMaterial3D" id="Mat_glass"]
+; Refraction is deliberately NOT used here. Godot samples the screen texture
+; for it, so the pane picked up the flashlight cone on the surrounding wall and
+; smeared it into a bright blob. A grimy translucent grey does the job with no
+; artefacts: the treeline stays readable, just hazed and dirty.
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0.62, 0.66, 0.68, 0.2)
+albedo_texture = ExtResource("t_plaster")
+roughness = 0.85
+metallic = 0.0
+specular = 0.15
+texture_filter = 0
+uv1_scale = Vector3(1.4, 1.4, 1.4)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
 [sub_resource type="StandardMaterial3D" id="Mat_ground"]
 albedo_color = Color(0.33, 0.34, 0.29, 1)
 albedo_texture = ExtResource("t_rubble")
@@ -154,12 +174,15 @@ uv1_scale = Vector3(0.12, 0.12, 0.12)
 uv1_triplanar = true
 uv1_world_triplanar = true
 
-[sub_resource type="StandardMaterial3D" id="Mat_daylight"]
-albedo_color = Color(0.66, 0.74, 0.9, 1)
+[sub_resource type="StandardMaterial3D" id="Mat_leak"]
+; Night leaking past a shut door, not daylight. The old value was a blown-out
+; white that read as a glowing sticker on the woodwork, and made no sense
+; against a moonlit exterior.
+albedo_color = Color(0.26, 0.32, 0.42, 1)
+roughness = 1.0
 emission_enabled = true
-emission = Color(0.62, 0.72, 0.92, 1)
-emission_energy_multiplier = 2.6
-shading_mode = 0
+emission = Color(0.42, 0.54, 0.74, 1)
+emission_energy_multiplier = 0.42
 texture_filter = 0
 
 [sub_resource type="StandardMaterial3D" id="Mat_bulb"]
@@ -177,7 +200,7 @@ indoor = true
 carcass_quota = 6
 room_occupancy = 0.62
 baby_chance = 0.45
-player_start_yaw_degrees = 90.0
+player_start_yaw_degrees = 180.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_l3")
@@ -2294,42 +2317,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_W0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmW0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 1.85, 5.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_W0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmW0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 1.85, 8.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_W0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmW0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 2.75, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_W0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmW0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 0.915, 7)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_W0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmW0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 1.85, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_W0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmW0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 1.87, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_W0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmW0_0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 1.85, 7)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmW0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, -15.81, 0.52, 7)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -2436,42 +2465,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_E0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmE0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 1.85, 5.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_E0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmE0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 1.85, 8.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_E0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmE0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 2.75, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_E0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmE0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 0.915, 7)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_E0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmE0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 1.85, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_E0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmE0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 1.87, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_E0_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmE0_0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 1.85, 7)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmE0_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, 15.81, 0.52, 7)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -2578,42 +2613,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_W0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmW0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 1.85, 19.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_W0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmW0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 1.85, 22.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_W0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmW0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 2.75, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_W0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmW0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 0.915, 21)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_W0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmW0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 1.85, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_W0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmW0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 1.87, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_W0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmW0_1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 1.85, 21)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmW0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, -15.81, 0.52, 21)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -2720,42 +2761,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_E0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmE0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 1.85, 19.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_E0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmE0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 1.85, 22.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_E0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmE0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 2.75, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_E0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmE0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 0.915, 21)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_E0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmE0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 1.85, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_E0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmE0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 1.87, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_E0_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmE0_1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 1.85, 21)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmE0_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, 15.81, 0.52, 21)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -2862,42 +2909,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_W0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmW0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 1.85, 33.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_W0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmW0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 1.85, 36.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_W0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmW0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 2.75, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_W0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmW0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 0.915, 35)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_W0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmW0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 1.85, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_W0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmW0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 1.87, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_W0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmW0_2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 1.85, 35)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmW0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, -15.81, 0.52, 35)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -3004,42 +3057,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_E0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmE0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 1.85, 33.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_E0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmE0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 1.85, 36.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_E0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmE0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 2.75, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_E0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmE0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 0.915, 35)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_E0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmE0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 1.85, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_E0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmE0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 1.87, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_E0_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmE0_2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 1.85, 35)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmE0_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, 15.81, 0.52, 35)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -3146,42 +3205,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_W0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmW0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 1.85, 47.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_W0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmW0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 1.85, 50.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_W0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmW0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 2.75, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_W0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmW0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 0.915, 49)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_W0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmW0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 1.85, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_W0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmW0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 1.87, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_W0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmW0_3" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 1.85, 49)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmW0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, -15.81, 0.52, 49)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -3288,42 +3353,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_E0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmE0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 1.85, 47.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_E0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmE0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 1.85, 50.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_E0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmE0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 2.75, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_E0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmE0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 0.915, 49)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_E0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmE0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 1.85, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_E0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmE0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 1.87, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_E0_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmE0_3" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 1.85, 49)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmE0_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, 15.81, 0.52, 49)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -3430,42 +3501,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_W1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmW1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 5.65, 5.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_W1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmW1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 5.65, 8.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_W1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmW1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 6.55, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_W1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmW1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 4.715, 7)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_W1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmW1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 5.65, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_W1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmW1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 5.67, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_W1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmW1_0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 5.65, 7)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmW1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, -15.81, 4.32, 7)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -3572,42 +3649,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_E1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmE1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 5.65, 5.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_E1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmE1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 5.65, 8.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_E1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmE1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 6.55, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_E1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmE1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 4.715, 7)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_E1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmE1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 5.65, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_E1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmE1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 5.67, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_E1_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmE1_0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 5.65, 7)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmE1_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, 15.81, 4.32, 7)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -3714,42 +3797,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_W1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmW1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 5.65, 19.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_W1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmW1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 5.65, 22.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_W1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmW1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 6.55, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_W1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmW1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 4.715, 21)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_W1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmW1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 5.65, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_W1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmW1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 5.67, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_W1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmW1_1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 5.65, 21)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmW1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, -15.81, 4.32, 21)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -3856,42 +3945,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_E1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmE1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 5.65, 19.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_E1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmE1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 5.65, 22.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_E1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmE1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 6.55, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_E1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmE1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 4.715, 21)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_E1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmE1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 5.65, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_E1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmE1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 5.67, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_E1_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmE1_1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 5.65, 21)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmE1_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, 15.81, 4.32, 21)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -3998,42 +4093,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_W1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmW1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 5.65, 33.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_W1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmW1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 5.65, 36.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_W1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmW1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 6.55, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_W1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmW1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 4.715, 35)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_W1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmW1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 5.65, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_W1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmW1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 5.67, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_W1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmW1_2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 5.65, 35)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmW1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, -15.81, 4.32, 35)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -4140,42 +4241,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_E1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmE1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 5.65, 33.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_E1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmE1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 5.65, 36.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_E1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmE1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 6.55, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_E1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmE1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 4.715, 35)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_E1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmE1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 5.65, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_E1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmE1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 5.67, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_E1_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmE1_2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 5.65, 35)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmE1_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, 15.81, 4.32, 35)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -4282,42 +4389,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_W1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmW1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 5.65, 47.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_W1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmW1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 5.65, 50.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_W1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmW1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 6.55, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_W1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmW1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 4.715, 49)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_W1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmW1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 5.65, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_W1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmW1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 5.67, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_W1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmW1_3" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 5.65, 49)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmW1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, -15.81, 4.32, 49)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -4424,42 +4537,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_E1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmE1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 5.65, 47.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_E1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmE1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 5.65, 50.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_E1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmE1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 6.55, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_E1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmE1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 4.715, 49)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_E1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmE1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 5.65, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_E1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmE1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 5.67, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_E1_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmE1_3" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 5.65, 49)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmE1_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, 15.81, 4.32, 49)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -4566,42 +4685,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_W2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmW2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 9.45, 5.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_W2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmW2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 9.45, 8.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_W2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmW2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 10.35, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_W2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmW2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 8.515, 7)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_W2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmW2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 9.45, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_W2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmW2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 9.47, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_W2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmW2_0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 9.45, 7)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmW2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, -15.81, 8.12, 7)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -4708,42 +4833,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_E2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmE2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 9.45, 5.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_E2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmE2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 9.45, 8.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_E2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmE2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 10.35, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_E2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmE2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 8.515, 7)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_E2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmE2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 9.45, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_E2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmE2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 9.47, 7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_E2_0" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmE2_0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 9.45, 7)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmE2_0" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, 15.81, 8.12, 7)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -4850,42 +4981,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_W2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmW2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 9.45, 19.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_W2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmW2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 9.45, 22.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_W2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmW2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 10.35, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_W2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmW2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 8.515, 21)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_W2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmW2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 9.45, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_W2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmW2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 9.47, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_W2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmW2_1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 9.45, 21)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmW2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, -15.81, 8.12, 21)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -4992,42 +5129,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_E2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmE2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 9.45, 19.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_E2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmE2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 9.45, 22.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_E2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmE2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 10.35, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_E2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmE2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 8.515, 21)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_E2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmE2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 9.45, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_E2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmE2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 9.47, 21)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_E2_1" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmE2_1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 9.45, 21)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmE2_1" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, 15.81, 8.12, 21)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -5134,42 +5277,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_W2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmW2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 9.45, 33.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_W2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmW2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 9.45, 36.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_W2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmW2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 10.35, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_W2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmW2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 8.515, 35)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_W2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmW2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 9.45, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_W2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmW2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 9.47, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_W2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmW2_2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 9.45, 35)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmW2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, -15.81, 8.12, 35)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -5276,42 +5425,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_E2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmE2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 9.45, 33.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_E2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmE2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 9.45, 36.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_E2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmE2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 10.35, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_E2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmE2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 8.515, 35)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_E2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmE2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 9.45, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_E2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmE2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 9.47, 35)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_E2_2" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmE2_2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 9.45, 35)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmE2_2" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, 15.81, 8.12, 35)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -5418,42 +5573,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_W2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmW2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 9.45, 47.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_W2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmW2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 9.45, 50.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_W2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmW2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 10.35, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_W2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmW2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 8.515, 49)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_W2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmW2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 9.45, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_W2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmW2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 9.47, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_W2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmW2_3" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 9.45, 49)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmW2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, -15.81, 8.12, 49)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -5560,42 +5721,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
 
-[node name="WinJambA_E2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambA_RmE2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 9.45, 47.67)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinJambB_E2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinJambB_RmE2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 9.45, 50.33)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinHead_E2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinHead_RmE2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 10.35, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinSill_E2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinSill_RmE2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 8.515, 49)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullV_E2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullV_RmE2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 9.45, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="WinMullH_E2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinMullH_RmE2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 9.47, 49)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="Radiator_E2_3" type="MeshInstance3D" parent="Trim"]
+[node name="WinGlass_RmE2_3" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 9.45, 49)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="Radiator_RmE2_3" type="MeshInstance3D" parent="Trim"]
 transform = Transform3D(0.26, 0, 0, 0, 0.6, 0, -0, 0, 1.5, 15.81, 8.12, 49)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
@@ -6064,8 +6231,14 @@ use_collision = true
 size = Vector3(1.05, 3.4, 1.05)
 material = SubResource("Mat_plaster")
 
-[node name="HallDadoS0" type="MeshInstance3D" parent="Trim"]
-transform = Transform3D(32, 0, 0, 0, 1.15, 0, -0, 0, 0.03, 0, 0.575, -17.98)
+[node name="HallDadoS0_0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(12.13, 0, 0, 0, 1.15, 0, -0, 0, 0.03, -9.935, 0.575, -17.98)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_dado")
+
+[node name="HallDadoS0_1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(16.13, 0, 0, 0, 1.15, 0, -0, 0, 0.03, 7.935, 0.575, -17.98)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
@@ -6094,8 +6267,14 @@ use_collision = true
 size = Vector3(1.05, 3.4, 1.05)
 material = SubResource("Mat_plaster")
 
-[node name="HallDadoS1" type="MeshInstance3D" parent="Trim"]
-transform = Transform3D(32, 0, 0, 0, 1.15, 0, -0, 0, 0.03, 0, 4.375, -17.98)
+[node name="HallDadoS1_0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(12.13, 0, 0, 0, 1.15, 0, -0, 0, 0.03, -9.935, 4.375, -17.98)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_dado")
+
+[node name="HallDadoS1_1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(16.13, 0, 0, 0, 1.15, 0, -0, 0, 0.03, 7.935, 4.375, -17.98)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
@@ -6124,8 +6303,14 @@ use_collision = true
 size = Vector3(1.05, 3.4, 1.05)
 material = SubResource("Mat_plaster")
 
-[node name="HallDadoS2" type="MeshInstance3D" parent="Trim"]
-transform = Transform3D(32, 0, 0, 0, 1.15, 0, -0, 0, 0.03, 0, 8.175, -17.98)
+[node name="HallDadoS2_0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(12.13, 0, 0, 0, 1.15, 0, -0, 0, 0.03, -9.935, 8.175, -17.98)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_dado")
+
+[node name="HallDadoS2_1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(16.13, 0, 0, 0, 1.15, 0, -0, 0, 0.03, 7.935, 8.175, -17.98)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_dado")
@@ -6141,6 +6326,334 @@ transform = Transform3D(2.8, 0, 0, 0, 0.2, 0, -0, 0, 2.6, -13.6, 7.7, -6.7)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_rubble")
+
+[node name="WinJambA_HallW0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 1.85, -10.33)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinJambB_HallW0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 1.85, -7.67)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinHead_HallW0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 2.75, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinSill_HallW0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 0.915, -9)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullV_HallW0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 1.85, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullH_HallW0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 1.87, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinGlass_HallW0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 1.85, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="WinJambA_HallE0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 1.85, -10.33)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinJambB_HallE0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 1.85, -7.67)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinHead_HallE0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 2.75, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinSill_HallE0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 0.915, -9)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullV_HallE0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 1.85, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullH_HallE0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 1.87, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinGlass_HallE0" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 1.85, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="WinJambA_HallW1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 5.65, -10.33)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinJambB_HallW1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 5.65, -7.67)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinHead_HallW1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 6.55, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinSill_HallW1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 4.715, -9)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullV_HallW1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 5.65, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullH_HallW1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 5.67, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinGlass_HallW1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 5.65, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="WinJambA_HallE1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 5.65, -10.33)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinJambB_HallE1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 5.65, -7.67)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinHead_HallE1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 6.55, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinSill_HallE1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 4.715, -9)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullV_HallE1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 5.65, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullH_HallE1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 5.67, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinGlass_HallE1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 5.65, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="WinJambA_CorEnd1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.12, 0, 0, 0, 1.8, 0, -0, 0, 0.05, -1.33, 5.65, 56.02)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinJambB_CorEnd1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.12, 0, 0, 0, 1.8, 0, -0, 0, 0.05, 1.33, 5.65, 56.02)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinHead_CorEnd1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(2.78, 0, 0, 0, 0.12, 0, -0, 0, 0.05, 0, 6.55, 56.02)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinSill_CorEnd1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(2.84, 0, 0, 0, 0.07, 0, -0, 0, 0.26, 0, 4.715, 56.13)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullV_CorEnd1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.1, 0, 0, 0, 1.8, 0, -0, 0, 0.05, 0, 5.65, 56.06)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullH_CorEnd1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(2.6, 0, 0, 0, 0.08, 0, -0, 0, 0.05, 0, 5.67, 56.06)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinGlass_CorEnd1" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(2.58, 0, 0, 0, 1.78, 0, -0, 0, 0.02, 0, 5.65, 56.17)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="WinJambA_HallW2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 9.45, -10.33)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinJambB_HallW2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, -15.97, 9.45, -7.67)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinHead_HallW2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, -15.97, 10.35, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinSill_HallW2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, -15.87, 8.515, -9)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullV_HallW2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, -15.94, 9.45, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullH_HallW2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, -15.94, 9.47, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinGlass_HallW2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, -15.82, 9.45, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="WinJambA_HallE2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 9.45, -10.33)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinJambB_HallE2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.12, 15.97, 9.45, -7.67)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinHead_HallE2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 0.12, 0, -0, 0, 2.78, 15.97, 10.35, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinSill_HallE2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.26, 0, 0, 0, 0.07, 0, -0, 0, 2.84, 15.87, 8.515, -9)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullV_HallE2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 1.8, 0, -0, 0, 0.1, 15.94, 9.45, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullH_HallE2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.05, 0, 0, 0, 0.08, 0, -0, 0, 2.6, 15.94, 9.47, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinGlass_HallE2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.02, 0, 0, 0, 1.78, 0, -0, 0, 2.58, 15.82, 9.45, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
+
+[node name="WinJambA_CorEnd2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.12, 0, 0, 0, 1.8, 0, -0, 0, 0.05, -1.33, 9.45, 56.02)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinJambB_CorEnd2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.12, 0, 0, 0, 1.8, 0, -0, 0, 0.05, 1.33, 9.45, 56.02)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinHead_CorEnd2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(2.78, 0, 0, 0, 0.12, 0, -0, 0, 0.05, 0, 10.35, 56.02)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinSill_CorEnd2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(2.84, 0, 0, 0, 0.07, 0, -0, 0, 0.26, 0, 8.515, 56.13)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullV_CorEnd2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(0.1, 0, 0, 0, 1.8, 0, -0, 0, 0.05, 0, 9.45, 56.06)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinMullH_CorEnd2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(2.6, 0, 0, 0, 0.08, 0, -0, 0, 0.05, 0, 9.47, 56.06)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="WinGlass_CorEnd2" type="MeshInstance3D" parent="Trim"]
+transform = Transform3D(2.58, 0, 0, 0, 1.78, 0, -0, 0, 0.02, 0, 9.45, 56.17)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_glass")
 
 [node name="ReceptionDesk" type="CSGBox3D" parent="Hall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, -8.6, 0.55, -8)
@@ -6228,62 +6741,72 @@ transform = Transform3D(0.24, 0, 0, 0, 0.6, 0, -0, 0, 2.2, 15.7, 0.52, -6)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_metal")
 
-[node name="FrontDoor" type="CSGBox3D" parent="Entrance"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, -2, 1.45, -18.18)
+[node name="FrontLeaf" type="CSGBox3D" parent="Entrance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, -2, 1.432, -18.18)
 use_collision = true
-size = Vector3(3.4, 2.9, 0.35)
+size = Vector3(3.33, 2.865, 0.35)
 material = SubResource("Mat_wood")
 
-[node name="FrontDoorFrame" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(3.76, 0, 0, 0, 3.08, 0, -0, 0, 0.1, -2, 1.54, -17.95)
+[node name="FrontLeak0" type="MeshInstance3D" parent="Entrance"]
+transform = Transform3D(0.035, 0, 0, 0, 2.9, 0, -0, 0, 0.04, -3.683, 1.45, -18.11)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_leak")
+
+[node name="FrontLeak1" type="MeshInstance3D" parent="Entrance"]
+transform = Transform3D(0.035, 0, 0, 0, 2.9, 0, -0, 0, 0.04, -0.3175, 1.45, -18.11)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_leak")
+
+[node name="FrontLeak2" type="MeshInstance3D" parent="Entrance"]
+transform = Transform3D(3.4, 0, 0, 0, 0.035, 0, -0, 0, 0.04, -2, 2.882, -18.11)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_leak")
+
+[node name="FrontArch0" type="MeshInstance3D" parent="Entrance"]
+transform = Transform3D(0.17, 0, 0, 0, 3.07, 0, -0, 0, 0.05, -3.785, 1.535, -17.98)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="FrontDoorMullion" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(0.1, 0, 0, 0, 2.9, 0, -0, 0, 0.12, -2, 1.45, -17.94)
+[node name="FrontArch1" type="MeshInstance3D" parent="Entrance"]
+transform = Transform3D(0.17, 0, 0, 0, 3.07, 0, -0, 0, 0.05, -0.215, 1.535, -17.98)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="FrontGlow0" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(0.14, 0, 0, 0, 3, 0, -0, 0, 0.03, -3.77, 1.5, -17.88)
-cast_shadow = 0
+[node name="FrontArch2" type="MeshInstance3D" parent="Entrance"]
+transform = Transform3D(3.74, 0, 0, 0, 0.17, 0, -0, 0, 0.05, -2, 2.985, -17.98)
 mesh = SubResource("BoxMesh_unit")
-material_override = SubResource("Mat_daylight")
-
-[node name="FrontGlow1" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(0.14, 0, 0, 0, 3, 0, -0, 0, 0.03, -0.23, 1.5, -17.88)
-cast_shadow = 0
-mesh = SubResource("BoxMesh_unit")
-material_override = SubResource("Mat_daylight")
-
-[node name="FrontGlow2" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(3.76, 0, 0, 0, 0.12, 0, -0, 0, 0.03, -2, 3, -17.88)
-cast_shadow = 0
-mesh = SubResource("BoxMesh_unit")
-material_override = SubResource("Mat_daylight")
+material_override = SubResource("Mat_wood")
 
 [node name="FrontPlank0" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(3.7, 0, 0, 0, 0.26, 0, -0, 0, 0.09, -2, 0.95, -17.8)
+transform = Transform3D(3.604, 0, 0, 0, 0.22, 0, -0, 0, 0.07, -2, 0.95, -17.94)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
 [node name="FrontPlank1" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(3.7, 0, 0, 0, 0.26, 0, -0, 0, 0.09, -2, 1.9, -17.8)
+transform = Transform3D(3.604, 0, 0, 0, 0.22, 0, -0, 0, 0.07, -2, 1.85, -17.94)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
 [node name="FrontPlank2" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(3.7, 0, 0, 0, 0.26, 0, -0, 0, 0.09, -2, 2.5, -17.8)
+transform = Transform3D(3.604, 0, 0, 0, 0.22, 0, -0, 0, 0.07, -2, 2.45, -17.94)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_wood")
+
+[node name="FrontDoorMullion" type="MeshInstance3D" parent="Entrance"]
+transform = Transform3D(0.09, 0, 0, 0, 2.76, 0, -0, 0, 0.1, -2, 1.42, -18.02)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
 [node name="FrontGlowLight" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -2, 1.9, -17.5)
-light_color = Color(0.5, 0.6, 0.78, 1)
-light_energy = 2.4
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -2, 2, -17.4)
+light_color = Color(0.46, 0.56, 0.76, 1)
+light_energy = 1.5
 shadow_enabled = false
-spot_range = 16
-spot_angle = 66
+spot_range = 14
+spot_angle = 60
 
 [node name="FrontDoorZone" type="Area3D" parent="Entrance"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.2, -16)
@@ -6293,57 +6816,67 @@ message = "The front doors will not move.\nSomething heavy is against them."
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Entrance/FrontDoorZone"]
 shape = SubResource("BoxShape_doorzone")
 
-[node name="SealedDoor" type="CSGBox3D" parent="Entrance"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 0, 1.4, 56.17)
+[node name="SealedLeaf" type="CSGBox3D" parent="Entrance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 0, 1.382, 56.17)
 use_collision = true
-size = Vector3(3.2, 2.8, 0.35)
+size = Vector3(3.13, 2.765, 0.35)
 material = SubResource("Mat_wood")
 
-[node name="SealedFrame" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(3.56, 0, 0, 0, 2.96, 0, -0, 0, 0.1, 0, 1.48, 55.95)
+[node name="SealedLeak0" type="MeshInstance3D" parent="Entrance"]
+transform = Transform3D(0.035, 0, 0, 0, 2.8, 0, -0, 0, 0.04, -1.583, 1.4, 56.11)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_leak")
+
+[node name="SealedLeak1" type="MeshInstance3D" parent="Entrance"]
+transform = Transform3D(0.035, 0, 0, 0, 2.8, 0, -0, 0, 0.04, 1.583, 1.4, 56.11)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_leak")
+
+[node name="SealedLeak2" type="MeshInstance3D" parent="Entrance"]
+transform = Transform3D(3.2, 0, 0, 0, 0.035, 0, -0, 0, 0.04, 0, 2.782, 56.11)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Mat_leak")
+
+[node name="SealedArch0" type="MeshInstance3D" parent="Entrance"]
+transform = Transform3D(0.17, 0, 0, 0, 2.97, 0, -0, 0, 0.05, -1.685, 1.485, 55.98)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
-[node name="SealedGlow0" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(0.14, 0, 0, 0, 2.9, 0, -0, 0, 0.03, -1.67, 1.45, 55.88)
-cast_shadow = 0
+[node name="SealedArch1" type="MeshInstance3D" parent="Entrance"]
+transform = Transform3D(0.17, 0, 0, 0, 2.97, 0, -0, 0, 0.05, 1.685, 1.485, 55.98)
 mesh = SubResource("BoxMesh_unit")
-material_override = SubResource("Mat_daylight")
+material_override = SubResource("Mat_wood")
 
-[node name="SealedGlow1" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(0.14, 0, 0, 0, 2.9, 0, -0, 0, 0.03, 1.67, 1.45, 55.88)
-cast_shadow = 0
+[node name="SealedArch2" type="MeshInstance3D" parent="Entrance"]
+transform = Transform3D(3.54, 0, 0, 0, 0.17, 0, -0, 0, 0.05, 0, 2.885, 55.98)
 mesh = SubResource("BoxMesh_unit")
-material_override = SubResource("Mat_daylight")
-
-[node name="SealedGlow2" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(3.56, 0, 0, 0, 0.12, 0, -0, 0, 0.03, 0, 2.9, 55.88)
-cast_shadow = 0
-mesh = SubResource("BoxMesh_unit")
-material_override = SubResource("Mat_daylight")
+material_override = SubResource("Mat_wood")
 
 [node name="SealedPlank0" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(3.5, 0, 0, 0, 0.26, 0, -0, 0, 0.09, 0, 0.85, 55.78)
+transform = Transform3D(3.392, 0, 0, 0, 0.22, 0, -0, 0, 0.07, 0, 0.85, 55.94)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
 [node name="SealedPlank1" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(3.5, 0, 0, 0, 0.26, 0, -0, 0, 0.09, 0, 1.75, 55.78)
+transform = Transform3D(3.392, 0, 0, 0, 0.22, 0, -0, 0, 0.07, 0, 1.75, 55.94)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
 [node name="SealedPlank2" type="MeshInstance3D" parent="Entrance"]
-transform = Transform3D(3.5, 0, 0, 0, 0.26, 0, -0, 0, 0.09, 0, 2.35, 55.78)
+transform = Transform3D(3.392, 0, 0, 0, 0.22, 0, -0, 0, 0.07, 0, 2.35, 55.94)
 mesh = SubResource("BoxMesh_unit")
 material_override = SubResource("Mat_wood")
 
 [node name="EntranceGlow" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 0, 1.9, 55.5)
-light_color = Color(0.5, 0.6, 0.78, 1)
-light_energy = 3.4
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 0, 2, 55.4)
+light_color = Color(0.46, 0.56, 0.76, 1)
+light_energy = 2.2
 shadow_enabled = false
-spot_range = 30
-spot_angle = 70
+spot_range = 26
+spot_angle = 62
 
 [node name="SealedDoorZone" type="Area3D" parent="Entrance"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 53.8)
@@ -6566,231 +7099,359 @@ omni_range = 9
 shadow_enabled = false
 
 [node name="Ground" type="CSGBox3D" parent="Exterior"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 0, -0.85, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 0, -0.85, 20)
 use_collision = true
-size = Vector3(340, 0.7, 360)
+size = Vector3(720, 0.7, 760)
 material = SubResource("Mat_ground")
 
 [node name="Ridge0" type="CSGBox3D" parent="Exterior"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, -95, 2.5, 30)
-size = Vector3(90, 7, 200)
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, -135, 16, 20)
+size = Vector3(150, 34, 300)
 material = SubResource("Mat_ground")
 
 [node name="Ridge1" type="CSGBox3D" parent="Exterior"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 95, 2, 30)
-size = Vector3(90, 6, 200)
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, -105, 12, 150)
+size = Vector3(140, 26, 130)
 material = SubResource("Mat_ground")
 
 [node name="Ridge2" type="CSGBox3D" parent="Exterior"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 0, 3.5, 150)
-size = Vector3(260, 9, 80)
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 135, 14, 20)
+size = Vector3(150, 30, 300)
 material = SubResource("Mat_ground")
 
 [node name="Ridge3" type="CSGBox3D" parent="Exterior"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 0, 1.5, -110)
-size = Vector3(260, 5, 70)
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 110, 11, -90)
+size = Vector3(140, 24, 120)
+material = SubResource("Mat_ground")
+
+[node name="Ridge4" type="CSGBox3D" parent="Exterior"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 0, 18, 205)
+size = Vector3(340, 38, 130)
+material = SubResource("Mat_ground")
+
+[node name="Ridge5" type="CSGBox3D" parent="Exterior"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, -60, 13, 175)
+size = Vector3(150, 28, 90)
+material = SubResource("Mat_ground")
+
+[node name="Ridge6" type="CSGBox3D" parent="Exterior"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 0, 14, -165)
+size = Vector3(340, 30, 120)
+material = SubResource("Mat_ground")
+
+[node name="Ridge7" type="CSGBox3D" parent="Exterior"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 70, 11.5, -140)
+size = Vector3(150, 25, 90)
 material = SubResource("Mat_ground")
 
 [node name="Tree0" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(0.90685, 0, 1.161, 0, 1.4732, 0, -1.161, 0, 0.90685, -39.6, -0.5, -23.3)
+transform = Transform3D(1.4978, 0, 1.9175, 0, 2.4331, 0, -1.9175, 0, 1.4978, -47.7, -0.5, -29.7)
 
-[node name="Tree1" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(-0.49493, 0, 0.99664, 0, 1.1128, 0, -0.99664, 0, -0.49493, -33.2, -0.5, 25.1)
+[node name="Tree1" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(-0.89362, 0, 1.7995, 0, 2.0091, 0, -1.7995, 0, -0.89362, -40.2, -0.5, 25.8)
 
-[node name="Tree2" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(-1.1274, 0, -0.032158, 0, 1.1278, 0, 0.032158, 0, -1.1274, -31.4, -0.5, 72.4)
+[node name="Tree2" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(-2.026, 0, -0.057793, 0, 2.0268, 0, 0.057793, 0, -2.026, -38.1, -0.5, 80.1)
 
-[node name="Tree3" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(0.83169, 0, -0.60438, 0, 1.0281, 0, 0.60438, 0, 0.83169, -42.7, -0.5, 5.38)
+[node name="Tree3" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(1.5447, 0, -1.1225, 0, 1.9095, 0, 1.1225, 0, 1.5447, -51.3, -0.5, 3.21)
 
-[node name="Tree4" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(-0.18987, 0, -0.94345, 0, 0.96237, 0, 0.94345, 0, -0.18987, -34.9, -0.5, 33.3)
+[node name="Tree4" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(-0.36149, 0, -1.7962, 0, 1.8322, 0, 1.7962, 0, -0.36149, -42.3, -0.5, 35.3)
 
-[node name="Tree5" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(1.4675, 0, 0.38182, 0, 1.5164, 0, -0.38182, 0, 1.4675, -36.7, -0.5, 52.2)
+[node name="Tree5" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(2.4039, 0, 0.62546, 0, 2.484, 0, -0.62546, 0, 2.4039, -44.3, -0.5, 56.9)
 
-[node name="Tree6" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(-1.3125, 0, 0.30057, 0, 1.3465, 0, -0.30057, 0, -1.3125, -29, -0.5, 41.9)
+[node name="Tree6" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(-2.2264, 0, 0.50987, 0, 2.2841, 0, -0.50987, 0, -2.2264, -35.4, -0.5, 45.1)
 
-[node name="Tree7" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(0.12184, 0, -0.90127, 0, 0.90947, 0, 0.90127, 0, 0.12184, -33.7, -0.5, 20.4)
+[node name="Tree7" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(0.23712, 0, -1.754, 0, 1.77, 0, 1.754, 0, 0.23712, -40.9, -0.5, 20.5)
 
-[node name="Tree8" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(0.62411, 0, 1.1575, 0, 1.315, 0, -1.1575, 0, 0.62411, -42.9, -0.5, 66.9)
+[node name="Tree8" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(1.0665, 0, 1.9778, 0, 2.2471, 0, -1.9778, 0, 1.0665, -51.5, -0.5, 73.8)
 
-[node name="Tree9" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(-1.354, 0, -0.67877, 0, 1.5146, 0, 0.67877, 0, -1.354, -33, -0.5, 11.1)
+[node name="Tree9" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(-2.2187, 0, -1.1123, 0, 2.4819, 0, 1.1123, 0, -2.2187, -40, -0.5, 9.83)
 
-[node name="Tree10" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(-0.45764, 0, -1.1284, 0, 1.2176, 0, 1.1284, 0, -0.45764, -51.2, -0.5, 45.3)
+[node name="Tree10" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(-0.80149, 0, -1.9762, 0, 2.1325, 0, 1.9762, 0, -0.80149, -61.1, -0.5, 49)
 
-[node name="Tree11" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(0.4861, 0, 1.202, 0, 1.2965, 0, -1.202, 0, 0.4861, -42.4, -0.5, 3.05)
+[node name="Tree11" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(0.83433, 0, 2.063, 0, 2.2253, 0, -2.063, 0, 0.83433, -50.8, -0.5, 0.54)
 
 [node name="Tree12" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(0.72913, 0, 0.5934, 0, 0.94008, 0, -0.5934, 0, 0.72913, -43, -0.5, 72.6)
+transform = Transform3D(1.4007, 0, 1.14, 0, 1.806, 0, -1.14, 0, 1.4007, -51.6, -0.5, 80.4)
 
-[node name="Tree13" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(-0.64541, 0, -1.0177, 0, 1.2051, 0, 1.0177, 0, -0.64541, -38.6, -0.5, -25.9)
+[node name="Tree13" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(-1.1342, 0, -1.7885, 0, 2.1178, 0, 1.7885, 0, -1.1342, -46.5, -0.5, -32.7)
 
-[node name="Tree14" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(0.55867, 0, -1.223, 0, 1.3446, 0, 1.223, 0, 0.55867, -40.8, -0.5, 41.1)
+[node name="Tree14" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(0.9481, 0, -2.0756, 0, 2.2819, 0, 2.0756, 0, 0.9481, -49, -0.5, 44.2)
 
-[node name="Tree15" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(-0.61525, 0, 1.343, 0, 1.4773, 0, -1.343, 0, -0.61525, -38, -0.5, -30.1)
+[node name="Tree15" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(-1.0154, 0, 2.2165, 0, 2.438, 0, -2.2165, 0, -1.0154, -45.8, -0.5, -37.5)
 
-[node name="Tree16" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(-0.31493, 0, 0.80126, 0, 0.86093, 0, -0.80126, 0, -0.31493, -30.1, -0.5, 51.1)
+[node name="Tree16" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(-0.62657, 0, 1.5941, 0, 1.7129, 0, -1.5941, 0, -0.62657, -36.6, -0.5, 55.7)
 
-[node name="Tree17" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(0.72566, 0, -0.89439, 0, 1.1517, 0, 0.89439, 0, 0.72566, -47.1, -0.5, 23.9)
+[node name="Tree17" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(1.2948, 0, -1.5958, 0, 2.055, 0, 1.5958, 0, 1.2948, -56.3, -0.5, 24.5)
 
-[node name="Tree18" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(0.22317, 0, -1.5283, 0, 1.5445, 0, 1.5283, 0, 0.22317, -35.2, -0.5, -8.87)
+[node name="Tree18" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(0.3637, 0, -2.4906, 0, 2.517, 0, 2.4906, 0, 0.3637, -42.6, -0.5, -13.1)
 
-[node name="Tree19" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(1.0308, 0, -0.87473, 0, 1.3519, 0, 0.87473, 0, 1.0308, -47.9, -0.5, -27)
+[node name="Tree19" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(1.7464, 0, -1.482, 0, 2.2905, 0, 1.482, 0, 1.7464, -57.2, -0.5, -33.9)
 
-[node name="Tree20" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(0.76331, 0, 0.67774, 0, 1.0208, 0, -0.67774, 0, 0.76331, -30.3, -0.5, 73.1)
+[node name="Tree20" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(1.4215, 0, 1.2621, 0, 1.9009, 0, -1.2621, 0, 1.4215, -36.9, -0.5, 81)
 
-[node name="Tree21" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(-1.631, 0, -0.040272, 0, 1.6315, 0, 0.040272, 0, -1.631, -21.8, -0.5, 0.618)
+[node name="Tree21" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(-2.6186, 0, -0.064657, 0, 2.6194, 0, 0.064657, 0, -2.6186, -27.1, -0.5, -2.25)
 
-[node name="Tree22" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(0.61208, 0, 0.89095, 0, 1.0809, 0, -0.89095, 0, 0.61208, -32.9, -0.5, 62.6)
+[node name="Tree22" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(1.1165, 0, 1.6251, 0, 1.9717, 0, -1.6251, 0, 1.1165, -40, -0.5, 68.9)
 
-[node name="Tree23" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(0.57908, 0, -0.99775, 0, 1.1536, 0, 0.99775, 0, 0.57908, -41.6, -0.5, 36)
+[node name="Tree23" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(1.0326, 0, -1.7792, 0, 2.0572, 0, 1.7792, 0, 1.0326, -50, -0.5, 38.4)
 
 [node name="Tree24" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(-0.62623, 0, 0.75486, 0, 0.98081, 0, -0.75486, 0, -0.62623, -41.2, -0.5, 50.4)
+transform = Transform3D(-1.1837, 0, 1.4268, 0, 1.8539, 0, -1.4268, 0, -1.1837, -49.5, -0.5, 54.9)
 
-[node name="Tree25" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(-0.68609, 0, 1.138, 0, 1.3288, 0, -1.138, 0, -0.68609, -51.4, -0.5, -28.4)
+[node name="Tree25" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(-1.1686, 0, 1.9383, 0, 2.2633, 0, -1.9383, 0, -1.1686, -61.3, -0.5, -35.6)
 
-[node name="Tree26" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(0.95703, 0, -0.84911, 0, 1.2794, 0, 0.84911, 0, 0.95703, 28.1, -0.5, 15.3)
+[node name="Tree26" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(1.6495, 0, -1.4635, 0, 2.2052, 0, 1.4635, 0, 1.6495, -34.4, -0.5, 14.6)
 
-[node name="Tree27" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(-1.6276, 0, -0.3604, 0, 1.6671, 0, 0.3604, 0, -1.6276, 50.9, -0.5, -25.5)
+[node name="Tree27" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(-2.5983, 0, -0.57534, 0, 2.6612, 0, 0.57534, 0, -2.5983, -60.7, -0.5, -32.2)
 
-[node name="Tree28" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(0.90536, 0, -0.78886, 0, 1.2008, 0, 0.78886, 0, 0.90536, 21.5, -0.5, -2.63)
+[node name="Tree28" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(1.5929, 0, -1.3879, 0, 2.1127, 0, 1.3879, 0, 1.5929, -26.7, -0.5, -5.99)
 
-[node name="Tree29" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(-0.9738, 0, -0.035652, 0, 0.97445, 0, 0.035652, 0, -0.9738, 45.5, -0.5, -22.9)
+[node name="Tree29" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(-1.8452, 0, -0.067555, 0, 1.8464, 0, 0.067555, 0, -1.8452, -54.5, -0.5, -29.3)
 
-[node name="Tree30" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(0.26911, 0, 1.1844, 0, 1.2145, 0, -1.1844, 0, 0.26911, 26.3, -0.5, -30.6)
+[node name="Tree30" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(0.4717, 0, 2.076, 0, 2.1289, 0, -2.076, 0, 0.4717, -32.3, -0.5, -38.1)
 
-[node name="Tree31" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(-0.99733, 0, -0.95637, 0, 1.3818, 0, 0.95637, 0, -0.99733, 47.8, -0.5, 23.1)
+[node name="Tree31" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(-1.6786, 0, -1.6096, 0, 2.3256, 0, 1.6096, 0, -1.6786, -57.1, -0.5, 23.6)
 
-[node name="Tree32" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(0.34383, 0, 1.4515, 0, 1.4916, 0, -1.4515, 0, 0.34383, 44.1, -0.5, 6.05)
+[node name="Tree32" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(0.56586, 0, 2.3887, 0, 2.4549, 0, -2.3887, 0, 0.56586, -52.9, -0.5, 3.98)
 
-[node name="Tree33" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(0.22978, 0, -0.95058, 0, 0.97796, 0, 0.95058, 0, 0.22978, 32.2, -0.5, 71.2)
+[node name="Tree33" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(0.4348, 0, -1.7987, 0, 1.8505, 0, 1.7987, 0, 0.4348, -39.1, -0.5, 78.8)
 
-[node name="Tree34" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(-0.65475, 0, -0.95379, 0, 1.1569, 0, 0.95379, 0, -0.65475, 25.4, -0.5, 62.5)
+[node name="Tree34" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(-1.1665, 0, -1.6992, 0, 2.0611, 0, 1.6992, 0, -1.1665, -31.2, -0.5, 68.8)
 
-[node name="Tree35" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(-0.78259, 0, -0.47289, 0, 0.91437, 0, 0.47289, 0, -0.78259, 48.8, -0.5, 24.4)
+[node name="Tree35" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(-1.5198, 0, -0.91836, 0, 1.7757, 0, 0.91836, 0, -1.5198, -58.4, -0.5, 25)
 
 [node name="Tree36" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(0.06049, 0, -0.85927, 0, 0.8614, 0, 0.85927, 0, 0.06049, 35.2, -0.5, 32.5)
+transform = Transform3D(0.12032, 0, -1.7092, 0, 1.7134, 0, 1.7092, 0, 0.12032, -42.6, -0.5, 34.3)
 
-[node name="Tree37" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(-0.97903, 0, -0.8806, 0, 1.3168, 0, 0.8806, 0, -0.97903, 51.5, -0.5, 59.4)
+[node name="Tree37" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(-1.6723, 0, -1.5041, 0, 2.2492, 0, 1.5041, 0, -1.6723, -61.5, -0.5, 65.3)
 
-[node name="Tree38" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(1.5431, 0, -0.19702, 0, 1.5556, 0, 0.19702, 0, 1.5431, 49.6, -0.5, -31)
+[node name="Tree38" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(2.5098, 0, -0.32044, 0, 2.5302, 0, 0.32044, 0, 2.5098, 59.2, -0.5, -38.5)
 
-[node name="Tree39" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(-0.96081, 0, -1.2049, 0, 1.5411, 0, 1.2049, 0, -0.96081, 49.9, -0.5, -12.1)
+[node name="Tree39" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(-1.5668, 0, -1.9648, 0, 2.513, 0, 1.9648, 0, -1.5668, 59.5, -0.5, -16.8)
 
-[node name="Tree40" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(-1.1439, 0, 0.58202, 0, 1.2834, 0, -0.58202, 0, -1.1439, 43.9, -0.5, 7.12)
+[node name="Tree40" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(-1.9696, 0, 1.0022, 0, 2.2099, 0, -1.0022, 0, -1.9696, 52.7, -0.5, 5.21)
 
-[node name="Tree41" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(0.73308, 0, -1.3389, 0, 1.5265, 0, 1.3389, 0, 0.73308, 30, -0.5, 63.9)
+[node name="Tree41" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(1.1986, 0, -2.1892, 0, 2.4959, 0, 2.1892, 0, 1.1986, 36.6, -0.5, 70.4)
 
-[node name="Tree42" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(1.0758, 0, -1.2198, 0, 1.6264, 0, 1.2198, 0, 1.0758, 51.9, -0.5, 16.1)
+[node name="Tree42" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(1.7286, 0, -1.9601, 0, 2.6134, 0, 1.9601, 0, 1.7286, 61.9, -0.5, 15.5)
 
-[node name="Tree43" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(1.2772, 0, -0.9319, 0, 1.581, 0, 0.9319, 0, 1.2772, 46.8, -0.5, -33.4)
+[node name="Tree43" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(2.0681, 0, -1.5089, 0, 2.5601, 0, 1.5089, 0, 2.0681, 56, -0.5, -41.3)
 
-[node name="Tree44" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(-0.0376, 0, -1.6813, 0, 1.6817, 0, 1.6813, 0, -0.0376, 32.8, -0.5, -1.49)
+[node name="Tree44" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(-0.059886, 0, -2.6778, 0, 2.6785, 0, 2.6778, 0, -0.059886, 39.8, -0.5, -4.67)
 
-[node name="Tree45" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(1.0187, 0, -0.39586, 0, 1.0929, 0, 0.39586, 0, 1.0187, 28.6, -0.5, 61.2)
+[node name="Tree45" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(1.851, 0, -0.71927, 0, 1.9858, 0, 0.71927, 0, 1.851, 35, -0.5, 67.3)
 
-[node name="Tree46" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(0.87603, 0, 1.1464, 0, 1.4428, 0, -1.1464, 0, 0.87603, 48.6, -0.5, 34.2)
+[node name="Tree46" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(1.4557, 0, 1.9049, 0, 2.3974, 0, -1.9049, 0, 1.4557, 58.1, -0.5, 36.3)
 
-[node name="Tree47" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(-0.72888, 0, -0.74277, 0, 1.0407, 0, 0.74277, 0, -0.72888, 24.2, -0.5, -4.22)
+[node name="Tree47" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(-1.3478, 0, -1.3735, 0, 1.9243, 0, 1.3735, 0, -1.3478, 29.8, -0.5, -7.81)
 
 [node name="Tree48" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(0.9485, 0, -0.97511, 0, 1.3603, 0, 0.97511, 0, 0.9485, 24.6, -0.5, -1.4)
+transform = Transform3D(1.604, 0, -1.649, 0, 2.3004, 0, 1.649, 0, 1.604, 30.3, -0.5, -4.57)
 
-[node name="Tree49" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(-1.6399, 0, -0.22024, 0, 1.6547, 0, 0.22024, 0, -1.6399, 29.5, -0.5, 25.7)
+[node name="Tree49" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(-2.6231, 0, -0.35227, 0, 2.6467, 0, 0.35227, 0, -2.6231, 35.9, -0.5, 26.6)
 
-[node name="Tree50" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(0.88549, 0, -0.69778, 0, 1.1274, 0, 0.69778, 0, 0.88549, 25.9, -0.5, 3.55)
+[node name="Tree50" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(1.5916, 0, -1.2542, 0, 2.0263, 0, 1.2542, 0, 1.5916, 31.8, -0.5, 1.11)
 
-[node name="Tree51" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(0.85441, 0, 0.28616, 0, 0.90106, 0, -0.28616, 0, 0.85441, 39.6, -0.5, 59.8)
+[node name="Tree51" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(1.6689, 0, 0.55896, 0, 1.7601, 0, -0.55896, 0, 1.6689, 47.7, -0.5, 65.7)
 
-[node name="Tree52" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(1.3108, 0, 0, 0, 1.3108, 0, 0, 0, 1.3108, -16.1, -0.5, 85.5)
+[node name="Tree52" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(-1.6055, 0, -1.872, 0, 2.4661, 0, 1.872, 0, -1.6055, 37, -0.5, 68.4)
 
-[node name="Tree53" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, 14.7, -0.5, 89.2)
+[node name="Tree53" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(1.8173, 0, -1.3287, 0, 2.2512, 0, 1.3287, 0, 1.8173, 46.7, -0.5, 39.8)
 
-[node name="Tree54" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(1.5127, 0, 0, 0, 1.5127, 0, 0, 0, 1.5127, -23.8, -0.5, 74.9)
+[node name="Tree54" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(0.52041, 0, 2.0272, 0, 2.0929, 0, -2.0272, 0, 0.52041, 39.7, -0.5, -7.48)
 
-[node name="Tree55" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(1.1171, 0, 0, 0, 1.1171, 0, 0, 0, 1.1171, -3.97, -0.5, -35.7)
+[node name="Tree55" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(-1.4995, 0, -1.5502, 0, 2.1568, 0, 1.5502, 0, -1.4995, 61.5, -0.5, 66.5)
 
-[node name="Tree56" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(1.0455, 0, 0, 0, 1.0455, 0, 0, 0, 1.0455, 27.9, -0.5, 80.2)
+[node name="Tree56" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(1.6595, 0, 1.9416, 0, 2.5542, 0, -1.9416, 0, 1.6595, 36.5, -0.5, 74.5)
 
-[node name="Tree57" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(1.1489, 0, 0, 0, 1.1489, 0, 0, 0, 1.1489, 35.3, -0.5, -40.4)
+[node name="Tree57" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(0.62357, 0, -1.9888, 0, 2.0843, 0, 1.9888, 0, 0.62357, 61.9, -0.5, 6.79)
 
-[node name="Tree58" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(1.0484, 0, 0, 0, 1.0484, 0, 0, 0, 1.0484, -34.6, -0.5, -38.5)
+[node name="Tree58" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(1.4183, 0, -1.2759, 0, 1.9078, 0, 1.2759, 0, 1.4183, 60.6, -0.5, 59)
 
-[node name="Tree59" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(1.4826, 0, 0, 0, 1.4826, 0, 0, 0, 1.4826, 29, -0.5, -32.8)
+[node name="Tree59" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(-1.1535, 0, -1.5025, 0, 1.8942, 0, 1.5025, 0, -1.1535, 41.5, -0.5, 53.6)
 
 [node name="Tree60" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(1.2301, 0, 0, 0, 1.2301, 0, 0, 0, 1.2301, 22.2, -0.5, 90.7)
+transform = Transform3D(0.62569, 0, 2.0817, 0, 2.1737, 0, -2.0817, 0, 0.62569, 57.6, -0.5, 70.1)
 
-[node name="Tree61" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(0.94757, 0, 0, 0, 0.94757, 0, 0, 0, 0.94757, -15.1, -0.5, 65)
+[node name="Tree61" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(2.2799, 0, -0.53063, 0, 2.3408, 0, 0.53063, 0, 2.2799, 46.9, -0.5, -31)
 
-[node name="Tree62" parent="Exterior" instance=ExtResource("t_tree_thin")]
-transform = Transform3D(1.3351, 0, 0, 0, 1.3351, 0, 0, 0, 1.3351, -41.2, -0.5, 81.3)
+[node name="Tree62" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(-0.64206, 0, 2.3552, 0, 2.4411, 0, -2.3552, 0, -0.64206, 61.5, -0.5, 61.2)
 
-[node name="Tree63" parent="Exterior" instance=ExtResource("t_tree_pine")]
-transform = Transform3D(1.1897, 0, 0, 0, 1.1897, 0, 0, 0, 1.1897, 28.2, -0.5, -39.8)
+[node name="Tree63" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(1.2374, 0, -1.6469, 0, 2.0599, 0, 1.6469, 0, 1.2374, 60.3, -0.5, -0.981)
 
-[node name="Tree64" parent="Exterior" instance=ExtResource("t_tree_dead")]
-transform = Transform3D(1.323, 0, 0, 0, 1.323, 0, 0, 0, 1.323, 14.1, -0.5, -35.7)
+[node name="Tree64" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(-2.4549, 0, -0.22143, 0, 2.4649, 0, 0.22143, 0, -2.4549, 28.9, -0.5, -35.9)
 
-[node name="Tree65" parent="Exterior" instance=ExtResource("t_tree_twisted")]
-transform = Transform3D(1.3008, 0, 0, 0, 1.3008, 0, 0, 0, 1.3008, -35.7, -0.5, -49.5)
+[node name="Tree65" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(-1.5651, 0, -1.4244, 0, 2.1162, 0, 1.4244, 0, -1.5651, 27.5, -0.5, -35.5)
+
+[node name="Tree66" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(0.80489, 0, -2.1776, 0, 2.3216, 0, 2.1776, 0, 0.80489, 54.9, -0.5, 58.1)
+
+[node name="Tree67" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(-0.91886, 0, 1.4451, 0, 1.7125, 0, -1.4451, 0, -0.91886, 42.3, -0.5, 9.19)
+
+[node name="Tree68" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(-1.3959, 0, -1.5995, 0, 2.123, 0, 1.5995, 0, -1.3959, 51.9, -0.5, 57.7)
+
+[node name="Tree69" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(-0.67813, 0, -1.7481, 0, 1.875, 0, 1.7481, 0, -0.67813, 49.9, -0.5, -30.8)
+
+[node name="Tree70" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(2.2696, 0, 0.11704, 0, 2.2726, 0, -0.11704, 0, 2.2696, 26, -0.5, -4.07)
+
+[node name="Tree71" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(-0.43514, 0, 1.8634, 0, 1.9135, 0, -1.8634, 0, -0.43514, 32.2, -0.5, 11.5)
+
+[node name="Tree72" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(-1.4822, 0, -0.86875, 0, 1.7181, 0, 0.86875, 0, -1.4822, 28.7, -0.5, 47.1)
+
+[node name="Tree73" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(0.31703, 0, 1.7027, 0, 1.732, 0, -1.7027, 0, 0.31703, 30.7, -0.5, 72.1)
+
+[node name="Tree74" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(-1.3813, 0, 1.5279, 0, 2.0597, 0, -1.5279, 0, -1.3813, 51, -0.5, 64)
+
+[node name="Tree75" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(-1.0269, 0, 2.1945, 0, 2.4228, 0, -2.1945, 0, -1.0269, 49.4, -0.5, -24.9)
+
+[node name="Tree76" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(2.1759, 0, 0, 0, 2.1759, 0, 0, 0, 2.1759, -52.5, -0.5, 69.1)
+
+[node name="Tree77" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(2.3454, 0, 0, 0, 2.3454, 0, 0, 0, 2.3454, 11.5, -0.5, 77)
+
+[node name="Tree78" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(1.9736, 0, 0, 0, 1.9736, 0, 0, 0, 1.9736, -44, -0.5, -45.9)
+
+[node name="Tree79" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(2.4652, 0, 0, 0, 2.4652, 0, 0, 0, 2.4652, 3.32, -0.5, 103)
+
+[node name="Tree80" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(2.8102, 0, 0, 0, 2.8102, 0, 0, 0, 2.8102, 5.06, -0.5, 77.8)
+
+[node name="Tree81" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(2.4202, 0, 0, 0, 2.4202, 0, 0, 0, 2.4202, 54.2, -0.5, -39.2)
+
+[node name="Tree82" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(1.9612, 0, 0, 0, 1.9612, 0, 0, 0, 1.9612, 35.7, -0.5, -31.9)
+
+[node name="Tree83" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(2.7816, 0, 0, 0, 2.7816, 0, 0, 0, 2.7816, 47, -0.5, 91.8)
+
+[node name="Tree84" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(2.7628, 0, 0, 0, 2.7628, 0, 0, 0, 2.7628, -34.3, -0.5, 78.5)
+
+[node name="Tree85" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(2.5955, 0, 0, 0, 2.5955, 0, 0, 0, 2.5955, 12.3, -0.5, -70.1)
+
+[node name="Tree86" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(2.8577, 0, 0, 0, 2.8577, 0, 0, 0, 2.8577, -57.6, -0.5, 98.1)
+
+[node name="Tree87" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(1.9938, 0, 0, 0, 1.9938, 0, 0, 0, 1.9938, -51.2, -0.5, 83.2)
+
+[node name="Tree88" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(2.6601, 0, 0, 0, 2.6601, 0, 0, 0, 2.6601, 49.7, -0.5, 88.4)
+
+[node name="Tree89" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(2.3355, 0, 0, 0, 2.3355, 0, 0, 0, 2.3355, 41, -0.5, -52.5)
+
+[node name="Tree90" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(2.2868, 0, 0, 0, 2.2868, 0, 0, 0, 2.2868, -26.8, -0.5, -61.5)
+
+[node name="Tree91" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(1.8791, 0, 0, 0, 1.8791, 0, 0, 0, 1.8791, -34.7, -0.5, 73.6)
+
+[node name="Tree92" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(2.4009, 0, 0, 0, 2.4009, 0, 0, 0, 2.4009, 14.4, -0.5, 85.2)
+
+[node name="Tree93" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(2.2207, 0, 0, 0, 2.2207, 0, 0, 0, 2.2207, 18.8, -0.5, 71.2)
+
+[node name="Tree94" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(2.134, 0, 0, 0, 2.134, 0, 0, 0, 2.134, 36.9, -0.5, 91.6)
+
+[node name="Tree95" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(2.8013, 0, 0, 0, 2.8013, 0, 0, 0, 2.8013, 45.2, -0.5, 72.5)
+
+[node name="Tree96" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(2.5647, 0, 0, 0, 2.5647, 0, 0, 0, 2.5647, -24.8, -0.5, -64.5)
+
+[node name="Tree97" parent="Exterior" instance=ExtResource("t_tree_fir")]
+transform = Transform3D(2.321, 0, 0, 0, 2.321, 0, 0, 0, 2.321, 38.7, -0.5, -64.9)
+
+[node name="Tree98" parent="Exterior" instance=ExtResource("t_tree_oak")]
+transform = Transform3D(2.1181, 0, 0, 0, 2.1181, 0, 0, 0, 2.1181, 3.68, -0.5, 72.8)
+
+[node name="Tree99" parent="Exterior" instance=ExtResource("t_tree_dead")]
+transform = Transform3D(1.9023, 0, 0, 0, 1.9023, 0, 0, 0, 1.9023, 44.8, -0.5, -36.5)
+
+[node name="Tree100" parent="Exterior" instance=ExtResource("t_tree_aleppo")]
+transform = Transform3D(2.4603, 0, 0, 0, 2.4603, 0, 0, 0, 2.4603, -27.6, -0.5, -31.2)
+
+[node name="Tree101" parent="Exterior" instance=ExtResource("t_tree_plane")]
+transform = Transform3D(2.4082, 0, 0, 0, 2.4082, 0, 0, 0, 2.4082, 51.3, -0.5, -56.1)
 
 [node name="Moonlight" type="DirectionalLight3D" parent="Exterior"]
-transform = Transform3D(0.8192, 0.3277, -0.4698, 0, 0.8192, 0.5736, 0.5736, -0.4699, 0.6710, 0, 40, 0)
+transform = Transform3D(0.7895, 0.5035, -0.35, 0, 0.5702, 0.82, 0.614, -0.6474, 0.45, 0, 40, 0)
 light_color = Color(0.58, 0.7, 1, 1)
 light_energy = 1.35
 shadow_enabled = true
@@ -6798,7 +7459,7 @@ shadow_bias = 0.06
 directional_shadow_max_distance = 90.0
 
 [node name="Tarp" parent="." instance=ExtResource("2_tarp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 3.752, 21)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.048, -11)
 
 ; The tarp is a 0.1m-thick slab. Outdoors it sits on bumpy terrain and its
 ; collision usefully flattens a patch; on this level's dead-flat concrete the
