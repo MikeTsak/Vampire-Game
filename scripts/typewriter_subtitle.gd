@@ -4,6 +4,12 @@ var full_text = ""
 var type_timer = 0.0
 var type_speed = 0.03 # Fast typewriter
 
+func _ready():
+	# Label.visible_characters defaults to -1 ("show all"), not 0. Left alone,
+	# the first _process() tick increments it to 0 and then indexes
+	# full_text[-1] while full_text is still "", which crashes.
+	visible_characters = 0
+
 func _get_suited_man() -> Node:
 	# Relative to self (SubtitleLabel -> Subtitles -> cutscene root -> SuitedMan) so this
 	# still resolves when the cutscene is instanced inside another scene (e.g. live in a
@@ -38,7 +44,7 @@ func _process(delta):
 			type_timer -= type_speed
 			visible_characters += 1
 
-			# Play dialogue blip on every non-space character reveal (PS1 voice mumble)
+			# Play dialogue blip on every non-space character reveal (retro voice mumble)
 			var ch = full_text[visible_characters - 1]
 			if ch != " " and ch != "\n":
 				var blip = _get_dialogue_blip()

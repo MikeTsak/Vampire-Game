@@ -111,7 +111,7 @@ func generate_terrain():
 	mesh_instance = MeshInstance3D.new()
 	mesh_instance.mesh = array_mesh
 	
-	# Procedural PS1 dirt material
+	# Procedural retro dirt material
 	var mat = StandardMaterial3D.new()
 	var dirt_noise = FastNoiseLite.new()
 	dirt_noise.frequency = 0.5

@@ -1,0 +1,121 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://textures/hand_skin.tres" id="1_mell8"]
+[ext_resource type="Texture2D" path="res://textures/hand_fabric.tres" id="2_8x1dx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j2xv1"]
+albedo_texture = ExtResource("1_mell8")
+roughness = 0.85
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qy7lk"]
+albedo_texture = ExtResource("2_8x1dx")
+roughness = 0.85
+uv1_scale = Vector3(1.6, 1.6, 1.6)
+texture_filter = 0
+
+[node name="PlayerHands" type="Node3D" unique_id=1955068664]
+
+[node name="HandGrip" type="Node3D" parent="." unique_id=1472192802]
+transform = Transform3D(1, 0, 0, 0, 0.9781476, 0.2079117, 0, -0.2079117, 0.9781476, 0, -0.065, 0.42)
+
+[node name="Palm" type="CSGBox3D" parent="HandGrip" unique_id=846808340]
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.135, 0.114750005, 0.1485)
+
+[node name="Finger0" type="CSGBox3D" parent="HandGrip" unique_id=171235477]
+transform = Transform3D(1, 0, 0, 0, 0.66913056, 0.74314487, 0, -0.74314487, 0.66913056, -0.06075, -0.0135, 0.1755)
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.0324, 0.0351, 0.12150001)
+
+[node name="Finger1" type="CSGBox3D" parent="HandGrip" unique_id=1272898780]
+transform = Transform3D(1, 0, 0, 0, 0.66913056, 0.74314487, 0, -0.74314487, 0.66913056, -0.02025, -0.0135, 0.1755)
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.0324, 0.0351, 0.12150001)
+
+[node name="Finger2" type="CSGBox3D" parent="HandGrip" unique_id=234944937]
+transform = Transform3D(1, 0, 0, 0, 0.66913056, 0.74314487, 0, -0.74314487, 0.66913056, 0.02025, -0.0135, 0.1755)
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.0324, 0.0351, 0.12150001)
+
+[node name="Finger3" type="CSGBox3D" parent="HandGrip" unique_id=1090391786]
+transform = Transform3D(1, 0, 0, 0, 0.66913056, 0.74314487, 0, -0.74314487, 0.66913056, 0.06075, -0.0135, 0.1755)
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.0324, 0.0351, 0.12150001)
+
+[node name="Thumb" type="CSGBox3D" parent="HandGrip" unique_id=474919840]
+transform = Transform3D(0.64278764, -0.76604444, 0, 0.74930453, 0.6287412, 0.2079117, -0.1592696, -0.13364308, 0.9781476, 0.0945, 0.027, 0.0405)
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.037800003, 0.037800003, 0.10125001)
+
+[node name="Knuckles" type="CSGBox3D" parent="HandGrip" unique_id=1940541800]
+transform = Transform3D(1, 0, 0, 0, 0.95105654, 0.309017, 0, -0.309017, 0.95105654, 0, 0.0432, 0.10125)
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.1296, 0.027, 0.047250003)
+
+[node name="Cuff" type="CSGBox3D" parent="HandGrip" unique_id=1331145026]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0135, -0.162)
+material_override = SubResource("StandardMaterial3D_qy7lk")
+size = Vector3(0.16875, 0.14175, 0.087749995)
+
+[node name="ForearmNear" type="CSGBox3D" parent="HandGrip" unique_id=1108973507]
+transform = Transform3D(0.9945219, 0.104528464, 0, -0.104528464, 0.9945219, 0, 0, 0, 1, 0.0405, -0.135, 0.081)
+material_override = SubResource("StandardMaterial3D_qy7lk")
+size = Vector3(0.18225001, 0.19575, 0.22275001)
+
+[node name="ForearmFar" type="CSGBox3D" parent="HandGrip" unique_id=813130040]
+transform = Transform3D(0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 0, 0, 1, 0.081, -0.297, 0.1485)
+material_override = SubResource("StandardMaterial3D_qy7lk")
+size = Vector3(0.20250002, 0.22275001, 0.26325)
+
+[node name="HandForend" type="Node3D" parent="." unique_id=1712955602]
+transform = Transform3D(1, 0, 0, 0, 0.9975641, -0.06975647, 0, 0.06975647, 0.9975641, 0, -0.045, -0.16)
+
+[node name="Palm" type="CSGBox3D" parent="HandForend" unique_id=1158997233]
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.135, 0.114750005, 0.1485)
+
+[node name="Finger0" type="CSGBox3D" parent="HandForend" unique_id=1811576946]
+transform = Transform3D(1, 0, 0, 0, 0.66913056, 0.74314487, 0, -0.74314487, 0.66913056, -0.06075, -0.0135, 0.1755)
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.0324, 0.0351, 0.12150001)
+
+[node name="Finger1" type="CSGBox3D" parent="HandForend" unique_id=2108715773]
+transform = Transform3D(1, 0, 0, 0, 0.66913056, 0.74314487, 0, -0.74314487, 0.66913056, -0.02025, -0.0135, 0.1755)
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.0324, 0.0351, 0.12150001)
+
+[node name="Finger2" type="CSGBox3D" parent="HandForend" unique_id=1902977235]
+transform = Transform3D(1, 0, 0, 0, 0.66913056, 0.74314487, 0, -0.74314487, 0.66913056, 0.02025, -0.0135, 0.1755)
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.0324, 0.0351, 0.12150001)
+
+[node name="Finger3" type="CSGBox3D" parent="HandForend" unique_id=589100712]
+transform = Transform3D(1, 0, 0, 0, 0.66913056, 0.74314487, 0, -0.74314487, 0.66913056, 0.06075, -0.0135, 0.1755)
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.0324, 0.0351, 0.12150001)
+
+[node name="Thumb" type="CSGBox3D" parent="HandForend" unique_id=2117712626]
+transform = Transform3D(0.64278764, 0.76604444, 0, -0.74930453, 0.6287412, 0.2079117, 0.1592696, -0.13364308, 0.9781476, -0.0945, 0.027, 0.0405)
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.037800003, 0.037800003, 0.10125001)
+
+[node name="Knuckles" type="CSGBox3D" parent="HandForend" unique_id=310357889]
+transform = Transform3D(1, 0, 0, 0, 0.95105654, 0.309017, 0, -0.309017, 0.95105654, 0, 0.0432, 0.10125)
+material_override = SubResource("StandardMaterial3D_j2xv1")
+size = Vector3(0.1296, 0.027, 0.047250003)
+
+[node name="Cuff" type="CSGBox3D" parent="HandForend" unique_id=278943150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0135, -0.162)
+material_override = SubResource("StandardMaterial3D_qy7lk")
+size = Vector3(0.16875, 0.14175, 0.087749995)
+
+[node name="ForearmNear" type="CSGBox3D" parent="HandForend" unique_id=581463537]
+transform = Transform3D(0.9945219, -0.104528464, 0, 0.104528464, 0.9945219, 0, 0, 0, 1, -0.0405, -0.135, 0.081)
+material_override = SubResource("StandardMaterial3D_qy7lk")
+size = Vector3(0.18225001, 0.19575, 0.22275001)
+
+[node name="ForearmFar" type="CSGBox3D" parent="HandForend" unique_id=1582804024]
+transform = Transform3D(0.9848077, -0.17364818, 0, 0.17364818, 0.9848077, 0, 0, 0, 1, -0.081, -0.297, 0.1485)
+material_override = SubResource("StandardMaterial3D_qy7lk")
+size = Vector3(0.20250002, 0.22275001, 0.26325)

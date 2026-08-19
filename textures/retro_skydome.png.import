@@ -2,20 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3rqb80icygvp"
-path="res://.godot/imported/wood.tga-2e200f82d29cff183a547d8033444666.ctex"
+uid="uid://cf0f68h18qecw"
+path.s3tc="res://.godot/imported/retro_skydome.png-69190d1503911fafea0d6b9c994799d3.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://textures/ps1/wood.tga"
-dest_files=["res://.godot/imported/wood.tga-2e200f82d29cff183a547d8033444666.ctex"]
+source_file="res://textures/retro_skydome.png"
+dest_files=["res://.godot/imported/retro_skydome.png-69190d1503911fafea0d6b9c994799d3.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

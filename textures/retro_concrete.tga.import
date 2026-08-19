@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cf0f68h18qecw"
-path.s3tc="res://.godot/imported/ps1_skydome.png-98ac9392a8f37363edd8f44b3677e2da.s3tc.ctex"
+uid="uid://q36yeb1x6ckb"
+path.s3tc="res://.godot/imported/retro_concrete.tga-69d8636201a7ef2633157587817fca6f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/ps1_skydome.png"
-dest_files=["res://.godot/imported/ps1_skydome.png-98ac9392a8f37363edd8f44b3677e2da.s3tc.ctex"]
+source_file="res://textures/retro_concrete.tga"
+dest_files=["res://.godot/imported/retro_concrete.tga-69d8636201a7ef2633157587817fca6f.s3tc.ctex"]
 
 [params]
 

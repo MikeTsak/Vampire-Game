@@ -1,11 +1,11 @@
-# Generates the PS1 texture set for the Sanatorium interior into
-# res://textures/ps1/. 128x128, 24-bit uncompressed TGA -- period-correct size,
+# Generates the retro texture set for the Sanatorium interior into
+# res://textures/retro/. 128x128, 24-bit uncompressed TGA -- period-correct size,
 # and small enough that nearest filtering reads as deliberate rather than cheap.
 import math
 import os
 import random
 
-OUT = r"x:/Vampire Game/vampire-game/textures/ps1"
+OUT = r"x:/Vampire Game/vampire-game/textures/retro"
 S = 128
 
 os.makedirs(OUT, exist_ok=True)
@@ -278,7 +278,7 @@ def make_rubble():
     write_tga("rubble.tga", px)
 
 
-print("writing PS1 texture set ->", OUT)
+print("writing retro texture set ->", OUT)
 make_plaster()
 make_dado()
 make_brick()

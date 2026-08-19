@@ -205,6 +205,7 @@ bones/18/scale = Vector3(1, 1, 1)
 
 [node name="ShadowBody" type="MeshInstance3D" parent="Skeleton3D" unique_id=741920457]
 cast_shadow = 3
+layers = 4
 mesh = ExtResource("2_opern")
 skin = SubResource("Skin_tnsee")
 skeleton = NodePath("..")

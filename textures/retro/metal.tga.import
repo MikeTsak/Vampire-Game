@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3k10a2xmldf6"
-path="res://.godot/imported/ceiling.tga-0188a48910566fbc57ee0f13a512d97f.ctex"
+uid="uid://c4uhydk368uhm"
+path="res://.godot/imported/metal.tga-764653f6ada485a62499dc93ff8d2197.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/ps1/ceiling.tga"
-dest_files=["res://.godot/imported/ceiling.tga-0188a48910566fbc57ee0f13a512d97f.ctex"]
+source_file="res://textures/retro/metal.tga"
+dest_files=["res://.godot/imported/metal.tga-764653f6ada485a62499dc93ff8d2197.ctex"]
 
 [params]
 

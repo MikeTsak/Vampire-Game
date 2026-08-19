@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ls7p1p2pd0ss"
-path.s3tc="res://.godot/imported/ps1_window_dark.tga-0006f33de8595b3a728e8a4945cbd693.s3tc.ctex"
+uid="uid://b3rqb80icygvp"
+path="res://.godot/imported/wood.tga-6896ca4ee10b84b090e95aa80fdb249d.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/ps1_window_dark.tga"
-dest_files=["res://.godot/imported/ps1_window_dark.tga-0006f33de8595b3a728e8a4945cbd693.s3tc.ctex"]
+source_file="res://textures/retro/wood.tga"
+dest_files=["res://.godot/imported/wood.tga-6896ca4ee10b84b090e95aa80fdb249d.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

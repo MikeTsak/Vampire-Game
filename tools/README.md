@@ -175,6 +175,79 @@ re-pack must not drop it.
 - **Additive flash colour stays under white.** The three flame petals overlap,
   and their colours sum; authored near white the whole flash saturates into a
   flat blob.
+- **Any `--script X.gd` tool that instantiates `Player.tscn` can silently
+  strip `player.gd` from the save.** `player.gd` reads the `SettingsManager`
+  autoload. A bare `extends MainLoop` script (which is what every tool in
+  this file is) never spins up a `SceneTree`, so autoloads never register and
+  the identifier fails to resolve -- `load(PLAYER).instantiate()` prints a
+  `SCRIPT ERROR` but keeps going, the script slot on the root node comes back
+  null, and a subsequent `ResourceSaver.save()` writes `Player.tscn` back out
+  *without* `script = ExtResource(...)` at all. The node tree still looks
+  fine in a hierarchy dump; only the missing `script` property gives it away.
+  This bit `patch_player_hands.gd` on the first run and had to be repaired by
+  hand. Until these tools are moved to `extends SceneTree` (which does
+  initialize autoloads), do not rerun `patch_player.gd`,
+  `patch_player_hands.gd`, or `build_guntest.gd` without diffing
+  `Player.tscn` afterward for a missing root `script =` line and a vanished
+  `id="1_p0vlq"` ext_resource. Property-only edits through the live MCP
+  editor session (`node_set_property`, `scene_save`) don't hit this at all --
+  the editor's own `SceneTree` has autoloads loaded, so prefer that path for
+  anything short of a full geometry rebuild.
+
+---
+
+# Player hands / sleeves pipeline
+
+```sh
+# Paints a small skin+wool atlas, crops it into two textures, and builds
+# PlayerHands.tscn as chunky CSG box primitives.
+"$GODOT" --headless --path . --script res://tools/build_hands.gd
+
+# Instances PlayerHands.tscn into Player.tscn as a SIBLING of WWIRifle under
+# WeaponPivot -- see the MainLoop/SettingsManager gotcha above before
+# rerunning this one; diff Player.tscn afterward.
+"$GODOT" --headless --path . --script res://tools/patch_player_hands.gd
+```
+
+Chunky, squared, Pixar-"Up"-inspired veteran's hands: weathered tan skin,
+coarse olive-drab wool sleeves, built entirely from `CSGBox3D` primitives the
+same way `WWIRifle` is -- plain boxes parented under a plain `Node3D`, no CSG
+boolean tree. `PlayerHands` is its own scene, instanced into `Player.tscn`
+rather than added as raw nodes, and it sits beside `WWIRifle`, never inside
+it, so nothing here ever touches the rifle and the hands can get their own
+`AnimationPlayer` later without any risk to the gun's.
+
+## Hands gotchas
+
+- **Rifle-local space is shared, unearned.** `WWIRifle` sits at the origin of
+  `WeaponPivot` (see the weapon gotchas above), and `PlayerHands` is placed at
+  that same origin as its sibling. That means `HandGrip`/`HandForend`'s
+  positions can be authored directly against `WWIRifle`'s own child
+  transforms (e.g. `Grip` at `(0, -0.06, 0.539)`) without any extra offset
+  math -- both trees live in the same frame.
+- **The gun deliberately does not cast a flashlight shadow** (`layers = 4` on
+  every rifle primitive, matched by the flashlight's
+  `shadow_caster_mask = 4294967291`, which excludes that layer). The hands
+  are left on the default layer specifically so they aren't excluded, plus
+  `cast_shadow = ON` explicitly on every box -- inspect
+  `PlayerHands/HandGrip/Palm` with `node_get_properties` if a rebuild ever
+  looks like it stopped throwing a shadow.
+- **`editor_screenshot(source="cinematic")` renders raw edit-time
+  transforms, not gameplay ones.** `player.gd` only ever pushes
+  `WeaponPivot.position` to the hip/ADS offset from `_process()`, which does
+  not run outside a live game. A cinematic capture with the scene merely
+  *open* shows `WeaponPivot` sitting at the editor-time `(0,0,0)` -- the
+  entire gun+hands assembly crammed right up against the near plane. Either
+  temporarily set `WeaponPivot.position` for the shot (and revert it after --
+  the saved value must stay `(0,0,0)`, `player.gd` owns it at runtime), or
+  use `source="game"` against an actual `project_run` session.
+- **CSG UV scale on a small primitive is not worth fighting.** A box's native
+  UV window shrinks with its size, so a 2cm finger only ever samples a sliver
+  of whatever texture it's given. Rather than rely on `uv1_offset`/`uv1_scale`
+  atlas math staying correct across wildly different box sizes, `build_hands.gd`
+  crops the painted atlas into two dedicated, single-purpose textures (skin,
+  fabric) up front and gives each primitive a full `0..1` read of its own
+  crop -- correct regardless of which sliver a given box's UVs land on.
 
 ---
 

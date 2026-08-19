@@ -11,7 +11,7 @@ Part of the **Athens Through Time** LARP universe — [attlarp.gr](https://attla
 
 ---
 
-A retro PS1-styled 3D horror game built in Godot 4. The player explores a pitch-black forest using an ultra-powerful WWI trench flashlight. The core gameplay involves hunting and trapping corrupted wildlife (deer, sheep, and their young), dragging their carcasses, and stacking them on a tarp drop-off zone to earn Drachmas (₯).
+A retro-styled 3D horror game built in Godot 4. The player explores a pitch-black forest using an ultra-powerful WWI trench flashlight. The core gameplay involves hunting and trapping corrupted wildlife (deer, sheep, and their young), dragging their carcasses, and stacking them on a tarp drop-off zone to earn Drachmas (₯).
 
 Set in the eerie Greek wilderness of Mount Parnitha in 1937, the game features heavy retro screen filters, scanlines, and an oppressive atmosphere spanning landmarks like the **"Soul Park"** and the looming **"Sanatorium of Parnitha"**.
 
@@ -19,7 +19,7 @@ Set in the eerie Greek wilderness of Mount Parnitha in 1937, the game features h
 
 ## Core Features & Mechanics
 
-* **Retro Aesthetic**: Authentic PS1-style low-poly graphics featuring `Nearest` texture filtering, vertex snapping, and heavy screen-space VHS retro filters.
+* **Retro Aesthetic**: Authentic retro-style low-poly graphics featuring `Nearest` texture filtering, vertex snapping, and heavy screen-space VHS retro filters.
 * **Dynamic Flashlight**: A customized WWI trench spotlight mechanic that violently cuts through the pitch-black darkness and screen filters with an organic, vintage flicker.
 * **Physics-Based Loot**: Animal carcasses act as fully physical `RigidBody3D` objects that can be dynamically dragged, dropped, and stacked on the physical base camp tarp.
 * **Cinematic Encounters**: Fully animated, lip-synced cutscenes introducing the mysterious "Man in the Suit" who purchases your gruesome offerings.

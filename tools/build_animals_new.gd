@@ -3,7 +3,7 @@ extends MainLoop
 ##
 ## tools/gen_animals_new.py authors the geometry, atlas, armature and clips and
 ## drops a manifest beside them; this reads what Godot imported and assembles
-## the playable side of it -- collision proxy, PS1 material, animation library
+## the playable side of it -- collision proxy, retro material, animation library
 ## and the CharacterBody3D wrapper the rest of the game expects.
 ##
 ## Run headless:
@@ -109,7 +109,7 @@ func _build(e: Dictionary) -> void:
 
 # ------------------------------------------------------------------- pieces
 
-## PS1 surface: unfiltered atlas, no specular highlight, nothing that would
+## retro surface: unfiltered atlas, no specular highlight, nothing that would
 ## betray the flat-shaded low-poly silhouette.
 func _material(name: String, atlas: String) -> StandardMaterial3D:
 	var m := StandardMaterial3D.new()

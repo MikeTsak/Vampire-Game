@@ -2,20 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dondpkievg83"
-path="res://.godot/imported/brick.tga-39f203b454558d18b92282324193f1eb.ctex"
+uid="uid://bhmpnf34f8u4n"
+path.s3tc="res://.godot/imported/veteran_skin.png-e256ef86507b7881bd9ed81c1e0fff88.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://textures/ps1/brick.tga"
-dest_files=["res://.godot/imported/brick.tga-39f203b454558d18b92282324193f1eb.ctex"]
+source_file="res://textures/veteran_skin.png"
+dest_files=["res://.godot/imported/veteran_skin.png-e256ef86507b7881bd9ed81c1e0fff88.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

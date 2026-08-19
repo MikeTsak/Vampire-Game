@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://yvhkawsto53o" path="res://scenes/characters/skinwalker_new.tscn" id="skinwalker_scene"]
 [ext_resource type="PackedScene" uid="uid://dyggwvlcccl7g" path="res://models/props/Tarp.tscn" id="tarp_scene"]
 [ext_resource type="Script" uid="uid://dkornaugkk3ul" path="res://scripts/terrain_generator.gd" id="terrain_script"]
-[ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/ps1_moon.png" id="tex_ps1_moon"]
-[ext_resource type="Texture2D" uid="uid://c6ad5c75rrro6" path="res://textures/ps1_stars.png" id="tex_ps1_stars"]
+[ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/retro_moon.png" id="tex_retro_moon"]
+[ext_resource type="Texture2D" uid="uid://c6ad5c75rrro6" path="res://textures/retro_stars.png" id="tex_retro_stars"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wall0"]
 size = Vector3(300, 20, 1)
@@ -16,24 +16,38 @@ size = Vector3(300, 20, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_wall2"]
 size = Vector3(1, 20, 300)
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ps1"]
-panorama = ExtResource("tex_ps1_stars")
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_retro"]
+panorama = ExtResource("tex_retro_stars")
 filter = false
 
-[sub_resource type="Sky" id="Sky_ps1"]
-sky_material = SubResource("PanoramaSkyMaterial_ps1")
+[sub_resource type="Sky" id="Sky_retro"]
+sky_material = SubResource("PanoramaSkyMaterial_retro")
 
-[sub_resource type="Environment" id="Environment_ps1"]
-background_mode = 2
-sky = SubResource("Sky_ps1")
+[sub_resource type="Environment" id="Environment_retro"]
+background_mode = 1
+background_color = Color(0.007, 0.008, 0.012, 1)
+background_energy_multiplier = 0.1
+sky = SubResource("Sky_retro")
 ambient_light_source = 2
-ambient_light_energy = 0.0
+ambient_light_color = Color(0.06, 0.07, 0.09, 1)
+ambient_light_energy = 0.09
+fog_enabled = true
+fog_light_color = Color(0.018, 0.02, 0.026, 1)
+fog_light_energy = 0.35
+fog_density = 0.026
+fog_sky_affect = 0.0
+tonemap_mode = 3
+tonemap_exposure = 2.2
+adjustment_enabled = true
+adjustment_brightness = 1.0
+adjustment_contrast = 1.05
+adjustment_saturation = 0.75
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ps1_moon"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_retro_moon"]
 transparency = 1
 blend_mode = 1
 shading_mode = 0
-albedo_texture = ExtResource("tex_ps1_moon")
+albedo_texture = ExtResource("tex_retro_moon")
 texture_filter = 0
 billboard_mode = 1
 
@@ -124,12 +138,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 10, 0)
 shape = SubResource("BoxShape3D_wall2")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1830458567]
-environment = SubResource("Environment_ps1")
+environment = SubResource("Environment_retro")
 
 [node name="MoonVisual" type="Sprite3D" parent="." unique_id=455598718]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 300, 200, -300)
-material_override = SubResource("StandardMaterial3D_ps1_moon")
-texture = ExtResource("tex_ps1_moon")
+material_override = SubResource("StandardMaterial3D_retro_moon")
+texture = ExtResource("tex_retro_moon")
 
 [node name="Moonlight" type="DirectionalLight3D" parent="." unique_id=81710200]
 transform = Transform3D(-0.707107, -0.301511, 0.639602, 0, 0.904534, 0.426401, -0.707107, 0.301511, -0.639602, 0, 0, 0)

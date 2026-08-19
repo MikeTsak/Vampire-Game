@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fgxjfrwfmi4k"
-path.s3tc="res://.godot/imported/ps1_window_lit.tga-2aa18b94bf3871c097e1f3197a5eff52.s3tc.ctex"
+uid="uid://c3k10a2xmldf6"
+path="res://.godot/imported/ceiling.tga-05d9b184555cc6f98587861c5ac9c32e.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/ps1_window_lit.tga"
-dest_files=["res://.godot/imported/ps1_window_lit.tga-2aa18b94bf3871c097e1f3197a5eff52.s3tc.ctex"]
+source_file="res://textures/retro/ceiling.tga"
+dest_files=["res://.godot/imported/ceiling.tga-05d9b184555cc6f98587861c5ac9c32e.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

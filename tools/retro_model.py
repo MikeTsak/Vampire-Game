@@ -1,4 +1,4 @@
-"""Shared PS1-era modelling core.
+"""Shared retro-era modelling core.
 
 The geometry, rigging, skinning and glTF machinery behind every generated model
 in this project. tools/gen_animals_new.py builds the bestiary on top of it and
@@ -42,7 +42,7 @@ def write_png(path, w, h, rgb):
         fh.write(png)
 
 
-# Godot import preset, copied from the existing textures/ps1 set: lossless,
+# Godot import preset, copied from the existing textures/retro set: lossless,
 # mipmapped, and detect_3d disabled so first use in a 3D scene cannot quietly
 # re-import the sheet as VRAM-compressed and smear the pixels.
 IMPORT_PRESET = """[params]

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://q36yeb1x6ckb"
-path.s3tc="res://.godot/imported/ps1_concrete.tga-117b5d72e18a3e3633e129eee304e4e0.s3tc.ctex"
+uid="uid://ls7p1p2pd0ss"
+path.s3tc="res://.godot/imported/retro_window_dark.tga-b681ab894717f18cd82ce04c41e343b9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/ps1_concrete.tga"
-dest_files=["res://.godot/imported/ps1_concrete.tga-117b5d72e18a3e3633e129eee304e4e0.s3tc.ctex"]
+source_file="res://textures/retro_window_dark.tga"
+dest_files=["res://.godot/imported/retro_window_dark.tga-b681ab894717f18cd82ce04c41e343b9.s3tc.ctex"]
 
 [params]
 

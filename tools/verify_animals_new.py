@@ -88,7 +88,7 @@ def verify_png(model, path):
     stride = w * 3 + 1
     if not check(len(raw) == stride * h, model, "atlas pixel data truncated"):
         return
-    # every channel must be quantised to 5 bits -- the PS1 colour budget
+    # every channel must be quantised to 5 bits -- the retro colour budget
     bad = sum(1 for i in range(h)
               for b in raw[i * stride + 1:(i + 1) * stride] if b & 0x07)
     check(not bad, model, "%d samples are not 15-bit quantised" % bad)

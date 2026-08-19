@@ -3,7 +3,7 @@ extends RefCounted
 ## Both the texture generator and the mesh UV assignment read these rects,
 ## so a region can never drift out of sync between paint and unwrap.
 ##
-## Atlas is 256x256 -- the top of the PS1-era spec range (64-256px) -- and
+## Atlas is 256x256 -- the top of the retro-era spec range (64-256px) -- and
 ## the rects below tile it exhaustively, with no dead space.
 
 const SIZE := 256

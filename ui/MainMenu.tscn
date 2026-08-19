@@ -9,7 +9,7 @@
 [ext_resource type="FontFile" path="res://textures/fonts/fonnts.com-PF-Hellenica-.otf" id="7_uwsby"]
 [ext_resource type="Texture2D" path="res://textures/branding/agileadvisors_logo.png" id="8_uvwf2"]
 
-[sub_resource type="Environment" id="Environment_ps1"]
+[sub_resource type="Environment" id="Environment_retro"]
 background_mode = 1
 background_color = Color(0, 0, 0, 1)
 ambient_light_source = 2
@@ -29,7 +29,7 @@ bus = &"Music"
 [node name="Background3D" type="Node3D" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Background3D"]
-environment = SubResource("Environment_ps1")
+environment = SubResource("Environment_retro")
 
 [node name="SanatoriumBuilding" parent="Background3D" instance=ExtResource("3_sb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40)

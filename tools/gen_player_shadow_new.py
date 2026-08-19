@@ -24,7 +24,7 @@ import sys
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from ps1_model import *                                      # noqa: F401,F403
+from retro_model import *                                      # noqa: F401,F403
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_DIR = os.path.join(ROOT, "models", "player")

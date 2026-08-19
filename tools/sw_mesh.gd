@@ -4,7 +4,7 @@ extends RefCounted
 ## Deliberately flat-shaded: every triangle gets its own three vertices and a
 ## true face normal, so the facets stay visible instead of being smoothed into
 ## a modern rounded read. Lighting is carried mostly by baked vertex AO, which
-## is the PS1 way and survives the per-vertex shading mode the material uses.
+## is the retro way and survives the per-vertex shading mode the material uses.
 ##
 ## Skinning is automatic but fenced: each part declares a whitelist of bones,
 ## and vertices are weighted only against those. That keeps the jaw off the

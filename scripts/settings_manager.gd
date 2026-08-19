@@ -9,6 +9,7 @@ var mouse_sensitivity: float = 1.0
 var fullscreen: bool = false
 var fps_limit: int = 0
 var brightness: float = 1.0
+var vintage_filter_enabled: bool = true
 
 var brightness_overlay: ColorRect
 
@@ -40,6 +41,7 @@ func load_settings():
 		fullscreen = config.get_value("Graphics", "fullscreen", false)
 		fps_limit = config.get_value("Graphics", "fps_limit", 0)
 		brightness = config.get_value("Graphics", "brightness", 1.0)
+		vintage_filter_enabled = config.get_value("Graphics", "vintage_filter_enabled", true)
 	
 	apply_settings()
 
@@ -52,6 +54,7 @@ func save_settings():
 	config.set_value("Graphics", "fullscreen", fullscreen)
 	config.set_value("Graphics", "fps_limit", fps_limit)
 	config.set_value("Graphics", "brightness", brightness)
+	config.set_value("Graphics", "vintage_filter_enabled", vintage_filter_enabled)
 	config.save(CONFIG_PATH)
 
 func apply_settings():

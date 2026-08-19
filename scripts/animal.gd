@@ -45,7 +45,7 @@ func _setup_audio():
 	hoof_sound = AudioStreamPlayer3D.new()
 	hoof_sound.name = "HoofSteps"
 	hoof_sound.stream = load("res://audio/hoof_step.wav")
-	hoof_sound.bus = &"PS1_Retro"
+	hoof_sound.bus = &"RetroFilter"
 	hoof_sound.volume_db = -3.0
 	hoof_sound.max_distance = 25.0
 	hoof_sound.unit_size = 5.0
@@ -55,7 +55,7 @@ func _setup_audio():
 	idle_sound = AudioStreamPlayer3D.new()
 	idle_sound.name = "IdleSound"
 	idle_sound.stream = load(idle_stream_path)
-	idle_sound.bus = &"PS1_Retro"
+	idle_sound.bus = &"RetroFilter"
 	idle_sound.volume_db = 1.0
 	idle_sound.max_distance = 40.0
 	idle_sound.unit_size = 8.0
@@ -65,7 +65,7 @@ func _setup_audio():
 	death_sound = AudioStreamPlayer3D.new()
 	death_sound.name = "DeathSound"
 	death_sound.stream = load("res://audio/animal_death.wav")
-	death_sound.bus = &"PS1_Retro"
+	death_sound.bus = &"RetroFilter"
 	death_sound.volume_db = 4.0
 	death_sound.max_distance = 50.0
 	death_sound.unit_size = 10.0
@@ -171,7 +171,7 @@ func die():
 	if death_sound and death_sound.stream:
 		var orphan = AudioStreamPlayer3D.new()
 		orphan.stream = death_sound.stream
-		orphan.bus = &"PS1_Retro"
+		orphan.bus = &"RetroFilter"
 		orphan.volume_db = death_sound.volume_db
 		orphan.max_distance = death_sound.max_distance
 		orphan.unit_size = death_sound.unit_size

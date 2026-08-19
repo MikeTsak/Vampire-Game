@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cvwws2y5id6wh"]
 
-[ext_resource type="Texture2D" path="res://textures/ps1_concrete.tga" id="tex_concrete"]
+[ext_resource type="Texture2D" path="res://textures/retro_concrete.tga" id="tex_concrete"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_concrete"]
 albedo_color = Color(0.6, 0.6, 0.62, 1)

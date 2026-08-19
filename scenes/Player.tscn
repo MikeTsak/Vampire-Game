@@ -5,6 +5,8 @@
 [ext_resource type="AudioStream" uid="uid://yftpocx7o15b" path="res://audio/footstep.wav" id="5_70d11"]
 [ext_resource type="Texture2D" uid="uid://clqsb5dnklbv8" path="res://textures/metal_texture.jpg" id="TexMetal"]
 [ext_resource type="Texture2D" uid="uid://oya643tor6uo" path="res://textures/wood_texture.jpg" id="TexWood"]
+[ext_resource type="Texture2D" path="res://textures/veteran_skin.png" id="TexSkin"]
+[ext_resource type="Texture2D" path="res://textures/veteran_sleeve.png" id="TexSleeve"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_5q5h1"]
 height = 1.8
@@ -27,6 +29,14 @@ albedo_color = Color(0.8, 0.8, 0.8, 1)
 albedo_texture = ExtResource("TexMetal")
 metallic = 0.8
 roughness = 0.4
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_skin"]
+albedo_texture = ExtResource("TexSkin")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sleeve"]
+albedo_texture = ExtResource("TexSleeve")
 texture_filter = 0
 
 [sub_resource type="Animation" id="Animation_idle"]
@@ -211,6 +221,34 @@ size = Vector3(0.045, 0.06, 0.02)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera3D/WeaponPivot" unique_id=1411326448]
 libraries/ = SubResource("AnimationLibrary_wwi")
 autoplay = &"idle"
+
+[node name="PlayerArms" type="Node3D" parent="Head/Camera3D/WeaponPivot"]
+
+[node name="RightArmSleeve" type="CSGCylinder3D" parent="Head/Camera3D/WeaponPivot/PlayerArms"]
+transform = Transform3D(0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 0, 0, 1, 0.4, -0.5, 0.5)
+cast_shadow = 1
+radius = 0.07
+height = 0.5
+material_override = SubResource("StandardMaterial3D_sleeve")
+
+[node name="RightHand" type="CSGBox3D" parent="Head/Camera3D/WeaponPivot/PlayerArms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, -0.44, 0.35)
+cast_shadow = 1
+size = Vector3(0.08, 0.1, 0.1)
+material_override = SubResource("StandardMaterial3D_skin")
+
+[node name="LeftArmSleeve" type="CSGCylinder3D" parent="Head/Camera3D/WeaponPivot/PlayerArms"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0.05, -0.5, 0.0)
+cast_shadow = 1
+radius = 0.07
+height = 0.55
+material_override = SubResource("StandardMaterial3D_sleeve")
+
+[node name="LeftHand" type="CSGBox3D" parent="Head/Camera3D/WeaponPivot/PlayerArms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.42, -0.21)
+cast_shadow = 1
+size = Vector3(0.1, 0.1, 0.12)
+material_override = SubResource("StandardMaterial3D_skin")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1884948274]
 layer = 10

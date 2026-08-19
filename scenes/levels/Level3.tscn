@@ -6,15 +6,15 @@
 [ext_resource type="AudioStream" uid="uid://cmclcgt3kghuc" path="res://audio/forest_ambience.wav" id="4_ambience"]
 [ext_resource type="Script" uid="uid://dx1llhu3gv50h" path="res://scripts/lamp_flicker.gd" id="s_flicker"]
 [ext_resource type="Script" uid="uid://c0w135ge5f5hd" path="res://scripts/sealed_door.gd" id="s_sealed"]
-[ext_resource type="Texture2D" uid="uid://4lf4rkwdwpb4" path="res://textures/ps1/plaster.tga" id="t_plaster"]
-[ext_resource type="Texture2D" uid="uid://cmlsdoj4kkxcj" path="res://textures/ps1/dado.tga" id="t_dado"]
-[ext_resource type="Texture2D" uid="uid://dondpkievg83" path="res://textures/ps1/brick.tga" id="t_brick"]
-[ext_resource type="Texture2D" uid="uid://bygpfx5qnkcgv" path="res://textures/ps1/floor.tga" id="t_floor"]
-[ext_resource type="Texture2D" uid="uid://c3k10a2xmldf6" path="res://textures/ps1/ceiling.tga" id="t_ceiling"]
-[ext_resource type="Texture2D" uid="uid://b3rqb80icygvp" path="res://textures/ps1/wood.tga" id="t_wood"]
-[ext_resource type="Texture2D" uid="uid://c4uhydk368uhm" path="res://textures/ps1/metal.tga" id="t_metal"]
-[ext_resource type="Texture2D" uid="uid://x7rpemm4avdl" path="res://textures/ps1/rubble.tga" id="t_rubble"]
-[ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/ps1_moon.png" id="t_moon"]
+[ext_resource type="Texture2D" uid="uid://4lf4rkwdwpb4" path="res://textures/retro/plaster.tga" id="t_plaster"]
+[ext_resource type="Texture2D" uid="uid://cmlsdoj4kkxcj" path="res://textures/retro/dado.tga" id="t_dado"]
+[ext_resource type="Texture2D" uid="uid://dondpkievg83" path="res://textures/retro/brick.tga" id="t_brick"]
+[ext_resource type="Texture2D" uid="uid://bygpfx5qnkcgv" path="res://textures/retro/floor.tga" id="t_floor"]
+[ext_resource type="Texture2D" uid="uid://c3k10a2xmldf6" path="res://textures/retro/ceiling.tga" id="t_ceiling"]
+[ext_resource type="Texture2D" uid="uid://b3rqb80icygvp" path="res://textures/retro/wood.tga" id="t_wood"]
+[ext_resource type="Texture2D" uid="uid://c4uhydk368uhm" path="res://textures/retro/metal.tga" id="t_metal"]
+[ext_resource type="Texture2D" uid="uid://x7rpemm4avdl" path="res://textures/retro/rubble.tga" id="t_rubble"]
+[ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/retro_moon.png" id="t_moon"]
 [ext_resource type="PackedScene" uid="uid://cfyujvk56df3b" path="res://models/environment/trees/Tree_Dead.tscn" id="t_tree_dead"]
 [ext_resource type="PackedScene" path="res://models/environment/trees/Tree_Fir.tscn" id="t_tree_fir"]
 [ext_resource type="PackedScene" uid="uid://djgblr74x8xn6" path="res://models/environment/trees/Tree_KermesOak.tscn" id="t_tree_oak"]
@@ -40,16 +40,24 @@ texture_filter = 0
 billboard_mode = 1
 
 [sub_resource type="Environment" id="Environment_l3"]
-background_mode = 2
+background_mode = 1
+background_color = Color(0.02, 0.025, 0.035, 1)
+background_energy_multiplier = 0.15
 sky = SubResource("Sky_l3")
 ambient_light_source = 2
-ambient_light_color = Color(0.1, 0.13, 0.19, 1)
-ambient_light_energy = 0.4
+ambient_light_color = Color(0.09, 0.11, 0.15, 1)
+ambient_light_energy = 0.28
 fog_enabled = true
-fog_light_color = Color(0.045, 0.056, 0.07, 1)
-fog_light_energy = 0.5
-fog_density = 0.028
+fog_light_color = Color(0.035, 0.044, 0.055, 1)
+fog_light_energy = 0.4
+fog_density = 0.03
 fog_sky_affect = 0.0
+tonemap_mode = 3
+tonemap_exposure = 2.0
+adjustment_enabled = true
+adjustment_brightness = 1.0
+adjustment_contrast = 1.05
+adjustment_saturation = 0.78
 
 [sub_resource type="BoxMesh" id="BoxMesh_unit"]
 size = Vector3(1, 1, 1)
@@ -7477,7 +7485,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 0, -10.6)
 stream = ExtResource("4_ambience")
 volume_db = -20.0
 autoplay = true
-bus = &"PS1_Retro"
+bus = &"RetroFilter"
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 

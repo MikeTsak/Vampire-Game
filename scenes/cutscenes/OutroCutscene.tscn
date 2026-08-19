@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dyggwvlcccl7g" path="res://models/props/Tarp.tscn" id="2_tarp"]
 [ext_resource type="PackedScene" uid="uid://cy247l8eaf4p" path="res://models/props/OilLamp.tscn" id="3_lamp"]
 [ext_resource type="Script" uid="uid://bn7t4h21b1pm" path="res://scripts/typewriter_subtitle.gd" id="4_typewriter"]
-[ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/ps1_moon.png" id="5_moon"]
-[ext_resource type="Texture2D" uid="uid://c6ad5c75rrro6" path="res://textures/ps1_stars.png" id="6_stars"]
+[ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/retro_moon.png" id="5_moon"]
+[ext_resource type="Texture2D" uid="uid://c6ad5c75rrro6" path="res://textures/retro_stars.png" id="6_stars"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_outro"]
 panorama = ExtResource("6_stars")

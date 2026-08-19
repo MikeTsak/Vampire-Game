@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmlsdoj4kkxcj"
-path="res://.godot/imported/dado.tga-c51d0ed5f7e4318b5efae360cb20c6ba.ctex"
+uid="uid://dondpkievg83"
+path="res://.godot/imported/brick.tga-6b9fce125ba3c32dd8bfdffef6ac79d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/ps1/dado.tga"
-dest_files=["res://.godot/imported/dado.tga-c51d0ed5f7e4318b5efae360cb20c6ba.ctex"]
+source_file="res://textures/retro/brick.tga"
+dest_files=["res://.godot/imported/brick.tga-6b9fce125ba3c32dd8bfdffef6ac79d6.ctex"]
 
 [params]
 

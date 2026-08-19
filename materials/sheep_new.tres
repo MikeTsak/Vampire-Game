@@ -1,6 +1,6 @@
-[gd_resource type="StandardMaterial3D" format=3]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://d31ir5ocogrix"]
 
-[ext_resource type="Texture2D" path="res://textures/animals/sheep_atlas_new.png" id="1_22eyu"]
+[ext_resource type="Texture2D" uid="uid://xsdip33d7nk5" path="res://textures/animals/sheep_atlas_new.png" id="1_22eyu"]
 
 [resource]
 resource_name = "sheep_new"

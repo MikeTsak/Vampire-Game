@@ -1,12 +1,12 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/global_retro_filter.gd" id="1_7o43y"]
-[ext_resource type="Shader" path="res://shaders/retro_ps1.gdshader" id="2_nwnwi"]
+[ext_resource type="Script" uid="uid://bboisb52xd722" path="res://scripts/global_retro_filter.gd" id="1_7o43y"]
+[ext_resource type="Shader" uid="uid://e7l5xw3rrt3u" path="res://shaders/retro_filter.gdshader" id="2_nwnwi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eicoj"]
 shader = ExtResource("2_nwnwi")
-shader_parameter/pixel_size = null
-shader_parameter/color_depth = null
+shader_parameter/pixel_size = 3.0
+shader_parameter/color_depth = 12
 
 [node name="GlobalRetroFilter" type="CanvasLayer"]
 layer = 5

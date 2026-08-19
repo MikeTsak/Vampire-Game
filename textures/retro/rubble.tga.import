@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4lf4rkwdwpb4"
-path="res://.godot/imported/plaster.tga-e5cb3dea9b2c363eb48d386cc54fe310.ctex"
+uid="uid://x7rpemm4avdl"
+path="res://.godot/imported/rubble.tga-6a0a7745b563f2c241a3f371aa4747ac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/ps1/plaster.tga"
-dest_files=["res://.godot/imported/plaster.tga-e5cb3dea9b2c363eb48d386cc54fe310.ctex"]
+source_file="res://textures/retro/rubble.tga"
+dest_files=["res://.godot/imported/rubble.tga-6a0a7745b563f2c241a3f371aa4747ac.ctex"]
 
 [params]
 

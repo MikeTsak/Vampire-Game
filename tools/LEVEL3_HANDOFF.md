@@ -1,6 +1,6 @@
 # Level 3 — Sanatorium build notes
 
-3 floors · 24 ward rooms · 1305 scene nodes · 8 PS1 textures · carcass quota 6.
+3 floors · 24 ward rooms · 1305 scene nodes · 8 retro textures · carcass quota 6.
 
 ## Where things live
 
@@ -8,7 +8,7 @@
 | --- | --- |
 | `scenes/levels/Level3.tscn` | **Generated output — do not hand-edit.** Overwritten wholesale. |
 | `tools/gen_level3.py` | Source of truth for the level: geometry, props, lighting, exterior. |
-| `tools/gen_ps1_textures.py` | Writes the eight 128×128 TGAs into `textures/ps1/`. |
+| `tools/gen_retro_textures.py` | Writes the eight 128×128 TGAs into `textures/retro/`. |
 | `scripts/level.gd` | Shared by all three levels: indoor spawning, quota, F10 skip, ending trigger. |
 | `scripts/ending_sequence.gd` | The reveal — camera, carcass→human swap, fade, THE END. |
 | `scripts/carcass_zone.gd` | Tarp drop zone. `spawn_tarp_carcass()` is the one path real drops and F10 both use. |
@@ -20,7 +20,7 @@
 ```sh
 # from vampire-game/
 python tools/gen_level3.py         # rewrites Level3.tscn (~2s)
-python tools/gen_ps1_textures.py   # rewrites textures/ps1/*.tga
+python tools/gen_retro_textures.py   # rewrites textures/retro/*.tga
 ```
 
 Then force-reload the scene in Godot. The generator is seeded (`19391123`), so prop

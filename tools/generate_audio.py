@@ -1,5 +1,5 @@
 """
-PS1 Horror Audio Generator
+retro Horror Audio Generator
 Procedurally generates CC0 audio assets for the Vampire Game.
 No external dependencies — uses only Python stdlib (wave, math, random, struct).
 Output: res://audio/*.wav
@@ -9,7 +9,7 @@ import wave, math, random, struct, os, array
 OUT_DIR = os.path.join(os.path.dirname(__file__), "..", "audio")
 os.makedirs(OUT_DIR, exist_ok=True)
 
-SAMPLE_RATE = 22050   # Low sample-rate for that PS1 lo-fi quality
+SAMPLE_RATE = 22050   # Low sample-rate for that retro lo-fi quality
 CHANNELS    = 1
 BIT_DEPTH   = 16
 
@@ -69,7 +69,7 @@ for i, t in enumerate(t_arr):
     swell = 0.5 + 0.5 * math.sin(2 * math.pi * 0.05 * t)
     samples.append(wind_raw + drone * swell + cricket)
 
-# Low-pass to keep it muddy (PS1 style)
+# Low-pass to keep it muddy (retro style)
 samples = lowpass(samples, 5000)
 write_wav("forest_ambience.wav", samples)
 

@@ -293,9 +293,9 @@ omni_range = 4.0
 stream = ExtResource("6_at25o")
 volume_db = -6.0
 autoplay = true
-bus = &"PS1_Retro"
+bus = &"RetroFilter"
 
 [node name="DialogueBlip" type="AudioStreamPlayer" parent="." unique_id=641306128]
 stream = ExtResource("7_phj6d")
 volume_db = -8.0
-bus = &"PS1_Retro"
+bus = &"RetroFilter"

@@ -11,7 +11,7 @@ drive = 0.15
 post_gain = -4.0
 
 [resource]
-bus/1/name = &"PS1_Retro"
+bus/1/name = &"RetroFilter"
 bus/1/solo = false
 bus/1/mute = false
 bus/1/bypass_fx = false
@@ -26,10 +26,10 @@ bus/2/solo = false
 bus/2/mute = false
 bus/2/bypass_fx = false
 bus/2/volume_db = 0.0
-bus/2/send = &"PS1_Retro"
+bus/2/send = &"RetroFilter"
 bus/3/name = &"Music"
 bus/3/solo = false
 bus/3/mute = false
 bus/3/bypass_fx = false
 bus/3/volume_db = 0.0
-bus/3/send = &"PS1_Retro"
+bus/3/send = &"RetroFilter"

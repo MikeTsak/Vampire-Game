@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6ad5c75rrro6"
-path.s3tc="res://.godot/imported/ps1_stars.png-bae8bcae2d41cbfa67f5a8c8d4f5dbd3.s3tc.ctex"
+uid="uid://b2dxkyg0bg8rn"
+path.s3tc="res://.godot/imported/veteran_sleeve.png-d1bbf9a9726b5e31e57b8ad83f63ac2c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/ps1_stars.png"
-dest_files=["res://.godot/imported/ps1_stars.png-bae8bcae2d41cbfa67f5a8c8d4f5dbd3.s3tc.ctex"]
+source_file="res://textures/veteran_sleeve.png"
+dest_files=["res://.godot/imported/veteran_sleeve.png-d1bbf9a9726b5e31e57b8ad83f63ac2c.s3tc.ctex"]
 
 [params]
 

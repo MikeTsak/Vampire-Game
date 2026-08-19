@@ -1,4 +1,4 @@
-"""Generates the PS1-style low-poly rigged animal family for Parnitha.
+"""Generates the retro-style low-poly rigged animal family for Parnitha.
 
 Everything is built mathematically from this one file -- vertices, UVs, an
 armature, skin weights and three baked animations (idle / walk / death) -- so
@@ -29,7 +29,7 @@ import sys
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from ps1_model import *                                          # noqa: F401,F403
+from retro_model import *                                          # noqa: F401,F403
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_DIR = os.path.join(ROOT, "models", "animals")
@@ -67,7 +67,7 @@ def cell_noise(a, b, seed):
 
 
 def q15(v):
-    """Clamp to 0..255 and quantise to 5 bits per channel -- PS1 framebuffers
+    """Clamp to 0..255 and quantise to 5 bits per channel -- retro framebuffers
     were 15-bit, and the banding is half the look."""
     return max(0, min(255, int(v))) & 0xF8
 
@@ -197,7 +197,7 @@ class Atlas:
         for y in range(h // 2 - 5, h // 2 + 5):
             for x in range(w // 2 - 6, w // 2 + 6):
                 self._put(x0 + x, y0 + y, *pupil)
-        # single specular pixel block -- reads as wet eye at PS1 resolution
+        # single specular pixel block -- reads as wet eye at retro resolution
         for y in range(h // 2 - 4, h // 2 - 1):
             for x in range(w // 2 - 4, w // 2 - 1):
                 self._put(x0 + x, y0 + y, 230, 230, 230)
@@ -352,7 +352,7 @@ def build_animal(cfg):
 # ─────────────────────────────────────────────────────────────────────────────
 
 
-# Trot: diagonal pairs move together.  Reads as purposeful at PS1 framerates.
+# Trot: diagonal pairs move together.  Reads as purposeful at retro framerates.
 GAIT = (("f", "l", 0.0), ("b", "r", 0.0), ("f", "r", math.pi), ("b", "l", math.pi))
 
 
@@ -512,7 +512,7 @@ def bolt_ons(mesh, rig, cfg, b):
                                faces(region), bone)
 
     for spec in cfg.get("crest", []):
-        # bristly ridge along the spine -- flat plates, cheap and very PS1
+        # bristly ridge along the spine -- flat plates, cheap and very retro
         bone = rigid(b[spec.get("bone", "chest")])
         n = spec["count"]
         for i in range(n):

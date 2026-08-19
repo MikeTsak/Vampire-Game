@@ -1,5 +1,5 @@
 extends RefCounted
-## Hand-tuned PS1-era texture set for the Skinwalker.
+## Hand-tuned retro-era texture set for the Skinwalker.
 ##
 ## Everything is painted at native 256x256 -- there is no downsample of a
 ## high-res bake anywhere in here. Values are quantised into small palettes

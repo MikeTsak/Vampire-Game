@@ -140,6 +140,25 @@ max_value = 2.0
 step = 0.05
 value = 1.0
 
+[node name="VintageFilterBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/VintageFilterBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ff")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.74, 0.7, 0.63, 1)
+text = "VINTAGE FILTER"
+tooltip_text = "Disabling loses the intended dark, retro look. Not recommended."
+
+[node name="VintageFilterCheck" type="CheckButton" parent="CenterContainer/VBoxContainer/VintageFilterBox"]
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+tooltip_text = "Disabling loses the intended dark, retro look. Not recommended."
+
 [node name="FPSBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20

@@ -688,15 +688,15 @@ HEADER = '''[gd_scene format=3 uid="uid://buytrovpa81uh"]
 [ext_resource type="AudioStream" uid="uid://cmclcgt3kghuc" path="res://audio/forest_ambience.wav" id="4_ambience"]
 [ext_resource type="Script" uid="uid://dx1llhu3gv50h" path="res://scripts/lamp_flicker.gd" id="s_flicker"]
 [ext_resource type="Script" uid="uid://c0w135ge5f5hd" path="res://scripts/sealed_door.gd" id="s_sealed"]
-[ext_resource type="Texture2D" uid="uid://4lf4rkwdwpb4" path="res://textures/ps1/plaster.tga" id="t_plaster"]
-[ext_resource type="Texture2D" uid="uid://cmlsdoj4kkxcj" path="res://textures/ps1/dado.tga" id="t_dado"]
-[ext_resource type="Texture2D" uid="uid://dondpkievg83" path="res://textures/ps1/brick.tga" id="t_brick"]
-[ext_resource type="Texture2D" uid="uid://bygpfx5qnkcgv" path="res://textures/ps1/floor.tga" id="t_floor"]
-[ext_resource type="Texture2D" uid="uid://c3k10a2xmldf6" path="res://textures/ps1/ceiling.tga" id="t_ceiling"]
-[ext_resource type="Texture2D" uid="uid://b3rqb80icygvp" path="res://textures/ps1/wood.tga" id="t_wood"]
-[ext_resource type="Texture2D" uid="uid://c4uhydk368uhm" path="res://textures/ps1/metal.tga" id="t_metal"]
-[ext_resource type="Texture2D" uid="uid://x7rpemm4avdl" path="res://textures/ps1/rubble.tga" id="t_rubble"]
-[ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/ps1_moon.png" id="t_moon"]
+[ext_resource type="Texture2D" uid="uid://4lf4rkwdwpb4" path="res://textures/retro/plaster.tga" id="t_plaster"]
+[ext_resource type="Texture2D" uid="uid://cmlsdoj4kkxcj" path="res://textures/retro/dado.tga" id="t_dado"]
+[ext_resource type="Texture2D" uid="uid://dondpkievg83" path="res://textures/retro/brick.tga" id="t_brick"]
+[ext_resource type="Texture2D" uid="uid://bygpfx5qnkcgv" path="res://textures/retro/floor.tga" id="t_floor"]
+[ext_resource type="Texture2D" uid="uid://c3k10a2xmldf6" path="res://textures/retro/ceiling.tga" id="t_ceiling"]
+[ext_resource type="Texture2D" uid="uid://b3rqb80icygvp" path="res://textures/retro/wood.tga" id="t_wood"]
+[ext_resource type="Texture2D" uid="uid://c4uhydk368uhm" path="res://textures/retro/metal.tga" id="t_metal"]
+[ext_resource type="Texture2D" uid="uid://x7rpemm4avdl" path="res://textures/retro/rubble.tga" id="t_rubble"]
+[ext_resource type="Texture2D" uid="uid://b4sqaxmfjlcp5" path="res://textures/retro_moon.png" id="t_moon"]
 [ext_resource type="PackedScene" uid="uid://cfyujvk56df3b" path="res://models/environment/trees/Tree_Dead.tscn" id="t_tree_dead"]
 [ext_resource type="PackedScene" path="res://models/environment/trees/Tree_Fir.tscn" id="t_tree_fir"]
 [ext_resource type="PackedScene" uid="uid://djgblr74x8xn6" path="res://models/environment/trees/Tree_KermesOak.tscn" id="t_tree_oak"]
@@ -848,7 +848,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, %.4g, 0, %.4g)
 stream = ExtResource("4_ambience")
 volume_db = -20.0
 autoplay = true
-bus = &"PS1_Retro"
+bus = &"retro_Retro"
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
