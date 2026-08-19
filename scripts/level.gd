@@ -27,6 +27,30 @@ extends Node3D
 ## not matter; indoors it decides whether they open on the corridor or on a wall.
 @export var player_start_yaw_degrees: float = 0.0
 
+## The Parnitha bestiary, rigged and animated by tools/gen_animals_new.py.
+## Weights are draw odds out of the total: boar are the rare encounter, and
+## worth more when they do turn up.
+const SPECIES := [
+	{"adult": "res://scenes/animals/deer_new.tscn",
+	 "young": "res://scenes/animals/baby_deer_new.tscn", "weight": 4},
+	{"adult": "res://scenes/animals/sheep_new.tscn",
+	 "young": "res://scenes/animals/baby_sheep_new.tscn", "weight": 4},
+	{"adult": "res://scenes/animals/boar_new.tscn",
+	 "young": "res://scenes/animals/baby_boar_new.tscn", "weight": 2},
+]
+
+## Weighted draw from SPECIES.
+func _pick_species() -> Dictionary:
+	var total := 0
+	for s in SPECIES:
+		total += int(s["weight"])
+	var roll := randi() % total
+	for s in SPECIES:
+		roll -= int(s["weight"])
+		if roll < 0:
+			return s
+	return SPECIES[0]
+
 @onready var timer = get_node_or_null("LevelTimer")
 @onready var spawns = get_node_or_null("Spawns")
 @onready var rooms = get_node_or_null("Rooms")
@@ -75,16 +99,12 @@ func _ready():
 ## Flat marker list scattered across open terrain. Packs spread wide because
 ## there is nothing out there to walk into.
 func _spawn_outdoors(gm) -> void:
-	var deer_scene = load("res://scenes/animals/Deer2.tscn")
-	var sheep_scene = load("res://scenes/animals/Sheep2.tscn")
-	var baby_deer_scene = load("res://scenes/animals/BabyDeer_new.tscn")
-	var baby_sheep_scene = load("res://scenes/animals/BabySheep.tscn")
 	var pack_spawning = gm != null and gm.level >= 2
 
 	for marker in spawns.get_children():
 		if marker is Marker3D:
-			var is_sheep = randi() % 2 == 0
-			var animal_scene = sheep_scene if is_sheep else deer_scene
+			var species = _pick_species()
+			var animal_scene = load(species["adult"])
 			if not animal_scene:
 				continue
 			var animal = animal_scene.instantiate()
@@ -95,7 +115,7 @@ func _spawn_outdoors(gm) -> void:
 			animal.rotation_degrees.y = randf_range(0, 360)
 
 			if pack_spawning:
-				var baby_scene = baby_sheep_scene if is_sheep else baby_deer_scene
+				var baby_scene = load(species["young"])
 				if baby_scene:
 					var baby = baby_scene.instantiate()
 					add_child(baby)
@@ -112,10 +132,6 @@ func _spawn_outdoors(gm) -> void:
 ## stay in the same room as the adult -- the outdoor 10-16m pack spread would
 ## put them straight through a wall.
 func _spawn_indoors(gm) -> void:
-	var deer_scene = load("res://scenes/animals/Deer2.tscn")
-	var sheep_scene = load("res://scenes/animals/Sheep2.tscn")
-	var baby_deer_scene = load("res://scenes/animals/BabyDeer_new.tscn")
-	var baby_sheep_scene = load("res://scenes/animals/BabySheep.tscn")
 	var pack_spawning = gm != null and gm.level >= 2
 
 	for marker in rooms.get_children():
@@ -125,8 +141,8 @@ func _spawn_indoors(gm) -> void:
 			continue
 		var extents: Vector2 = marker.get_meta("room_extents", Vector2(4.0, 4.0))
 		for _i in range(animals_per_room):
-			var is_sheep = randi() % 2 == 0
-			var animal_scene = sheep_scene if is_sheep else deer_scene
+			var species = _pick_species()
+			var animal_scene = load(species["adult"])
 			if not animal_scene:
 				continue
 			var animal = animal_scene.instantiate()
@@ -135,7 +151,7 @@ func _spawn_indoors(gm) -> void:
 			animal.rotation_degrees.y = randf_range(0, 360)
 
 			if pack_spawning and randf() < baby_chance:
-				var baby_scene = baby_sheep_scene if is_sheep else baby_deer_scene
+				var baby_scene = load(species["young"])
 				if baby_scene:
 					var baby = baby_scene.instantiate()
 					add_child(baby)
@@ -201,7 +217,8 @@ func _debug_fill_tarp(count: int) -> void:
 	var zone = get_node_or_null("Tarp/CarcassDropZone")
 	if zone == null or not zone.has_method("spawn_tarp_carcass"):
 		return
-	var species = ["Deer2", "Sheep2", "BabyDeer_new", "BabySheep"]
+	var species = ["deer_new", "sheep_new", "boar_new",
+		"baby_deer_new", "baby_sheep_new", "baby_boar_new"]
 	for i in range(count):
 		zone.spawn_tarp_carcass(species[i % species.size()], 0.5)
 

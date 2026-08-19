@@ -11,11 +11,11 @@ var skipping = false
 var revealed = false
 
 const ANIMAL_SCENES = [
-	"res://scenes/animals/Deer2.tscn",
-	"res://scenes/animals/Sheep2.tscn",
-	"res://scenes/animals/BabySheep.tscn",
-	"res://scenes/animals/BabyDeer_new.tscn",
-	"res://scenes/animals/Deer2.tscn",
+	"res://scenes/animals/deer_new.tscn",
+	"res://scenes/animals/sheep_new.tscn",
+	"res://scenes/animals/baby_sheep_new.tscn",
+	"res://scenes/animals/baby_deer_new.tscn",
+	"res://scenes/animals/boar_new.tscn",
 ]
 const HUMAN_SCENES = [
 	"res://scenes/characters/dead_man_new.tscn",

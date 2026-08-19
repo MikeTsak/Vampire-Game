@@ -1,8 +1,9 @@
 extends Control
 
 var models = [
-	"res://scenes/animals/Deer.tscn",
-	"res://scenes/animals/Sheep.tscn",
+	"res://scenes/animals/deer_new.tscn",
+	"res://scenes/animals/sheep_new.tscn",
+	"res://scenes/animals/boar_new.tscn",
 	"res://scenes/props/Rifle.tscn",
 	"res://scenes/environment/FirTree.tscn",
 	"res://scenes/environment/PineTree.tscn",

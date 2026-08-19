@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://textures/animals/baby_sheep_atlas_new.png" id="1_r4nmn"]
+
+[resource]
+resource_name = "baby_sheep_new"
+cull_mode = 2
+specular_mode = 2
+albedo_texture = ExtResource("1_r4nmn")
+texture_filter = 0

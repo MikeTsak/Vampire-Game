@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+const CarcassPose = preload("res://scripts/carcass_pose.gd")
+
 const SPEED = 2.0
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -204,9 +206,11 @@ func die():
 	var mesh = $MeshBase
 	remove_child(mesh)
 	carcass.add_child(mesh)
-	mesh.position = Vector3.ZERO
-	mesh.rotation.z = PI / 2
-	mesh.rotation.x = PI
+	# Fit the collision box to the body that just landed in it, or the animal
+	# rests inside an oversized box and floats above the ground.
+	var fitted = CarcassPose.lay_down(mesh)
+	if fitted != Vector3.ZERO:
+		box.size = fitted
 	
 	# Make sure the carcass physics responds
 	carcass.collision_layer = 1

@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bn3coyyk3nnm7"]
+
+[ext_resource type="ArrayMesh" uid="uid://c70fi4weu7vsx" path="res://models/player/player_shadow_new_mesh.res" id="1_q85mv"]
+[ext_resource type="PackedScene" uid="uid://box8f0x5c2el7" path="res://scenes/characters/player_shadow_new.tscn" id="2_52itb"]
+[ext_resource type="Script" uid="uid://br0lgboarro5v" path="res://scripts/player_shadow_new.gd" id="3_gplt2"]
+
+[sub_resource type="Environment" id="Environment_67t7u"]
+background_mode = 1
+background_color = Color(0.06, 0.07, 0.09, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.3, 0.33, 0.4, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xj6xv"]
+albedo_color = Color(0.42, 0.44, 0.4, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vxvi6"]
+size = Vector2(40, 40)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bmkes"]
+albedo_color = Color(0.62, 0.6, 0.56, 1)
+
+[node name="PlayerShadowPreview" type="Node3D" unique_id=1828231509]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2100750367]
+environment = SubResource("Environment_67t7u")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1888026262]
+transform = Transform3D(-0.6459423, 0.4517158, -0.61539537, 0, 0.80613893, 0.59172636, 0.7633863, 0.38222107, -0.5207192, -2.6, 3.4, -2.2)
+light_energy = 2.2
+shadow_enabled = true
+directional_shadow_max_distance = 60.0
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=355903058]
+material_override = SubResource("StandardMaterial3D_xj6xv")
+mesh = SubResource("PlaneMesh_vxvi6")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=885467560]
+transform = Transform3D(0.9997638, 0.013158439, -0.017298035, 0, 0.79589766, 0.60543126, 0.021733994, -0.60528827, 0.79570967, 0.4, 3.9, 5.2)
+current = true
+
+[node name="Solid" type="MeshInstance3D" parent="." unique_id=751362112]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, 0, 0)
+material_override = SubResource("StandardMaterial3D_bmkes")
+mesh = ExtResource("1_q85mv")
+
+[node name="ShadowOnly" type="Node3D" parent="." unique_id=1579053195 instance=ExtResource("2_52itb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, 0)
+script = ExtResource("3_gplt2")

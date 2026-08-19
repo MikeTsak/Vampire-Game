@@ -1,5 +1,7 @@
 extends Area3D
 
+const CarcassPose = preload("res://scripts/carcass_pose.gd")
+
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
@@ -47,9 +49,11 @@ func spawn_tarp_carcass(animal_name: String, drop_height: float = 1.5) -> RigidB
 			# makes Godot warn on every single drop.
 			mesh.owner = null
 			carcass.add_child(mesh)
-			mesh.position = Vector3.ZERO
-			mesh.rotation.z = PI / 2
-			mesh.rotation.x = PI
+			# Fit the collision box to the body, or it rests inside an
+			# oversized box and floats above the canvas.
+			var fitted = CarcassPose.lay_down(mesh)
+			if fitted != Vector3.ZERO:
+				box.size = fitted
 		inst.queue_free()
 
 	carcass.collision_layer = 1

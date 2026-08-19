@@ -4,9 +4,29 @@ var fir_scene = preload("res://scenes/environment/FirTree.tscn")
 var pine_scene = preload("res://scenes/environment/PineTree.tscn")
 var platanus_scene = load("res://scenes/environment/PlatanusTree.tscn")
 var rock_scene = preload("res://scenes/environment/Rock.tscn")
-var sheep_scene = preload("res://scenes/animals/Sheep2.tscn")
-var deer_scene = preload("res://scenes/animals/Deer2.tscn")
+## The Parnitha bestiary, rigged and animated by tools/gen_animals_new.py.
+## Weights are draw odds out of the total: boar are the rare encounter.
+const SPECIES := [
+	{"adult": "res://scenes/animals/deer_new.tscn",
+	 "young": "res://scenes/animals/baby_deer_new.tscn", "weight": 4},
+	{"adult": "res://scenes/animals/sheep_new.tscn",
+	 "young": "res://scenes/animals/baby_sheep_new.tscn", "weight": 4},
+	{"adult": "res://scenes/animals/boar_new.tscn",
+	 "young": "res://scenes/animals/baby_boar_new.tscn", "weight": 2},
+]
 var park_scene = preload("res://scenes/environment/ParkOfSouls.tscn")
+
+## Weighted draw from SPECIES.
+func _pick_species() -> Dictionary:
+	var total := 0
+	for s in SPECIES:
+		total += int(s["weight"])
+	var roll := randi() % total
+	for s in SPECIES:
+		roll -= int(s["weight"])
+		if roll < 0:
+			return s
+	return SPECIES[0]
 
 func _ready():
 	randomize()
@@ -80,8 +100,8 @@ func spawn_environment():
 		add_child(rock)
 		
 	for i in range(8):
-		var is_sheep = randf() > 0.5
-		var animal = sheep_scene.instantiate() if is_sheep else deer_scene.instantiate()
+		var species = _pick_species()
+		var animal = load(species["adult"]).instantiate()
 		var pos = get_random_pos()
 		if pos.length() < 15.0: pos = get_random_pos()
 		var road_center_x = sin(pos.z * 0.05) * 20.0
@@ -94,7 +114,7 @@ func spawn_environment():
 
 		var gm = get_node_or_null("/root/GameManager")
 		if gm and gm.level >= 2:
-			var baby_scene = load("res://scenes/animals/BabySheep.tscn") if is_sheep else load("res://scenes/animals/BabyDeer_new.tscn")
+			var baby_scene = load(species["young"])
 			if baby_scene:
 				var baby = baby_scene.instantiate()
 				# Keep the little ones a genuine short walk from the adult, tucked

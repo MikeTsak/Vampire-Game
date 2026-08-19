@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://ndn3tannp8jc"]
+
+[ext_resource type="Script" uid="uid://ckp5dadtfm0c4" path="res://scripts/animals_preview.gd" id="1_ftj1f"]
+[ext_resource type="PackedScene" uid="uid://csakvaoodjyal" path="res://scenes/animals/boar_new.tscn" id="2_nd51t"]
+[ext_resource type="PackedScene" uid="uid://ceqp2s1kwtxw0" path="res://scenes/animals/baby_boar_new.tscn" id="4_t7vew"]
+[ext_resource type="PackedScene" uid="uid://bbcrxo0w8t76" path="res://scenes/animals/deer_new.tscn" id="5_y7khj"]
+[ext_resource type="PackedScene" uid="uid://0idln0hdayhf" path="res://scenes/animals/baby_deer_new.tscn" id="6_mmp38"]
+[ext_resource type="PackedScene" uid="uid://ch0toexfm8d7m" path="res://scenes/animals/sheep_new.tscn" id="7_cqocr"]
+[ext_resource type="PackedScene" uid="uid://yf4oo236fci" path="res://scenes/animals/baby_sheep_new.tscn" id="8_cihmv"]
+
+[sub_resource type="Environment" id="Environment_h13eo"]
+background_mode = 1
+background_color = Color(0.09, 0.1, 0.12, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.42, 0.45, 0.52, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n74p4"]
+albedo_color = Color(0.2, 0.22, 0.18, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oedsq"]
+size = Vector2(40, 40)
+
+[node name="AnimalsNewPreview" type="Node3D" unique_id=1978432361]
+script = ExtResource("1_ftj1f")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2026525411]
+environment = SubResource("Environment_h13eo")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1499557505]
+transform = Transform3D(0.8, -0.46093276, 0.38411063, 0, 0.6401844, 0.76822126, -0.6, -0.614577, 0.5121475, 0, 6, 0)
+light_energy = 1.5
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1692875356]
+material_override = SubResource("StandardMaterial3D_n74p4")
+mesh = SubResource("PlaneMesh_oedsq")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2069281476]
+transform = Transform3D(0.99820054, -0.005986411, 0.059664432, 0, 0.9950041, 0.099833414, -0.059964005, -0.099653766, 0.99321365, 0.6, 1.5, 5.4)
+current = true
+fov = 55.0
+
+[node name="boar_new" parent="." unique_id=1983152157 instance=ExtResource("2_nd51t")]
+transform = Transform3D(0.81915206, 0, -0.57357645, 0, 1, 0, 0.57357645, 0, 0.81915206, -6.5, 0, 0)
+
+[node name="baby_boar_new" parent="." unique_id=788552692 instance=ExtResource("4_t7vew")]
+transform = Transform3D(0.81915206, 0, -0.57357645, 0, 1, 0, 0.57357645, 0, 0.81915206, -3.9, 0, 0)
+
+[node name="deer_new" parent="." unique_id=103995311 instance=ExtResource("5_y7khj")]
+transform = Transform3D(0.81915206, 0, -0.57357645, 0, 1, 0, 0.57357645, 0, 0.81915206, -1.3, 0, 0)
+
+[node name="baby_deer_new" parent="." unique_id=1981008516 instance=ExtResource("6_mmp38")]
+transform = Transform3D(0.81915206, 0, -0.57357645, 0, 1, 0, 0.57357645, 0, 0.81915206, 1.3, 0, 0)
+
+[node name="sheep_new" parent="." unique_id=2011402403 instance=ExtResource("7_cqocr")]
+transform = Transform3D(0.81915206, 0, -0.57357645, 0, 1, 0, 0.57357645, 0, 0.81915206, 3.9, 0, 0)
+
+[node name="baby_sheep_new" parent="." unique_id=418002394 instance=ExtResource("8_cihmv")]
+transform = Transform3D(0.81915206, 0, -0.57357645, 0, 1, 0, 0.57357645, 0, 0.81915206, 6.5, 0, 0)

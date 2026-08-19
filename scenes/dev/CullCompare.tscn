@@ -1,0 +1,68 @@
+[gd_scene format=3]
+
+[ext_resource type="ArrayMesh" path="res://models/animals/deer_new_mesh.res" id="1_0xxac"]
+[ext_resource type="Texture2D" path="res://textures/animals/deer_atlas_new.png" id="2_oilq2"]
+
+[sub_resource type="Environment" id="Environment_6wxf3"]
+background_mode = 1
+background_color = Color(0.07, 0.08, 0.1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.4, 0.43, 0.48, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8fg3m"]
+albedo_color = Color(0.24, 0.27, 0.22, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xbhcj"]
+size = Vector2(30, 30)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_db1iq"]
+resource_name = "deer_new"
+specular_mode = 2
+albedo_texture = ExtResource("2_oilq2")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwl7f"]
+resource_name = "deer_new"
+cull_mode = 1
+specular_mode = 2
+albedo_texture = ExtResource("2_oilq2")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6y06"]
+resource_name = "deer_new"
+cull_mode = 2
+specular_mode = 2
+albedo_texture = ExtResource("2_oilq2")
+texture_filter = 0
+
+[node name="CullCompare" type="Node3D" unique_id=488631133]
+
+[node name="@WorldEnvironment@2" type="WorldEnvironment" parent="." unique_id=1195802332]
+environment = SubResource("Environment_6wxf3")
+
+[node name="@DirectionalLight3D@3" type="DirectionalLight3D" parent="." unique_id=1063104731]
+transform = Transform3D(0.8, -0.31616375, 0.5099416, 0, 0.84990263, 0.52693963, -0.59999996, -0.4215517, 0.67992216, 3, 4, 4)
+light_energy = 1.7
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=229913458]
+material_override = SubResource("StandardMaterial3D_8fg3m")
+mesh = SubResource("PlaneMesh_xbhcj")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1367994075]
+transform = Transform3D(1, 0, 0, 0, 0.9774762, 0.21104598, 0, -0.21104598, 0.9774762, 0, 1.9, 4.4)
+current = true
+
+[node name="BACK_shipping" type="MeshInstance3D" parent="." unique_id=498623376]
+transform = Transform3D(0.76604444, 0, -0.6427876, 0, 1, 0, 0.6427876, 0, 0.76604444, -2.3, 0, 0)
+mesh = ExtResource("1_0xxac")
+surface_material_override/0 = SubResource("StandardMaterial3D_db1iq")
+
+[node name="FRONT_reversed" type="MeshInstance3D" parent="." unique_id=829319881]
+transform = Transform3D(0.76604444, 0, -0.6427876, 0, 1, 0, 0.6427876, 0, 0.76604444, 0, 0, 0)
+mesh = ExtResource("1_0xxac")
+surface_material_override/0 = SubResource("StandardMaterial3D_kwl7f")
+
+[node name="DISABLED_fallback" type="MeshInstance3D" parent="." unique_id=1971437489]
+transform = Transform3D(0.76604444, 0, -0.6427876, 0, 1, 0, 0.6427876, 0, 0.76604444, 2.3, 0, 0)
+mesh = ExtResource("1_0xxac")
+surface_material_override/0 = SubResource("StandardMaterial3D_y6y06")

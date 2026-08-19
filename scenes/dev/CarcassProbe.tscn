@@ -1,0 +1,42 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/carcass_probe.gd" id="1_81ahy"]
+
+[sub_resource type="Environment" id="Environment_fl21m"]
+background_mode = 1
+background_color = Color(0.07, 0.08, 0.1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.45, 0.47, 0.52, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iiprn"]
+albedo_color = Color(0.22, 0.26, 0.18, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oiqj3"]
+size = Vector2(30, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iqwb4"]
+size = Vector3(40, 1, 40)
+
+[node name="CarcassProbe" type="Node3D" unique_id=1782650344]
+script = ExtResource("1_81ahy")
+
+[node name="@WorldEnvironment@2" type="WorldEnvironment" parent="." unique_id=2062621967]
+environment = SubResource("Environment_fl21m")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=885041058]
+transform = Transform3D(0.70710677, -0.5391639, 0.45749572, 0, 0.6469966, 0.7624929, -0.70710677, -0.5391639, 0.45749572, 3, 5, 3)
+light_energy = 1.6
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=478567299]
+material_override = SubResource("StandardMaterial3D_iiprn")
+mesh = SubResource("PlaneMesh_oiqj3")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1392449685]
+transform = Transform3D(1, 0, 0, 0, 0.94975704, 0.31298813, 0, -0.31298813, 0.94975704, 0, 1.7, 4.4)
+current = true
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1466970075]
+
+[node name="@CollisionShape3D@3" type="CollisionShape3D" parent="Floor" unique_id=1419506301]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_iqwb4")

@@ -1,0 +1,158 @@
+[
+ {
+  "name": "boar_new",
+  "gltf": "res://models/animals/boar_new.gltf",
+  "atlas": "res://textures/animals/boar_atlas_new.png",
+  "scene": "res://scenes/animals/boar_new.tscn",
+  "score_value": 6000,
+  "tris": 268,
+  "bones": 14,
+  "animations": {
+   "idle": 3.2,
+   "walk": 0.62,
+   "death": 1.5
+  },
+  "collider_size": [
+   0.52,
+   0.85,
+   1.7
+  ],
+  "collider_y": 0.425,
+  "collider_z": -0.19,
+  "walk_cycle_distance": 0.62,
+  "shoulder_height": 0.44,
+  "mesh_height": 0.9443,
+  "mesh_length": 1.7357,
+  "mesh_floor": 0.0
+ },
+ {
+  "name": "baby_boar_new",
+  "gltf": "res://models/animals/baby_boar_new.gltf",
+  "atlas": "res://textures/animals/baby_boar_atlas_new.png",
+  "scene": "res://scenes/animals/baby_boar_new.tscn",
+  "score_value": 12000,
+  "tris": 200,
+  "bones": 14,
+  "animations": {
+   "idle": 3.2,
+   "walk": 0.4836,
+   "death": 1.5
+  },
+  "collider_size": [
+   0.2288,
+   0.3508,
+   0.6984
+  ],
+  "collider_y": 0.1754,
+  "collider_z": -0.0588,
+  "walk_cycle_distance": 0.2401,
+  "shoulder_height": 0.1704,
+  "mesh_height": 0.3508,
+  "mesh_length": 0.7171,
+  "mesh_floor": 0.0
+ },
+ {
+  "name": "deer_new",
+  "gltf": "res://models/animals/deer_new.gltf",
+  "atlas": "res://textures/animals/deer_atlas_new.png",
+  "scene": "res://scenes/animals/deer_new.tscn",
+  "score_value": 5000,
+  "tris": 344,
+  "bones": 14,
+  "animations": {
+   "idle": 4.0,
+   "walk": 0.78,
+   "death": 1.8
+  },
+  "collider_size": [
+   0.46,
+   1.17,
+   1.815
+  ],
+  "collider_y": 0.585,
+  "collider_z": -0.1725,
+  "walk_cycle_distance": 1.3851,
+  "shoulder_height": 0.78,
+  "mesh_height": 1.8725,
+  "mesh_length": 1.8493,
+  "mesh_floor": 0.0
+ },
+ {
+  "name": "baby_deer_new",
+  "gltf": "res://models/animals/baby_deer_new.gltf",
+  "atlas": "res://textures/animals/baby_deer_atlas_new.png",
+  "scene": "res://scenes/animals/baby_deer_new.tscn",
+  "score_value": 10000,
+  "tris": 200,
+  "bones": 14,
+  "animations": {
+   "idle": 4.0,
+   "walk": 0.6084,
+   "death": 1.8
+  },
+  "collider_size": [
+   0.23,
+   0.5382,
+   0.8571
+  ],
+  "collider_y": 0.2691,
+  "collider_z": -0.0611,
+  "walk_cycle_distance": 0.6095,
+  "shoulder_height": 0.3432,
+  "mesh_height": 0.6211,
+  "mesh_length": 0.8769,
+  "mesh_floor": 0.0
+ },
+ {
+  "name": "sheep_new",
+  "gltf": "res://models/animals/sheep_new.gltf",
+  "atlas": "res://textures/animals/sheep_atlas_new.png",
+  "scene": "res://scenes/animals/sheep_new.tscn",
+  "score_value": 5000,
+  "tris": 260,
+  "bones": 14,
+  "animations": {
+   "idle": 3.4,
+   "walk": 0.66,
+   "death": 1.5
+  },
+  "collider_size": [
+   0.49,
+   0.795,
+   1.23
+  ],
+  "collider_y": 0.3975,
+  "collider_z": -0.175,
+  "walk_cycle_distance": 0.5869,
+  "shoulder_height": 0.44,
+  "mesh_height": 0.7948,
+  "mesh_length": 1.2659,
+  "mesh_floor": 0.0
+ },
+ {
+  "name": "baby_sheep_new",
+  "gltf": "res://models/animals/baby_sheep_new.gltf",
+  "atlas": "res://textures/animals/baby_sheep_atlas_new.png",
+  "scene": "res://scenes/animals/baby_sheep_new.tscn",
+  "score_value": 10000,
+  "tris": 212,
+  "bones": 14,
+  "animations": {
+   "idle": 3.4,
+   "walk": 0.5148,
+   "death": 1.5
+  },
+  "collider_size": [
+   0.2548,
+   0.3859,
+   0.6015
+  ],
+  "collider_y": 0.193,
+  "collider_z": -0.072,
+  "walk_cycle_distance": 0.2686,
+  "shoulder_height": 0.2013,
+  "mesh_height": 0.3858,
+  "mesh_length": 0.6227,
+  "mesh_floor": 0.0
+ }
+]

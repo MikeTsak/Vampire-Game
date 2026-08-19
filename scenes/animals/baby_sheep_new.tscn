@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://yf4oo236fci"]
+
+[ext_resource type="Script" uid="uid://kmbeokwaqc6p" path="res://scripts/animal_new.gd" id="1_vwlos"]
+[ext_resource type="ArrayMesh" uid="uid://dmq852sti7p6a" path="res://models/animals/baby_sheep_new_mesh.res" id="2_vtpfm"]
+[ext_resource type="AnimationLibrary" uid="uid://cvow0t28xyd3d" path="res://animations/baby_sheep_new.res" id="3_g7t6e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8h0mw"]
+size = Vector3(0.2548, 0.3859, 0.6015)
+
+[sub_resource type="Skin" id="Skin_i3ohy"]
+resource_name = "Skin"
+bind_count = 14
+bind/0/name = &"root"
+bind/0/bone = -1
+bind/0/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+bind/1/name = &"spine"
+bind/1/bone = -1
+bind/1/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.242944, -0.208)
+bind/2/name = &"chest"
+bind/2/bone = -1
+bind/2/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.248144, 0.208)
+bind/3/name = &"neck"
+bind/3/bone = -1
+bind/3/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.268944, 0.208)
+bind/4/name = &"head"
+bind/4/bone = -1
+bind/4/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.298896, 0.26416)
+bind/5/name = &"tail"
+bind/5/bone = -1
+bind/5/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.242944, -0.208)
+bind/6/name = &"leg_fl_upper"
+bind/6/bone = -1
+bind/6/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06344, -0.201344, 0.13)
+bind/7/name = &"leg_fl_lower"
+bind/7/bone = -1
+bind/7/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06344, -0.107536, 0.13)
+bind/8/name = &"leg_bl_upper"
+bind/8/bone = -1
+bind/8/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06864, -0.201344, -0.1404)
+bind/9/name = &"leg_bl_lower"
+bind/9/bone = -1
+bind/9/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06864, -0.10296, -0.1404)
+bind/10/name = &"leg_fr_upper"
+bind/10/bone = -1
+bind/10/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06344, -0.201344, 0.13)
+bind/11/name = &"leg_fr_lower"
+bind/11/bone = -1
+bind/11/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06344, -0.107536, 0.13)
+bind/12/name = &"leg_br_upper"
+bind/12/bone = -1
+bind/12/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06864, -0.201344, -0.1404)
+bind/13/name = &"leg_br_lower"
+bind/13/bone = -1
+bind/13/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06864, -0.10296, -0.1404)
+
+[node name="baby_sheep_new" type="CharacterBody3D" unique_id=418002394]
+script = ExtResource("1_vwlos")
+walk_cycle_distance = 0.2686
+score_value = 10000
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=778881882]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.193, -0.072)
+shape = SubResource("BoxShape3D_8h0mw")
+
+[node name="MeshBase" type="Node3D" parent="." unique_id=1243384435]
+
+[node name="Skeleton3D" type="Skeleton3D" parent="MeshBase" unique_id=996660710]
+bones/0/name = "root"
+bones/0/parent = -1
+bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+bones/0/enabled = true
+bones/0/position = Vector3(0, 0, 0)
+bones/0/rotation = Quaternion(0, 0, 0, 1)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/name = "spine"
+bones/1/parent = 0
+bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.242944, 0.208)
+bones/1/enabled = true
+bones/1/position = Vector3(0, 0.242944, 0.208)
+bones/1/rotation = Quaternion(0, 0, 0, 1)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/name = "chest"
+bones/2/parent = 1
+bones/2/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0052, -0.416)
+bones/2/enabled = true
+bones/2/position = Vector3(0, 0.0052, -0.416)
+bones/2/rotation = Quaternion(0, 0, 0, 1)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/name = "neck"
+bones/3/parent = 2
+bones/3/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0208, 0)
+bones/3/enabled = true
+bones/3/position = Vector3(0, 0.0208, 0)
+bones/3/rotation = Quaternion(0, 0, 0, 1)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/name = "head"
+bones/4/parent = 3
+bones/4/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.029952, -0.05616)
+bones/4/enabled = true
+bones/4/position = Vector3(0, 0.029952, -0.05616)
+bones/4/rotation = Quaternion(0, 0, 0, 1)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/name = "leg_fl_upper"
+bones/5/parent = 2
+bones/5/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06344, -0.0468, 0.078)
+bones/5/enabled = true
+bones/5/position = Vector3(0.06344, -0.0468, 0.078)
+bones/5/rotation = Quaternion(0, 0, 0, 1)
+bones/5/scale = Vector3(1, 1, 1)
+bones/6/name = "leg_fl_lower"
+bones/6/parent = 5
+bones/6/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.093808, 0)
+bones/6/enabled = true
+bones/6/position = Vector3(0, -0.093808, 0)
+bones/6/rotation = Quaternion(0, 0, 0, 1)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/name = "leg_fr_upper"
+bones/7/parent = 2
+bones/7/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06344, -0.0468, 0.078)
+bones/7/enabled = true
+bones/7/position = Vector3(-0.06344, -0.0468, 0.078)
+bones/7/rotation = Quaternion(0, 0, 0, 1)
+bones/7/scale = Vector3(1, 1, 1)
+bones/8/name = "leg_fr_lower"
+bones/8/parent = 7
+bones/8/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.093808, 0)
+bones/8/enabled = true
+bones/8/position = Vector3(0, -0.093808, 0)
+bones/8/rotation = Quaternion(0, 0, 0, 1)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/name = "tail"
+bones/9/parent = 1
+bones/9/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+bones/9/enabled = true
+bones/9/position = Vector3(0, 0, 0)
+bones/9/rotation = Quaternion(0, 0, 0, 1)
+bones/9/scale = Vector3(1, 1, 1)
+bones/10/name = "leg_bl_upper"
+bones/10/parent = 1
+bones/10/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06864, -0.0416, -0.0676)
+bones/10/enabled = true
+bones/10/position = Vector3(0.06864, -0.0416, -0.0676)
+bones/10/rotation = Quaternion(0, 0, 0, 1)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/name = "leg_bl_lower"
+bones/11/parent = 10
+bones/11/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.098384, 0)
+bones/11/enabled = true
+bones/11/position = Vector3(0, -0.098384, 0)
+bones/11/rotation = Quaternion(0, 0, 0, 1)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/name = "leg_br_upper"
+bones/12/parent = 1
+bones/12/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06864, -0.0416, -0.0676)
+bones/12/enabled = true
+bones/12/position = Vector3(-0.06864, -0.0416, -0.0676)
+bones/12/rotation = Quaternion(0, 0, 0, 1)
+bones/12/scale = Vector3(1, 1, 1)
+bones/13/name = "leg_br_lower"
+bones/13/parent = 12
+bones/13/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.098384, 0)
+bones/13/enabled = true
+bones/13/position = Vector3(0, -0.098384, 0)
+bones/13/rotation = Quaternion(0, 0, 0, 1)
+bones/13/scale = Vector3(1, 1, 1)
+
+[node name="baby_sheep_new_mesh" type="MeshInstance3D" parent="MeshBase/Skeleton3D" unique_id=831034939]
+mesh = ExtResource("2_vtpfm")
+skin = SubResource("Skin_i3ohy")
+skeleton = NodePath("..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MeshBase" unique_id=960964162]
+libraries/ = ExtResource("3_g7t6e")
